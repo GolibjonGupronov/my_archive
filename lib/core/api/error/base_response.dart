@@ -1,0 +1,49 @@
+class BaseResponse {
+  final bool success;
+  final String message;
+  final int? errorCode;
+  dynamic data;
+
+  BaseResponse(this.success, this.message, this.errorCode, this.data);
+
+  factory BaseResponse.fromJson(Map<String, dynamic> json) => BaseResponse(
+      json["success"], json["message"] ?? "", json["error_code"] as int?, json["data"]);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["success"] = success;
+    data["message"] = message;
+    data["error_code"] = errorCode;
+    data["data"] = data;
+    return data;
+  }
+}
+// class BaseResponse<T> {
+//   final bool success;
+//   final String message;
+//   final int? errorCode;
+//   final T? data;
+//
+//   BaseResponse(this.success, this.message, this.errorCode, this.data);
+//
+//   factory BaseResponse.fromJson(
+//       Map<String, dynamic> json,
+//       T Function(dynamic json) fromJsonT,
+//       ) {
+//     final bool success = json["success"] ?? false;
+//     final dynamic rawData = json["data"];
+//     return BaseResponse<T>(
+//       success,
+//       json["message"] ?? "",
+//       json["error_code"] as int?,
+//       success && rawData != null ? fromJsonT(rawData) : null,
+//     );
+//   }
+//
+//   Map<String, dynamic> toJson() => {
+//     "success": success,
+//     "message": message,
+//     "error_status": errorCode,
+//     "data": data,
+//   };
+// }

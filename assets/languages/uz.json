@@ -1,0 +1,16 @@
+{
+  "error_dio": {
+    "connection_timeout": "Ulanish vaqti tugadi. Qayta urinib ko'ring.",
+    "http_error": "HTTP xatosi.",
+    "login_expired": "Kirish muddati tugadi. Iltimos, qayta kiring.",
+    "network_error": "Tarmoq xatosi. Internetingizni tekshiring.",
+    "no_internet": "Internet ulanishi yo'q.",
+    "request_canceled": "So'rov bekor qilindi.",
+    "request_timeout": "So'rov vaqti tugadi. Ulanishingizni tekshiring.",
+    "security_issue": "Xavfsizlik muammosi. Tarmog'ingizni tekshiring.",
+    "server_error": "Server xatosi. Keyinroq urinib ko'ring.",
+    "server_response_timeout": "Server javobi vaqti tugadi.",
+    "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
+    "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
+  }
+}
