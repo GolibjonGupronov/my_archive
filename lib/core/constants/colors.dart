@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   /// Light Mode
-  static const Color primaryColor = const Color(0xFFFFFFFF);
+  static const Color primary = Color(0xFFFFFFFF);
   static const Color scaffoldBackground = Color(0xFFFFFFFF);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
@@ -14,8 +14,19 @@ class AppColors {
   static const Color lightGray = Color(0xFFF1F1F3);
   static const Color orange = Color(0xFFFFA500);
   static const Color shadow = Color(0xFF1B1B1B);
+  static const Color hint = Color(0xFF898D8F);
 
   /// Dark Mode
-  static Color primaryDarkColor = const Color(0xFF1A2127);
-  static Color scaffoldDarkBackground = const Color(0xFF1A2127);
+  static const Color primaryDark = Color(0xFF1A2127);
+  static const Color scaffoldDarkBackground = Color(0xFF1A2127);
+
+  /// Gradient
+  static const Color gradientGreenEnd = Color(0xFF60B212);
+  static const Color gradientGreenStart = Color(0xFF029720);
+  static const Color gradientOrangeEnd = Color(0xFFF8A700);
+  static const Color gradientOrangeStart = Color(0xFFF27D00);
+  static const Color gradientPrimaryEnd = Color(0xFF1438B4);
+  static const Color gradientPrimaryStart = Color(0xFF123196);
+  static const Color gradientRedEnd = Color(0xFFEE5B0A);
+  static const Color gradientRedStart = Color(0xFFE60C20);
 }

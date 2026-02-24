@@ -2,22 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/widgets/image/custom_image_view.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class ImageZoomScreen extends StatefulWidget {
+class ImageZoomPage extends StatefulWidget {
   final List<String> items;
   final int activeIndex;
 
-  const ImageZoomScreen({required this.items, super.key, this.activeIndex = 0});
+  const ImageZoomPage({required this.items, super.key, this.activeIndex = 0});
 
   @override
-  State<StatefulWidget> createState() {
-    return ImageZoomScreenState();
-  }
+  State<StatefulWidget> createState() => ImageZoomPageState();
 }
 
-class ImageZoomScreenState extends State<ImageZoomScreen> {
+class ImageZoomPageState extends State<ImageZoomPage> {
   var _currentImage = 0;
   PageController pageController = PageController();
   var imageLoading = false;
@@ -85,7 +84,7 @@ class ImageZoomScreenState extends State<ImageZoomScreen> {
                                 height: double.infinity,
                                 width: double.infinity,
                                 color: Colors.black54,
-                                child: ImageView(widget.items[position], fit: BoxFit.cover),
+                                child: CustomImageView(pathOrUrl: widget.items[position], fit: BoxFit.cover),
                               ),
                               if (_currentImage != position)
                                 Container(height: double.infinity, width: double.infinity, color: Colors.black54.withAlpha(150)),
@@ -95,7 +94,7 @@ class ImageZoomScreenState extends State<ImageZoomScreen> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: AppColors.primaryColor, width: 2),
+                                    border: Border.all(color: AppColors.primary, width: 2),
                                   ),
                                 ),
                             ],

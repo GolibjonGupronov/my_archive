@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/widgets/custom_button.dart';
+import 'package:my_archive/core/widgets/custom_text_view.dart';
 
 class ErrorPage extends StatelessWidget {
   final FlutterErrorDetails errorDetails;
@@ -15,13 +20,9 @@ class ErrorPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.warning_rounded, color: Colors.red),
-            // Gap(16),
-            // TextView("Something went wrong!", fontSize: 24),
-            // CustomButton(
-            //     text: "Go to Main Page",
-            //     onTap: () {
-            //       AppRouter.pushAndClear(SplashPage());
-            //     }),
+            16.height,
+            CustomTextView("Something went wrong!", fontSize: 24.sp),
+            CustomButton("Go to Main Page", () => context.go(SplashPage.tag)),
           ],
         ),
       ),

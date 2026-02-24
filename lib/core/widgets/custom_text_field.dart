@@ -8,12 +8,14 @@ import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/constants.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/extensions/string.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/utils/thousands_formatter.dart';
 
 enum _EnumTextFieldType { text, phone, password, thousandFormat }
 
-class RegularTextField extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final String title;
-  final TextEditingController? textEditingController;
+  final TextEditingController? controller;
   final String? hint;
   final String comment;
   final bool required;
@@ -30,9 +32,9 @@ class RegularTextField extends StatefulWidget {
   final bool autofocus;
   final _EnumTextFieldType _textFieldType;
 
-  const RegularTextField._(
+  const CustomTextField._(
     this.title, {
-    this.textEditingController,
+    this.controller,
     this.required = false,
     this.onChanged,
     this.hint,
@@ -50,9 +52,9 @@ class RegularTextField extends StatefulWidget {
     required _EnumTextFieldType textFieldType,
   }) : _textFieldType = textFieldType;
 
-  factory RegularTextField(
+  factory CustomTextField(
     final String title, {
-    final TextEditingController? textEditingController,
+    final TextEditingController? controller,
     final String? hint,
     final String comment = "",
     final bool required = false,
@@ -68,9 +70,9 @@ class RegularTextField extends StatefulWidget {
     final bool autofocus = false,
     final String Function(String v)? validate,
   }) {
-    return RegularTextField._(
+    return CustomTextField._(
       title,
-      textEditingController: textEditingController,
+      controller: controller,
       hint: hint,
       comment: comment,
       required: required,
@@ -89,9 +91,9 @@ class RegularTextField extends StatefulWidget {
     );
   }
 
-  factory RegularTextField.phone(
+  factory CustomTextField.phone(
     final String title, {
-    final TextEditingController? textEditingController,
+    final TextEditingController? controller,
     final String? hint,
     final String comment = "",
     final bool required = false,
@@ -101,9 +103,9 @@ class RegularTextField extends StatefulWidget {
     final String Function(String v)? validate,
     final bool autofocus = false,
   }) {
-    return RegularTextField._(
+    return CustomTextField._(
       title,
-      textEditingController: textEditingController,
+      controller: controller,
       hint: hint,
       comment: comment,
       required: required,
@@ -117,9 +119,9 @@ class RegularTextField extends StatefulWidget {
     );
   }
 
-  factory RegularTextField.password(
+  factory CustomTextField.password(
     final String title, {
-    final TextEditingController? textEditingController,
+    final TextEditingController? controller,
     final String? hint,
     final String comment = "",
     final bool required = false,
@@ -136,9 +138,9 @@ class RegularTextField extends StatefulWidget {
       return v.removeSpaces.length < Constants.passwordLength ? tr('min_chars_required'.plural(Constants.passwordLength)) : "";
     }
 
-    return RegularTextField._(
+    return CustomTextField._(
       title,
-      textEditingController: textEditingController,
+      controller: controller,
       hint: hint ?? tr('enter_password'),
       comment: comment,
       required: required,
@@ -154,9 +156,9 @@ class RegularTextField extends StatefulWidget {
     );
   }
 
-  factory RegularTextField.comment(
+  factory CustomTextField.comment(
     final String title, {
-    final TextEditingController? textEditingController,
+    final TextEditingController? controller,
     final String? hint,
     final String comment = "",
     final bool required = false,
@@ -169,9 +171,9 @@ class RegularTextField extends StatefulWidget {
     final bool autofocus = false,
     final String Function(String v)? validate,
   }) {
-    return RegularTextField._(
+    return CustomTextField._(
       title,
-      textEditingController: textEditingController,
+      controller: controller,
       hint: hint ?? tr('enter_comment'),
       comment: comment,
       required: required,
@@ -187,9 +189,9 @@ class RegularTextField extends StatefulWidget {
     );
   }
 
-  factory RegularTextField.thousandFormat(
+  factory CustomTextField.thousandFormat(
     final String title, {
-    final TextEditingController? textEditingController,
+    final TextEditingController? controller,
     final String? hint,
     final String comment = "",
     final bool required = false,
@@ -199,9 +201,9 @@ class RegularTextField extends StatefulWidget {
     final bool autofocus = false,
     final String Function(String v)? validate,
   }) {
-    return RegularTextField._(
+    return CustomTextField._(
       title,
-      textEditingController: textEditingController,
+      controller: controller,
       hint: hint,
       comment: comment,
       required: required,
@@ -217,10 +219,10 @@ class RegularTextField extends StatefulWidget {
   }
 
   @override
-  State<RegularTextField> createState() => _RegularTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _RegularTextFieldState extends State<RegularTextField> {
+class _CustomTextFieldState extends State<CustomTextField> {
   FocusNode focusNode = FocusNode();
   Timer? bouncedTimer;
   String errorMessage = "";
@@ -292,7 +294,7 @@ class _RegularTextFieldState extends State<RegularTextField> {
           Container(
             decoration: BoxDecoration(
               color: AppColors.foregroundSecondary,
-              border: Border.all(color: errorMessage.isNotEmpty ? AppColors.red : AppColors.hintColor, width: 0.8),
+              border: Border.all(color: errorMessage.isNotEmpty ? AppColors.red : AppColors.hint, width: 0.8),
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: IntrinsicHeight(
@@ -316,7 +318,7 @@ class _RegularTextFieldState extends State<RegularTextField> {
                                 hintStyle: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
-                                  color: AppColors.hintColor,
+                                  color: AppColors.hint,
                                 ),
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
@@ -327,13 +329,9 @@ class _RegularTextFieldState extends State<RegularTextField> {
                               ),
                               autofocus: widget.autofocus,
                               inputFormatters: widget.inputFormatters,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: AppColors.black,
-                              ),
+                              style: AppTheme.textTheme.headlineSmall,
                               focusNode: focusNode,
-                              controller: widget.textEditingController,
+                              controller: widget.controller,
                               keyboardType: widget.inputType,
                               minLines: widget.obscureText ? null : widget.minLines,
                               maxLines: widget.obscureText ? 1 : (widget.maxLines ?? 1),

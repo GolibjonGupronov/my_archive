@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ishonch_geo/presentation/assets/asset_index.dart';
-import 'package:ishonch_geo/presentation/components/input/text_input.dart';
+import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/custom_text_field.dart';
 
 class SingleSelectItemModel {
   final String title;
@@ -49,61 +52,62 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextInputWidget(hint: "Qidiruv", controller: _searchController, suffixIcon: AppIcons.search,onChanged: (value){
+          CustomTextField("", hint: "Qidiruv", controller: _searchController, onChanged: (value) {
             setState(() {
               lists = widget.items.where((e)=>e.title.toLowerCase().contains(value.toLowerCase())).toList();
             });
           }),
-          Gap(ScreenSize.h12),
+          12.height,
           Text(_searchController.text.isEmpty?"Ro'yxatdan toping":"* Qidiruv natijalari",
-            style: AppTheme.data.textTheme.titleLarge!.copyWith(color: AppTheme.colors.black)),
-          Gap(ScreenSize.h12),
+              style: AppTheme.textTheme.titleLarge!.copyWith(color: AppColors.black)),
+          12.height,
           Expanded(
             child: lists.isEmpty?
                 ListView(
                   controller: widget.scrollController,
                   children: [
-                    Gap(ScreenSize.h12),
-                    Icon(CupertinoIcons.exclamationmark_circle,size: ScreenSize.w30, color: AppTheme.colors.infoToast),
-                    Gap(ScreenSize.h4),
-                    Text("Topilmadi",
-                        textAlign: TextAlign.center,
-                        style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.infoToast)),
-                  ],
-                ):
-            ListView.builder(
+                      12.height,
+                      Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
+                      4.height,
+                      Text("Topilmadi",
+                          textAlign: TextAlign.center,
+                          style: AppTheme.textTheme.headlineSmall!.copyWith(color: AppColors.orange)),
+                    ],
+                  )
+                : ListView.builder(
               controller: widget.scrollController,
               itemBuilder: (_, position) {
                 final item = lists[position];
                 return Padding(
-                  padding:  EdgeInsets.only(bottom: ScreenSize.h8),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular( ScreenSize.r16),
-                    onTap: () {
-                      widget.onSelect(item.value);
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(16.r),
+                          onTap: () {
+                            widget.onSelect(item.value);
                       Navigator.pop(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular( ScreenSize.r16),
-                      border: Border.all(color: item.value == _selectedItem ? AppTheme.colors.green.withValues(alpha: .5):AppTheme.colors.lineColor)),
-                      padding: EdgeInsets.all( ScreenSize.w14),
-                      child: Row(
-                        children: [
+                                borderRadius: BorderRadius.circular(16.r),
+                                border: Border.all(
+                                    color: item.value == _selectedItem ? AppColors.green.withValues(alpha: .5) : AppColors.gray)),
+                            padding: EdgeInsets.all(14.w),
+                            child: Row(
+                              children: [
                           Icon(
                             item.value == _selectedItem ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked,
-                            color: item.value == _selectedItem ?  AppTheme.colors.green :  AppTheme.colors.grey,
-                          ),
-                      Gap(ScreenSize.w8),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(item.title,style: AppTheme.data.textTheme.headlineMedium?.copyWith(color: Colors.black)),
-                                ...item.extraVisibleValues.map((e) => Text(e)),
-                              ],
-                            ),
-                          ),
+                                  color: item.value == _selectedItem ? AppColors.green : AppColors.gray,
+                                ),
+                                8.width,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(item.title, style: AppTheme.textTheme.headlineMedium?.copyWith(color: Colors.black)),
+                                      ...item.extraVisibleValues.map((e) => Text(e)),
+                                    ],
+                                  ),
+                                ),
                         ],
                       ),
                     ),
