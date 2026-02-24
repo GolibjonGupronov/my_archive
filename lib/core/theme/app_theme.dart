@@ -2,62 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:my_archive/core/constants/colors.dart';
 
 class AppTheme {
-  const AppTheme._();
+  AppTheme._();
 
   static final lightTheme = ThemeData(
     useMaterial3: false,
-    dialogTheme: DialogThemeData(backgroundColor: AppColor.white),
-    appBarTheme: AppBarTheme(backgroundColor: AppColor.white, elevation: 0),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColor.scaffoldBackground),
+    dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.white, elevation: 0),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldBackground),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: AppColor.scaffoldBackground,
+    scaffoldBackgroundColor: AppColors.scaffoldBackground,
     // fontFamily: FontFamily.aeonikPro,
     colorScheme: ColorScheme(
       // Background color
-      primary: AppColor.blue,
+      primary: AppColors.blue,
       // Text color on primary
-      onPrimary: AppColor.black,
+      onPrimary: AppColors.black,
       // Secondary color
-      secondary: AppColor.blue,
+      secondary: AppColors.blue,
       // Text color on secondary
       onSecondary: Colors.black,
       // Error color
-      error: AppColor.red,
+      error: AppColors.red,
       // Text color on error
-      onError: AppColor.red,
+      onError: AppColors.red,
       // Surface color
-      surface: AppColor.blue,
+      surface: AppColors.blue,
       // Text color on surface
-      onSurface: AppColor.white,
+      onSurface: AppColors.white,
       // Brightness
       brightness: Brightness.light,
     ),
   );
+
   static final darkTheme = ThemeData(
     useMaterial3: false,
-    dialogTheme: DialogThemeData(backgroundColor: AppColor.white),
-    appBarTheme: AppBarTheme(backgroundColor: AppColor.white, elevation: 0),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColor.scaffoldBackgroundDark),
+    dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.white, elevation: 0),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldDarkBackground),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: AppColor.scaffoldBackgroundDark,
+    scaffoldBackgroundColor: AppColors.scaffoldDarkBackground,
     // fontFamily: FontFamily.aeonikPro,
     colorScheme: ColorScheme(
       // Background color
-      primary: AppColor.blue,
+      primary: AppColors.blue,
       // Text color on primary
-      onPrimary: AppColor.black,
+      onPrimary: AppColors.black,
       // Secondary color
-      secondary: AppColor.blue,
+      secondary: AppColors.blue,
       // Text color on secondary
       onSecondary: Colors.black,
       // Error color
-      error: AppColor.red,
+      error: AppColors.red,
       // Text color on error
-      onError: AppColor.red,
+      onError: AppColors.red,
       // Surface color
-      surface: AppColor.blue,
+      surface: AppColors.blue,
       // Text color on surface
-      onSurface: AppColor.white,
+      onSurface: AppColors.white,
       // Brightness
       brightness: Brightness.light,
     ),

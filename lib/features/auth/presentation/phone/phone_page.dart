@@ -25,6 +25,7 @@ class PhonePage extends StatelessWidget {
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<PhoneBloc>(context);
 
+
     return BlocListener<PhoneBloc, PhoneState>(
       listener: (context, state) {
         if (state.phoneStatus.isFailure) {

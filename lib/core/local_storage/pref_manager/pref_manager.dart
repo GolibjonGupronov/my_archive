@@ -41,7 +41,7 @@ class PrefManagerImpl implements PrefManager {
   }
 
   @override
-  Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(Keys.user, jsonEncode(user.toJson));
+  Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(Keys.user, jsonEncode(user.toJson()));
 
   @override
   Future<void> remove(String key) async => await prefs.remove(key);

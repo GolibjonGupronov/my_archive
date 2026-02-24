@@ -18,10 +18,19 @@ void logout() async {
 }
 
 mixin SafeCaller {
-  Future<Either<Failure, R>> safeCall<T, R>(
-    Future<T> Function() call, {
-    Future<void> Function(T data)? onSuccess,
-    // required R Function(T data) toEntity,
+  Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {
+    try {
+      final result = await call();
+      return Right(result);
+    } catch (e, stackTrace) {
+      _prettyDebugPrint(e, stackTrace);
+      return Left(ServerFailure(message: _handleDioError(e)));
+    }
+  }
+
+  Future<Either<Failure, T>> safeCall2<T, R extends T>(
+    Future<R> Function() call, {
+    required Future<void> Function(R data)? onSuccess,
   }) async {
     try {
       final result = await call();
@@ -33,7 +42,7 @@ mixin SafeCaller {
           _prettyDebugPrint(e, stackTrace);
         }
       }
-      return Right((result));
+      return Right(result);
     } catch (e, stackTrace) {
       _prettyDebugPrint(e, stackTrace);
       return Left(ServerFailure(message: _handleDioError(e)));
@@ -131,14 +140,25 @@ void _prettyDebugPrint(Object error, StackTrace stackTrace) {
   if (!kDebugMode) return;
 
   final buffer = StringBuffer();
-
-  buffer.writeln("══════════ ❌ ERROR ══════════");
-  buffer.writeln("🕒 Time: ${DateTime.now()}");
-  buffer.writeln("📌 Type: ${error.runtimeType}");
-  buffer.writeln("💬 Message: $error");
-  buffer.writeln("────────── StackTrace ──────────");
-  buffer.writeln(stackTrace);
-  buffer.writeln("════════════════════════════════");
+  if (error is DioException) {
+    buffer.writeln("══════════ 🌐 DIO ERROR ══════════");
+    buffer.writeln("URL: ${error.requestOptions.uri}");
+    buffer.writeln("Method: ${error.requestOptions.method}");
+    buffer.writeln("StatusCode: ${error.response?.statusCode}");
+    buffer.writeln("Message: ${error.message}");
+    buffer.writeln("Data: ${error.response?.data}");
+    buffer.writeln("────────── StackTrace ──────────");
+    buffer.writeln(stackTrace);
+    buffer.writeln("════════════════════════════════");
+  } else {
+    buffer.writeln("══════════ ❌ ERROR ══════════");
+    buffer.writeln("🕒 Time: ${DateTime.now()}");
+    buffer.writeln("📌 Type: ${error.runtimeType}");
+    buffer.writeln("💬 Message: $error");
+    buffer.writeln("────────── StackTrace ──────────");
+    buffer.writeln(stackTrace);
+    buffer.writeln("════════════════════════════════");
+  }
 
   debugPrint(buffer.toString());
 }

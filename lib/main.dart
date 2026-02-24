@@ -16,7 +16,7 @@ import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 import 'package:my_archive/core/services/bot/bot_service.dart';
 import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/features/error/presentation/error_page.dart';
+import 'package:my_archive/core/widgets/error_page.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:get/get.dart';
@@ -163,7 +163,7 @@ class _MyAppState extends State<MyApp> {
                       decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                       child: Center(
                           child: Text(sl.get<PrefManager>().getLanguage.key,
-                              style: TextStyle(color: AppColor.white))),
+                              style: TextStyle(color: AppColors.white))),
                     ),
                   ),
                 ),
@@ -181,7 +181,7 @@ class _MyAppState extends State<MyApp> {
                       child: Center(
                         child: Icon(
                           AdaptiveTheme.of(context).mode.isDark ? Icons.light_mode : Icons.dark_mode,
-                          color: AppColor.white,
+                          color: AppColors.red,
                           size: 20,
                         ),
                       ),

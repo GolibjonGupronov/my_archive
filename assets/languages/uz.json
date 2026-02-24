@@ -12,5 +12,9 @@
     "server_response_timeout": "Server javobi vaqti tugadi.",
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
-  }
+  },
+  "min_chars_required": "Kamida {} ta belgi kiriting.",
+  "enter_password": "Parol kiriting",
+  "enter_comment": "Izoh kiriting",
+  "field_required": "Bu maydon majburiy"
 }
