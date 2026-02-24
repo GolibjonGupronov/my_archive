@@ -5,7 +5,7 @@ abstract class PhoneEvent {}
 class InitEvent extends PhoneEvent {}
 
 class SendPhoneEvent extends PhoneEvent {
-  final SendPhoneParams params;
+  final String phone;
 
-  SendPhoneEvent({required this.params});
+  SendPhoneEvent({required this.phone});
 }

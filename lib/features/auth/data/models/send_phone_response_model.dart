@@ -1,19 +1,20 @@
 import 'package:my_archive/features/auth/domain/entities/send_phone_response_entity.dart';
 
 class SendPhoneResponseModel extends SendPhoneResponseEntity {
-  SendPhoneResponseModel({required super.phone, required super.isRegistered, required super.token});
+  SendPhoneResponseModel({required super.phone, required super.isRegistered});
 
-  factory SendPhoneResponseModel.fromJson(Map<String, dynamic> json) {
-    return SendPhoneResponseModel(
-      phone: json["phone"] ?? "",
-      token: json["token"] ?? "",
-      isRegistered: json["is_registered"] ?? false,
-    );
-  }
+  factory SendPhoneResponseModel.fromJson(Map<String, dynamic> json) => SendPhoneResponseModel(
+        phone: json["phone"] ?? "",
+        isRegistered: json["is_registered"] ?? false,
+      );
 
-  SendPhoneResponseEntity get toEntity => SendPhoneResponseEntity(
-    phone: phone,
-    token: token,
+  Map<String, dynamic> toJson() => {
+        "phone": phone,
+        "is_registered": isRegistered,
+      };
+
+  SendPhoneResponseEntity toEntity() => SendPhoneResponseEntity(
+        phone: phone,
     isRegistered: isRegistered,
   );
 }

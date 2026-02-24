@@ -4,88 +4,88 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
-import 'package:my_archive/core/api/error/base_response.dart';
 import 'package:my_archive/core/api/error/failure.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 import 'package:my_archive/core/services/bot/bot_service.dart';
-import 'package:my_archive/core/services/service_locator/service_locator.dart';
 import 'package:my_archive/core/utils/either.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
+void logout() async {
+  await sl.get<PrefManager>().setToken("");
+  router.go(SplashPage.tag);
+}
+
 mixin SafeCaller {
-  Future<Either<Failure, R>> safeBaseCall<R>({
-    required Future<BaseResponse> Function() call,
-    required R Function(dynamic data) mapper,
+  Future<Either<Failure, R>> safeCall<T, R>(
+    Future<T> Function() call, {
+    Future<void> Function(T data)? onSuccess,
+    // required R Function(T data) toEntity,
   }) async {
     try {
-      final response = await call();
-
-      if (response.success && response.data != null) {
-        return Right(mapper(response.data));
-      } else {
-        return Left(ServerFailure(message: response.message));
-      }
-    } catch (e) {
-      return Left(ServerFailure(message: _handleDioError(e)));
-    }
-  }
-
-  Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {
-    try {
       final result = await call();
-      return Right(result);
-    } catch (e) {
-      return Left(ServerFailure(message: _handleDioError(e)));
-    }
-  }
 
-  String _handleDioError(dynamic error) {
-    if (error is DioException) {
-      final res = error.response;
-      if (res?.statusCode == 500) {
-        _sendErrorToBot(error);
-      }
-      if (res?.statusCode == 401) {
-        logout();
-        return tr('error_dio.login_expired');
-      }
-      if (res != null && res.data is Map<String, dynamic>) {
-        final data = res.data as Map<String, dynamic>;
-        final message = data['message'];
-        if (message != null && message.toString().isNotEmpty) {
-          return "$message";
+      if (onSuccess != null) {
+        try {
+          await onSuccess(result);
+        } catch (e, stackTrace) {
+          _prettyDebugPrint(e, stackTrace);
         }
       }
-      switch (error.type) {
-        case DioExceptionType.connectionTimeout:
-          return tr('error_dio.connection_timeout');
-        case DioExceptionType.sendTimeout:
-          return tr('error_dio.request_timeout');
-        case DioExceptionType.receiveTimeout:
-          return tr('error_dio.server_response_timeout');
-        case DioExceptionType.badCertificate:
-          return tr('error_dio.security_issue');
-        case DioExceptionType.badResponse:
-          return tr('error_dio.server_error');
-        case DioExceptionType.cancel:
-          return tr('error_dio.request_canceled');
-        case DioExceptionType.connectionError:
-          return tr('error_dio.network_error');
-        case DioExceptionType.unknown:
-          return tr('error_dio.unknown_error');
-      }
-    } else if (error is SocketException) {
-      return tr('error_dio.no_internet');
-    } else if (error is HttpException) {
-      return error.message.isNotEmpty ? error.message : tr('error_dio.http_error');
+      return Right((result));
+    } catch (e, stackTrace) {
+      _prettyDebugPrint(e, stackTrace);
+      return Left(ServerFailure(message: _handleDioError(e)));
     }
-
-    if (kDebugMode) {
-      return error.toString();
-    }
-    return tr('error_dio.unexpected_error');
   }
+}
+
+String _handleDioError(dynamic error) {
+  if (error is DioException) {
+    final res = error.response;
+    if (res?.statusCode == 500) {
+      _sendErrorToBot(error);
+    }
+    if (res?.statusCode == 401) {
+      logout();
+      return tr('error_dio.login_expired');
+    }
+    if (res != null && res.data is Map<String, dynamic>) {
+      final data = res.data as Map<String, dynamic>;
+      final message = data['message'];
+      if (message != null && message.toString().isNotEmpty) {
+        return "$message";
+      }
+    }
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return tr('error_dio.connection_timeout');
+      case DioExceptionType.sendTimeout:
+        return tr('error_dio.request_timeout');
+      case DioExceptionType.receiveTimeout:
+        return tr('error_dio.server_response_timeout');
+      case DioExceptionType.badCertificate:
+        return tr('error_dio.security_issue');
+      case DioExceptionType.badResponse:
+        return tr('error_dio.server_error');
+      case DioExceptionType.cancel:
+        return tr('error_dio.request_canceled');
+      case DioExceptionType.connectionError:
+        return tr('error_dio.network_error');
+      case DioExceptionType.unknown:
+        return tr('error_dio.unknown_error');
+    }
+  } else if (error is SocketException) {
+    return tr('error_dio.no_internet');
+  } else if (error is HttpException) {
+    return error.message.isNotEmpty ? error.message : tr('error_dio.http_error');
+  }
+
+  if (kDebugMode) {
+    return error.toString();
+  }
+  return tr('error_dio.unexpected_error');
 }
 
 void _sendErrorToBot(dynamic error) {
@@ -127,7 +127,18 @@ String getPrettyJSONString(Object jsonObject) {
   return encoder.convert(jsonObject);
 }
 
-void logout() async {
-  await sl.get<PrefManager>().setToken("");
-  router.go(SplashPage.tag);
+void _prettyDebugPrint(Object error, StackTrace stackTrace) {
+  if (!kDebugMode) return;
+
+  final buffer = StringBuffer();
+
+  buffer.writeln("══════════ ❌ ERROR ══════════");
+  buffer.writeln("🕒 Time: ${DateTime.now()}");
+  buffer.writeln("📌 Type: ${error.runtimeType}");
+  buffer.writeln("💬 Message: $error");
+  buffer.writeln("────────── StackTrace ──────────");
+  buffer.writeln(stackTrace);
+  buffer.writeln("════════════════════════════════");
+
+  debugPrint(buffer.toString());
 }

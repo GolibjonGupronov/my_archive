@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/services/service_locator/service_locator.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
@@ -29,7 +30,8 @@ class PhonePage extends StatelessWidget {
         if (state.phoneStatus.isFailure) {
           toast(state.errorMessage);
         } else if (state.phoneStatus.isSuccess) {
-          toast("success ${state.data?.token}");
+          router.push(state.authNextPage.page);
+          toast("success ${state.authNextPage}");
         }
       },
       child: Scaffold(
@@ -37,7 +39,7 @@ class PhonePage extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
               onPressed: () {
-                bloc.add(SendPhoneEvent(params: SendPhoneParams(username: "A", password: "123")));
+                bloc.add(SendPhoneEvent(phone: "+998999940941"));
               },
               child: Text("ok")),
         ),

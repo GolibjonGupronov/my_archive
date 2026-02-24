@@ -6,30 +6,30 @@ enum LangType {
   ru;
 
   static LangType getObj(String key) => switch (key) {
-    'uz' => LangType.uz,
-    'ru' => LangType.ru,
-    _ => LangType.uz,
-  };
+        'uz' => LangType.uz,
+        'ru' => LangType.ru,
+        _ => LangType.uz,
+      };
 
   String get key => switch (this) {
-    LangType.uz => 'uz',
-    LangType.ru => 'ru',
-  };
+        LangType.uz => 'uz',
+        LangType.ru => 'ru',
+      };
 
   Locale get locale => switch (this) {
-    LangType.uz => Locale('uz'),
-    LangType.ru => Locale('ru'),
-  };
+        LangType.uz => Locale('uz'),
+        LangType.ru => Locale('ru'),
+      };
 
   String get title => switch (this) {
-    LangType.uz => "O'zbekcha",
-    LangType.ru => "Русский",
-  };
+        LangType.uz => "O'zbekcha",
+        LangType.ru => "Русский",
+      };
 
-   String get icon => switch (this) {
-     LangType.uz => Assets.icons.flagUz,
-     LangType.ru => Assets.icons.flagRu,
-   };
+  String get iconSvg => switch (this) {
+        LangType.uz => Assets.icons.flagUz,
+        LangType.ru => Assets.icons.flagRu,
+      };
 
   LangType get next {
     final index = LangType.values.indexOf(this);

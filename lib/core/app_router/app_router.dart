@@ -24,6 +24,22 @@ final GoRouter router = GoRouter(
         child: PhonePage(),
       ),
     ),
+    GoRoute(
+      path: SmsPage.tag,
+      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+        context: context,
+        state: state,
+        child: SmsPage(),
+      ),
+    ),
+    GoRoute(
+      path: RegistrationPage.tag,
+      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+        context: context,
+        state: state,
+        child: RegistrationPage(),
+      ),
+    ),
   ],
 );
 

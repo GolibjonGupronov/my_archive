@@ -37,9 +37,9 @@ class AppTheme {
     useMaterial3: false,
     dialogTheme: DialogThemeData(backgroundColor: AppColor.white),
     appBarTheme: AppBarTheme(backgroundColor: AppColor.white, elevation: 0),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColor.scaffoldBackground),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColor.scaffoldBackgroundDark),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: AppColor.scaffoldBackground,
+    scaffoldBackgroundColor: AppColor.scaffoldBackgroundDark,
     // fontFamily: FontFamily.aeonikPro,
     colorScheme: ColorScheme(
       // Background color

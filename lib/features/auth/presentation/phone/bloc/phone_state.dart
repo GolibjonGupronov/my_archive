@@ -1,26 +1,25 @@
+import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/enums/state_status.dart';
-import 'package:my_archive/features/auth/domain/entities/send_phone_response_entity.dart';
 
 class PhoneState {
   final StateStatus phoneStatus;
   final String errorMessage;
-  final SendPhoneResponseEntity? data;
-
+  final AuthNextPage authNextPage;
 
   PhoneState({
     this.phoneStatus = StateStatus.initial,
     this.errorMessage = '',
-    this.data
+    this.authNextPage = AuthNextPage.registration,
   });
 
   PhoneState copyWith({
     StateStatus? phoneStatus,
     String? errorMessage,
-    SendPhoneResponseEntity? data,
+    AuthNextPage? authNextPage,
   }) =>
       PhoneState(
         phoneStatus: phoneStatus ?? this.phoneStatus,
         errorMessage: errorMessage ?? this.errorMessage,
-        data: data ?? this.data,
+        authNextPage: authNextPage ?? this.authNextPage,
       );
 }

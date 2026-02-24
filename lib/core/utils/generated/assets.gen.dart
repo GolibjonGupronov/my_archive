@@ -12,24 +12,33 @@
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/female.svg
+  String get female => 'assets/icons/female.svg';
+
   /// File path: assets/icons/flagRu.svg
   String get flagRu => 'assets/icons/flagRu.svg';
 
   /// File path: assets/icons/flagUz.svg
   String get flagUz => 'assets/icons/flagUz.svg';
 
+  /// File path: assets/icons/male.svg
+  String get male => 'assets/icons/male.svg';
+
   /// List of all assets
-  List<String> get values => [flagRu, flagUz];
+  List<String> get values => [female, flagRu, flagUz, male];
 }
 
 class $AssetsLanguagesGen {
   const $AssetsLanguagesGen();
 
+  /// File path: assets/languages/ru.json
+  String get ru => 'assets/languages/ru.json';
+
   /// File path: assets/languages/uz.json
   String get uz => 'assets/languages/uz.json';
 
   /// List of all assets
-  List<String> get values => [uz];
+  List<String> get values => [ru, uz];
 }
 
 class Assets {

@@ -10,5 +10,6 @@ class AppColor {
   static Color blue = const Color(0xFF0015FF);
 
   /// Dark Mode
-  static Color cDarkPrimaryColor = const Color(0xFF1A2127);
+  static Color primaryColorDark = const Color(0xFF1A2127);
+  static Color scaffoldBackgroundDark = const Color(0xFF1A2127);
 }

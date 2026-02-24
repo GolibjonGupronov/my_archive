@@ -14,7 +14,7 @@ import 'package:my_archive/core/utils/device_helper.dart';
 import 'package:my_archive/core/enums/lang_type.dart';
 import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 import 'package:my_archive/core/services/bot/bot_service.dart';
-import 'package:my_archive/core/services/service_locator/service_locator.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/features/error/presentation/error_page.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -30,8 +30,10 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await EasyLocalization.ensureInitialized();
-      await LocatorDi.init();
+      await InjectionContainer.init();
       await DeviceHelper.init();
+
+      savedThemeMode = await AdaptiveTheme.getThemeMode();
 
       alice.setNavigatorKey(globalNavigatorKey);
       FlutterError.onError = (FlutterErrorDetails details) {
@@ -98,17 +100,16 @@ class _MyAppState extends State<MyApp> {
         child: AdaptiveTheme(
           light: AppTheme.lightTheme,
           dark: AppTheme.darkTheme,
-          initial: savedThemeMode ??
-              (MediaQuery.of(context).platformBrightness == Brightness.dark ? AdaptiveThemeMode.dark : AdaptiveThemeMode.light),
+          initial: savedThemeMode ?? AdaptiveThemeMode.light,
           builder: (ThemeData light, ThemeData dark) {
             return MaterialApp.router(
               title: 'My Archive',
-              theme: savedThemeMode == AdaptiveThemeMode.dark ? dark : light,
+              theme: light,
+              darkTheme: dark,
               locale: context.locale,
               debugShowCheckedModeBanner: false,
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
-              // routerConfig: router,
               routeInformationParser: router.routeInformationParser,
               routeInformationProvider: router.routeInformationProvider,
               routerDelegate: router.routerDelegate,
@@ -166,6 +167,27 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                 ),
+                GestureDetector(
+                  onTap: () {
+                    AdaptiveTheme.of(context).toggleThemeMode();
+                    _debugOverlayEntry?.markNeedsBuild();
+                  },
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                      child: Center(
+                        child: Icon(
+                          AdaptiveTheme.of(context).mode.isDark ? Icons.light_mode : Icons.dark_mode,
+                          color: AppColor.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -173,7 +195,6 @@ class _MyAppState extends State<MyApp> {
       ),
     );
 
-    overlayKey.currentState?.insert(_debugOverlayEntry!);
     Timer(Duration(seconds: 3), () {
       overlayKey.currentState?.insert(_debugOverlayEntry!);
     });
@@ -187,6 +208,7 @@ class _MyAppState extends State<MyApp> {
     context.setLocale(next.locale);
     await Get.updateLocale(next.locale);
     initializeDateFormatting(next.key);
+    _debugOverlayEntry?.markNeedsBuild();
   }
 }
 
