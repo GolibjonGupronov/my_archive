@@ -5,4 +5,5 @@ class Constants {
   static const int afterDot = 2;
   static const int passwordLength = 8;
   static const int toastDuration = 3;
+  static const int refreshSeconds = 10;
 }

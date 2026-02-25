@@ -11,6 +11,7 @@ import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/extensions/string.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/utils/common.dart';
 import 'package:my_archive/core/utils/generated/assets.gen.dart';
 import 'package:my_archive/core/utils/thousands_formatter.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
@@ -118,10 +119,11 @@ class CustomTextField extends StatefulWidget {
       validate: validate,
       inputFormatters: inputFormatters ??
           [
-            MaskTextInputFormatter(
-              mask: '+998 (##) ###-##-##',
-              type: MaskAutoCompletionType.eager,
-            )
+            phoneNumberMask()
+            // MaskTextInputFormatter(
+            //   mask: '+998 (##) ###-##-##',
+            //   type: MaskAutoCompletionType.eager,
+            // )
           ],
       inputType: TextInputType.phone,
       autofocus: autofocus,

@@ -12,7 +12,7 @@ import 'package:my_archive/core/services/bot/bot_service.dart';
 import 'package:my_archive/core/utils/either.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
-void logout() async {
+void logoutApp() async {
   await sl.get<PrefManager>().setToken("");
   router.go(SplashPage.tag);
 }
@@ -57,7 +57,7 @@ String _handleDioError(dynamic error) {
       _sendErrorToBot(error);
     }
     if (res?.statusCode == 401) {
-      logout();
+      logoutApp();
       return tr('error_dio.login_expired');
     }
     if (res != null && res.data is Map<String, dynamic>) {

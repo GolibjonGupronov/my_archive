@@ -6,6 +6,7 @@ import 'package:my_archive/core/enums/gender.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/utils/common.dart';
+import 'package:my_archive/core/widgets/about_us_social.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/app_bar.dart';
 import 'package:my_archive/core/widgets/button.dart';
@@ -109,7 +110,7 @@ class PhonePage extends StatelessWidget {
                 activeSegment: Gender.male,
               ),
               16.height,
-              aboutUsSocial(),
+              AboutUsSocial(),
               90.height,
             ],
           ),

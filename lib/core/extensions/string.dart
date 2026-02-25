@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:my_archive/core/extensions/helper.dart';
 
@@ -50,28 +49,6 @@ extension CustomString on String {
 
   String get phoneReplace => replaceAll(" ", "").replaceAll("(", "").replaceAll(")", "").replaceAll("-", "");
 }
-
-// extension CustomImage on String {
-//   Image image({double? width, double? height, double? size, BoxFit? fit, Color? color}) {
-//     return Image.asset(this, fit: fit, color: color, width: size ?? width, height: size ?? height);
-//   }
-//
-//   SvgPicture svg(
-//       {double? width,
-//       double? height,
-//       double? size,
-//       BoxFit fit = BoxFit.contain,
-//       Color? color,
-//       BlendMode blendMode = BlendMode.srcIn}) {
-//     return SvgPicture.asset(
-//       this,
-//       width: size ?? width,
-//       height: size ?? height,
-//       fit: fit,
-//       colorFilter: color == null ? null : ColorFilter.mode(color, blendMode),
-//     );
-//   }
-// }
 
 extension FormattedAmountString on String? {
   double get _value => double.tryParse((this ?? '').replaceAll(' ', '')) ?? 0.0;
