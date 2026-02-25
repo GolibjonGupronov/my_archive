@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +13,10 @@ import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/services/permissions/permissions.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/core/widgets/custom_button.dart';
-import 'package:my_archive/core/widgets/custom_calendar_view.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
+import 'package:my_archive/core/widgets/button.dart';
+import 'package:my_archive/core/widgets/calendar_view.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 
 Future<void> showDraggableBottomSheet({
   required BuildContext context,
@@ -27,7 +28,7 @@ Future<void> showDraggableBottomSheet({
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     builder: (_) => Material(
-      color: context.isDarkMode ? AppColors.scaffoldDarkBackground : AppColors.white,
+      color: context.isDarkModeEnable ? AppColors.scaffoldDarkBackground : AppColors.white,
       borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       child: DraggableScrollableSheet(
         initialChildSize: 0.7,
@@ -59,7 +60,8 @@ Future<void> showDraggableBottomSheet({
                           child: Container(
                             padding: EdgeInsets.all(10.w),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: context.isDarkMode ? AppColors.whiteDark : AppColors.lightGray),
+                                shape: BoxShape.circle,
+                                color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.lightGray),
                             child: Icon(CupertinoIcons.xmark, size: 14.w, color: AppColors.gray),
                           ),
                         ),
@@ -180,7 +182,7 @@ Future<void> showCustomTimePicker(
       mainAxisSize: MainAxisSize.min,
       children: [
         14.height,
-        TextView(tr('choose_time'), fontSize: 24.sp),
+        CustomTextView(tr('choose_time'), fontSize: 24.sp),
         26.height,
         SizedBox(
           height: 180.h,
@@ -210,11 +212,12 @@ Future<void> showCustomTimePicker(
   );
 }
 
-Future<void> showFilePicker(
-    {required BuildContext ctx,
-    required Function(String path) onResult,
-    CropAspectRatioPreset initAspectRatio = CropAspectRatioPreset.original}) async {
-  showCupertinoModalPopup(
+Future<void> showFilePicker({
+  required BuildContext ctx,
+  required Function(String path) onResult,
+  CropAspectRatioPreset initAspectRatio = CropAspectRatioPreset.original,
+}) async {
+  return showCupertinoModalPopup(
       context: ctx,
       builder: (context) => CupertinoActionSheet(
             actions: [
@@ -246,7 +249,7 @@ Future<void> showFilePicker(
                       }
                     }
                   },
-                  child: TextView(tr('camera'))),
+                  child: CustomTextView(tr('camera'))),
               CupertinoActionSheetAction(
                   onPressed: () async {
                     router.pop();
@@ -264,13 +267,102 @@ Future<void> showFilePicker(
                       }
                     }
                   },
-                  child: TextView(tr('photo'))),
+                  child: CustomTextView(tr('photo'))),
+              CupertinoActionSheetAction(
+                  onPressed: () async {
+                    router.pop();
+                    final files = await FilePicker.platform.pickFiles(
+                      // allowCompression: true,
+                      allowMultiple: false,
+                    );
+                    if (files != null && files.files.isNotEmpty) {
+                      final List<String> filePath = [];
+                      final List<String> fileNames = [];
+                      final List<int> fileSizes = [];
+                      for (var file in files.files) {
+                        if (file.path != null) {
+                          filePath.add(file.path!);
+                          fileNames.add(file.name);
+                          fileSizes.add(file.size);
+                        }
+                      }
+
+                      if (filePath.isNotEmpty) {
+                        onResult(filePath.first);
+                      } else {
+                        showErrorToast(ctx, tr('file_not_found'));
+                      }
+                    }
+                  },
+                  child: CustomTextView(tr('file'))),
+            ],
+            cancelButton: CupertinoActionSheetAction(
+                onPressed: () => context.pop(), child: CustomTextView(tr('cancel'), color: AppColors.red)),
+          ));
+}
+
+Future<void> showImagePicker({
+  required BuildContext ctx,
+  required Function(String path) onResult,
+  CropAspectRatioPreset initAspectRatio = CropAspectRatioPreset.original,
+}) async {
+  return showCupertinoModalPopup(
+      context: ctx,
+      builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () async {
+                    router.pop();
+                    if (!await HandlePermission.cameraIsGranted) {
+                      showErrorToast(ctx, tr('allow_access_camera'));
+                      return;
+                    }
+                    final pickedImage = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 60);
+                    // if (pickedImage != null) {
+                    //   if ((await pickedImage.length()) > 1024 * 1024 * 8) {
+                    //     showErrorToast(ctx, tr('max_image_size'.plural(8)));
+                    //   } else {
+                    //     onResult(pickedImage.path);
+                    //   }
+                    // }
+                    if (pickedImage != null) {
+                      if (initAspectRatio == CropAspectRatioPreset.original) {
+                        onResult(pickedImage.path);
+                      } else {
+                        _cropImage(
+                            imagePath: pickedImage.path,
+                            initAspectRatio: initAspectRatio,
+                            result: (String path) {
+                              onResult(path);
+                            });
+                      }
+                    }
+                  },
+                  child: CustomTextView(tr('camera'))),
+              CupertinoActionSheetAction(
+                  onPressed: () async {
+                    router.pop();
+                    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                    if (pickedImage != null) {
+                      if (initAspectRatio == CropAspectRatioPreset.original) {
+                        onResult(pickedImage.path);
+                      } else {
+                        _cropImage(
+                            imagePath: pickedImage.path,
+                            initAspectRatio: initAspectRatio,
+                            result: (String path) {
+                              onResult(path);
+                            });
+                      }
+                    }
+                  },
+                  child: CustomTextView(tr('photo'))),
             ],
             cancelButton: CupertinoActionSheetAction(
                 onPressed: () {
                   context.pop();
                 },
-                child: TextView(tr('cancel'), color: AppColors.red)),
+                child: CustomTextView(tr('cancel'), color: AppColors.red)),
           ));
 }
 

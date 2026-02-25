@@ -11,7 +11,7 @@ import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/custom_button.dart';
+import 'package:my_archive/core/widgets/button.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 Future<dynamic> showCustomDialog(
@@ -334,9 +334,9 @@ class _CustomDialog extends StatelessWidget {
                         : [
                             if (ic != null) Center(child: ic),
                             if (ic != null) 12.height,
-                            TextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
+                            CustomTextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
                             if (subTitle != null) 8.height,
-                            if (subTitle != null) TextView(subTitle!, textAlign: subTitleAlignment, style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
+                            if (subTitle != null) CustomTextView(subTitle!, textAlign: subTitleAlignment, style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
                             24.height,
                             Row(
                               children: [

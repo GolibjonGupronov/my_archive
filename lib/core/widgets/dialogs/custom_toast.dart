@@ -17,7 +17,7 @@ void showErrorToast(BuildContext context, String message, {int second = Constant
     children: [
       const Icon(Icons.warning_rounded, color: AppColors.red),
       12.width,
-      Expanded(child: TextView(message)),
+      Expanded(child: CustomTextView(message)),
     ],
   );
 
@@ -33,7 +33,7 @@ void showSuccessToast(BuildContext context, String message, {int second = Consta
     children: [
       const Icon(CupertinoIcons.checkmark_alt_circle_fill, color: AppColors.green),
       12.width,
-      Expanded(child: TextView(message)),
+      Expanded(child: CustomTextView(message)),
     ],
   );
 
@@ -49,7 +49,7 @@ void showInfoToast(BuildContext context, String message, {int second = Constants
     children: [
       const Icon(CupertinoIcons.info_circle_fill, color: AppColors.orange),
       12.width,
-      Expanded(child: TextView(message)),
+      Expanded(child: CustomTextView(message)),
     ],
   );
 

@@ -6,7 +6,7 @@ import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/custom_text_field.dart';
+import 'package:my_archive/core/widgets/text_field.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 class SingleSelectItemModel {
@@ -56,7 +56,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
             });
           }),
           12.height,
-          TextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
+          CustomTextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
           12.height,
           Expanded(
             child: lists.isEmpty
@@ -66,7 +66,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                       12.height,
                       Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
                       4.height,
-                      TextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
+                      CustomTextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
                     ],
                   )
                 : ListView.builder(
@@ -86,7 +86,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                             border: Border.all(
                                 color: item.value == _selectedItem
                                     ? AppColors.primary.withValues(alpha: .5)
-                                    : (context.isDarkMode ? AppColors.gray : AppColors.lightGray)),
+                                    : (context.isDarkModeEnable ? AppColors.gray : AppColors.lightGray)),
                             padding: EdgeInsets.all(18.w),
                             child: Row(
                               children: [
@@ -94,8 +94,8 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      TextView(item.title),
-                                      ...item.extraVisibleValues.map((e) => TextView(e)),
+                                      CustomTextView(item.title),
+                                      ...item.extraVisibleValues.map((e) => CustomTextView(e)),
                                     ],
                                   ),
                                 ),

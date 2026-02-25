@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_alice/alice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
@@ -205,7 +206,8 @@ class _MyAppState extends State<MyApp> {
     final next = currentLang.next;
     pref.setLanguage(next);
     context.setLocale(next.locale);
-    await initializeDateFormatting(next.key);
+    await Get.updateLocale(next.locale);
+    // await initializeDateFormatting(next.key);
     _debugOverlayEntry?.markNeedsBuild();
   }
 }

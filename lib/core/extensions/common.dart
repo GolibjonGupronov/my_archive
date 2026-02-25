@@ -38,7 +38,9 @@ extension BuildContextExtensions on BuildContext {
   MediaQueryData get _mediaQuery => MediaQuery.of(this);
 
   EdgeInsets get safePadding => _mediaQuery.padding;
+
   EdgeInsets get viewInsets => _mediaQuery.viewInsets;
+
   Size get screenSize => _mediaQuery.size;
 
   double safeBottom([double extra = 0.0]) => safePadding.bottom + extra;
@@ -50,12 +52,18 @@ extension BuildContextExtensions on BuildContext {
   SizedBox safeTopSpace([double extra = 0.0]) => SizedBox(height: safeTop(extra));
 
   double get screenHeight => screenSize.height;
+
   double get screenWidth => screenSize.width;
 
   double get keyboardBottom => viewInsets.bottom;
+
   double get keyboardTop => viewInsets.top;
 
-  bool get isDarkMode {
+  bool get isKeyboardVisible => MediaQuery.of(this).viewInsets.bottom != 0;
+
+  void get hideKeyboard => FocusScope.of(this).unfocus();
+
+  bool get isDarkModeEnable {
     final adaptiveMode = AdaptiveTheme.maybeOf(this)?.mode;
     if (adaptiveMode != null) {
       return adaptiveMode == AdaptiveThemeMode.dark;

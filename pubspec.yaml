@@ -27,7 +27,7 @@ dependencies:
   overlay_support: ^2.1.0
   adaptive_theme: ^3.7.2
   intl: ^0.20.2
-#  get: ^4.7.3
+  get: ^4.7.3
   equatable: ^2.0.8
   flutter_svg: ^2.2.3
   photo_view: ^0.15.0
@@ -43,6 +43,10 @@ dependencies:
   permission_handler: ^12.0.1
   geolocator: ^14.0.2
   image_picker: ^1.2.1
+  mask_text_input_formatter: ^2.9.0
+  url_launcher: ^6.3.2
+  file_picker: ^10.3.10
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -58,8 +62,8 @@ flutter_gen:
   integrations:
     image: true
     flutter_svg: true
+    lottie: true
 #    rive: true
-#    lottie: true
 # dart run build_runner build --delete-conflicting-outputs --build-filter="lib/core/utils/generated/**"
 
 flutter:

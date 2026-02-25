@@ -2,15 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/enums/gender.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/utils/common.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/custom_app_bar.dart';
-import 'package:my_archive/core/widgets/custom_button.dart';
-import 'package:my_archive/core/widgets/custom_scaffold.dart';
-import 'package:my_archive/core/widgets/custom_select_field.dart';
-import 'package:my_archive/core/widgets/custom_text_field.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
+import 'package:my_archive/core/widgets/app_bar.dart';
+import 'package:my_archive/core/widgets/button.dart';
+import 'package:my_archive/core/widgets/coming_soon.dart';
+import 'package:my_archive/core/widgets/pinput.dart';
+import 'package:my_archive/core/widgets/radio_list.dart';
+import 'package:my_archive/core/widgets/scaffold.dart';
+import 'package:my_archive/core/widgets/select_field.dart';
+import 'package:my_archive/core/widgets/text_field.dart';
 import 'package:my_archive/core/widgets/dialogs/regular_dialog.dart';
 import 'package:my_archive/core/widgets/single_select_list.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
@@ -33,8 +37,8 @@ class PhonePage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<PhoneBloc>(context);
-    final List<SingleSelectItemModel> items =
-        List<SingleSelectItemModel>.generate(80, (i) => SingleSelectItemModel("G'olibjon $i", i,extraVisibleValues: ["sdfghjk"])); //
+    final List<SingleSelectItemModel> items = List<SingleSelectItemModel>.generate(
+        80, (i) => SingleSelectItemModel("G'olibjon $i", i, extraVisibleValues: ["sdfghjk"])); //
 
     return BlocListener<PhoneBloc, PhoneState>(
       listener: (context, state) {
@@ -60,7 +64,8 @@ class PhonePage extends StatelessWidget {
                 // showCustomDialog(context, child:Container(color: Colors.red,child: Text("data")));
                 // showConfirmDialog(context, "NImadur", subTitle: "erfghjk",type: MyDialogType.warning);
                 // showSuccessDialog(context,title:  "NImadur", subTitle: "erfghjk");
-                showErrorToast(context, "message");
+                // showErrorToast(context, "message");
+                showCustomSingleDatePicker(context, result: (value) {});
               }, active: true, progress: false, icon: CupertinoIcons.add_circled_solid),
               16.height,
               CustomSelectField(
@@ -70,11 +75,8 @@ class PhonePage extends StatelessWidget {
                   showDraggableBottomSheet(
                       context: context,
                       childBuilder: (controller) => SingleSelectListWidget(
-                          items: items,
-                          selectedItem: 1,
-                          onSelect: (item) {
-                          },
-                          scrollController: controller),title: "");
+                          items: items, selectedItem: 1, onSelect: (item) {}, scrollController: controller),
+                      title: "");
                 },
                 comment: "iyhgj",
                 progress: false,
@@ -84,9 +86,31 @@ class PhonePage extends StatelessWidget {
               CustomTextField(
                 "title",
                 comment: "sdccs",
-
               ),
               16.height,
+              CustomTextField.phone("title"),
+              16.height,
+              CustomTextField.password("title"),
+              16.height,
+              ComingSoonWidget(child: CustomTextField.comment("title")),
+              16.height,
+              CustomPinPut(
+                context: context,
+                validator: (ss) {
+                  return "error";
+                },
+              ),
+              16.height,
+              CustomRadioList(
+                "Gender",
+                segments: Gender.values,
+                getSegmentTitle: (s) => s.title,
+                onSegmentSelected: (s) {},
+                activeSegment: Gender.male,
+              ),
+              16.height,
+              aboutUsSocial(),
+              90.height,
             ],
           ),
         ),

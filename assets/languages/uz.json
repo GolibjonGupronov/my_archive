@@ -13,6 +13,11 @@
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
   },
+  "soon": "Tez kunda...",
+  "file_not_found": "Fayl topilmadi",
+  "file": "Fayl",
+  "male": "Erkak",
+  "female": "Ayol",
   "choose_time": "Vaqt tanlang",
   "save": "Saqlash",
   "max_image_size": "Rasmning maksimal hajmi {}MB bo'lishi kerak!",

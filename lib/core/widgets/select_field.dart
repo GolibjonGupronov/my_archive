@@ -50,7 +50,7 @@ class CustomSelectField extends StatelessWidget {
                     text: title,
                     style: titleStyle ??
                         AppTheme.textTheme.headlineMedium
-                            ?.copyWith(color: context.isDarkMode ? AppColors.white : AppColors.black),
+                            ?.copyWith(color: context.isDarkModeEnable ? AppColors.white : AppColors.black),
                   ),
                   if (required)
                     TextSpan(
@@ -64,7 +64,7 @@ class CustomSelectField extends StatelessWidget {
           ],
           Container(
             decoration: BoxDecoration(
-              color: context.isDarkMode ? AppColors.whiteDark : AppColors.foregroundSecondary,
+              color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
               border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
               borderRadius: BorderRadius.circular(16.r),
             ),
@@ -84,8 +84,8 @@ class CustomSelectField extends StatelessWidget {
                       children: [
                         Expanded(
                           child: value.isNotEmpty
-                              ? TextView(value, fontWeight: FontWeight.w500)
-                              : TextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
+                              ? CustomTextView(value, fontWeight: FontWeight.w500)
+                              : CustomTextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
                         ),
                         if (rightWidget != null || progress)
                           progress
@@ -106,13 +106,13 @@ class CustomSelectField extends StatelessWidget {
                 children: [
                   Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                   4.width,
-                  TextView(errorText, color: AppColors.red),
+                  CustomTextView(errorText, color: AppColors.red),
                 ],
               ),
             ),
           if (comment.isNotEmpty) ...[
             4.height,
-            TextView(
+            CustomTextView(
               comment,
               fontWeight: FontWeight.w400,
               color: AppColors.gray,

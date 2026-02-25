@@ -42,11 +42,20 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/facebook.png
+  AssetGenImage get facebook => const AssetGenImage('assets/images/facebook.png');
+
+  /// File path: assets/images/instagram.png
+  AssetGenImage get instagram => const AssetGenImage('assets/images/instagram.png');
+
   /// File path: assets/images/logo.jpeg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpeg');
 
+  /// File path: assets/images/telegram.png
+  AssetGenImage get telegram => const AssetGenImage('assets/images/telegram.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [facebook, instagram, logo, telegram];
 }
 
 class $AssetsLanguagesGen {

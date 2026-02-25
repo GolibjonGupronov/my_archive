@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
@@ -46,7 +47,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: fillColor ?? (active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.4)),
-          gradient: fillColor == null && active ? gradient : null,
+          gradient: fillColor == null && active ? gradient ?? Gradients.primaryGradient : null,
         ),
         child: Center(
           child: !progress
@@ -58,10 +59,10 @@ class CustomButton extends StatelessWidget {
                       children: [
                         Icon(icon!, size: 24.h, color: Colors.white),
                         4.width,
-                        TextView(text, color: textColor ?? Colors.white, maxLines: 1),
+                        CustomTextView(text, color: textColor ?? Colors.white, maxLines: 1),
                       ],
                     )
-                  : TextView(text, color: textColor ?? Colors.white, maxLines: 1)
+                  : CustomTextView(text, color: textColor ?? Colors.white, maxLines: 1)
               : SizedBox(width: 16.w, height: 16.w, child: CupertinoActivityIndicator(color: Colors.white)),
         ),
       ),

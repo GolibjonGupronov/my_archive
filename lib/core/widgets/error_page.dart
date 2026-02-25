@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/custom_button.dart';
+import 'package:my_archive/core/widgets/button.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 class ErrorPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class ErrorPage extends StatelessWidget {
           children: [
             const Icon(Icons.warning_rounded, color: Colors.red),
             16.height,
-            TextView("Something went wrong!", fontSize: 24.sp),
+            CustomTextView("Something went wrong!", fontSize: 24.sp),
             CustomButton("Go to Main Page", () => context.go(SplashPage.tag)),
           ],
         ),

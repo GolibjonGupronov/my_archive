@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/constants.dart';
 import 'package:my_archive/core/extensions/common.dart';
@@ -109,13 +110,19 @@ class CustomTextField extends StatefulWidget {
     return CustomTextField._(
       title,
       controller: controller,
-      hint: hint,
+      hint: hint ?? "+998 (00) 000-00-00",
       comment: comment,
       required: required,
       enabled: enabled,
       onChanged: onChanged,
       validate: validate,
-      inputFormatters: inputFormatters,
+      inputFormatters: inputFormatters ??
+          [
+            MaskTextInputFormatter(
+              mask: '+998 (##) ###-##-##',
+              type: MaskAutoCompletionType.eager,
+            )
+          ],
       inputType: TextInputType.phone,
       autofocus: autofocus,
       textFieldType: _EnumTextFieldType.phone,
@@ -280,7 +287,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   TextSpan(
                     text: widget.title,
                     style: AppTheme.textTheme.headlineMedium
-                        ?.copyWith(color: context.isDarkMode ? AppColors.white : AppColors.black),
+                        ?.copyWith(color: context.isDarkModeEnable ? AppColors.white : AppColors.black),
                   ),
                   if (widget.required)
                     TextSpan(
@@ -293,12 +300,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           if (widget.title.isNotEmpty) 10.height,
           Container(
             decoration: BoxDecoration(
-              color: context.isDarkMode ? AppColors.whiteDark : AppColors.foregroundSecondary,
+              color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
               border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: SizedBox(
-              height: 60.h,
+              height: widget.maxLines == null ? 60.h : null,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(
@@ -368,15 +375,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       children: [
                         Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                         4.width,
-                        Expanded(child: TextView(errorMessage)),
+                        Expanded(child: CustomTextView(errorMessage)),
                       ],
                     ),
                   )
                 : const SizedBox.shrink(),
           ),
-          if (widget.comment.isNotEmpty)...[
+          if (widget.comment.isNotEmpty) ...[
             4.height,
-            TextView(
+            CustomTextView(
               widget.comment,
               fontWeight: FontWeight.w400,
               color: AppColors.gray,

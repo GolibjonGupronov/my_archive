@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/widgets/custom_scaffold.dart';
+import 'package:my_archive/core/widgets/scaffold.dart';
 import 'package:my_archive/features/auth/presentation/phone/phone_page.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
