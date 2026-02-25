@@ -9,61 +9,14 @@ import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/custom_button.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
-enum MyDialogType {
-  none,
-  success,
-  error,
-  warning;
-
-  Widget? get icon => switch (this) {
-        MyDialogType.success => _myIcon(CupertinoIcons.checkmark_alt, Gradients.greenGradient),
-        MyDialogType.error => _myIcon(CupertinoIcons.clear, Gradients.redGradient),
-        MyDialogType.warning => _myIcon(CupertinoIcons.exclamationmark, Gradients.orangeGradient),
-        MyDialogType.none => null,
-      };
-
-  Widget _myIcon(IconData icon, Gradient gradient) {
-    return BoxContainer(size: 60.w, shape: BoxShape.circle, gradient: gradient, child: Icon(icon, color: AppColors.white));
-  }
-}
-
-class DialogButton {
-  final String text;
-  final Color textColor;
-  final Color buttonColor;
-
-  const DialogButton({
-    required this.text,
-    required this.textColor,
-    required this.buttonColor,
-  });
-
-  factory DialogButton.confirm({
-    String? text,
-  }) =>
-      DialogButton(
-        text: text ?? tr('yes'),
-        textColor: Colors.white,
-        buttonColor: AppColors.primary,
-      );
-
-  factory DialogButton.cancel({
-    String? text,
-  }) =>
-      DialogButton(
-        text: text ?? tr('no'),
-        textColor: Colors.black,
-        buttonColor: AppColors.lightGray,
-      );
-}
-
 Future<dynamic> showCustomDialog(
-  final BuildContext context,
-  final Widget child, {
+  final BuildContext context, {
+  required final Widget child,
   final bool barrierDismissible = false,
 }) async {
   return _generalDialog(
@@ -86,7 +39,7 @@ Future<dynamic> showConfirmDialog(
   final VoidCallback? onCancel,
   final DialogButton? confirmButton,
   final DialogButton? cancelButton,
-  final bool barrierDismissible = true,
+  final bool barrierDismissible = false,
   final MyDialogType type = MyDialogType.none,
 }) async {
   return _generalDialog(
@@ -114,7 +67,7 @@ Future<dynamic> showSuccessDialog(
   String? subTitle,
   VoidCallback? onConfirm,
   DialogButton? confirmButtonStyle,
-  bool barrierDismissible = true,
+  bool barrierDismissible = false,
 }) async {
   return _generalDialog(
     context: context,
@@ -137,7 +90,7 @@ Future<dynamic> showWarningDialog(
   String? subTitle,
   VoidCallback? onConfirm,
   DialogButton? confirmButtonStyle,
-  bool barrierDismissible = true,
+  bool barrierDismissible = false,
 }) async {
   return _generalDialog(
     context: context,
@@ -160,7 +113,7 @@ Future<void> showErrorDialog(
   String? subTitle,
   VoidCallback? onConfirm,
   DialogButton? confirmButtonStyle,
-  bool barrierDismissible = true,
+  bool barrierDismissible = false,
 }) async {
   return await _generalDialog(
     context: context,
@@ -175,6 +128,58 @@ Future<void> showErrorDialog(
       type: MyDialogType.error,
     ),
   );
+}
+
+enum MyDialogType {
+  none,
+  success,
+  error,
+  warning;
+
+  Widget? get icon => switch (this) {
+        MyDialogType.success => _myIcon(CupertinoIcons.checkmark_alt, Gradients.greenGradient),
+        MyDialogType.error => _myIcon(CupertinoIcons.clear, Gradients.redGradient),
+        MyDialogType.warning => _myIcon(CupertinoIcons.exclamationmark, Gradients.orangeGradient),
+        MyDialogType.none => null,
+      };
+
+  Widget _myIcon(IconData icon, Gradient gradient) {
+    return BoxContainer(size: 60.w, shape: BoxShape.circle, gradient: gradient, child: Icon(icon, color: AppColors.white));
+  }
+}
+
+class DialogButton {
+  final String text;
+  final Color textColor;
+  final Color buttonColor;
+
+  const DialogButton._({
+    required this.text,
+    required this.textColor,
+    required this.buttonColor,
+  });
+
+  factory DialogButton.confirm({
+    String? text,
+    Color? textColor,
+    Color? buttonColor,
+  }) =>
+      DialogButton._(
+        text: text ?? tr('yes'),
+        textColor: textColor ?? Colors.white,
+        buttonColor: buttonColor ?? AppColors.primary,
+      );
+
+  factory DialogButton.cancel({
+    String? text,
+    Color? textColor,
+    Color? buttonColor,
+  }) =>
+      DialogButton._(
+        text: text ?? tr('no'),
+        textColor: textColor ?? Colors.black,
+        buttonColor: buttonColor ?? AppColors.lightGray,
+      );
 }
 
 Future<void> _generalDialog({
@@ -331,11 +336,11 @@ class _CustomDialog extends StatelessWidget {
                             if (ic != null) 12.height,
                             TextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
                             if (subTitle != null) 8.height,
-                            if (subTitle != null) TextView(subTitle!, textAlign: subTitleAlignment, color: AppColors.gray),
+                            if (subTitle != null) TextView(subTitle!, textAlign: subTitleAlignment, style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
                             24.height,
                             Row(
                               children: [
-                                if (visibleCancel)
+                                if (visibleCancel) ...[
                                   Expanded(
                                     child: CustomButton(
                                       cancelButton.text,
@@ -347,7 +352,8 @@ class _CustomDialog extends StatelessWidget {
                                       textColor: cancelButton.textColor,
                                     ),
                                   ),
-                                if (visibleCancel) 10.width,
+                                  10.width
+                                ],
                                 Expanded(
                                   child: CustomButton(
                                     confirmButton.text,

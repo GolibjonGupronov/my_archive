@@ -52,5 +52,5 @@ extension SizedBoxExtensions on num {
 
   SizedBox get width => SizedBox(width: toDouble().w);
 
-  SizedBox get square => SizedBox(width: toDouble().w, height: toDouble().w);
+  SizedBox get box => SizedBox(width: toDouble().w, height: toDouble().w);
 }

@@ -19,7 +19,6 @@ import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/error_page.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:get/get.dart';
 
 final Alice alice = Alice(showNotification: false);
 final GlobalKey<OverlayState> overlayKey = GlobalKey<OverlayState>();
@@ -206,8 +205,7 @@ class _MyAppState extends State<MyApp> {
     final next = currentLang.next;
     pref.setLanguage(next);
     context.setLocale(next.locale);
-    await Get.updateLocale(next.locale);
-    initializeDateFormatting(next.key);
+    await initializeDateFormatting(next.key);
     _debugOverlayEntry?.markNeedsBuild();
   }
 }

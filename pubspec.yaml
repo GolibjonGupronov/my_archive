@@ -27,7 +27,7 @@ dependencies:
   overlay_support: ^2.1.0
   adaptive_theme: ^3.7.2
   intl: ^0.20.2
-  get: ^4.7.3
+#  get: ^4.7.3
   equatable: ^2.0.8
   flutter_svg: ^2.2.3
   photo_view: ^0.15.0
@@ -39,6 +39,10 @@ dependencies:
   bottom_sheet: ^4.0.4
   modal_bottom_sheet: ^3.0.0
   fluttertoast: ^9.0.0
+  image_cropper: ^11.0.0
+  permission_handler: ^12.0.1
+  geolocator: ^14.0.2
+  image_picker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -68,3 +72,15 @@ flutter:
     - assets/languages/
     - assets/fonts/
     - .env
+
+  fonts:
+    - family: Aeonik-Pro
+      fonts:
+        - asset: assets/fonts/aeonik_pro/Aeonik-Pro-Black.ttf
+          weight: 900
+        - asset: assets/fonts/aeonik_pro/Aeonik-Pro-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/aeonik_pro/Aeonik-Pro-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/aeonik_pro/Aeonik-Pro-Regular.ttf
+          weight: 400

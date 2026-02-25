@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/widgets/custom_scaffold.dart';
 import 'package:my_archive/features/auth/presentation/phone/phone_page.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
@@ -32,12 +33,11 @@ class SplashPage extends StatelessWidget {
           toast(state.errorMessage);
         } else if (state.splashStatus.isSuccess) {
           if (state.nextPage == NextPage.auth) {
-            context.push(PhonePage.tag);
+            context.go(PhonePage.tag);
           }
         }
       },
-      child: Scaffold(
-        appBar: AppBar(),
+      child: CustomScaffold(
         body: Center(
           child: CircularProgressIndicator(),
         ),

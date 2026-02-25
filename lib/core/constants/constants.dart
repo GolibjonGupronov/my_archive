@@ -4,4 +4,5 @@ class Constants {
   static const Duration dioTimeOut = Duration(seconds: 60);
   static const int afterDot = 2;
   static const int passwordLength = 8;
+  static const int toastDuration = 3;
 }

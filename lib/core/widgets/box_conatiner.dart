@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/common.dart';
 
 class BoxContainer extends StatelessWidget {
   final Widget? child;
@@ -16,6 +16,7 @@ class BoxContainer extends StatelessWidget {
   final Gradient? gradient;
   final BoxShape shape;
   final Color? shadowColor;
+  final List<BoxShadow> shadows;
   final double blurRadius;
 
   const BoxContainer({
@@ -32,6 +33,7 @@ class BoxContainer extends StatelessWidget {
     this.constraints,
     this.gradient,
     this.shadowColor,
+    this.shadows = const [],
     this.shape = BoxShape.rectangle,
     this.blurRadius = 12,
   });
@@ -43,17 +45,18 @@ class BoxContainer extends StatelessWidget {
       height: size ?? height,
       constraints: constraints,
       decoration: BoxDecoration(
-        boxShadow: withShadow
-            ? [
-                BoxShadow(
-                  color: shadowColor ?? AppColors.shadow.withValues(alpha: 0.08),
-                  spreadRadius: 1,
-                  blurRadius: blurRadius,
-                  offset: const Offset(1, 1),
-                ),
-              ]
-            : [],
-        color: gradient != null ? null : (color ?? AppColors.white),
+        boxShadow: shadows.isNotEmpty
+            ? shadows
+            : withShadow
+                ? [
+                    BoxShadow(
+                        color: shadowColor ?? AppColors.shadow.withValues(alpha: 0.08),
+                        spreadRadius: 1,
+                        blurRadius: blurRadius,
+                        offset: const Offset(1, 1))
+                  ]
+                : [],
+        color: gradient != null ? null : (color ?? (context.isDarkMode ? AppColors.whiteDark : AppColors.white)),
         borderRadius: borderRadius,
         border: border,
         gradient: gradient,

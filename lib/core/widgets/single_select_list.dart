@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/custom_text_field.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 class SingleSelectItemModel {
   final String title;
@@ -14,20 +17,20 @@ class SingleSelectItemModel {
   SingleSelectItemModel(this.title, this.value, {this.extraVisibleValues = const []});
 }
 
-class SingleSelectListPage extends StatefulWidget {
+class SingleSelectListWidget extends StatefulWidget {
   final List<SingleSelectItemModel> items;
   final dynamic selectedItem;
   final Function(dynamic item) onSelect;
   final ScrollController scrollController;
 
-  const SingleSelectListPage(
+  const SingleSelectListWidget(
       {super.key, required this.items, required this.selectedItem, required this.onSelect, required this.scrollController});
 
   @override
-  State<SingleSelectListPage> createState() => _SingleSelectListPageState();
+  State<SingleSelectListWidget> createState() => _SingleSelectListWidgetState();
 }
 
-class _SingleSelectListPageState extends State<SingleSelectListPage> {
+class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
   late dynamic _selectedItem;
   List<SingleSelectItemModel> lists = [];
   final TextEditingController _searchController = TextEditingController();
@@ -53,8 +56,7 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
             });
           }),
           12.height,
-          Text(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "* Qidiruv natijalari",
-              style: AppTheme.textTheme.titleLarge!.copyWith(color: AppColors.black)),
+          TextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
           12.height,
           Expanded(
             child: lists.isEmpty
@@ -64,9 +66,7 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
                       12.height,
                       Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
                       4.height,
-                      Text("Topilmadi",
-                          textAlign: TextAlign.center,
-                          style: AppTheme.textTheme.headlineSmall!.copyWith(color: AppColors.orange)),
+                      TextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
                     ],
                   )
                 : ListView.builder(
@@ -81,25 +81,21 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
                             widget.onSelect(item.value);
                             Navigator.pop(context);
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(
-                                    color: item.value == _selectedItem ? AppColors.green.withValues(alpha: .5) : AppColors.gray)),
-                            padding: EdgeInsets.all(14.w),
+                          child: BoxContainer(
+                            borderRadius: BorderRadius.circular(16.r),
+                            border: Border.all(
+                                color: item.value == _selectedItem
+                                    ? AppColors.primary.withValues(alpha: .5)
+                                    : (context.isDarkMode ? AppColors.gray : AppColors.lightGray)),
+                            padding: EdgeInsets.all(18.w),
                             child: Row(
                               children: [
-                                Icon(
-                                  item.value == _selectedItem ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked,
-                                  color: item.value == _selectedItem ? AppColors.green : AppColors.gray,
-                                ),
-                                8.width,
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      Text(item.title, style: AppTheme.textTheme.headlineMedium?.copyWith(color: Colors.black)),
-                                      ...item.extraVisibleValues.map((e) => Text(e)),
+                                      TextView(item.title),
+                                      ...item.extraVisibleValues.map((e) => TextView(e)),
                                     ],
                                   ),
                                 ),

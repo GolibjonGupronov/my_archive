@@ -33,7 +33,7 @@ class TextView extends StatelessWidget {
       maxLines: maxLines,
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
       style: style ??
-          AppTheme.textTheme.headlineSmall?.copyWith(
+          AppTheme.textTheme.headlineMedium?.copyWith(
             color: color,
             fontSize: fontSize,
             fontWeight: fontWeight,

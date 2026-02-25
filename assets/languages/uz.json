@@ -13,8 +13,20 @@
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
   },
+  "choose_time": "Vaqt tanlang",
+  "save": "Saqlash",
+  "max_image_size": "Rasmning maksimal hajmi {}MB bo'lishi kerak!",
+  "photo": "Rasm",
+  "camera": "Kamera",
+  "cancel": "Bekor qilish",
+  "allow_access_camera": "Kameraga kirish uchun ruxsat bering.",
+  "no": "Yo'q",
+  "exit_confirm_subtitle": "Chiqsangiz, o‘zgarishlar bekor qilinadi.",
+  "exit_confirm_title": "Saqlamasdan chiqilsinmi?",
+  "again_to_exit": "Chiqish uchun yana bir bor orqaga bosing",
   "min_chars_required": "Kamida {} ta belgi kiriting.",
   "enter_password": "Parol kiriting",
   "enter_comment": "Izoh kiriting",
-  "field_required": "Bu maydon majburiy"
+  "field_required": "Bu maydon majburiy",
+  "yes": "Ha"
 }

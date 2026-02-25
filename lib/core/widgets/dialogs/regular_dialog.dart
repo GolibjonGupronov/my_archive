@@ -1,53 +1,81 @@
-import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/services/permissions/permissions.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/custom_button.dart';
 import 'package:my_archive/core/widgets/custom_calendar_view.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
-Future<void> showFlexibleBottomSheetDialog({
+Future<void> showDraggableBottomSheet({
   required BuildContext context,
-  required Widget child,
-  bool isDismissible = true,
-}) {
-  return showFlexibleBottomSheet(
-      minHeight: 0,
-      initHeight: .5,
-      maxHeight: .9,
-      context: context,
-      bottomSheetBorderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-      builder: (context, scrollController, offset) => PopScope(
-            canPop: isDismissible,
-            child: ListView(
-              controller: scrollController,
-              primary: false,
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                4.height,
-                Center(
-                  child: Container(
-                    width: 36.w,
-                    height: 4.h,
-                    margin: EdgeInsets.all(8.w),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.r), color: AppColors.gray),
+  required Widget Function(ScrollController controller) childBuilder,
+  String title = "",
+}) async {
+  return showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (_) => Material(
+      color: context.isDarkMode ? AppColors.scaffoldDarkBackground : AppColors.white,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        minChildSize: 0.5,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ListView(
+                shrinkWrap: true,
+                controller: scrollController,
+                children: [
+                  Center(
+                      child: Container(
+                          width: 50.w,
+                          height: 4.h,
+                          margin: EdgeInsets.only(top: 6.h),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.r), color: AppColors.gray))),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: Row(
+                      children: [
+                        Expanded(child: Text(title, style: AppTheme.textTheme.displayLarge)),
+                        GestureDetector(
+                          onTap: () => context.pop(),
+                          child: Container(
+                            padding: EdgeInsets.all(10.w),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: context.isDarkMode ? AppColors.whiteDark : AppColors.lightGray),
+                            child: Icon(CupertinoIcons.xmark, size: 14.w, color: AppColors.gray),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                2.height,
-                child
-              ],
-            ),
-          ),
-      anchors: [0, 0.5, .9],
-      isSafeArea: true,
-      useRootScaffold: false,
-      isDismissible: isDismissible);
+                ],
+              ),
+              8.height,
+              Flexible(child: childBuilder(scrollController))
+            ],
+          );
+        },
+      ),
+    ),
+  );
 }
 
 Future<void> showCustomBottomSheetDialog({
@@ -180,4 +208,94 @@ Future<void> showCustomTimePicker(
       ],
     ),
   );
+}
+
+Future<void> showFilePicker(
+    {required BuildContext ctx,
+    required Function(String path) onResult,
+    CropAspectRatioPreset initAspectRatio = CropAspectRatioPreset.original}) async {
+  showCupertinoModalPopup(
+      context: ctx,
+      builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () async {
+                    router.pop();
+                    if (!await HandlePermission.cameraIsGranted) {
+                      showErrorToast(ctx, tr('allow_access_camera'));
+                      return;
+                    }
+                    final pickedImage = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 60);
+                    // if (pickedImage != null) {
+                    //   if ((await pickedImage.length()) > 1024 * 1024 * 8) {
+                    //     showErrorToast(ctx, tr('max_image_size'.plural(8)));
+                    //   } else {
+                    //     onResult(pickedImage.path);
+                    //   }
+                    // }
+                    if (pickedImage != null) {
+                      if (initAspectRatio == CropAspectRatioPreset.original) {
+                        onResult(pickedImage.path);
+                      } else {
+                        _cropImage(
+                            imagePath: pickedImage.path,
+                            initAspectRatio: initAspectRatio,
+                            result: (String path) {
+                              onResult(path);
+                            });
+                      }
+                    }
+                  },
+                  child: TextView(tr('camera'))),
+              CupertinoActionSheetAction(
+                  onPressed: () async {
+                    router.pop();
+                    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                    if (pickedImage != null) {
+                      if (initAspectRatio == CropAspectRatioPreset.original) {
+                        onResult(pickedImage.path);
+                      } else {
+                        _cropImage(
+                            imagePath: pickedImage.path,
+                            initAspectRatio: initAspectRatio,
+                            result: (String path) {
+                              onResult(path);
+                            });
+                      }
+                    }
+                  },
+                  child: TextView(tr('photo'))),
+            ],
+            cancelButton: CupertinoActionSheetAction(
+                onPressed: () {
+                  context.pop();
+                },
+                child: TextView(tr('cancel'), color: AppColors.red)),
+          ));
+}
+
+Future<void> _cropImage({
+  required String imagePath,
+  required CropAspectRatioPreset initAspectRatio,
+  required Function(String path) result,
+}) async {
+  CroppedFile? croppedFile = await ImageCropper().cropImage(
+    sourcePath: imagePath,
+    aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+    uiSettings: [
+      AndroidUiSettings(
+        toolbarTitle: 'Rasmni qirqish',
+        initAspectRatio: initAspectRatio,
+        lockAspectRatio: true,
+      ),
+      IOSUiSettings(
+        title: 'Rasmni qirqish',
+        aspectRatioLockEnabled: true,
+      ),
+    ],
+  );
+
+  if (croppedFile != null) {
+    result(croppedFile.path);
+  }
 }

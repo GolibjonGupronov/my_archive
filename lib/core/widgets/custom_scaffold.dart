@@ -4,6 +4,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 typedef UnsavedChangesChecker = bool Function();
 typedef WillPop = Future<bool> Function();
@@ -22,6 +25,7 @@ class CustomScaffold extends StatefulWidget {
   final bool isBottomSafe;
   final bool isTopSafe;
   final String? dialogSubtitle;
+  final bool isExitDialog;
 
   const CustomScaffold({
     super.key,
@@ -38,6 +42,7 @@ class CustomScaffold extends StatefulWidget {
     this.onWillPop,
     this.dialogTitle,
     this.dialogSubtitle,
+    this.isExitDialog = false,
   });
 
   @override
@@ -49,12 +54,28 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    const int duration = 2;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, value) async {
         if (didPop) return;
 
         if (!widget.canPop) return;
+
+        if (widget.isExitDialog) {
+          final now = DateTime.now();
+          if (_lastBackPressed == null || now.difference(_lastBackPressed!) > const Duration(seconds: duration)) {
+            _lastBackPressed = now;
+            showInfoToast(context, tr('again_to_exit'), second: duration);
+          } else {
+            if (Platform.isAndroid) {
+              SystemNavigator.pop();
+            } else {
+              exit(0);
+            }
+          }
+          return;
+        }
 
         if (widget.onWillPop != null) {
           final allowed = await widget.onWillPop?.call() ?? true;
@@ -65,32 +86,17 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
         final hasChanges = widget.hasUnsavedChanges?.call() ?? false;
 
-        if (!hasChanges) {
-          if (router.canPop()) {
-            router.pop();
-          } else {
-            final now = DateTime.now();
-            if (_lastBackPressed == null || now.difference(_lastBackPressed!) > const Duration(seconds: 2)) {
-              _lastBackPressed = now;
-              // showSuccessToast(context, tr('again_to_exit'));
-            } else {
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-              } else {
-                exit(0);
-              }
-            }
-          }
+        if (hasChanges) {
+          await showConfirmDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
+              subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
+              onConfirm: () => router.pop(),
+              type: MyDialogType.warning);
           return;
         }
 
-        // await showConfirmDialog(
-        //   context,
-        //   widget.dialogTitle ?? tr('exit_confirm_title'),
-        //   subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
-        //   onConfirm: () => router.pop(),
-        //   type: MyDialogType.warning,
-        // );
+        if (router.canPop()) {
+          router.pop();
+        }
       },
       child: SafeArea(
         top: widget.isTopSafe,

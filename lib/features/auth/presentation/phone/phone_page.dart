@@ -1,9 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
+import 'package:my_archive/core/extensions/common.dart';
+import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/widgets/box_conatiner.dart';
+import 'package:my_archive/core/widgets/custom_app_bar.dart';
+import 'package:my_archive/core/widgets/custom_button.dart';
+import 'package:my_archive/core/widgets/custom_scaffold.dart';
+import 'package:my_archive/core/widgets/custom_select_field.dart';
+import 'package:my_archive/core/widgets/custom_text_field.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
+import 'package:my_archive/core/widgets/dialogs/regular_dialog.dart';
+import 'package:my_archive/core/widgets/single_select_list.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';
@@ -24,7 +33,8 @@ class PhonePage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<PhoneBloc>(context);
-
+    final List<SingleSelectItemModel> items =
+        List<SingleSelectItemModel>.generate(80, (i) => SingleSelectItemModel("G'olibjon $i", i,extraVisibleValues: ["sdfghjk"])); //
 
     return BlocListener<PhoneBloc, PhoneState>(
       listener: (context, state) {
@@ -35,14 +45,50 @@ class PhonePage extends StatelessWidget {
           toast("success ${state.authNextPage}");
         }
       },
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                bloc.add(SendPhoneEvent(phone: "+998999940941"));
-              },
-              child: Text("ok")),
+      child: CustomScaffold(
+        isExitDialog: true,
+        appBar: CustomAppBar(
+          "My Archive",
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              BoxContainer(padding: EdgeInsets.all(8), borderRadius: BorderRadius.circular(16), withShadow: true, child: 100.box),
+              16.height,
+              CustomButton("ok", () {
+                // showCustomDialog(context, child:Container(color: Colors.red,child: Text("data")));
+                // showConfirmDialog(context, "NImadur", subTitle: "erfghjk",type: MyDialogType.warning);
+                // showSuccessDialog(context,title:  "NImadur", subTitle: "erfghjk");
+                showErrorToast(context, "message");
+              }, active: true, progress: false, icon: CupertinoIcons.add_circled_solid),
+              16.height,
+              CustomSelectField(
+                "title",
+                "hint",
+                () {
+                  showDraggableBottomSheet(
+                      context: context,
+                      childBuilder: (controller) => SingleSelectListWidget(
+                          items: items,
+                          selectedItem: 1,
+                          onSelect: (item) {
+                          },
+                          scrollController: controller),title: "");
+                },
+                comment: "iyhgj",
+                progress: false,
+                value: "",
+              ),
+              16.height,
+              CustomTextField(
+                "title",
+                comment: "sdccs",
+
+              ),
+              16.height,
+            ],
+          ),
         ),
       ),
     );

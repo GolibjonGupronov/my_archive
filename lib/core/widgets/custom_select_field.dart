@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomSelectField extends StatelessWidget {
   final String title;
+  final TextStyle? titleStyle;
   final String hint;
   final VoidCallback onTap;
   final String value;
@@ -15,6 +18,7 @@ class CustomSelectField extends StatelessWidget {
   final String errorText;
   final Widget? rightWidget;
   final bool progress;
+  final bool required;
 
   const CustomSelectField(
     this.title,
@@ -25,8 +29,10 @@ class CustomSelectField extends StatelessWidget {
     this.value = "",
     this.comment = "",
     this.errorText = "",
-    this.rightWidget = const Icon(CupertinoIcons.chevron_down, color: AppColors.hint),
+    this.required = false,
+    this.rightWidget = const Icon(CupertinoIcons.chevron_down, color: AppColors.hint, size: 22),
     this.progress = false,
+    this.titleStyle,
   });
 
   @override
@@ -36,21 +42,30 @@ class CustomSelectField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (title.isNotEmpty)
+          if (title.isNotEmpty) ...[
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(text: title),
+                  TextSpan(
+                    text: title,
+                    style: titleStyle ??
+                        AppTheme.textTheme.headlineMedium
+                            ?.copyWith(color: context.isDarkMode ? AppColors.white : AppColors.black),
+                  ),
+                  if (required)
+                    TextSpan(
+                      text: " *",
+                      style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.red),
+                    ),
                 ],
               ),
             ),
-          if (title.isNotEmpty) 10.height,
+            10.height
+          ],
           Container(
             decoration: BoxDecoration(
-              color: AppColors.foregroundSecondary,
-              border: errorText.isNotEmpty
-                  ? Border.all(color: AppColors.red, width: 0.8)
-                  : Border.all(color: AppColors.hint, width: 0.8),
+              color: context.isDarkMode ? AppColors.whiteDark : AppColors.foregroundSecondary,
+              border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
               borderRadius: BorderRadius.circular(16.r),
             ),
             child: InkWell(
@@ -60,22 +75,25 @@ class CustomSelectField extends StatelessWidget {
                   onTap();
                 }
               },
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
-                child: SizedBox(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: value.isNotEmpty
-                            ? TextView(value, fontWeight: FontWeight.w500)
-                            : TextView(hint, color: AppColors.hint),
-                      ),
-                      if (rightWidget != null || progress)
-                        progress
-                            ? Center(
-                                child: Padding(padding: EdgeInsets.all(2.w), child: CupertinoActivityIndicator(radius: 10.r)))
-                            : rightWidget!,
-                    ],
+              child: SizedBox(
+                height: 60.h,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+                  child: SizedBox(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: value.isNotEmpty
+                              ? TextView(value, fontWeight: FontWeight.w500)
+                              : TextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
+                        ),
+                        if (rightWidget != null || progress)
+                          progress
+                              ? Center(
+                                  child: Padding(padding: EdgeInsets.all(2.w), child: CupertinoActivityIndicator(radius: 10.r)))
+                              : rightWidget!,
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -92,11 +110,14 @@ class CustomSelectField extends StatelessWidget {
                 ],
               ),
             ),
-          if (comment.isNotEmpty)
-            Container(
-              padding: const EdgeInsets.only(top: 4),
-              child: TextView(comment),
-            ),
+          if (comment.isNotEmpty) ...[
+            4.height,
+            TextView(
+              comment,
+              fontWeight: FontWeight.w400,
+              color: AppColors.gray,
+            )
+          ],
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/extensions/string.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
@@ -278,7 +279,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 children: [
                   TextSpan(
                     text: widget.title,
-                    style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.red),
+                    style: AppTheme.textTheme.headlineMedium
+                        ?.copyWith(color: context.isDarkMode ? AppColors.white : AppColors.black),
                   ),
                   if (widget.required)
                     TextSpan(
@@ -291,77 +293,68 @@ class _CustomTextFieldState extends State<CustomTextField> {
           if (widget.title.isNotEmpty) 10.height,
           Container(
             decoration: BoxDecoration(
-              color: AppColors.foregroundSecondary,
-              border: Border.all(color: errorMessage.isNotEmpty ? AppColors.red : AppColors.hint, width: 0.8),
+              color: context.isDarkMode ? AppColors.whiteDark : AppColors.foregroundSecondary,
+              border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
               borderRadius: BorderRadius.circular(12.r),
             ),
-            child: IntrinsicHeight(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            child: TextField(
-                              textInputAction: widget.textInputAction,
-                              enabled: widget.enabled,
-                              obscureText: widget.obscureText ? hiddenPassword : false,
-                              decoration: InputDecoration(
-                                counterText: "",
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                hintText: widget.hint ?? widget.title,
-                                hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: AppColors.hint,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(vertical: 18.h),
-                                isDense: true,
-                                suffixText: null,
-                              ),
-                              autofocus: widget.autofocus,
-                              inputFormatters: widget.inputFormatters,
-                              style: AppTheme.textTheme.headlineSmall,
-                              focusNode: focusNode,
-                              controller: widget.controller,
-                              keyboardType: widget.inputType,
-                              minLines: widget.obscureText ? null : widget.minLines,
-                              maxLines: widget.obscureText ? 1 : (widget.maxLines ?? 1),
-                              onChanged: (v) {
-                                onChanged(v);
-                              },
-                              maxLength: widget.maxLength,
+            child: SizedBox(
+              height: 60.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        textInputAction: widget.textInputAction,
+                        enabled: widget.enabled,
+                        obscureText: widget.obscureText ? hiddenPassword : false,
+                        decoration: InputDecoration(
+                          counterText: "",
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          hintText: widget.hint ?? widget.title,
+                          hintStyle: AppTheme.textTheme.headlineSmall,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 18.h),
+                          isDense: true,
+                          suffixText: null,
+                        ),
+                        autofocus: widget.autofocus,
+                        inputFormatters: widget.inputFormatters,
+                        style: AppTheme.textTheme.headlineMedium,
+                        focusNode: focusNode,
+                        controller: widget.controller,
+                        keyboardType: widget.inputType,
+                        minLines: widget.obscureText ? null : widget.minLines,
+                        maxLines: widget.obscureText ? 1 : (widget.maxLines ?? 1),
+                        onChanged: (v) {
+                          onChanged(v);
+                        },
+                        maxLength: widget.maxLength,
+                      ),
+                    ),
+                    if (widget.obscureText)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              hiddenPassword = !hiddenPassword;
+                            });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
+                              width: 24.w,
+                              color: hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3),
                             ),
                           ),
                         ),
-                        if (widget.obscureText)
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  hiddenPassword = !hiddenPassword;
-                                });
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 16.w),
-                                child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
-                                  width: 24.w,
-                                  color: hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -381,8 +374,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   )
                 : const SizedBox.shrink(),
           ),
-          if (widget.comment.isNotEmpty)
-            Container(padding: EdgeInsets.only(top: 4.h), child: TextView(widget.comment)),
+          if (widget.comment.isNotEmpty)...[
+            4.height,
+            TextView(
+              widget.comment,
+              fontWeight: FontWeight.w400,
+              color: AppColors.gray,
+            )
+          ],
         ],
       ),
     );
