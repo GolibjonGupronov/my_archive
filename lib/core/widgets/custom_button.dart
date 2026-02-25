@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/custom_text_view.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
-class CustomButton extends StatefulWidget {
+class CustomButton extends StatelessWidget {
   final String text;
-  final Function onClick;
-  final Function? onClickDisabled;
+  final VoidCallback onClick;
+  final VoidCallback? onClickDisabled;
   final bool active;
   final bool progress;
   final String? icon;
@@ -29,55 +29,39 @@ class CustomButton extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return CustomButtonState();
-  }
-}
-
-class CustomButtonState extends State<CustomButton> {
-  @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: ThemeData.fallback().splashColor,
       highlightColor: ThemeData.fallback().highlightColor,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       onTap: () {
-        if (widget.active && !widget.progress) {
-          widget.onClick();
-        } else if (!widget.active && widget.onClickDisabled != null) {
-          widget.onClickDisabled!();
+        if (active && !progress) {
+          onClick;
+        } else if (!active && onClickDisabled != null) {
+          onClickDisabled;
         }
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: widget.fillColor ?? (widget.active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.4)),
-          gradient: widget.fillColor != null
-              ? null
-              : widget.active
-                  ? Gradients.primaryGradient
-                  : null,
+          color: fillColor ?? (active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.4)),
+          gradient: fillColor == null && active ? Gradients.primaryGradient : null,
         ),
         child: Center(
-          child: !widget.progress
-              ? widget.icon != null
+          child: !progress
+              ? icon != null
                   ? Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          widget.icon!,
-                          width: 18,
-                          height: 18,
-                          color: Colors.white,
-                        ),
+                        Image.asset(icon!, width: 18.w, height: 18.h, color: Colors.white),
                         4.width,
-                        CustomTextView(widget.text, textColor: widget.textColor ?? Colors.white, maxLines: 1),
+                        TextView(text, color: textColor ?? Colors.white, maxLines: 1),
                       ],
                     )
-                  : CustomTextView(widget.text, textColor: widget.textColor ?? Colors.white, maxLines: 1)
+                  : TextView(text, color: textColor ?? Colors.white, maxLines: 1)
               : SizedBox(width: 16.w, height: 16.w, child: CupertinoActivityIndicator(color: Colors.white)),
         ),
       ),

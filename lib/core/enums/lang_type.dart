@@ -26,7 +26,7 @@ enum LangType {
         LangType.ru => "Русский",
       };
 
-  String get iconSvg => switch (this) {
+  SvgGenImage get iconSvg => switch (this) {
         LangType.uz => Assets.icons.flagUz,
         LangType.ru => Assets.icons.flagRu,
       };

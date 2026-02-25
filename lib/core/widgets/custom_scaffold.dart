@@ -72,7 +72,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             final now = DateTime.now();
             if (_lastBackPressed == null || now.difference(_lastBackPressed!) > const Duration(seconds: 2)) {
               _lastBackPressed = now;
-              showSuccessToast(context, tr('again_to_exit'));
+              // showSuccessToast(context, tr('again_to_exit'));
             } else {
               if (Platform.isAndroid) {
                 SystemNavigator.pop();
@@ -84,13 +84,13 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           return;
         }
 
-        await showConfirmDialog(
-          context,
-          widget.dialogTitle ?? tr('exit_confirm_title'),
-          subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
-          onConfirm: () => router.pop(),
-          type: MyDialogType.warning,
-        );
+        // await showConfirmDialog(
+        //   context,
+        //   widget.dialogTitle ?? tr('exit_confirm_title'),
+        //   subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
+        //   onConfirm: () => router.pop(),
+        //   type: MyDialogType.warning,
+        // );
       },
       child: SafeArea(
         top: widget.isTopSafe,

@@ -81,7 +81,7 @@ class _CustomImageViewState extends State<CustomImageView> {
         imageUrl: widget.pathOrUrl!,
         cacheManager: CustomCacheManager.instance,
         placeholder: (context, url) => const Center(child: CupertinoActivityIndicator()),
-        errorWidget: (context, url, error) => Container(),
+        errorWidget: (context, url, error) => SizedBox(),
         width: width,
         height: height,
         fit: isPortrait ? BoxFit.contain : widget.fit,

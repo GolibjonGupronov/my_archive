@@ -169,7 +169,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AdaptiveTheme.of(context).toggleThemeMode();
+                    AdaptiveTheme.of(context).toggleThemeMode(useSystem: false);
                     _debugOverlayEntry?.markNeedsBuild();
                   },
                   child: Material(
@@ -181,7 +181,7 @@ class _MyAppState extends State<MyApp> {
                       child: Center(
                         child: Icon(
                           AdaptiveTheme.of(context).mode.isDark ? Icons.light_mode : Icons.dark_mode,
-                          color: AppColors.red,
+                          color: AppColors.white,
                           size: 20,
                         ),
                       ),

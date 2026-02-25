@@ -25,28 +25,32 @@ class AppTheme {
 
   static final lightTheme = ThemeData(
     useMaterial3: false,
-    textTheme: textTheme,
     dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
-    appBarTheme: AppBarTheme(backgroundColor: AppColors.white, elevation: 0),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldBackground),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.white,
+      elevation: 0,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColors.scaffoldBackground,
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
-    // fontFamily: FontFamily.aeonikPro,
-    colorScheme: ColorScheme(
+    fontFamily: FontFamily.aeonikPro,
+    colorScheme: const ColorScheme(
       // Background color
-      primary: AppColors.primary,
+      primary: AppColors.mainBlue,
       // Text color on primary
-      onPrimary: AppColors.black,
+      onPrimary: AppColors.mainText,
       // Secondary color
-      secondary: AppColors.blue,
+      secondary: AppColors.mainBlue,
       // Text color on secondary
-      onSecondary: Colors.black,
+      onSecondary: AppColors.textTertiaryLight,
       // Error color
-      error: AppColors.red,
+      error: AppColors.alertError500Base,
       // Text color on error
-      onError: AppColors.red,
+      onError: AppColors.alertError500Base,
       // Surface color
-      surface: AppColors.blue,
+      surface: AppColors.mainBlue,
       // Text color on surface
       onSurface: AppColors.white,
       // Brightness
@@ -56,32 +60,38 @@ class AppTheme {
 
   static final darkTheme = ThemeData(
     useMaterial3: false,
-    textTheme: textTheme,
-    dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
-    appBarTheme: AppBarTheme(backgroundColor: AppColors.white, elevation: 0),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldDarkBackground),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: AppColors.scaffoldDarkBackground,
-    // fontFamily: FontFamily.aeonikPro,
-    colorScheme: ColorScheme(
+    scaffoldBackgroundColor: AppColors.scaffoldBackgroundDark,
+    fontFamily: FontFamily.aeonikPro,
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.scaffoldBackgroundDark,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.scaffoldBackgroundDark,
+      elevation: 0,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColors.scaffoldBackgroundDark,
+    ),
+    colorScheme: const ColorScheme(
       // Background color
-      primary: AppColors.primaryDark,
+      primary: AppColors.mainBlue,
       // Text color on primary
-      onPrimary: AppColors.black,
+      onPrimary: AppColors.mainText,
       // Secondary color
-      secondary: AppColors.blue,
+      secondary: AppColors.mainBlue,
       // Text color on secondary
-      onSecondary: Colors.black,
+      onSecondary: AppColors.textTertiaryLight,
       // Error color
-      error: AppColors.red,
+      error: AppColors.alertError500Base,
       // Text color on error
-      onError: AppColors.red,
+      onError: AppColors.alertError500Base,
       // Surface color
-      surface: AppColors.blue,
+      surface: AppColors.mainBlue,
       // Text color on surface
       onSurface: AppColors.white,
       // Brightness
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
     ),
   );
 }

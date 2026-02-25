@@ -21,7 +21,7 @@ enum Gender {
         Gender.female => "female",
       };
 
-  String get iconSvg => switch (this) {
+  SvgGenImage get iconSvg => switch (this) {
         Gender.male => Assets.icons.male,
         Gender.female => Assets.icons.female,
       };

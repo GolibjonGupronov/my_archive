@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/custom_text_view.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomSelectField extends StatelessWidget {
   final String title;
   final String hint;
-  final Function onTap;
+  final VoidCallback onTap;
   final String value;
   final String comment;
   final bool enabled;
@@ -39,14 +40,7 @@ class CustomSelectField extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
-                    text: title,
-                    style: const TextStyle(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
+                  TextSpan(text: title),
                 ],
               ),
             ),
@@ -57,75 +51,51 @@ class CustomSelectField extends StatelessWidget {
               border: errorText.isNotEmpty
                   ? Border.all(color: AppColors.red, width: 0.8)
                   : Border.all(color: AppColors.hint, width: 0.8),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: InkWell(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               onTap: () {
                 if (enabled && !progress) {
                   onTap();
                 }
               },
-              child: IntrinsicHeight(
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                      child: SizedBox(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: value.isNotEmpty
-                                  ? CustomTextView(value, fontSize: 16, fontWeight: FontWeight.w500)
-                                  : CustomTextView(hint, textColor: AppColors.hint),
-                            ),
-                            if (rightWidget != null || progress)
-                              progress
-                                  ? const Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.0),
-                                        child: CupertinoActivityIndicator(radius: 10),
-                                      ),
-                                    )
-                                  : rightWidget!,
-                          ],
-                        ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+                child: SizedBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: value.isNotEmpty
+                            ? TextView(value, fontWeight: FontWeight.w500)
+                            : TextView(hint, color: AppColors.hint),
                       ),
-                    ),
-                  ],
+                      if (rightWidget != null || progress)
+                        progress
+                            ? Center(
+                                child: Padding(padding: EdgeInsets.all(2.w), child: CupertinoActivityIndicator(radius: 10.r)))
+                            : rightWidget!,
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
           if (errorText.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10.w),
               child: Row(
                 children: [
-                  const Icon(Icons.clear_rounded, color: AppColors.red, size: 18),
+                  Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                   4.width,
-                  Text(
-                    errorText,
-                    style: const TextStyle(
-                      color: AppColors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  TextView(errorText, color: AppColors.red),
                 ],
               ),
             ),
           if (comment.isNotEmpty)
             Container(
               padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                comment,
-                style: const TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              child: TextView(comment),
             ),
         ],
       ),

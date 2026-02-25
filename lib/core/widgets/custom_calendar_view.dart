@@ -6,7 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/custom_button.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomCalendarView extends StatefulWidget {
   final DateTime? minimumDate;
@@ -168,8 +170,9 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(24.r)), color: AppColors.white),
+                child: BoxContainer(
+                  borderRadius: BorderRadius.all(Radius.circular(24.r)),
+                  color: AppColors.white,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,13 +186,11 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  Text("Dan",
-                                      textAlign: TextAlign.left,
-                                      style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.gray)),
+                                  TextView("Dan", textAlign: TextAlign.left, color: AppColors.gray),
                                   4.height,
-                                  Text(
+                                  TextView(
                                     startDate != null ? DateFormat('EEE, dd MMM').format(startDate!) : '--/-- ',
-                                    style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.gray),
+                                    color: AppColors.gray,
                                   ),
                                 ],
                               ),
@@ -200,12 +201,10 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  Text("Gacha", style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.gray)),
+                                  TextView("Gacha", color: AppColors.gray),
                                   4.height,
-                                  Text(
-                                    endDate != null ? DateFormat('EEE, dd MMM').format(endDate!) : '--/-- ',
-                                    style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.gray),
-                                  ),
+                                  TextView(endDate != null ? DateFormat('EEE, dd MMM').format(endDate!) : '--/-- ',
+                                      color: AppColors.gray),
                                 ],
                               ),
                             )

@@ -9,7 +9,9 @@ import 'package:my_archive/core/constants/constants.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/extensions/string.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/utils/generated/assets.gen.dart';
 import 'package:my_archive/core/utils/thousands_formatter.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 enum _EnumTextFieldType { text, phone, password, thousandFormat }
 
@@ -276,16 +278,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 children: [
                   TextSpan(
                     text: widget.title,
-                    style: const TextStyle(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
+                    style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.red),
                   ),
                   if (widget.required)
-                    const TextSpan(
+                    TextSpan(
                       text: " *",
-                      style: TextStyle(color: AppColors.red, fontWeight: FontWeight.w500, fontSize: 16),
+                      style: AppTheme.textTheme.headlineMedium?.copyWith(color: AppColors.red),
                     ),
                 ],
               ),
@@ -301,7 +299,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               child: Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Row(
                       children: [
                         Expanded(
@@ -323,7 +321,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
                                 disabledBorder: InputBorder.none,
-                                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                                contentPadding: EdgeInsets.symmetric(vertical: 18.h),
                                 isDense: true,
                                 suffixText: null,
                               ),
@@ -352,14 +350,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                                 });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                // child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
-                                //   width: 24,
-                                //   colorFilter: ColorFilter.mode(
-                                //     hiddenPassword ? AppColors.primaryColor : AppColors.gray.withValues(alpha: 0.3),
-                                //     BlendMode.srcIn,
-                                //   ),
-                                // ),
+                                padding: EdgeInsets.only(left: 16.w),
+                                child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
+                                  width: 24.w,
+                                  color: hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3),
+                                ),
                               ),
                             ),
                           ),
@@ -375,30 +370,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
             curve: Curves.easeInOut,
             child: errorMessage.isNotEmpty
                 ? Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10.h),
                     child: Row(
                       children: [
-                        const Icon(Icons.clear_rounded, color: AppColors.red, size: 18),
+                        Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                         4.width,
-                        Expanded(
-                          child: Text(
-                            errorMessage,
-                            style: const TextStyle(color: AppColors.red, fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                        ),
+                        Expanded(child: TextView(errorMessage)),
                       ],
                     ),
                   )
                 : const SizedBox.shrink(),
           ),
           if (widget.comment.isNotEmpty)
-            Container(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                widget.comment,
-                style: const TextStyle(color: AppColors.gray, fontSize: 14, fontWeight: FontWeight.w400),
-              ),
-            ),
+            Container(padding: EdgeInsets.only(top: 4.h), child: TextView(widget.comment)),
         ],
       ),
     );

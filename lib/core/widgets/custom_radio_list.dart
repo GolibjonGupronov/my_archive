@@ -1,10 +1,11 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/custom_text_view.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomRadioList<T> extends StatelessWidget {
   final String title;
@@ -31,7 +32,7 @@ class CustomRadioList<T> extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (title.isNotEmpty) CustomTextView(title),
+          if (title.isNotEmpty) TextView(title),
           if (title.isNotEmpty) 10.height,
           DynamicHeightGridView(
             shrinkWrap: true,
@@ -59,8 +60,8 @@ class CustomRadioList<T> extends StatelessWidget {
                   child: BoxContainer(
                     key: ValueKey<bool>(isActive),
                     width: double.infinity,
-                    padding: EdgeInsets.all(16),
-                    borderRadius: BorderRadius.circular(16),
+                    padding: EdgeInsets.all(16.w),
+                    borderRadius: BorderRadius.circular(16.r),
                     color: isActive ? null : AppColors.white,
                     gradient: isActive ? Gradients.primaryGradient : null,
                     withShadow: true,
@@ -72,10 +73,9 @@ class CustomRadioList<T> extends StatelessWidget {
                         ),
                         10.width,
                         Expanded(
-                          child: CustomTextView(
+                          child: TextView(
                             getSegmentTitle(segment),
-                            textColor: isActive ? AppColors.white : AppColors.black,
-                            fontSize: 14,
+                            color: isActive ? AppColors.white : AppColors.black,
                             maxLines: 1,
                             textAlign: TextAlign.left,
                             fontWeight: isActive ? FontWeight.bold : FontWeight.w400,

@@ -20,13 +20,8 @@ class SingleSelectListPage extends StatefulWidget {
   final Function(dynamic item) onSelect;
   final ScrollController scrollController;
 
-  const SingleSelectListPage({
-    super.key,
-    required this.items,
-    required this.selectedItem,
-    required this.onSelect,
-    required this.scrollController
-  });
+  const SingleSelectListPage(
+      {super.key, required this.items, required this.selectedItem, required this.onSelect, required this.scrollController});
 
   @override
   State<SingleSelectListPage> createState() => _SingleSelectListPageState();
@@ -54,18 +49,18 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
         children: [
           CustomTextField("", hint: "Qidiruv", controller: _searchController, onChanged: (value) {
             setState(() {
-              lists = widget.items.where((e)=>e.title.toLowerCase().contains(value.toLowerCase())).toList();
+              lists = widget.items.where((e) => e.title.toLowerCase().contains(value.toLowerCase())).toList();
             });
           }),
           12.height,
-          Text(_searchController.text.isEmpty?"Ro'yxatdan toping":"* Qidiruv natijalari",
+          Text(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "* Qidiruv natijalari",
               style: AppTheme.textTheme.titleLarge!.copyWith(color: AppColors.black)),
           12.height,
           Expanded(
-            child: lists.isEmpty?
-                ListView(
-                  controller: widget.scrollController,
-                  children: [
+            child: lists.isEmpty
+                ? ListView(
+                    controller: widget.scrollController,
+                    children: [
                       12.height,
                       Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
                       4.height,
@@ -75,27 +70,27 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
                     ],
                   )
                 : ListView.builder(
-              controller: widget.scrollController,
-              itemBuilder: (_, position) {
-                final item = lists[position];
-                return Padding(
+                    controller: widget.scrollController,
+                    itemBuilder: (_, position) {
+                      final item = lists[position];
+                      return Padding(
                         padding: EdgeInsets.only(bottom: 8.h),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(16.r),
                           onTap: () {
                             widget.onSelect(item.value);
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16.r),
                                 border: Border.all(
                                     color: item.value == _selectedItem ? AppColors.green.withValues(alpha: .5) : AppColors.gray)),
                             padding: EdgeInsets.all(14.w),
                             child: Row(
                               children: [
-                          Icon(
-                            item.value == _selectedItem ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked,
+                                Icon(
+                                  item.value == _selectedItem ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked,
                                   color: item.value == _selectedItem ? AppColors.green : AppColors.gray,
                                 ),
                                 8.width,
@@ -108,17 +103,17 @@ class _SingleSelectListPageState extends State<SingleSelectListPage> {
                                     ],
                                   ),
                                 ),
-                        ],
-                      ),
-                    ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: lists.length,
+                    padding: EdgeInsets.zero,
                   ),
-                );
-              },
-              shrinkWrap: true,
-              primary: false,
-              itemCount: lists.length,
-              padding: EdgeInsets.zero,
-            ),
           ),
         ],
       ),

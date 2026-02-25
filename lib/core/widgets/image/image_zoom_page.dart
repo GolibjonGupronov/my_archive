@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/common.dart';
+import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/image/custom_image_view.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -64,7 +67,7 @@ class ImageZoomPageState extends State<ImageZoomPage> {
             alignment: Alignment.bottomCenter,
             child: SafeArea(
               child: SizedBox(
-                height: 70,
+                height: 70.h,
                 child: ListView.builder(
                   itemBuilder: (_, position) {
                     return InkWell(
@@ -73,11 +76,11 @@ class ImageZoomPageState extends State<ImageZoomPage> {
                         pageController.jumpToPage(_currentImage);
                       },
                       child: Container(
-                        height: 70,
-                        width: 80,
-                        margin: const EdgeInsets.all(8.0),
+                        height: 70.h,
+                        width: 80.w,
+                        margin: EdgeInsets.all(8.w),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                           child: Stack(
                             children: [
                               Container(
@@ -89,13 +92,11 @@ class ImageZoomPageState extends State<ImageZoomPage> {
                               if (_currentImage != position)
                                 Container(height: double.infinity, width: double.infinity, color: Colors.black54.withAlpha(150)),
                               if (_currentImage == position)
-                                Container(
+                                BoxContainer(
                                   height: double.infinity,
                                   width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: AppColors.primary, width: 2),
-                                  ),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(color: AppColors.primary, width: 2.w),
                                 ),
                             ],
                           ),
@@ -110,7 +111,7 @@ class ImageZoomPageState extends State<ImageZoomPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 8),
+            padding: EdgeInsets.only(top: context.safeTop(8)),
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(

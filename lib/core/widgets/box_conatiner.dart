@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 
 class BoxContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final bool withShadow;
   final BorderRadius? borderRadius;
   final EdgeInsets? padding;
@@ -19,7 +19,7 @@ class BoxContainer extends StatelessWidget {
   final double blurRadius;
 
   const BoxContainer({
-    required this.child,
+    this.child,
     super.key,
     this.color,
     this.size,
@@ -48,7 +48,7 @@ class BoxContainer extends StatelessWidget {
                 BoxShadow(
                   color: shadowColor ?? AppColors.shadow.withValues(alpha: 0.08),
                   spreadRadius: 1,
-                  blurRadius: blurRadius.r,
+                  blurRadius: blurRadius,
                   offset: const Offset(1, 1),
                 ),
               ]
