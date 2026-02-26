@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomAppBar extends AppBar {
@@ -17,7 +18,7 @@ class CustomAppBar extends AppBar {
           centerTitle: true,
           leadingWidth: _resolveCanBack(canBack) ? 56.w : 0,
           leading: _resolveCanBack(canBack)
-              ? InkWell(
+              ? Bounce(
                   onTap: () async {
                     Navigator.of(globalNavigatorKey.currentContext!).maybePop();
                   },

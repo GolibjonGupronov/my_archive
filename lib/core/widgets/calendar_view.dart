@@ -185,11 +185,10 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  CustomTextView("Dan", textAlign: TextAlign.left, color: AppColors.gray),
+                                  CustomTextView("Dan", textAlign: TextAlign.left),
                                   4.height,
                                   CustomTextView(
-                                    startDate != null ? DateFormat('EEE, dd MMM').format(startDate!) : '--/-- ',
-                                    color: AppColors.gray,
+                                    startDate != null ? DateFormat('dd/MM/yy').format(startDate!) : '--/--/-- '
                                   ),
                                 ],
                               ),
@@ -200,10 +199,9 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  CustomTextView("Gacha", color: AppColors.gray),
+                                  CustomTextView("Gacha"),
                                   4.height,
-                                  CustomTextView(endDate != null ? DateFormat('EEE, dd MMM').format(endDate!) : '--/-- ',
-                                      color: AppColors.gray),
+                                  CustomTextView(endDate != null ? DateFormat('dd/MM/yy').format(endDate!) : '--/--/-- '),
                                 ],
                               ),
                             )

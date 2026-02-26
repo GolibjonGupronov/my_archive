@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/text_field.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
@@ -75,14 +74,13 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                       final item = lists[position];
                       return Padding(
                         padding: EdgeInsets.only(bottom: 8.h),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(16.r),
+                        child: Bounce(
                           onTap: () {
                             widget.onSelect(item.value);
                             Navigator.pop(context);
                           },
                           child: BoxContainer(
-                            borderRadius: BorderRadius.circular(16.r),
+                            borderRadius: BorderRadius.circular(20.r),
                             border: Border.all(
                                 color: item.value == _selectedItem
                                     ? AppColors.primary.withValues(alpha: .5)

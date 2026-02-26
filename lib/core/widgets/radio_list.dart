@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
@@ -46,7 +47,7 @@ class CustomRadioList<T> extends StatelessWidget {
             builder: (context, position) {
               final segment = segments[position];
               final isActive = segment == activeSegment;
-              return GestureDetector(
+              return Bounce(
                 onTap: () {
                   if (enabled) {
                     onSegmentSelected(segment);
@@ -63,7 +64,7 @@ class CustomRadioList<T> extends StatelessWidget {
                     key: ValueKey<bool>(isActive),
                     width: double.infinity,
                     padding: EdgeInsets.all(16.w),
-                    borderRadius: BorderRadius.circular(16.r),
+                    borderRadius: BorderRadius.circular(60.r),
                     color: isActive ? null : AppColors.white,
                     gradient: isActive ? Gradients.primaryGradient : null,
                     withShadow: true,

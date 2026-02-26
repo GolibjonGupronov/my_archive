@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/common.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/image/custom_image_view.dart';
 import 'package:photo_view/photo_view.dart';
@@ -70,7 +71,7 @@ class ImageZoomPageState extends State<ImageZoomPage> {
                 height: 70.h,
                 child: ListView.builder(
                   itemBuilder: (_, position) {
-                    return InkWell(
+                    return Bounce(
                       onTap: () {
                         _currentImage = position;
                         pageController.jumpToPage(_currentImage);

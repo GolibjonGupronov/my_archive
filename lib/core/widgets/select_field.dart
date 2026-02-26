@@ -5,6 +5,7 @@ import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
 class CustomSelectField extends StatelessWidget {
@@ -62,38 +63,35 @@ class CustomSelectField extends StatelessWidget {
             ),
             10.height
           ],
-          Container(
-            decoration: BoxDecoration(
-              color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
-              border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16.r),
-              onTap: () {
-                if (enabled && !progress) {
-                  onTap();
-                }
-              },
+          Bounce(
+            onTap: () {
+              if (enabled && !progress) {
+                onTap();
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
+                border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
+                borderRadius: BorderRadius.circular(30.r),
+              ),
               child: SizedBox(
                 height: 60.h,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
-                  child: SizedBox(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: value.isNotEmpty
-                              ? CustomTextView(value, fontWeight: FontWeight.w500)
-                              : CustomTextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
-                        ),
-                        if (rightWidget != null || progress)
-                          progress
-                              ? Center(
-                                  child: Padding(padding: EdgeInsets.all(2.w), child: CupertinoActivityIndicator(radius: 10.r)))
-                              : rightWidget!,
-                      ],
-                    ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: value.isNotEmpty
+                            ? CustomTextView(value, fontWeight: FontWeight.w500)
+                            : CustomTextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
+                      ),
+                      if (rightWidget != null || progress)
+                        progress
+                            ? Center(
+                                child: Padding(padding: EdgeInsets.all(2.w), child: CupertinoActivityIndicator(radius: 10.r)))
+                            : rightWidget!,
+                    ],
                   ),
                 ),
               ),

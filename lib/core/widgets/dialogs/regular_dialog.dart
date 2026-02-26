@@ -15,8 +15,8 @@ import 'package:my_archive/core/services/permissions/permissions.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
 import 'package:my_archive/core/widgets/button.dart';
 import 'package:my_archive/core/widgets/calendar_view.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
 import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 
 Future<void> showDraggableBottomSheet({
   required BuildContext context,
@@ -93,7 +93,7 @@ Future<void> showCustomBottomSheetDialog({
       child: child,
     ),
     containerWidget: (context, animation, child) => Material(
-      color: AppColors.white,
+      color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.white,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -183,7 +183,7 @@ Future<void> showCustomTimePicker(
       children: [
         14.height,
         CustomTextView(tr('choose_time'), fontSize: 24.sp),
-        26.height,
+        14.height,
         SizedBox(
           height: 180.h,
           child: CupertinoDatePicker(
@@ -193,9 +193,10 @@ Future<void> showCustomTimePicker(
             },
             mode: CupertinoDatePickerMode.time,
             use24hFormat: true,
+            showTimeSeparator: true,
           ),
         ),
-        30.height,
+        18.height,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: CustomButton(

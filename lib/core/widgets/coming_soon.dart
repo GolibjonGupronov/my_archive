@@ -32,7 +32,7 @@ class ComingSoonWidget extends StatelessWidget {
         ),
         if (isSoon)
           ClipRRect(
-            borderRadius: borderRadius ?? BorderRadius.circular(8.r),
+            borderRadius: borderRadius ?? BorderRadius.circular(30.r),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: Container(
@@ -41,7 +41,7 @@ class ComingSoonWidget extends StatelessWidget {
                   vertical: 8.h,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: borderRadius ?? BorderRadius.circular(8.r),
+                  borderRadius: borderRadius ?? BorderRadius.circular(30.r),
                   color: AppColors.gray.withValues(alpha: 0.2),
                 ),
                 child: CustomTextView(tr('soon')),

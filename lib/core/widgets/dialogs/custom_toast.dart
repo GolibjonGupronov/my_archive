@@ -60,6 +60,7 @@ void _show({required FToast fToast, required Widget child, required int second})
   return fToast.showToast(
     child: BoxContainer(
       withShadow: true,
+      shadowColor: AppColors.primary.withValues(alpha: 0.3),
       borderRadius: BorderRadius.circular(16.r),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.r),
