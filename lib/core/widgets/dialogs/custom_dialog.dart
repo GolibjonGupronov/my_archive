@@ -334,9 +334,12 @@ class _CustomDialog extends StatelessWidget {
                         : [
                             if (ic != null) Center(child: ic),
                             if (ic != null) 12.height,
-                            CustomTextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
+                            TextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
                             if (subTitle != null) 8.height,
-                            if (subTitle != null) CustomTextView(subTitle!, textAlign: subTitleAlignment, style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
+                            if (subTitle != null)
+                              TextView(subTitle!,
+                                  textAlign: subTitleAlignment,
+                                  style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
                             24.height,
                             Row(
                               children: [

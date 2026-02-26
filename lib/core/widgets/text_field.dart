@@ -117,7 +117,7 @@ class CustomTextField extends StatefulWidget {
       enabled: enabled,
       onChanged: onChanged,
       validate: validate,
-      inputFormatters: inputFormatters ?? [phoneNumberMask()],
+      inputFormatters: inputFormatters ?? [],
       inputType: TextInputType.phone,
       autofocus: autofocus,
       textFieldType: _EnumTextFieldType.phone,
@@ -297,7 +297,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: BoxDecoration(
               color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
               border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
-              borderRadius:BorderRadius.circular(30.r) ,
+              borderRadius: BorderRadius.circular(30.r),
             ),
             child: SizedBox(
               height: widget.maxLines == null ? 60.h : null,
@@ -349,9 +349,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 16.w),
                             child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
-                              width: 24.w,
-                              color: hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3),
-                            ),
+                                width: 24.w,
+                                colorFilter:
+                                    (hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3)).svgColor()),
                           ),
                         ),
                       ),
@@ -370,7 +370,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       children: [
                         Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                         4.width,
-                        Expanded(child: CustomTextView(errorMessage)),
+                        Expanded(child: TextView(errorMessage)),
                       ],
                     ),
                   )
@@ -378,7 +378,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           if (widget.comment.isNotEmpty) ...[
             4.height,
-            CustomTextView(
+            TextView(
               widget.comment,
               fontWeight: FontWeight.w400,
               color: AppColors.gray,

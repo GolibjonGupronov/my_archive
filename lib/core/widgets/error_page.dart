@@ -22,7 +22,7 @@ class ErrorPage extends StatelessWidget {
           children: [
             const Icon(Icons.warning_rounded, color: Colors.red),
             16.height,
-            CustomTextView("Something went wrong!", fontSize: 24.sp, color: AppColors.black),
+            TextView("Something went wrong!", fontSize: 24.sp, color: AppColors.black),
             CustomButton("Go to Main Page", () => context.go(SplashPage.tag)),
           ],
         ),

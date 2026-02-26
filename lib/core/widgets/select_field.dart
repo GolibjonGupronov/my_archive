@@ -83,8 +83,8 @@ class CustomSelectField extends StatelessWidget {
                     children: [
                       Expanded(
                         child: value.isNotEmpty
-                            ? CustomTextView(value, fontWeight: FontWeight.w500)
-                            : CustomTextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
+                            ? TextView(value, fontWeight: FontWeight.w500)
+                            : TextView(hint, color: AppColors.hint, fontWeight: FontWeight.w400),
                       ),
                       if (rightWidget != null || progress)
                         progress
@@ -104,13 +104,13 @@ class CustomSelectField extends StatelessWidget {
                 children: [
                   Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
                   4.width,
-                  CustomTextView(errorText, color: AppColors.red),
+                  TextView(errorText, color: AppColors.red),
                 ],
               ),
             ),
           if (comment.isNotEmpty) ...[
             4.height,
-            CustomTextView(
+            TextView(
               comment,
               fontWeight: FontWeight.w400,
               color: AppColors.gray,

@@ -92,8 +92,7 @@ Future<void> _sendMessage(String text) async {
         'text': text,
       },
     );
-  } catch (_) {
-  }
+  } catch (_) {}
 }
 
 /* -------------------------------------------------------------------------- */

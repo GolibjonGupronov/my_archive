@@ -28,6 +28,8 @@ extension HexColor on Color {
             '${b.toRadixString(16).padLeft(2, '0')}'
         .toUpperCase();
   }
+
+  ColorFilter svgColor({BlendMode colorBlendMode = BlendMode.srcIn}) => ColorFilter.mode(this, colorBlendMode);
 }
 
 extension CustomTime on TimeOfDay {

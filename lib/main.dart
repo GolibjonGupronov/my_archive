@@ -5,21 +5,21 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_alice/alice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/utils/device_helper.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/enums/lang_type.dart';
 import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 import 'package:my_archive/core/services/bot/bot_service.dart';
-import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/utils/device_helper.dart';
 import 'package:my_archive/core/widgets/error_page.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 final Alice alice = Alice(showNotification: false);
 final GlobalKey<OverlayState> overlayKey = GlobalKey<OverlayState>();
@@ -30,6 +30,7 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await EasyLocalization.ensureInitialized();
+      await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       await InjectionContainer.init();
       await DeviceHelper.init();
 
@@ -161,9 +162,7 @@ class _MyAppState extends State<MyApp> {
                       width: 40,
                       height: 40,
                       decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                      child: Center(
-                          child: Text(sl.get<PrefManager>().getLanguage.key,
-                              style: TextStyle(color: AppColors.white))),
+                      child: Center(child: Text(sl.get<PrefManager>().getLanguage.key, style: TextStyle(color: AppColors.white))),
                     ),
                   ),
                 ),

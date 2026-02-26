@@ -10,6 +10,14 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
 
   PhoneBloc({required this.sendPhoneUseCase}) : super(PhoneState()) {
     on<InitEvent>((event, emit) {});
+
+    on<UpdateFieldEvent>((event, emit) {
+      final phone = event.phone ?? state.phone;
+      final phoneDigits = phone.replaceAll(RegExp(r'\D'), '');
+      final isPhoneValid = phoneDigits.length == 9;
+      emit(state.copyWith(phone: phone, isActive: isPhoneValid));
+    });
+
     on<SendPhoneEvent>((event, emit) async {
       await _sendPhone(event, emit);
     });
@@ -24,5 +32,6 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
       emit(state.copyWith(
           phoneStatus: StateStatus.success, authNextPage: data.isRegistered ? AuthNextPage.sms : AuthNextPage.registration));
     });
+    emit(state.copyWith(phoneStatus: StateStatus.initial));
   }
 }

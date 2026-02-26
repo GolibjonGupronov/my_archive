@@ -46,7 +46,7 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: fillColor ?? (active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.4)),
+          color: fillColor ?? (active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.5)),
           gradient: fillColor == null && active ? gradient ?? Gradients.primaryGradient : null,
         ),
         child: Center(
@@ -59,10 +59,10 @@ class CustomButton extends StatelessWidget {
                       children: [
                         Icon(icon!, size: 24.h, color: Colors.white),
                         4.width,
-                        CustomTextView(text, color: textColor ?? Colors.white, maxLines: 1),
+                        TextView(text, color: textColor ?? Colors.white, maxLines: 1),
                       ],
                     )
-                  : CustomTextView(text, color: textColor ?? Colors.white, maxLines: 1)
+                  : TextView(text, color: textColor ?? Colors.white, maxLines: 1)
               : SizedBox(width: 16.w, height: 16.w, child: CupertinoActivityIndicator(color: Colors.white)),
         ),
       ),

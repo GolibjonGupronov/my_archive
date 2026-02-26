@@ -21,7 +21,9 @@ class RegistrationPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Center(child: Text("Registration"),),
+      body: Center(
+        child: Text("Registration"),
+      ),
     );
   }
 }

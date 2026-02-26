@@ -17,6 +17,12 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/circle_flag_ru.svg
+  SvgGenImage get circleFlagRu => const SvgGenImage('assets/icons/circle_flag_ru.svg');
+
+  /// File path: assets/icons/circle_flag_uz.svg
+  SvgGenImage get circleFlagUz => const SvgGenImage('assets/icons/circle_flag_uz.svg');
+
   /// File path: assets/icons/eye_hide.svg
   SvgGenImage get eyeHide => const SvgGenImage('assets/icons/eye_hide.svg');
 
@@ -26,17 +32,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/female.svg
   SvgGenImage get female => const SvgGenImage('assets/icons/female.svg');
 
-  /// File path: assets/icons/flagRu.svg
-  SvgGenImage get flagRu => const SvgGenImage('assets/icons/flagRu.svg');
+  /// File path: assets/icons/flag_ru.svg
+  SvgGenImage get flagRu => const SvgGenImage('assets/icons/flag_ru.svg');
 
-  /// File path: assets/icons/flagUz.svg
-  SvgGenImage get flagUz => const SvgGenImage('assets/icons/flagUz.svg');
+  /// File path: assets/icons/flag_uz.svg
+  SvgGenImage get flagUz => const SvgGenImage('assets/icons/flag_uz.svg');
 
   /// File path: assets/icons/male.svg
   SvgGenImage get male => const SvgGenImage('assets/icons/male.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [eyeHide, eyeOpen, female, flagRu, flagUz, male];
+  List<SvgGenImage> get values => [circleFlagRu, circleFlagUz, eyeHide, eyeOpen, female, flagRu, flagUz, male];
 }
 
 class $AssetsImagesGen {

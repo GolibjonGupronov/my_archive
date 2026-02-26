@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/theme/app_theme.dart';
 
-class CustomTextView extends StatelessWidget {
+class TextView extends StatelessWidget {
   final String body;
   final Color? color;
   final double? fontSize;
@@ -13,7 +13,7 @@ class CustomTextView extends StatelessWidget {
   final TextDecoration? textDecoration;
   final FontWeight? fontWeight;
 
-  const CustomTextView(
+  const TextView(
     this.body, {
     super.key,
     this.color,

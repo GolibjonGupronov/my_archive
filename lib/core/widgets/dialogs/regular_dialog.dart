@@ -182,7 +182,7 @@ Future<void> showCustomTimePicker(
       mainAxisSize: MainAxisSize.min,
       children: [
         14.height,
-        CustomTextView(tr('choose_time'), fontSize: 24.sp),
+        TextView(tr('choose_time'), fontSize: 24.sp),
         14.height,
         SizedBox(
           height: 180.h,
@@ -250,7 +250,7 @@ Future<void> showFilePicker({
                       }
                     }
                   },
-                  child: CustomTextView(tr('camera'))),
+                  child: TextView(tr('camera'))),
               CupertinoActionSheetAction(
                   onPressed: () async {
                     router.pop();
@@ -268,7 +268,7 @@ Future<void> showFilePicker({
                       }
                     }
                   },
-                  child: CustomTextView(tr('photo'))),
+                  child: TextView(tr('photo'))),
               CupertinoActionSheetAction(
                   onPressed: () async {
                     router.pop();
@@ -295,10 +295,10 @@ Future<void> showFilePicker({
                       }
                     }
                   },
-                  child: CustomTextView(tr('file'))),
+                  child: TextView(tr('file'))),
             ],
             cancelButton: CupertinoActionSheetAction(
-                onPressed: () => context.pop(), child: CustomTextView(tr('cancel'), color: AppColors.red)),
+                onPressed: () => context.pop(), child: TextView(tr('cancel'), color: AppColors.red)),
           ));
 }
 
@@ -339,7 +339,7 @@ Future<void> showImagePicker({
                       }
                     }
                   },
-                  child: CustomTextView(tr('camera'))),
+                  child: TextView(tr('camera'))),
               CupertinoActionSheetAction(
                   onPressed: () async {
                     router.pop();
@@ -357,13 +357,13 @@ Future<void> showImagePicker({
                       }
                     }
                   },
-                  child: CustomTextView(tr('photo'))),
+                  child: TextView(tr('photo'))),
             ],
             cancelButton: CupertinoActionSheetAction(
                 onPressed: () {
                   context.pop();
                 },
-                child: CustomTextView(tr('cancel'), color: AppColors.red)),
+                child: TextView(tr('cancel'), color: AppColors.red)),
           ));
 }
 

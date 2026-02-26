@@ -17,6 +17,22 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
+      path: UpdatePage.tag,
+      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+        context: context,
+        state: state,
+        child: UpdatePage(),
+      ),
+    ),
+    GoRoute(
+      path: MainPage.tag,
+      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+        context: context,
+        state: state,
+        child: MainPage(),
+      ),
+    ),
+    GoRoute(
       path: PhonePage.tag,
       pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
         context: context,

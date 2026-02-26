@@ -13,7 +13,7 @@ class CustomAppBar extends AppBar {
     super.key,
     super.actions,
   }) : super(
-          title: CustomTextView(titleText, textAlign: TextAlign.center),
+          title: TextView(titleText, textAlign: TextAlign.center),
           elevation: 0,
           centerTitle: true,
           leadingWidth: _resolveCanBack(canBack) ? 56.w : 0,

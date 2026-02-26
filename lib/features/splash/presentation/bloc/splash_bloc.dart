@@ -1,29 +1,59 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 import 'package:my_archive/core/use_cases/usecase.dart';
+import 'package:my_archive/core/utils/device_helper.dart';
+import 'package:my_archive/features/auth/domain/use_cases/app_config_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final UserInfoUseCase userInfoUseCase;
+  final AppConfigUseCase appConfigUseCase;
+  final PrefManager prefManager;
 
-  SplashBloc({required this.userInfoUseCase}) : super(SplashState()) {
+  SplashBloc({required this.userInfoUseCase, required this.prefManager, required this.appConfigUseCase}) : super(SplashState()) {
     on<InitEvent>((event, emit) async {
-      await _loadData(emit);
+      add(AppConfigEvent());
+    });
+    on<AppConfigEvent>((event, emit) async {
+      await _appConfig(emit);
+    });
+    on<UserDataEvent>((event, emit) async {
+      await _getUserInfo(emit);
     });
   }
 
-  Future<void> _loadData(Emitter<SplashState> emit) async {
+  Future<void> _appConfig(Emitter<SplashState> emit) async {
     emit(state.copyWith(splashStatus: StateStatus.inProgress));
+    final either = await appConfigUseCase.call(NoParams());
+    either.fold((fail) {
+      emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message));
+    }, (data) {
+      final int? buildCode = int.tryParse(DeviceHelper.packageInfo.buildNumber);
+      if (buildCode == null || buildCode >= (Platform.isAndroid ? data.androidMinimumBuildCode : data.iosMinimumBuildCode)) {
+        add(UserDataEvent());
+      } else {
+        emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.update));
+      }
+    });
+  }
 
-    final either = await userInfoUseCase.call(NoParams());
-    either.fold(
-      (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
-      (data) {
-        emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
-      },
-    );
+  Future<void> _getUserInfo(Emitter<SplashState> emit) async {
+    if (prefManager.getToken.isEmpty) {
+      emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
+    } else {
+      final either = await userInfoUseCase.call(NoParams());
+      either.fold(
+        (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
+        (data) {
+          emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main));
+        },
+      );
+    }
   }
 }

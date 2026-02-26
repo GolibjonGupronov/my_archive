@@ -26,11 +26,7 @@ class CustomPinPut extends Pinput {
           cursor: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                  margin: EdgeInsets.only(bottom: 9.h),
-                  width: 22.w,
-                  height: 1.h,
-                  color: AppColors.primary),
+              Container(margin: EdgeInsets.only(bottom: 9.h), width: 22.w, height: 1.h, color: AppColors.primary),
             ],
           ),
           focusedPinTheme: _pinTheme(context, boxSize).copyWith(

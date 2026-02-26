@@ -116,6 +116,9 @@ class DioMock {
           requestOptions: requestOptions,
           statusCode: config.statusCode,
           statusMessage: config.message,
+          headers: Headers.fromMap({
+            'content-type': ['application/json; charset=utf-8'],
+          }),
           data: {
             "message": config.message,
           },
@@ -142,6 +145,9 @@ class DioMock {
       requestOptions: requestOptions,
       statusCode: config.statusCode,
       statusMessage: "OK",
+      headers: Headers.fromMap({
+        'content-type': ['application/json; charset=utf-8'],
+      }),
       data: _normalizeData(config.data),
     );
 

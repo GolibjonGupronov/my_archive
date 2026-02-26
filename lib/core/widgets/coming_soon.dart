@@ -44,7 +44,7 @@ class ComingSoonWidget extends StatelessWidget {
                   borderRadius: borderRadius ?? BorderRadius.circular(30.r),
                   color: AppColors.gray.withValues(alpha: 0.2),
                 ),
-                child: CustomTextView(tr('soon')),
+                child: TextView(tr('soon')),
               ),
             ),
           ),

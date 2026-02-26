@@ -10,7 +10,5 @@ class UserInfoUseCase extends UseCase<UserInfoEntity, NoParams> {
   UserInfoUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, UserInfoEntity>> call(NoParams params) {
-    return repository.getUser();
-  }
+  Future<Either<Failure, UserInfoEntity>> call(NoParams params) async => await repository.getUserInfo();
 }

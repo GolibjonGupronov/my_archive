@@ -9,19 +9,14 @@ class CheckSmsUseCase extends UseCase<bool, CheckSmsParams> {
   CheckSmsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> call(CheckSmsParams params) {
-    return repository.checkSms(params);
-  }
+  Future<Either<Failure, bool>> call(CheckSmsParams params) async => await repository.checkSms(params);
 }
 
 class CheckSmsParams {
   final String phone;
   final String sms;
 
-  CheckSmsParams({required this.phone,required this.sms});
+  CheckSmsParams({required this.phone, required this.sms});
 
-  Map<String, dynamic> get toMap => {
-    'phone': phone,
-    'sms': sms,
-  };
+  Map<String, dynamic> get toMap => {'phone': phone, 'sms': sms};
 }

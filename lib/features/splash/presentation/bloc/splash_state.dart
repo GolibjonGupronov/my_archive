@@ -16,9 +16,10 @@ class SplashState {
     StateStatus? splashStatus,
     NextPage? nextPage,
     String? errorMessage,
-  }) => SplashState(
-    splashStatus: splashStatus ?? this.splashStatus,
-    nextPage: nextPage ?? this.nextPage,
-    errorMessage: errorMessage ?? this.errorMessage,
-  );
+  }) =>
+      SplashState(
+        splashStatus: splashStatus ?? this.splashStatus,
+        nextPage: nextPage ?? this.nextPage,
+        errorMessage: errorMessage ?? this.errorMessage,
+      );
 }

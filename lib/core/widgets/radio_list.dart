@@ -34,7 +34,7 @@ class CustomRadioList<T> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (title.isNotEmpty) ...[
-            CustomTextView(title),
+            TextView(title),
             10.height,
           ],
           DynamicHeightGridView(
@@ -76,7 +76,7 @@ class CustomRadioList<T> extends StatelessWidget {
                         ),
                         10.width,
                         Expanded(
-                          child: CustomTextView(
+                          child: TextView(
                             getSegmentTitle(segment),
                             color: isActive ? AppColors.white : AppColors.black,
                             maxLines: 1,

@@ -36,13 +36,13 @@ class AboutUsSocial extends StatelessWidget {
           ],
         ),
         8.height,
-        CustomTextView(
+        TextView(
           "Bizni ijtimoiy tarmoqlarda kuzatib boring",
           fontSize: 14,
           color: AppColors.gray,
         ),
         8.height,
-        CustomTextView(
+        TextView(
           "Ilova versiyasi: ${DeviceHelper.packageInfo.version}",
           textAlign: TextAlign.center,
           fontSize: 12,

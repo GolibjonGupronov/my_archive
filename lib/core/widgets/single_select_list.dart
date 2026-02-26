@@ -55,7 +55,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
             });
           }),
           12.height,
-          CustomTextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
+          TextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
           12.height,
           Expanded(
             child: lists.isEmpty
@@ -65,7 +65,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                       12.height,
                       Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
                       4.height,
-                      CustomTextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
+                      TextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
                     ],
                   )
                 : ListView.builder(
@@ -92,8 +92,8 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      CustomTextView(item.title),
-                                      ...item.extraVisibleValues.map((e) => CustomTextView(e)),
+                                      TextView(item.title),
+                                      ...item.extraVisibleValues.map((e) => TextView(e)),
                                     ],
                                   ),
                                 ),

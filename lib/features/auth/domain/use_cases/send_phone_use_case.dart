@@ -10,7 +10,5 @@ class SendPhoneUseCase extends UseCase<SendPhoneResponseEntity, String> {
   SendPhoneUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, SendPhoneResponseEntity>> call(String phone) async {
-    return await repository.sendPhone(phone);
-  }
+  Future<Either<Failure, SendPhoneResponseEntity>> call(String phone) async => await repository.sendPhone(phone);
 }

@@ -56,7 +56,7 @@ class Bounce extends StatefulWidget {
       this.longPressDuration = _defaultLongPressDuration,
       this.scale = true,
       this.scaleFactor = 0.95,
-      this.tilt = true,
+      this.tilt = false,
       this.tiltAngle = pi / 10,
       this.filterQuality = FilterQuality.high,
       this.cursor});

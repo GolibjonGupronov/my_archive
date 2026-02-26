@@ -4,9 +4,11 @@ abstract class Either<L, R> {
   T fold<T>(T Function(L l) onLeft, T Function(R r) onRight);
 
   bool get isLeft => this is Left<L, R>;
+
   bool get isRight => this is Right<L, R>;
 
   L? get left => this is Left<L, R> ? (this as Left<L, R>).value : null;
+
   R? get right => this is Right<L, R> ? (this as Right<L, R>).value : null;
 }
 

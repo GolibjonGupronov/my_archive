@@ -15,6 +15,6 @@ class SendPhoneResponseModel extends SendPhoneResponseEntity {
 
   SendPhoneResponseEntity toEntity() => SendPhoneResponseEntity(
         phone: phone,
-    isRegistered: isRegistered,
-  );
+        isRegistered: isRegistered,
+      );
 }
