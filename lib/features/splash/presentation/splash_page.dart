@@ -7,6 +7,7 @@ import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/utils/generated/assets.gen.dart';
+import 'package:my_archive/core/widgets/common/logo_widget.dart';
 import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
 import 'package:my_archive/core/widgets/scaffold.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
@@ -46,13 +47,7 @@ class SplashPage extends StatelessWidget {
               ScaleAnimation(
                 curve: Curves.easeOut,
                 duration: Duration(seconds: 1),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24.r),
-                  child: Container(
-                    color: Colors.red,
-                    child: Assets.images.logo.image(width: context.screenWidth / 2, height: context.screenWidth / 2),
-                  ),
-                ),
+                child: LogoWidget(),
               ),
               50.height,
               CircularProgressIndicator(),

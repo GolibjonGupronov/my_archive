@@ -12,14 +12,14 @@ import 'package:my_archive/core/extensions/string.dart';
 import 'package:my_archive/core/utils/generated/assets.gen.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
 import 'package:my_archive/core/widgets/button.dart';
+import 'package:my_archive/core/widgets/common/logo_widget.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
 import 'package:my_archive/core/widgets/scaffold.dart';
-import 'package:my_archive/core/widgets/single_select_list.dart';
 import 'package:my_archive/core/widgets/text_field.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';
-import 'package:overlay_support/overlay_support.dart';
 
 class PhonePage extends StatefulWidget {
   const PhonePage({super.key});
@@ -57,16 +57,14 @@ class _PhonePageState extends State<PhonePage> {
 
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<PhoneBloc>(context);
-    final List<SingleSelectItemModel> items =
-        List<SingleSelectItemModel>.generate(80, (i) => SingleSelectItemModel("G'olibjon $i", i)); //
 
     return BlocListener<PhoneBloc, PhoneState>(
+      listenWhen: (p, c) => p.phoneStatus != c.phoneStatus,
       listener: (context, state) {
         if (state.phoneStatus.isFailure) {
-          toast(state.errorMessage);
+          showErrorDialog(context, title: state.errorMessage);
         } else if (state.phoneStatus.isSuccess) {
-          router.push(state.authNextPage.page);
-          toast("success ${state.authNextPage}");
+          router.push(state.authNextPage.page, extra: "+998 ${state.phone}");
         }
       },
       child: CustomScaffold(
@@ -77,9 +75,9 @@ class _PhonePageState extends State<PhonePage> {
             primary: false,
             children: [
               60.height,
-              Assets.images.logo.image(height: 200),
+              LogoWidget(),
               8.height,
-              TextView("Kirish", fontSize: 24.sp),
+              TextView(tr('enter'), fontSize: 24.sp),
               8.height,
               Row(
                 children: [
@@ -92,6 +90,7 @@ class _PhonePageState extends State<PhonePage> {
                       child: Row(
                         children: [
                           Assets.icons.circleFlagUz.svg(width: 26.w, height: 26.w, fit: BoxFit.cover),
+                          4.width,
                           TextView("+998 "),
                         ],
                       ),
@@ -104,6 +103,7 @@ class _PhonePageState extends State<PhonePage> {
                       controller: phoneController,
                       hint: "(00) 000-00-00",
                       inputFormatters: [phoneMaskFormatter],
+                      autofocus: true,
                       onChanged: (value) {
                         bloc.add(UpdateFieldEvent(phone: value));
                       },
@@ -114,8 +114,9 @@ class _PhonePageState extends State<PhonePage> {
               20.height,
               BlocBuilder<PhoneBloc, PhoneState>(
                 builder: (context, state) {
-                  return CustomButton(tr('enter'), () {
-                    bloc.add(SendPhoneEvent(phone: "+998${phoneController.text.phoneReplace}"));
+                  return CustomButton(tr('send'), () {
+                    context.hideKeyboard;
+                    bloc.add(SubmitEvent(phone: "+998${phoneController.text.phoneReplace}"));
                   }, active: state.isActive, progress: state.phoneStatus.isInProgress);
                 },
               )

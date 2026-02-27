@@ -10,8 +10,8 @@ class UpdateFieldEvent extends PhoneEvent {
   UpdateFieldEvent({this.phone});
 }
 
-class SendPhoneEvent extends PhoneEvent {
+class SubmitEvent extends PhoneEvent {
   final String phone;
 
-  SendPhoneEvent({required this.phone});
+  SubmitEvent({required this.phone});
 }

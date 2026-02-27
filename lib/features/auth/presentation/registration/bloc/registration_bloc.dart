@@ -1,9 +1,75 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  RegistrationBloc() : super(RegistrationState().init()) {
-    on<InitEvent>((event, emit) {});
+  final SendPhoneUseCase sendPhoneUseCase;
+  Timer? _timer;
+  int _seconds = Constants.smsResendPhoneSecond;
+
+  RegistrationBloc({required this.sendPhoneUseCase}) : super(RegistrationState()) {
+    on<InitEvent>((event, emit) {
+      add(StartTimerEvent());
+    });
+    on<StartTimerEvent>((event, emit) {
+      _seconds = Constants.smsResendPhoneSecond;
+      emit(state.copyWith(second: _seconds));
+      _startTimer();
+    });
+    on<ResendPhoneEvent>((event, emit) async {
+      await _resend(emit, event.phone);
+    });
+    on<SecondEvent>((event, emit) {
+      emit(state.copyWith(second: event.second));
+    });
+    // on<SelectGenderEvent>((event, emit) {
+    //   emit(state.copyWith(gender: event.gender));
+    // });
+    // on<UpdateBirthDayEvent>((event, emit) {
+    //   emit(state.copyWith(birthDay: event.date));
+    // });
+    on<UpdateFieldEvent>((event, emit) async {
+      final code = event.code ?? state.code;
+      final birthDay = event.birthDay ?? state.birthDay;
+      final gender = event.gender ?? state.gender;
+      final isActive = code.length == Constants.smsCodeLength && birthDay != null;
+
+      emit(state.copyWith(code: code, birthDay: birthDay, gender: gender, isActive: isActive));
+    });
+  }
+
+  Future<void> _resend(Emitter<RegistrationState> emit, String phone) async {
+    emit(state.copyWith(resendPhoneStatus: StateStatus.inProgress));
+    final result = await sendPhoneUseCase.call(phone);
+    result.fold((fail) {
+      emit(state.copyWith(resendPhoneStatus: StateStatus.failure, errorMessage: fail.message));
+    }, (isRegistered) {
+      add(StartTimerEvent());
+      emit(state.copyWith(resendPhoneStatus: StateStatus.success));
+    });
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_seconds <= 0) {
+        timer.cancel();
+        add(SecondEvent(second: 0));
+      } else {
+        _seconds--;
+        add(SecondEvent(second: _seconds));
+      }
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
   }
 }

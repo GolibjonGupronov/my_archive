@@ -7,6 +7,7 @@ class UserInfoModel extends UserInfoEntity {
     required super.secondName,
     required super.gender,
     required super.birthday,
+    required super.phone,
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> json) => UserInfoModel(
@@ -14,6 +15,7 @@ class UserInfoModel extends UserInfoEntity {
         secondName: json['second_name'],
         gender: Gender.getObj(json['gender']),
         birthday: json['birthday'],
+        phone: json['phone'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -21,6 +23,7 @@ class UserInfoModel extends UserInfoEntity {
         'second_name': secondName,
         'gender': gender.key,
         'birthday': birthday,
+        'phone': phone,
       };
 
   UserInfoEntity toEntity() => UserInfoEntity(
@@ -28,5 +31,6 @@ class UserInfoModel extends UserInfoEntity {
         secondName: secondName,
         gender: gender,
         birthday: birthday,
+        phone: phone,
       );
 }

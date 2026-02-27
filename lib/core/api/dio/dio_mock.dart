@@ -92,8 +92,13 @@ class DioMock {
   }) async {
     final MockResponseConfig config = mockResponses;
 
-    final requestOptions =
-        RequestOptions(path: "MOCK--------$path", method: method, data: data, queryParameters: queryParameters, baseUrl: '');
+    final requestOptions = RequestOptions(
+      path: "...MOCK.../$path",
+      method: method,
+      data: data,
+      queryParameters: queryParameters,
+      baseUrl: dio.options.baseUrl,
+    );
 
     if (dio.interceptors.isNotEmpty) {
       for (var interceptor in dio.interceptors) {

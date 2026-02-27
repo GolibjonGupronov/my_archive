@@ -18,20 +18,19 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
       emit(state.copyWith(phone: phone, isActive: isPhoneValid));
     });
 
-    on<SendPhoneEvent>((event, emit) async {
-      await _sendPhone(event, emit);
+    on<SubmitEvent>((event, emit) async {
+      await _submit(event, emit);
     });
   }
 
-  Future<void> _sendPhone(SendPhoneEvent event, Emitter<PhoneState> emit) async {
+  Future<void> _submit(SubmitEvent event, Emitter<PhoneState> emit) async {
     emit(state.copyWith(phoneStatus: StateStatus.inProgress));
     final result = await sendPhoneUseCase.call(event.phone);
     result.fold((fail) {
       emit(state.copyWith(phoneStatus: StateStatus.failure, errorMessage: fail.message));
-    }, (data) {
+    }, (isRegistered) {
       emit(state.copyWith(
-          phoneStatus: StateStatus.success, authNextPage: data.isRegistered ? AuthNextPage.sms : AuthNextPage.registration));
+          phoneStatus: StateStatus.success, authNextPage: isRegistered ? AuthNextPage.sms : AuthNextPage.registration));
     });
-    emit(state.copyWith(phoneStatus: StateStatus.initial));
   }
 }

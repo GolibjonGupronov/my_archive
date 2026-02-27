@@ -61,8 +61,6 @@ extension BuildContextExtensions on BuildContext {
 
   double get keyboardTop => viewInsets.top;
 
-  bool get isKeyboardVisible => MediaQuery.of(this).viewInsets.bottom != 0;
-
   void get hideKeyboard => FocusScope.of(this).unfocus();
 
   bool get isDarkModeEnable {

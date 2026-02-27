@@ -5,11 +5,13 @@ class UserInfoEntity {
   final String secondName;
   final Gender gender;
   final String birthday;
+  final String phone;
 
   UserInfoEntity({
     required this.firstName,
     required this.secondName,
     required this.gender,
     required this.birthday,
+    required this.phone,
   });
 }

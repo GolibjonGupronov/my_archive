@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/constants/gradients.dart';
+import 'package:my_archive/core/extensions/common.dart';
 import 'package:my_archive/core/extensions/number.dart';
 import 'package:my_archive/core/widgets/bounce.dart';
 import 'package:my_archive/core/widgets/box_conatiner.dart';
@@ -65,23 +66,35 @@ class CustomRadioList<T> extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(16.w),
                     borderRadius: BorderRadius.circular(60.r),
-                    color: isActive ? null : AppColors.white,
+                    color: isActive
+                        ? null
+                        : context.isDarkModeEnable
+                            ? AppColors.whiteDark
+                            : AppColors.foregroundSecondary,
                     gradient: isActive ? Gradients.primaryGradient : null,
-                    withShadow: true,
+                    withShadow: false,
                     child: Row(
                       children: [
                         Icon(
                           isActive ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked,
-                          color: isActive ? AppColors.white : AppColors.gray,
+                          color: isActive
+                              ? AppColors.white
+                              : context.isDarkModeEnable
+                                  ? AppColors.white
+                                  : AppColors.black,
                         ),
                         10.width,
                         Expanded(
                           child: TextView(
                             getSegmentTitle(segment),
-                            color: isActive ? AppColors.white : AppColors.black,
+                            color: isActive
+                                ? AppColors.white
+                                : context.isDarkModeEnable
+                                    ? AppColors.white
+                                    : AppColors.black,
                             maxLines: 1,
                             textAlign: TextAlign.left,
-                            fontWeight: isActive ? FontWeight.bold : FontWeight.w400,
+                            fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                           ),
                         ),
                       ],

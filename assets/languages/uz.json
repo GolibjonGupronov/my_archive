@@ -13,6 +13,12 @@
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
   },
+  "register_with_phone": "Ushbu {} telefon raqami orqali ro'yxatdan o'tmoqdasiz",
+  "sign_up": "Ro'yxatdan o'ting",
+  "send": "Yuborish",
+  "resend": "Qayta yuborish",
+  "otp_sent": "Tasdiqlash kodni ushbu raqamga yubordik\n{}",
+  "verify_phone": "Telefoningizni tasdiqlang",
   "enter": "Kirish",
   "soon": "Tez kunda...",
   "file_not_found": "Fayl topilmadi",

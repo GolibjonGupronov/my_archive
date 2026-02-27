@@ -4,10 +4,28 @@ abstract class SmsEvent {}
 
 class InitEvent extends SmsEvent {}
 
-class CheckSmsEvent extends SmsEvent {
-  final CheckSmsParams params;
+class UpdateFieldEvent extends SmsEvent {
+  final String? code;
 
-  CheckSmsEvent({required this.params});
+  UpdateFieldEvent({this.code});
 }
 
-class GetUserInfoEvent extends SmsEvent {}
+class SubmitEvent extends SmsEvent {
+  final CheckSmsParams params;
+
+  SubmitEvent({required this.params});
+}
+
+class StartTimerEvent extends SmsEvent {}
+
+class ResendPhoneEvent extends SmsEvent {
+  final String phone;
+
+  ResendPhoneEvent({required this.phone});
+}
+
+class SecondEvent extends SmsEvent {
+  final int second;
+
+  SecondEvent({required this.second});
+}

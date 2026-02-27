@@ -5,7 +5,6 @@ import 'package:my_archive/core/utils/either.dart';
 import 'package:my_archive/features/auth/data/data_sources/auth_data_source.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
-import 'package:my_archive/features/auth/domain/entities/send_phone_response_entity.dart';
 import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
 import 'package:my_archive/features/auth/domain/repositories/auth_repository.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
@@ -17,8 +16,8 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
   AuthRepositoryImpl({required this.authRemoteDataSource, required this.prefManager});
 
   @override
-  Future<Either<Failure, SendPhoneResponseEntity>> sendPhone(String phone) async {
-    return safeCall<SendPhoneResponseEntity>(() async => await authRemoteDataSource.sendPhone(phone));
+  Future<Either<Failure, bool>> sendPhone(String phone) async {
+    return safeCall<bool>(() async => await authRemoteDataSource.sendPhone(phone));
   }
 
   @override
