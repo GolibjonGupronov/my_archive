@@ -27,19 +27,20 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<SecondEvent>((event, emit) {
       emit(state.copyWith(second: event.second));
     });
-    // on<SelectGenderEvent>((event, emit) {
-    //   emit(state.copyWith(gender: event.gender));
-    // });
-    // on<UpdateBirthDayEvent>((event, emit) {
-    //   emit(state.copyWith(birthDay: event.date));
-    // });
+
     on<UpdateFieldEvent>((event, emit) async {
       final code = event.code ?? state.code;
+      final firstName = event.firstName ?? state.firstName;
+      final secondName = event.secondName ?? state.secondName;
       final birthDay = event.birthDay ?? state.birthDay;
       final gender = event.gender ?? state.gender;
-      final isActive = code.length == Constants.smsCodeLength && birthDay != null;
+      final isActive = code.length == Constants.smsCodeLength &&
+          birthDay != null &&
+          firstName.trim().isNotEmpty &&
+          secondName.trim().isNotEmpty;
 
-      emit(state.copyWith(code: code, birthDay: birthDay, gender: gender, isActive: isActive));
+      emit(state.copyWith(
+          code: code, firstName: firstName, secondName: secondName, birthDay: birthDay, gender: gender, isActive: isActive));
     });
   }
 

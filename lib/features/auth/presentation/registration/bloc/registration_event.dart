@@ -18,18 +18,6 @@ class SecondEvent extends RegistrationEvent {
   SecondEvent({required this.second});
 }
 
-// class SelectGenderEvent extends RegistrationEvent {
-//   final Gender gender;
-//
-//   SelectGenderEvent({required this.gender});
-// }
-
-// class UpdateBirthDayEvent extends RegistrationEvent {
-//   final DateTime date;
-//
-//   UpdateBirthDayEvent({required this.date});
-// }
-
 class UpdateFieldEvent extends RegistrationEvent {
   final String? code;
   final String? firstName;
