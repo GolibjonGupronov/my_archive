@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_archive/core/constants/colors.dart';
 
 class Gradients {
-  static LinearGradient get primaryGradient => LinearGradient(
+  static LinearGradient get primaryGradient => const LinearGradient(
         colors: [AppColors.gradientPrimaryStart, AppColors.gradientPrimaryEnd],
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
@@ -22,6 +22,12 @@ class Gradients {
 
   static LinearGradient get greenGradient => LinearGradient(
         colors: [AppColors.gradientGreenStart, AppColors.gradientGreenEnd],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      );
+
+  static LinearGradient get pinkGradient => LinearGradient(
+        colors: [AppColors.gradientPinkStart, AppColors.gradientPinkEnd],
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
       );

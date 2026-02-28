@@ -8,4 +8,5 @@ class ApiUrls {
   static final String sendPhone = "$api/auth/send-phone";
   static final String checkSms = "$api/auth/check-sms";
   static final String userInfo = "$api/user/me";
+  static final String registration = "$api/user/registration";
 }

@@ -30,8 +30,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   Future<void> _appConfig(Emitter<SplashState> emit) async {
     emit(state.copyWith(splashStatus: StateStatus.inProgress));
-    final either = await appConfigUseCase.call(NoParams());
-    either.fold((fail) {
+    final result = await appConfigUseCase.callUseCase(NoParams());
+    result.fold((fail) {
       emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message));
     }, (data) {
       final int? buildCode = int.tryParse(DeviceHelper.packageInfo.buildNumber);
@@ -47,7 +47,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     if (prefManager.getToken.isEmpty) {
       emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
     } else {
-      final either = await userInfoUseCase.call(NoParams());
+      final either = await userInfoUseCase.callUseCase(NoParams());
       either.fold(
         (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
         (data) {

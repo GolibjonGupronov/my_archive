@@ -28,7 +28,7 @@ class SmsPage extends StatelessWidget {
   const SmsPage({super.key, required this.phoneNumber});
 
   static const String tag = '/sms_page';
-  static final TextEditingController codeController = TextEditingController();
+  static final TextEditingController smsCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,9 @@ class SmsPage extends StatelessWidget {
         ),
       ],
       child: CustomScaffold(
+        hasUnsavedChanges: ()=> true,
+        dialogTitle: "Ortga qaytmoqchimisiz",
+        dialogSubtitle: "",
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: ListView(
@@ -78,10 +81,10 @@ class SmsPage extends StatelessWidget {
               24.height,
               CustomPinPut(
                 context: context,
-                controller: codeController,
+                controller: smsCodeController,
                 length: Constants.smsCodeLength,
                 onChanged: (value) {
-                  bloc.add(UpdateFieldEvent(code: codeController.text));
+                  bloc.add(UpdateFieldEvent(code: smsCodeController.text));
                 },
               ),
               12.height,
@@ -120,7 +123,7 @@ class SmsPage extends StatelessWidget {
                     () {
                       context.hideKeyboard;
                       final phone = "+998${phoneNumber.phoneReplace}";
-                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: phone, sms: codeController.text)));
+                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: phone, sms: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.smsStatus.isInProgress,

@@ -49,14 +49,14 @@ class SmsBloc extends Bloc<SmsEvent, SmsState> {
 
   Future<void> _submit(SubmitEvent event, Emitter<SmsState> emit) async {
     emit(state.copyWith(smsStatus: StateStatus.inProgress));
-    final either = await checkSmsUseCase.call(event.params);
-    await either.fold(
+    final resultSms = await checkSmsUseCase.callUseCase(event.params);
+    await resultSms.fold(
       (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
       (data) async {
-        final either = await userInfoUseCase.call(NoParams());
-        either.fold(
+        final resultUser = await userInfoUseCase.callUseCase(NoParams());
+        resultUser.fold(
           (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-          (data) => emit(state.copyWith(smsStatus: StateStatus.success, userInfo: data)),
+          (data) => emit(state.copyWith(smsStatus: StateStatus.success)),
         );
       },
     );
@@ -64,7 +64,7 @@ class SmsBloc extends Bloc<SmsEvent, SmsState> {
 
   Future<void> _resend(Emitter<SmsState> emit, String phone) async {
     emit(state.copyWith(resendPhoneStatus: StateStatus.inProgress));
-    final result = await sendPhoneUseCase.call(phone);
+    final result = await sendPhoneUseCase.callUseCase(phone);
     result.fold((fail) {
       emit(state.copyWith(resendPhoneStatus: StateStatus.failure, errorMessage: fail.message));
     }, (isRegistered) {

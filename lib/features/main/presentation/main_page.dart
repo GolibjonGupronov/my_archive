@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/mixins/safe_caller.dart';
 import 'package:my_archive/core/widgets/app_bar.dart';
+import 'package:my_archive/core/widgets/button.dart';
 import 'package:my_archive/core/widgets/scaffold.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 
@@ -27,7 +29,9 @@ class MainPage extends StatelessWidget {
     return CustomScaffold(
       isExitDialog: true,
       appBar: CustomAppBar(Constants.appName),
-      body: TextView("Asosiy"),
+      body: CustomButton("Chiqish", (){
+        logoutApp();
+      }),
     );
   }
 }

@@ -22,12 +22,14 @@ class AppColors {
   static const Color scaffoldDarkBackground = Color(0xFF0A091B);
 
   /// Gradient
-  static const Color gradientGreenEnd = Color(0xFF60B212);
   static const Color gradientGreenStart = Color(0xFF029720);
-  static const Color gradientOrangeEnd = Color(0xFFF8A700);
+  static const Color gradientGreenEnd = Color(0xFF60B212);
+  static const Color gradientPinkStart = Color(0xFFCB00B6);
+  static const Color gradientPinkEnd = Color(0xFFFF02E9);
   static const Color gradientOrangeStart = Color(0xFFF27D00);
+  static const Color gradientOrangeEnd = Color(0xFFF8A700);
+  static const Color gradientPrimaryStart = Color(0xFF0179D0);
   static const Color gradientPrimaryEnd = Color(0xFF0D99FF);
-  static const Color gradientPrimaryStart = Color(0xFF0174C7);
-  static const Color gradientRedEnd = Color(0xFFEE5B0A);
   static const Color gradientRedStart = Color(0xFFE60C20);
+  static const Color gradientRedEnd = Color(0xFFEE5B0A);
 }

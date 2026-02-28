@@ -9,5 +9,5 @@ class SendPhoneUseCase extends UseCase<bool, String> {
   SendPhoneUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> call(String phone) async => await repository.sendPhone(phone);
+  Future<Either<Failure, bool>> callUseCase(String phone) async => await repository.sendPhone(phone);
 }

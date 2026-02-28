@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
+import 'package:my_archive/core/mixins/mixins.dart';
 import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 
 typedef UnsavedChangesChecker = bool Function();
 typedef WillPop = Future<bool> Function();
@@ -48,12 +48,9 @@ class CustomScaffold extends StatefulWidget {
   State<CustomScaffold> createState() => _CustomScaffoldState();
 }
 
-class _CustomScaffoldState extends State<CustomScaffold> {
-  DateTime? _lastBackPressed;
-
+class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
   @override
   Widget build(BuildContext context) {
-    const int duration = 2;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, value) async {
@@ -62,11 +59,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         if (!widget.canPop) return;
 
         if (widget.isExitDialog) {
-          final now = DateTime.now();
-          if (_lastBackPressed == null || now.difference(_lastBackPressed!) > const Duration(seconds: duration)) {
-            _lastBackPressed = now;
-            showInfoToast(context, tr('again_to_exit'), second: duration);
-          } else {
+          final onExit = onExitApp(context);
+          if (onExit) {
             if (Platform.isAndroid) {
               SystemNavigator.pop();
             } else {
@@ -86,7 +80,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         final hasChanges = widget.hasUnsavedChanges?.call() ?? false;
 
         if (hasChanges) {
-          await showConfirmDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
+          await showRejectDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
               subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
               onConfirm: () => router.pop(),
               type: MyDialogType.warning);

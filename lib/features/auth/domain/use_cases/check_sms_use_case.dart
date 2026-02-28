@@ -3,13 +3,13 @@ import 'package:my_archive/core/use_cases/usecase.dart';
 import 'package:my_archive/core/utils/either.dart';
 import 'package:my_archive/features/auth/domain/repositories/auth_repository.dart';
 
-class CheckSmsUseCase extends UseCase<bool, CheckSmsParams> {
+class CheckSmsUseCase extends UseCase<String, CheckSmsParams> {
   final AuthRepository repository;
 
   CheckSmsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> call(CheckSmsParams params) async => await repository.checkSms(params);
+  Future<Either<Failure, String>> callUseCase(CheckSmsParams params) async => await repository.checkSms(params);
 }
 
 class CheckSmsParams {

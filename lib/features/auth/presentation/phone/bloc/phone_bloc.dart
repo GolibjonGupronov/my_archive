@@ -25,7 +25,7 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
 
   Future<void> _submit(SubmitEvent event, Emitter<PhoneState> emit) async {
     emit(state.copyWith(phoneStatus: StateStatus.inProgress));
-    final result = await sendPhoneUseCase.call(event.phone);
+    final result = await sendPhoneUseCase.callUseCase(event.phone);
     result.fold((fail) {
       emit(state.copyWith(phoneStatus: StateStatus.failure, errorMessage: fail.message));
     }, (isRegistered) {

@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 
 mixin RefreshCooldownMixin {
   DateTime? _lastRefreshTime;
@@ -17,6 +20,21 @@ mixin RefreshCooldownMixin {
     }
 
     _lastRefreshTime = now;
+    return true;
+  }
+}
+
+mixin ExitAppMixin {
+  DateTime? _lastBackPressed;
+
+  bool onExitApp(BuildContext context, {int seconds = 2}) {
+    final now = DateTime.now();
+
+    if (_lastBackPressed == null || now.difference(_lastBackPressed!) > Duration(seconds: seconds)) {
+      _lastBackPressed = now;
+      showInfoToast(context, tr('again_to_exit'), second: seconds);
+      return false;
+    }
     return true;
   }
 }

@@ -1,10 +1,17 @@
 import 'package:my_archive/core/enums/gender.dart';
+import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 
 abstract class RegistrationEvent {}
 
 class InitEvent extends RegistrationEvent {}
 
 class StartTimerEvent extends RegistrationEvent {}
+
+class SubmitEvent extends RegistrationEvent {
+  final RegistrationParams params;
+
+  SubmitEvent({required this.params});
+}
 
 class ResendPhoneEvent extends RegistrationEvent {
   final String phone;

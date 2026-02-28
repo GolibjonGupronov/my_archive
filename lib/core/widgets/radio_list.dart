@@ -16,6 +16,7 @@ class CustomRadioList<T> extends StatelessWidget {
   final String Function(T segment) getSegmentTitle;
   final Function(T segment) onSegmentSelected;
   final bool enabled;
+  final Gradient? activeGradient;
 
   const CustomRadioList(
     this.title, {
@@ -25,6 +26,7 @@ class CustomRadioList<T> extends StatelessWidget {
     required this.onSegmentSelected,
     this.activeSegment,
     this.enabled = true,
+    this.activeGradient,
   });
 
   @override
@@ -55,7 +57,7 @@ class CustomRadioList<T> extends StatelessWidget {
                   }
                 },
                 child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 100),
                   switchInCurve: Curves.easeIn,
                   switchOutCurve: Curves.easeOut,
                   transitionBuilder: (child, animation) {
@@ -71,7 +73,7 @@ class CustomRadioList<T> extends StatelessWidget {
                         : context.isDarkModeEnable
                             ? AppColors.whiteDark
                             : AppColors.foregroundSecondary,
-                    gradient: isActive ? Gradients.primaryGradient : null,
+                    gradient: isActive ? activeGradient ?? Gradients.primaryGradient : null,
                     withShadow: false,
                     child: Row(
                       children: [

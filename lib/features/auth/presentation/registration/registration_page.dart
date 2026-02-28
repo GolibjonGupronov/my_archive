@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/constants/gradients.dart';
 import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/enums/gender.dart';
 import 'package:my_archive/core/enums/state_status.dart';
@@ -23,6 +24,7 @@ import 'package:my_archive/core/widgets/scaffold.dart';
 import 'package:my_archive/core/widgets/select_field.dart';
 import 'package:my_archive/core/widgets/text_field.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_bloc.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_state.dart';
@@ -33,14 +35,15 @@ class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key, required this.phoneNumber});
 
   static const String tag = '/registration_page';
-  static final TextEditingController codeController = TextEditingController();
+  static final TextEditingController smsCodeController = TextEditingController();
   static final TextEditingController firstNameController = TextEditingController();
   static final TextEditingController secondNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => RegistrationBloc(sendPhoneUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) =>
+          RegistrationBloc(sendPhoneUseCase: sl(), registrationUseCase: sl(), userInfoUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -70,6 +73,9 @@ class RegistrationPage extends StatelessWidget {
         ),
       ],
       child: CustomScaffold(
+        hasUnsavedChanges: () => true,
+        dialogTitle: "Ortga qaytmoqchimisiz",
+        dialogSubtitle: "",
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: Column(
@@ -108,11 +114,14 @@ class RegistrationPage extends StatelessWidget {
                       selector: (state) => state.gender,
                       builder: (context, state) {
                         debugPrint("GGQ => Gender");
-                        return CustomRadioList("Jins",
-                            segments: Gender.values,
-                            getSegmentTitle: (value) => value.title,
-                            onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
-                            activeSegment: state);
+                        return CustomRadioList(
+                          "Jins",
+                          segments: Gender.values,
+                          getSegmentTitle: (value) => value.title,
+                          onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
+                          activeSegment: state,
+                          activeGradient: state == Gender.male ? Gradients.primaryGradient : Gradients.pinkGradient,
+                        );
                       },
                     ),
                     8.height,
@@ -136,10 +145,10 @@ class RegistrationPage extends StatelessWidget {
                     24.height,
                     CustomPinPut(
                       context: context,
-                      controller: codeController,
+                      controller: smsCodeController,
                       length: Constants.smsCodeLength,
                       onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(code: codeController.text));
+                        bloc.add(UpdateFieldEvent(code: smsCodeController.text));
                       },
                     ),
                     12.height,
@@ -156,7 +165,8 @@ class RegistrationPage extends StatelessWidget {
                                 }
                               },
                               child: (state.resendPhoneStatus.isInProgress)
-                                  ? Padding(padding: const EdgeInsets.symmetric(horizontal: 20.0), child: CupertinoActivityIndicator())
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20.0), child: CupertinoActivityIndicator())
                                   : state.second == 0
                                       ? Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -179,11 +189,19 @@ class RegistrationPage extends StatelessWidget {
                 buildWhen: (p, c) => p.resendPhoneStatus == c.resendPhoneStatus && p.second == c.second,
                 builder: (context, state) {
                   return CustomButton(
-                    "Tasdiqlash",
-                        () {
+                    tr('save'),
+                    () {
                       context.hideKeyboard;
-                      // final phone = "+998${phoneNumber.phoneReplace}";
-                      // bloc.add(SubmitEvent(params: CheckSmsParams(phone: phone, sms: codeController.text)));
+                      final phone = "+998${phoneNumber.phoneReplace}";
+                      bloc.add(SubmitEvent(
+                          params: RegistrationParams(
+                        phone: phone,
+                        firstName: firstNameController.text,
+                        secondName: secondNameController.text,
+                        gender: state.gender,
+                        birthDay: state.birthDay!,
+                        smsCode: smsCodeController.text,
+                      )));
                     },
                     active: state.isActive,
                     progress: state.regStatus.isInProgress,

@@ -3,16 +3,22 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/constants/constants.dart';
 import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/use_cases/usecase.dart';
+import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
+import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/bloc/registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final SendPhoneUseCase sendPhoneUseCase;
+  final RegistrationUseCase registrationUseCase;
+  final UserInfoUseCase userInfoUseCase;
   Timer? _timer;
   int _seconds = Constants.smsResendPhoneSecond;
 
-  RegistrationBloc({required this.sendPhoneUseCase}) : super(RegistrationState()) {
+  RegistrationBloc({required this.sendPhoneUseCase, required this.registrationUseCase, required this.userInfoUseCase})
+      : super(RegistrationState()) {
     on<InitEvent>((event, emit) {
       add(StartTimerEvent());
     });
@@ -26,6 +32,10 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     });
     on<SecondEvent>((event, emit) {
       emit(state.copyWith(second: event.second));
+    });
+
+    on<SubmitEvent>((event, emit) async {
+      await _submit(event, emit);
     });
 
     on<UpdateFieldEvent>((event, emit) async {
@@ -44,9 +54,27 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     });
   }
 
+  Future<void> _submit(SubmitEvent event, Emitter<RegistrationState> emit) async {
+    emit(state.copyWith(regStatus: StateStatus.inProgress));
+    final result = await registrationUseCase.callUseCase(event.params);
+    await result.fold((fail) async => emit(state.copyWith(regStatus: StateStatus.failure, errorMessage: fail.message)),
+        (data) async {
+      if (data.isNotEmpty) {
+        final resultUser = await userInfoUseCase.callUseCase(NoParams());
+        resultUser.fold((fail) {
+          emit(state.copyWith(regStatus: StateStatus.failure, errorMessage: fail.message));
+        }, (data) {
+          emit(state.copyWith(regStatus: StateStatus.success));
+        });
+      } else {
+        emit(state.copyWith(regStatus: StateStatus.failure, errorMessage: "Token bo'sh"));
+      }
+    });
+  }
+
   Future<void> _resend(Emitter<RegistrationState> emit, String phone) async {
     emit(state.copyWith(resendPhoneStatus: StateStatus.inProgress));
-    final result = await sendPhoneUseCase.call(phone);
+    final result = await sendPhoneUseCase.callUseCase(phone);
     result.fold((fail) {
       emit(state.copyWith(resendPhoneStatus: StateStatus.failure, errorMessage: fail.message));
     }, (isRegistered) {

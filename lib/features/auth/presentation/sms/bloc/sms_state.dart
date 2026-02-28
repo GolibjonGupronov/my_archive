@@ -5,7 +5,6 @@ import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
 class SmsState {
   final StateStatus smsStatus;
   final StateStatus resendPhoneStatus;
-  final UserInfoEntity? userInfo;
   final String code;
   final bool isActive;
   final int second;
@@ -14,7 +13,6 @@ class SmsState {
   SmsState({
     this.smsStatus = StateStatus.initial,
     this.resendPhoneStatus = StateStatus.initial,
-    this.userInfo,
     this.code = '',
     this.isActive = false,
     this.second = Constants.smsResendPhoneSecond,
@@ -24,7 +22,6 @@ class SmsState {
   SmsState copyWith({
     StateStatus? smsStatus,
     StateStatus? resendPhoneStatus,
-    UserInfoEntity? userInfo,
     String? code,
     bool? isActive,
     int? second,
@@ -33,7 +30,6 @@ class SmsState {
       SmsState(
         smsStatus: smsStatus ?? this.smsStatus,
         resendPhoneStatus: resendPhoneStatus ?? this.resendPhoneStatus,
-        userInfo: userInfo ?? this.userInfo,
         code: code ?? this.code,
         isActive: isActive ?? this.isActive,
         second: second ?? this.second,

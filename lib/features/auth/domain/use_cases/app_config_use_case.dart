@@ -9,5 +9,5 @@ class AppConfigUseCase extends UseCase<AppConfigEntity, NoParams>{
 
   AppConfigUseCase({required this.repository});
   @override
-  Future<Either<Failure, AppConfigEntity>> call(NoParams params) async => await repository.appConfig();
+  Future<Either<Failure, AppConfigEntity>> callUseCase(NoParams params) async => await repository.appConfig();
 }

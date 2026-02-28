@@ -61,6 +61,37 @@ Future<dynamic> showConfirmDialog(
   );
 }
 
+Future<dynamic> showRejectDialog(
+  final BuildContext context,
+  final String title, {
+  final String? subTitle,
+  final Widget? icon,
+  final VoidCallback? onConfirm,
+  final VoidCallback? onCancel,
+  final DialogButton? confirmButton,
+  final DialogButton? cancelButton,
+  final bool barrierDismissible = false,
+  final MyDialogType type = MyDialogType.none,
+}) async {
+  return _generalDialog(
+    context: context,
+    title: title,
+    barrierDismissible: barrierDismissible,
+    child: _CustomDialog.confirmDialog(
+      title: title,
+      subTitle: subTitle,
+      icon: icon,
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      confirmButtonStyle: confirmButton ?? DialogButton.confirm(buttonColor: AppColors.lightGray, textColor: AppColors.black),
+      cancelButtonStyle: cancelButton ?? DialogButton.cancel(buttonColor: AppColors.primary, textColor: AppColors.white),
+      barrierDismissible: barrierDismissible,
+      type: type,
+      subTitleAlignment: TextAlign.center,
+    ),
+  );
+}
+
 Future<dynamic> showSuccessDialog(
   BuildContext context, {
   required String title,
@@ -343,7 +374,19 @@ class _CustomDialog extends StatelessWidget {
                             24.height,
                             Row(
                               children: [
+                                Expanded(
+                                  child: CustomButton(
+                                    confirmButton.text,
+                                        () {
+                                      router.pop();
+                                      onConfirm?.call();
+                                    },
+                                    fillColor: confirmButton.buttonColor,
+                                    textColor: confirmButton.textColor,
+                                  ),
+                                ),
                                 if (visibleCancel) ...[
+                                  10.width,
                                   Expanded(
                                     child: CustomButton(
                                       cancelButton.text,
@@ -355,19 +398,8 @@ class _CustomDialog extends StatelessWidget {
                                       textColor: cancelButton.textColor,
                                     ),
                                   ),
-                                  10.width
                                 ],
-                                Expanded(
-                                  child: CustomButton(
-                                    confirmButton.text,
-                                    () {
-                                      router.pop();
-                                      onConfirm?.call();
-                                    },
-                                    fillColor: confirmButton.buttonColor,
-                                    textColor: confirmButton.textColor,
-                                  ),
-                                ),
+
                               ],
                             ),
                           ],
