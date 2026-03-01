@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/api/api_urls/api_urls.dart';
-import 'package:my_archive/core/api/dio/dio_mock.dart';
-import 'package:my_archive/core/enums/gender.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/data/models/app_config_model.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';

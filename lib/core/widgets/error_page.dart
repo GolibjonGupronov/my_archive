@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/button.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class ErrorPage extends StatelessWidget {
   final FlutterErrorDetails errorDetails;

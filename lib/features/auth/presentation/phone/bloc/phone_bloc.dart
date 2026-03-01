@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_archive/core/enums/common.dart';
-import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';

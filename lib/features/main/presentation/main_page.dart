@@ -1,20 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/mixins/safe_caller.dart';
-import 'package:my_archive/core/widgets/app_bar.dart';
-import 'package:my_archive/core/widgets/button.dart';
-import 'package:my_archive/core/widgets/scaffold.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
-
-import 'bloc/main_bloc.dart';
-import 'bloc/main_event.dart';
-import 'bloc/main_state.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/features/main/presentation/bloc/main_bloc.dart';
+import 'package:my_archive/features/main/presentation/bloc/main_event.dart';
+import 'package:my_archive/features/main/presentation/bloc/main_state.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
 
   static const String tag = '/main_page';
+  final List<BottomNavItemEntity> bottomNavigationItems = [
+    BottomNavItemEntity(tr('home'), HomePage(), CupertinoIcons.house, BottomNavMainPage.home),
+    BottomNavItemEntity(tr('profile'), ProfilePage(), CupertinoIcons.person_crop_circle, BottomNavMainPage.profile),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,14 +28,42 @@ class MainPage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<MainBloc>(context);
+    final pages = bottomNavigationItems.map((item) => item.page).toList();
 
-    return CustomScaffold(
-      isExitDialog: true,
-      appBar: CustomAppBar(Constants.appName),
-      body: CustomButton("Chiqish", (){
-        logoutApp();
-      }),
+    return BlocBuilder<MainBloc, MainState>(
+      builder: (context, state) {
+        debugPrint("GGQ => MainPage");
+        return CustomScaffold(
+          isExitDialog: true,
+          body: Column(
+            children: [
+              Expanded(child: IndexedStack(index: state.activePage.index, children: pages)),
+              Padding(
+                padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
+                child: BoxContainer(
+                  padding: EdgeInsets.all(4.w),
+                  borderRadius: BorderRadius.circular(60.r),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: bottomNavigationItems.mapIndexed((index, item) {
+                      return BottomNavItem(
+                        onTap: () {
+                          if (item.navItem != state.activePage) {
+                            bloc.add(ActiveMainPageEvent(activePage: item.navItem));
+                          }
+                        },
+                        isActive: state.activePage == item.navItem,
+                        iconData: item.icon,
+                        title: item.title,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
-

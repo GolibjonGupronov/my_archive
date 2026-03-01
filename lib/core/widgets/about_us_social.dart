@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/utils/common.dart';
-import 'package:my_archive/core/utils/device_helper.dart';
-import 'package:my_archive/core/utils/generated/assets.gen.dart';
-import 'package:my_archive/core/widgets/bounce.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class AboutUsSocial extends StatelessWidget {
   const AboutUsSocial({super.key});

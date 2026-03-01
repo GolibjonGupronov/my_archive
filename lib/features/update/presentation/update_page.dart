@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/widgets/app_bar.dart';
-import 'package:my_archive/core/widgets/scaffold.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class UpdatePage extends StatelessWidget {
   const UpdatePage({super.key});

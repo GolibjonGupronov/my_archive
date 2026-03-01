@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/animations/bounce_animation.dart';
-import 'package:my_archive/core/animations/fade_animation.dart';
-import 'package:my_archive/core/animations/pulse_animation.dart';
-import 'package:my_archive/core/animations/rotation_animation.dart';
-import 'package:my_archive/core/animations/scale_animation.dart';
-import 'package:my_archive/core/animations/shake_animation.dart';
-import 'package:my_archive/core/animations/slide_animation.dart';
-import 'package:my_archive/core/animations/stagger_animation.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class DemoAnimations extends StatelessWidget {
   const DemoAnimations({super.key});

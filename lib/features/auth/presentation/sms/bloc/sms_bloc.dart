@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/enums/state_status.dart';
-import 'package:my_archive/core/use_cases/usecase.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
@@ -56,7 +54,10 @@ class SmsBloc extends Bloc<SmsEvent, SmsState> {
         final resultUser = await userInfoUseCase.callUseCase(NoParams());
         resultUser.fold(
           (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-          (data) => emit(state.copyWith(smsStatus: StateStatus.success)),
+          (data) {
+            _timer?.cancel();
+            emit(state.copyWith(smsStatus: StateStatus.success));
+          },
         );
       },
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class LogoWidget extends StatelessWidget {
   const LogoWidget({super.key});

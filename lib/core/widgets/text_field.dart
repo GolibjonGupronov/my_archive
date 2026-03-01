@@ -4,17 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/extensions/string.dart';
-import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/core/utils/common.dart';
-import 'package:my_archive/core/utils/generated/assets.gen.dart';
-import 'package:my_archive/core/utils/thousands_formatter.dart';
-import 'package:my_archive/core/widgets/bounce.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 enum _EnumTextFieldType { text, phone, password, thousandFormat, comment }
 
@@ -293,12 +283,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             ),
           if (widget.title.isNotEmpty) 10.height,
-          Container(
-            decoration: BoxDecoration(
-              color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
-              border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
-              borderRadius: BorderRadius.circular(30.r),
-            ),
+          BoxContainer(
+            border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
+            borderRadius: BorderRadius.circular(30.r),
             child: SizedBox(
               height: widget.maxLines == null ? 60.h : null,
               child: Padding(

@@ -4,15 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/constants/gradients.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/button.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 Future<dynamic> showCustomDialog(
   final BuildContext context, {

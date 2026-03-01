@@ -1,4 +1,4 @@
-import 'package:my_archive/core/enums/gender.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class UserInfoEntity {
   final String firstName;

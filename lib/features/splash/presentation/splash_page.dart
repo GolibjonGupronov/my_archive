@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_archive/core/animations/scale_animation.dart';
-import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/utils/generated/assets.gen.dart';
-import 'package:my_archive/core/widgets/common/logo_widget.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
-import 'package:my_archive/core/widgets/scaffold.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_state.dart';

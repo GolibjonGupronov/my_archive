@@ -1,5 +1,7 @@
 import 'package:my_archive/core/app_router/route_exports.dart';
 
+enum BottomNavMainPage { home, profile }
+
 enum NextPage {
   auth,
   main,

@@ -13,6 +13,8 @@
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
   },
+  "profile": "Profil",
+  "home": "Asosiy",
   "register_with_phone": "Ushbu {} telefon raqami orqali ro'yxatdan o'tmoqdasiz",
   "sign_up": "Ro'yxatdan o'ting",
   "send": "Yuborish",

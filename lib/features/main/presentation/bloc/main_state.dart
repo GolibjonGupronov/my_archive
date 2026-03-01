@@ -1,9 +1,17 @@
-class MainState {
-  MainState init() {
-    return MainState();
-  }
+import 'package:my_archive/core/core_exports.dart';
 
-  MainState clone() {
-    return MainState();
+class MainState {
+  final BottomNavMainPage activePage;
+
+  MainState({
+    this.activePage = BottomNavMainPage.home,
+  });
+
+  MainState copyWith({
+    BottomNavMainPage? activePage,
+  }) {
+    return MainState(
+      activePage: activePage ?? this.activePage,
+    );
   }
 }

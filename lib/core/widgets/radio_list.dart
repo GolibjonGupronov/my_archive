@@ -1,13 +1,7 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/constants/gradients.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/bounce.dart';
-import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class CustomRadioList<T> extends StatelessWidget {
   final String title;
@@ -68,11 +62,6 @@ class CustomRadioList<T> extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(16.w),
                     borderRadius: BorderRadius.circular(60.r),
-                    color: isActive
-                        ? null
-                        : context.isDarkModeEnable
-                            ? AppColors.whiteDark
-                            : AppColors.foregroundSecondary,
                     gradient: isActive ? activeGradient ?? Gradients.primaryGradient : null,
                     withShadow: false,
                     child: Row(

@@ -1,5 +1,3 @@
-
-
 abstract class PhoneEvent {}
 
 class InitEvent extends PhoneEvent {}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/utils/generated/fonts.gen.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class AppTheme {
   AppTheme._();

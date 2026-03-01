@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/bounce.dart';
-import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/text_field.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class SingleSelectItemModel {
   final String title;

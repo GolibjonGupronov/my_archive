@@ -1,13 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/constants/gradients.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/bounce.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -19,6 +13,7 @@ class CustomButton extends StatelessWidget {
   final IconData? icon;
   final Color? fillColor;
   final Color? textColor;
+  final String? toastMessage;
 
   const CustomButton(
     this.text,
@@ -31,16 +26,20 @@ class CustomButton extends StatelessWidget {
     this.fillColor,
     this.textColor,
     this.gradient,
+    this.toastMessage,
   });
 
   @override
   Widget build(BuildContext context) {
+    final toast = toastMessage ?? "Ma'lumotlarni to'ldiring";
     return Bounce(
       onTap: () {
         if (active && !progress) {
           onClick.call();
         } else if (!active && onClickDisabled != null) {
           onClickDisabled?.call();
+        } else if (!active && toast.isNotEmpty) {
+          showInfoToast(context, toast, second: 1);
         }
       },
       child: Container(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/utils/generated/assets.gen.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 enum LangType {
   uz,

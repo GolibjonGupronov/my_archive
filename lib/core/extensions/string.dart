@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:my_archive/core/extensions/helper.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 extension CustomString on String {
   String? get nullIfEmpty => trim().isEmpty ? null : this;
@@ -64,7 +64,7 @@ extension FormattedAmountString on String? {
   }
 }
 
-extension HexColor on String {
+extension HexColorStrinng on String {
   Color? get fromHex {
     var hex = replaceAll('#', '').trim();
 

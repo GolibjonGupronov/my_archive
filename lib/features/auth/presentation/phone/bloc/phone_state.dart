@@ -1,5 +1,4 @@
-import 'package:my_archive/core/enums/common.dart';
-import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class PhoneState {
   final StateStatus phoneStatus;

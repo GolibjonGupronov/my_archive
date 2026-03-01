@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/extensions/common.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class BoxContainer extends StatelessWidget {
   final Widget? child;
@@ -56,7 +55,7 @@ class BoxContainer extends StatelessWidget {
                         offset: const Offset(1, 1))
                   ]
                 : [],
-        color: gradient != null ? null : (color ?? (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.white)),
+        color: gradient != null ? null : (color ?? (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary)),
         borderRadius: borderRadius,
         border: border,
         gradient: gradient,

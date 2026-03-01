@@ -3,20 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/extensions/string.dart';
-import 'package:my_archive/core/utils/generated/assets.gen.dart';
-import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/button.dart';
-import 'package:my_archive/core/widgets/common/logo_widget.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_dialog.dart';
-import 'package:my_archive/core/widgets/scaffold.dart';
-import 'package:my_archive/core/widgets/text_field.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
 import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';
@@ -82,7 +69,6 @@ class _PhonePageState extends State<PhonePage> {
               Row(
                 children: [
                   BoxContainer(
-                    color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     borderRadius: BorderRadius.circular(30.r),
                     child: SizedBox(

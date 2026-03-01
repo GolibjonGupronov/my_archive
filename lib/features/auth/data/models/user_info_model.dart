@@ -1,4 +1,4 @@
-import 'package:my_archive/core/enums/gender.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
 
 class UserInfoModel extends UserInfoEntity {

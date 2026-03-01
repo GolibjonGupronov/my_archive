@@ -2,13 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/widgets/box_conatiner.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
-void showErrorToast(BuildContext context, String message, {int second = Constants.toastDuration}) {
+void showErrorToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
   final fToast = FToast();
   fToast.removeCustomToast();
   fToast.init(context);
@@ -21,10 +17,10 @@ void showErrorToast(BuildContext context, String message, {int second = Constant
     ],
   );
 
-  _show(fToast: fToast, second: second, child: toast);
+  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
 }
 
-void showSuccessToast(BuildContext context, String message, {int second = Constants.toastDuration}) {
+void showSuccessToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
   final fToast = FToast();
   fToast.removeCustomToast();
   fToast.init(context);
@@ -37,10 +33,10 @@ void showSuccessToast(BuildContext context, String message, {int second = Consta
     ],
   );
 
-  _show(fToast: fToast, second: second, child: toast);
+  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
 }
 
-void showInfoToast(BuildContext context, String message, {int second = Constants.toastDuration}) {
+void showInfoToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
   final fToast = FToast();
   fToast.removeCustomToast();
   fToast.init(context);
@@ -53,41 +49,72 @@ void showInfoToast(BuildContext context, String message, {int second = Constants
     ],
   );
 
-  _show(fToast: fToast, second: second, child: toast);
+  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
 }
 
-void _show({required FToast fToast, required Widget child, required int second}) {
-  return fToast.showToast(
-    child: BoxContainer(
-      withShadow: true,
-      shadowColor: AppColors.primary.withValues(alpha: 0.3),
-      borderRadius: BorderRadius.circular(16.r),
-      child: ClipRRect(
+void _show({
+  required FToast fToast,
+  required Widget child,
+  required int second,
+  required bool isDismissible,
+}) {
+  final toastKey = UniqueKey();
+
+  fToast.showToast(
+    child: Dismissible(
+      key: toastKey,
+      confirmDismiss: (_) async => isDismissible,
+      direction: DismissDirection.horizontal,
+      onDismissed: (_) {
+        fToast.removeCustomToast();
+      },
+      child: BoxContainer(
+        withShadow: true,
+        shadowColor: AppColors.primary.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16.r),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
-              child: child,
-            ),
-            12.height,
-            TweenAnimationBuilder<double>(
-              tween: Tween(begin: 1.0, end: 0.0),
-              duration: Duration(seconds: second),
-              builder: (context, value, child) {
-                return LinearProgressIndicator(
-                  value: value,
-                  backgroundColor: AppColors.primary.withValues(alpha: 0.3),
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-                );
-              },
-            ),
-          ],
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 16.w,
+                  right: 16.w,
+                  top: 16.h,
+                ),
+                child: child,
+              ),
+              12.height,
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 1.0, end: 0.0),
+                duration: Duration(seconds: second),
+                builder: (context, value, _) {
+                  return LinearProgressIndicator(
+                    value: value,
+                    backgroundColor:
+                    AppColors.primary.withValues(alpha: 0.3),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.primary,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     ),
-    gravity: ToastGravity.BOTTOM,
     toastDuration: Duration(seconds: second),
+    positionedToastBuilder: (context, child, gravity){
+      final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+      return Positioned(
+        left: 16.w,
+        right: 16.w,
+        bottom: bottomInset + 16.h,
+        child: child,
+      );
+    },
   );
 }

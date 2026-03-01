@@ -1,4 +1,4 @@
-import 'package:my_archive/core/enums/gender.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 
 abstract class RegistrationEvent {}

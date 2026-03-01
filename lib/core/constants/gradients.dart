@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class Gradients {
   static LinearGradient get primaryGradient => const LinearGradient(

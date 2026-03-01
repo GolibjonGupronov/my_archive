@@ -1,6 +1,4 @@
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/enums/state_status.dart';
-import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class SmsState {
   final StateStatus smsStatus;

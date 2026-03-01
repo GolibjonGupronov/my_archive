@@ -4,8 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:my_archive/core/constants/constants.dart';
-import 'package:my_archive/core/utils/device_helper.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 class BotService {
   static final Dio _dio = Dio();

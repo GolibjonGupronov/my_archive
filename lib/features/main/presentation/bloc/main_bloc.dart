@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
-
-import 'main_event.dart';
-import 'main_state.dart';
+import 'package:my_archive/features/main/presentation/bloc/main_event.dart';
+import 'package:my_archive/features/main/presentation/bloc/main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
-  MainBloc() : super(MainState().init()) {
-    on<InitEvent>(_init);
-  }
+  MainBloc() : super(MainState()) {
+    on<InitEvent>((event, emit) {});
 
-  void _init(InitEvent event, Emitter<MainState> emit) async {
-    emit(state.clone());
+    on<ActiveMainPageEvent>((event, emit) {
+      emit(state.copyWith(activePage: event.activePage));
+    });
   }
 }

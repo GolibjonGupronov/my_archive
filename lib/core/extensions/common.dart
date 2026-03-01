@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 extension StateStateExtension on StateStatus {
   bool get isInitial => this == StateStatus.initial;

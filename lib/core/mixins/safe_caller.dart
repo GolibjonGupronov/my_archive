@@ -4,12 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
-import 'package:my_archive/core/api/error/failure.dart';
-import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
-import 'package:my_archive/core/services/bot/bot_service.dart';
-import 'package:my_archive/core/utils/either.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
 void logoutApp() async {

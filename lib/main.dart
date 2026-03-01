@@ -10,15 +10,7 @@ import 'package:flutter_alice/alice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/enums/lang_type.dart';
-import 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
-import 'package:my_archive/core/services/bot/bot_service.dart';
-import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/core/utils/device_helper.dart';
-import 'package:my_archive/core/widgets/error_page.dart';
+import 'package:my_archive/core/core_exports.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 final Alice alice = Alice(showNotification: false);

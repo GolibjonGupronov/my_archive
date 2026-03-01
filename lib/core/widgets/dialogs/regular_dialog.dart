@@ -7,16 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/constants/colors.dart';
-import 'package:my_archive/core/extensions/common.dart';
-import 'package:my_archive/core/extensions/number.dart';
-import 'package:my_archive/core/services/permissions/permissions.dart';
-import 'package:my_archive/core/theme/app_theme.dart';
-import 'package:my_archive/core/widgets/button.dart';
-import 'package:my_archive/core/widgets/calendar_view.dart';
-import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
-import 'package:my_archive/core/widgets/text_view.dart';
+import 'package:my_archive/core/core_exports.dart';
 
 Future<void> showDraggableBottomSheet({
   required BuildContext context,
