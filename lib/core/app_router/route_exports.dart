@@ -7,3 +7,4 @@ export 'package:my_archive/features/main/presentation/main_page.dart';
 export 'package:my_archive/features/profile/presentation/profile_page.dart';
 export 'package:my_archive/features/splash/presentation/splash_page.dart';
 export 'package:my_archive/features/update/presentation/update_page.dart';
+export 'package:my_archive/core/widgets/image/image_zoom_page.dart';

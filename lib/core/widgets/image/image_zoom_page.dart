@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -10,6 +14,8 @@ class ImageZoomPage extends StatefulWidget {
   final int activeIndex;
 
   const ImageZoomPage({required this.items, super.key, this.activeIndex = 0});
+
+  static const String tag = '/image_zoom_page';
 
   @override
   State<StatefulWidget> createState() => ImageZoomPageState();
@@ -37,19 +43,29 @@ class ImageZoomPageState extends State<ImageZoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       body: Stack(
         children: [
           PhotoViewGallery.builder(
             scrollPhysics: const BouncingScrollPhysics(),
             pageController: pageController,
             builder: (BuildContext context, int index) {
+              final path = widget.items[index];
+
+              final ImageProvider provider;
+
+              if (path.startsWith('http')) {
+                provider = CachedNetworkImageProvider(path, cacheManager: CustomCacheManager.instance);
+              } else {
+                provider = FileImage(File(path));
+              }
+
               return PhotoViewGalleryPageOptions(
-                imageProvider: CachedNetworkImageProvider(widget.items[index]),
+                imageProvider: provider,
                 maxScale: PhotoViewComputedScale.covered,
                 minScale: PhotoViewComputedScale.contained,
                 initialScale: PhotoViewComputedScale.contained * 0.9,
-                heroAttributes: PhotoViewHeroAttributes(tag: index),
+                heroAttributes: PhotoViewHeroAttributes(tag: path),
               );
             },
             itemCount: widget.items.length,
@@ -106,15 +122,17 @@ class ImageZoomPageState extends State<ImageZoomPage> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: context.safeTop(8)),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                onPressed: () {
-                  router.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back_rounded, color: AppColors.gray),
+          Positioned(
+            top: context.safeTop(20),
+            left: 16.w,
+            child: Bounce(
+              onTap: () {
+                context.pop();
+              },
+              child: BoxContainer(
+                shape: BoxShape.circle,
+                padding: EdgeInsets.all(10.w),
+                child: Icon(CupertinoIcons.chevron_back, size: 18.w),
               ),
             ),
           ),

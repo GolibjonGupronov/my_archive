@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/core/widgets/image/no_image_page.dart';
 
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -55,6 +56,24 @@ final GoRouter router = GoRouter(
         state: state,
         child: RegistrationPage(phoneNumber: state.extra as String),
       ),
+    ),
+    GoRoute(
+      path: ImageZoomPage.tag,
+      pageBuilder: (context, state) {
+        final items = List<String>.from(state.extra as List);
+        if (items.isEmpty) {
+          return buildPageWithFadeTransition<void>(
+            context: context,
+            state: state,
+            child: NoImagePage(),
+          );
+        }
+        return buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: ImageZoomPage(items: items),
+        );
+      },
     ),
   ],
 );

@@ -48,6 +48,7 @@ export 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 export 'package:my_archive/core/widgets/dialogs/regular_dialog.dart';
 export 'package:my_archive/core/widgets/image/custom_image_view.dart';
 export 'package:my_archive/core/widgets/image/image_zoom_page.dart';
+export 'package:my_archive/core/widgets/image/no_image_page.dart';
 export 'package:my_archive/core/widgets/about_us_social.dart';
 export 'package:my_archive/core/widgets/app_bar.dart';
 export 'package:my_archive/core/widgets/bounce.dart';
