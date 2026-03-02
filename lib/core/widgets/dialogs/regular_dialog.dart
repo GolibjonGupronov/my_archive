@@ -259,7 +259,7 @@ Future<void> showFilePicker({
                       }
                     }
                   },
-                  child: TextView(tr('photo'))),
+                  child: TextView(tr('gallery'))),
               CupertinoActionSheetAction(
                   onPressed: () async {
                     router.pop();
@@ -288,8 +288,8 @@ Future<void> showFilePicker({
                   },
                   child: TextView(tr('file'))),
             ],
-            cancelButton: CupertinoActionSheetAction(
-                onPressed: () => context.pop(), child: TextView(tr('cancel'), color: AppColors.red)),
+            cancelButton:
+                CupertinoActionSheetAction(onPressed: () => context.pop(), child: TextView(tr('cancel'), color: AppColors.red)),
           ));
 }
 
@@ -348,7 +348,7 @@ Future<void> showImagePicker({
                       }
                     }
                   },
-                  child: TextView(tr('photo'))),
+                  child: TextView(tr('gallery'))),
             ],
             cancelButton: CupertinoActionSheetAction(
                 onPressed: () {

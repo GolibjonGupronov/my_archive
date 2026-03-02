@@ -32,5 +32,6 @@ class InjectionContainer {
   static Future<void> _injections() async {
     initSplashInjection();
     initAuthInjection();
+    initProfileInjection();
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/widgets/image/no_image_page.dart';
 
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -74,6 +73,14 @@ final GoRouter router = GoRouter(
           child: ImageZoomPage(items: items),
         );
       },
+    ),
+    GoRoute(
+      path: SettingsPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: SettingsPage(),
+      ),
     ),
   ],
 );

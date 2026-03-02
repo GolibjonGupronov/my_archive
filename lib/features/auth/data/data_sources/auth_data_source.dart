@@ -43,7 +43,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<UserInfoModel> getUserInfo() async {
     final data = UserInfoModel(
-        firstName: "G'olibjon", secondName: "G'upronov", gender: Gender.male, birthday: "29.02.2000", phone: "+998999940941");
+        firstName: "G'olibjon", secondName: "G'upronov", gender: Gender.male, birthday: "29.02.2000", phone: "+998999940941", image: "https://picsum.photos/400/200?3");
     final response = await dio.mock(data: data).post(ApiUrls.userInfo);
     return UserInfoModel.fromJson(response.data);
   }

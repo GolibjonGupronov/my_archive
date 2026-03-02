@@ -4,7 +4,9 @@ export 'package:my_archive/features/auth/presentation/registration/registration_
 export 'package:my_archive/features/auth/presentation/sms/sms_page.dart';
 export 'package:my_archive/features/home/presentation/home_page.dart';
 export 'package:my_archive/features/main/presentation/main_page.dart';
-export 'package:my_archive/features/profile/presentation/profile_page.dart';
+export 'package:my_archive/features/profile/presentation/pages/profile_page.dart';
 export 'package:my_archive/features/splash/presentation/splash_page.dart';
 export 'package:my_archive/features/update/presentation/update_page.dart';
 export 'package:my_archive/core/widgets/image/image_zoom_page.dart';
+export 'package:my_archive/features/profile/presentation/pages/settings_page.dart';
+export 'package:my_archive/core/widgets/image/no_image_page.dart';

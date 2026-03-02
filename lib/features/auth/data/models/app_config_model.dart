@@ -9,10 +9,10 @@ class AppConfigModel extends AppConfigEntity {
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
     return AppConfigModel(
-      iosMinimumBuildCode: json['ios_minimum_build_code'],
-      androidMinimumBuildCode: json['android_minimum_build_code'],
-      googlePlayLink: json['google_play_link'],
-      appStoreLink: json['app_store_link'],
+      iosMinimumBuildCode: json['ios_minimum_build_code'] ?? 1,
+      androidMinimumBuildCode: json['android_minimum_build_code'] ?? 1,
+      googlePlayLink: json['google_play_link'] ?? "",
+      appStoreLink: json['app_store_link'] ?? "",
     );
   }
 

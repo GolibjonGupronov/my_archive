@@ -6,6 +6,7 @@ class UserInfoEntity {
   final Gender gender;
   final String birthday;
   final String phone;
+  final String image;
 
   UserInfoEntity({
     required this.firstName,
@@ -13,5 +14,8 @@ class UserInfoEntity {
     required this.gender,
     required this.birthday,
     required this.phone,
+    required this.image,
   });
+
+  String get fullName => "$firstName\n$secondName";
 }

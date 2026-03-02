@@ -22,9 +22,7 @@ class HomePage extends StatelessWidget {
 
     return CustomScaffold(
       appBar: CustomAppBar(tr('home')),
-      body: CustomButton("Chiqish", (){
-        logoutApp();
-      }),
+      body: SizedBox(),
     );
   }
 }

@@ -35,12 +35,14 @@ class MainPage extends StatelessWidget {
         debugPrint("GGQ => MainPage");
         return CustomScaffold(
           isExitDialog: true,
-          body: Column(
-            children: [
-              Expanded(child: IndexedStack(index: state.activePage.index, children: pages)),
-              Padding(
+          body: Stack(alignment: Alignment.center, children: [
+            IndexedStack(index: state.activePage.index, children: pages),
+            Positioned(
+              bottom: 0,
+              child: Padding(
                 padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
                 child: BoxContainer(
+                  color: (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary).withValues(alpha: 0.96),
                   padding: EdgeInsets.all(4.w),
                   borderRadius: BorderRadius.circular(60.r),
                   child: Row(
@@ -59,9 +61,9 @@ class MainPage extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ]),
         );
       },
     );

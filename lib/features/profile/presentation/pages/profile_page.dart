@@ -1,0 +1,155 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
+import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) => ProfileBloc(prefManager: sl(), changeImageUseCase: sl())..add(InitEvent()),
+      child: Builder(builder: (context) => _buildPage(context)),
+    );
+  }
+
+  Widget _buildPage(BuildContext context) {
+    final bloc = BlocProvider.of<ProfileBloc>(context);
+
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProfileBloc, ProfileState>(
+          listenWhen: (previous, current) => previous.changeImageStatus != current.changeImageStatus,
+          listener: (context, state) {
+            if (state.changeImageStatus.isFailure) {
+              showErrorDialog(context, title: state.errorMessage);
+            }
+          },
+        ),
+      ],
+      child: CustomScaffold(
+        appBar: CustomAppBar(tr('profile')),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 32.h),
+                children: [
+                  BlocSelector<ProfileBloc, ProfileState, ({StateStatus changeImageStatus, String userImage, String fullName})>(
+                    selector: (state) => (
+                      changeImageStatus: state.changeImageStatus,
+                      userImage: state.userImage,
+                      fullName: state.user?.fullName ?? ""
+                    ),
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: Stack(
+                                children: [
+                                  Bounce(
+                                    onTap: () {
+                                      router.push(ImageZoomPage.tag, extra: [state.userImage]);
+                                    },
+                                    child: BoxContainer(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: AppColors.primary),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: state.userImage.isEmpty
+                                            ? Assets.images.logo.image()
+                                            : CustomImageView(pathOrUrl: state.userImage),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Bounce(
+                                      onTap: () {
+                                        if (state.changeImageStatus.isInProgress) {
+                                          return;
+                                        }
+                                        showImagePicker(
+                                            ctx: context,
+                                            onResult: (result) {
+                                              bloc.add(ChangeImageEvent(result));
+                                            },
+                                            initAspectRatio: CropAspectRatioPreset.square);
+                                      },
+                                      child: BoxContainer(
+                                        shape: BoxShape.circle,
+                                        child: state.changeImageStatus.isInProgress
+                                            ? Padding(padding: EdgeInsets.all(4.w), child: CupertinoActivityIndicator())
+                                            : Icon(CupertinoIcons.camera_circle_fill, size: 30.w),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          8.height,
+                          TextView(state.fullName, style: AppTheme.textTheme.displayLarge, textAlign: TextAlign.center)
+                        ],
+                      );
+                    },
+                  ),
+                  60.height,
+                  ProfileItem(title: "Mening ma'lumotlarim", rightWidget: Icon(CupertinoIcons.profile_circled)),
+                  20.height,
+                  ProfileItem(
+                      title: "Sozlamalar",
+                      rightWidget: Icon(Icons.settings),
+                      onTap: () {
+                        context.push(SettingsPage.tag);
+                      }),
+                ],
+              ),
+            ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20.w),
+              child: Bounce(
+                onTap: (){
+                  showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: (){
+                    logoutApp();
+                  });
+                },
+                child: BoxContainer(
+                  color: AppColors.red.withValues(alpha: .8),
+                  withShadow: true,
+                  borderRadius: BorderRadius.circular(16.r),
+                  child: SizedBox(
+                      height: 54.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextView(tr('logout'), maxLines: 1, color: AppColors.white),
+                           12.width,
+                           Icon(Icons.logout, color: AppColors.white),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            10.height,
+            AboutUsSocial(),
+            context.safeBottomSpace(80),
+          ],
+        ),
+      ),
+    );
+  }
+}

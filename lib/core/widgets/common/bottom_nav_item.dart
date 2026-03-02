@@ -16,19 +16,25 @@ class BottomNavItem extends StatelessWidget {
       onTap: onTap,
       child: BoxContainer(
         padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 30.w),
-        color: isActive ? AppColors.primary.withValues(alpha: .12) : null,
+        color: isActive ? AppColors.primary.withValues(alpha: .7) : Colors.transparent,
         borderRadius: BorderRadius.circular(60.r),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 100),
-              child: Icon(iconData, color: isActive ? AppColors.primary : AppColors.gray,size: 22.w,)),
+                duration: const Duration(milliseconds: 100),
+                child: Icon(
+                  iconData,
+                  color: isActive ? AppColors.white : AppColors.gray,
+                  size: 22.w,
+                )),
             4.height,
             AnimatedDefaultTextStyle(
               duration: Duration(milliseconds: 100),
               style: AppTheme.textTheme.titleMedium!.copyWith(
-                  fontWeight: isActive ? FontWeight.w600 : FontWeight.w400, color: isActive ? AppColors.primary : AppColors.gray),
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+                color: isActive ? AppColors.white : AppColors.gray,
+              ),
               child: Text(title, textAlign: TextAlign.center),
             ),
           ],
