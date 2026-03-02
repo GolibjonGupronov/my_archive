@@ -14,12 +14,12 @@ class LanguageWidget extends StatefulWidget {
 }
 
 class _LanguageWidgetState extends State<LanguageWidget> {
-  late LangType currentLanguage;
-  final PrefManager prefManager = sl.get<PrefManager>();
+  late LangType _curLang;
+  final PrefManager _prefManager = sl.get<PrefManager>();
 
   @override
   void initState() {
-    currentLanguage = prefManager.getLanguage;
+    _curLang = _prefManager.getLanguage;
     super.initState();
   }
 
@@ -36,11 +36,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           ...LangType.values.map(
             (item) => Padding(
               padding: EdgeInsets.only(bottom: 10.h),
-              child: InkWell(
+              child: Bounce(
                 onTap: () {
-                  if (currentLanguage == item) return;
+                  if (_curLang == item) return;
                   setState(() {
-                    currentLanguage = item;
+                    _curLang = item;
                   });
                 },
                 child: BoxContainer(
@@ -50,8 +50,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                   child: Row(
                     children: [
                       Icon(
-                        currentLanguage == item ? Icons.radio_button_checked_rounded : Icons.radio_button_off_rounded,
-                        color: currentLanguage == item ? AppColors.primary : AppColors.gray,
+                        _curLang == item ? Icons.radio_button_checked_rounded : Icons.radio_button_off_rounded,
+                        color: _curLang == item ? AppColors.primary : AppColors.gray,
                       ),
                       12.width,
                       item.iconSvg.svg(width: 26.w),
@@ -59,8 +59,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       Expanded(
                         child: TextView(
                           item.title,
-                          fontWeight: currentLanguage == item ? FontWeight.w600 : FontWeight.w400,
-                          color: currentLanguage == item ? AppColors.primary : AppColors.gray,
+                          fontWeight: _curLang == item ? FontWeight.w600 : FontWeight.w400,
+                          color: _curLang == item ? AppColors.primary : AppColors.gray,
                         ),
                       ),
                     ],
@@ -72,7 +72,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           CustomButton(
             tr('save'),
             () {
-              changeLanguage(context, currentLanguage);
+              changeLanguage(context, _curLang);
             },
           ),
           context.safeBottomSpace(16),
@@ -82,7 +82,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
   }
 
   void changeLanguage(BuildContext context, LangType lang) async {
-    prefManager.setLanguage(lang);
+    _prefManager.setLanguage(lang);
     context.setLocale(lang.locale);
     await Get.updateLocale(lang.locale);
     initializeDateFormatting(lang.key);

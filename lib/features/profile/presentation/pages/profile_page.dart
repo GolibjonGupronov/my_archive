@@ -111,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                   ProfileItem(title: "Mening ma'lumotlarim", rightWidget: Icon(CupertinoIcons.profile_circled)),
                   20.height,
                   ProfileItem(
-                      title: "Sozlamalar",
+                      title: tr('settings'),
                       rightWidget: Icon(Icons.settings),
                       onTap: () {
                         context.push(SettingsPage.tag);

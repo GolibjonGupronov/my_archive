@@ -82,6 +82,14 @@ final GoRouter router = GoRouter(
         child: SettingsPage(),
       ),
     ),
+    GoRoute(
+      path: SetupPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: SetupPage(),
+      ),
+    ),
   ],
 );
 

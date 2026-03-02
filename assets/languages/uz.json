@@ -13,6 +13,7 @@
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
     "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
   },
+  "settings": "Sozlamalar",
   "logout": "Chiqish",
   "confirm_logout": "Haqiqatdan ham chiqmoqchimisiz?",
   "select_language": "Tilni tanlang",

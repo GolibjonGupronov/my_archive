@@ -40,15 +40,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   Future<void> _getUserInfo(Emitter<SplashState> emit) async {
-    if (prefManager.getToken.isEmpty) {
+    if (prefManager.isFirstLaunch) {
+      emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.setup));
+    } else if (prefManager.getToken.isEmpty) {
       emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
     } else {
-      final either = await userInfoUseCase.callUseCase(NoParams());
-      either.fold(
+      final result = await userInfoUseCase.callUseCase(NoParams());
+      result.fold(
         (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
-        (data) {
-          emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main));
-        },
+        (data) => emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main)),
       );
     }
   }

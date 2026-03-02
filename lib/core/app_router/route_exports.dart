@@ -10,3 +10,4 @@ export 'package:my_archive/features/update/presentation/update_page.dart';
 export 'package:my_archive/core/widgets/image/image_zoom_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/settings_page.dart';
 export 'package:my_archive/core/widgets/image/no_image_page.dart';
+export 'package:my_archive/features/setup/presentation/setup_page.dart';

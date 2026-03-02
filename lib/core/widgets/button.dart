@@ -31,15 +31,14 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final toast = toastMessage ?? "Ma'lumotlarni to'ldiring";
     return Bounce(
       onTap: () {
         if (active && !progress) {
           onClick.call();
         } else if (!active && onClickDisabled != null) {
           onClickDisabled?.call();
-        } else if (!active && toast.isNotEmpty) {
-          showInfoToast(context, toast, second: 1);
+        } else if (!active && (toastMessage ?? "").isNotEmpty) {
+          showInfoToast(context, toastMessage ?? "", second: 1);
         }
       },
       child: Container(

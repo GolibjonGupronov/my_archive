@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,10 @@ abstract class PrefManager {
   Future<void> remove(String key);
 
   Future<void> clear();
+
+  bool get isFirstLaunch;
+
+  Future<void> setNotFirstLaunch(bool value);
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -52,4 +57,10 @@ class PrefManagerImpl implements PrefManager {
 
   @override
   Future<void> setLanguage(LangType lang) async => await prefs.setString(Keys.language, lang.key);
+
+  @override
+  bool get isFirstLaunch => prefs.getBool(Keys.firstLaunch) ?? true;
+
+  @override
+  Future<void> setNotFirstLaunch(bool value) async => await prefs.setBool(Keys.firstLaunch, value);
 }
