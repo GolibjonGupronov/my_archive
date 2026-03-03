@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:my_archive/core/core_exports.dart';
 
 class LangWidget extends StatefulWidget {
-  const LangWidget({super.key});
+  final Function(LangType item) onTap;
+  final LangType initLang;
+
+  const LangWidget({super.key, required this.onTap, required this.initLang});
 
   @override
   State<LangWidget> createState() => _LangWidgetState();
@@ -13,16 +16,11 @@ class LangWidget extends StatefulWidget {
 
 class _LangWidgetState extends State<LangWidget> {
   late LangType _curLang;
-  final PrefManager _prefManager = sl.get<PrefManager>();
 
   @override
   void initState() {
     super.initState();
-    _curLang = _prefManager.getLanguage;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.setLocale(_curLang.locale);
-      Get.updateLocale(_curLang.locale);
-    });
+    _curLang = widget.initLang;
   }
 
   @override
@@ -40,23 +38,24 @@ class _LangWidgetState extends State<LangWidget> {
           child: Column(
             children: [
               TextView(tr('select_language')),
-              16.height,
+              20.height,
               ...LangType.values.map(
                 (item) => Padding(
-                  padding: EdgeInsets.only(bottom: 10.h),
+                  padding: EdgeInsets.only(bottom: 14.h),
                   child: Bounce(
                     onTap: () {
                       if (_curLang == item) return;
                       setState(() {
                         _curLang = item;
+                        widget.onTap(item);
                         context.setLocale(item.locale);
                         Get.updateLocale(item.locale);
                       });
                     },
                     child: BoxContainer(
                       color: context.isDarkModeEnable ? AppColors.scaffoldDarkBackground : AppColors.foregroundSecondary,
-                      borderRadius: BorderRadius.circular(16),
-                      padding: const EdgeInsets.all(16),
+                      borderRadius: BorderRadius.circular(40.r),
+                      padding: EdgeInsets.all(20.w),
                       child: Row(
                         children: [
                           Icon(

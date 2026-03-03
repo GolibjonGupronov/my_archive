@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/setup/presentation/widgets/lang_widget.dart';
 import 'package:my_archive/features/setup/presentation/widgets/theme_widget.dart';
+import 'package:get/get.dart';
 
 class SetupPage extends StatefulWidget {
   const SetupPage({super.key});
@@ -17,16 +19,42 @@ class SetupPage extends StatefulWidget {
 }
 
 class _SetupPageState extends State<SetupPage> {
-  final List<Widget> pages = [LangWidget(), ThemeWidget(), LangWidget()];
+  List<Widget> pages = [];
   late final PageController _controller;
   int _currentIndex = 0;
   bool _isLastPage = false;
+  final PrefManager _prefManager = sl.get<PrefManager>();
+
+  late LangType _initLang;
+  late AdaptiveThemeMode _initMode;
+  late LangType _curLang;
 
   @override
   void initState() {
     super.initState();
+    _initLang = _prefManager.getLanguage;
+    _initMode = AdaptiveThemeMode.dark;
+    _curLang = _initLang;
+    pages = [
+      LangWidget(
+        onTap: (LangType item) {
+          _curLang = item;
+          debugPrint("GGQ => ${item.title}");
+        }, initLang: _initLang,
+      ),
+      ThemeWidget(
+        onTap: (AdaptiveThemeMode theme) {
+          AdaptiveTheme.of(context).setThemeMode(theme);
+        }, initMode: _initMode,
+      )
+    ];
     _controller = PageController(initialPage: _currentIndex);
     _isLastPage = _currentIndex == pages.length - 1;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AdaptiveTheme.of(context).setThemeMode(_initMode);
+      context.setLocale(_initLang.locale);
+      Get.updateLocale(_initLang.locale);
+    });
   }
 
   @override
@@ -69,7 +97,7 @@ class _SetupPageState extends State<SetupPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w,bottom: 16.h),
+            padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
             child: Row(
               children: [
                 Expanded(
@@ -84,9 +112,11 @@ class _SetupPageState extends State<SetupPage> {
                 )),
                 8.width,
                 Expanded(
-                    child: CustomButton(_isLastPage ? "Yakunlash" : "Oldinga", () {
+                    child: CustomButton(_isLastPage ? "Yakunlash" : "Oldinga", () async {
                   if (_isLastPage) {
-                    context.go(SplashPage.tag);
+                    await _prefManager.setLanguage(_curLang);
+                    await _prefManager.setNotFirstLaunch(false);
+                    router.go(SplashPage.tag);
                   } else {
                     _controller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
                   }

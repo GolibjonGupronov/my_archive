@@ -45,8 +45,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 },
                 child: BoxContainer(
                   color: context.isDarkModeEnable?AppColors.scaffoldDarkBackground:AppColors.foregroundSecondary,
-                  borderRadius: BorderRadius.circular(16),
-                  padding: const EdgeInsets.all(16),
+                  borderRadius: BorderRadius.circular(40.r),
+                  padding: EdgeInsets.all(16.w),
                   child: Row(
                     children: [
                       Icon(
