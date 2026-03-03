@@ -18,7 +18,7 @@ class RegistrationParams {
   final DateTime birthDay;
   final String smsCode;
 
-  RegistrationParams({
+  const RegistrationParams({
     required this.phone,
     required this.firstName,
     required this.secondName,
@@ -28,11 +28,23 @@ class RegistrationParams {
   });
 
   Map<String, dynamic> get toMap => {
-    'phone': phone,
-    'first_name': firstName,
-    'second_name': secondName,
-    'gender': gender.key,
-    'birth_day': birthDay.toBackendDate,
-    'smsCode': smsCode,
-  };
+        'phone': phone,
+        'first_name': firstName,
+        'second_name': secondName,
+        'gender': gender.key,
+        'birth_day': birthDay.toBackendDate,
+        'smsCode': smsCode,
+      };
+
+  RegistrationParams copyWith({
+    String? smsCode,
+  }) =>
+      RegistrationParams(
+        smsCode: smsCode ?? this.smsCode,
+        phone: phone,
+        firstName: firstName,
+        secondName: secondName,
+        gender: gender,
+        birthDay: birthDay,
+      );
 }

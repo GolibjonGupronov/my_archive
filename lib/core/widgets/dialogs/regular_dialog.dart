@@ -158,7 +158,7 @@ Future<void> showCustomRangeDatePicker(
   );
 }
 
-Future<void> showCustomTimePicker(
+Future<void> showCupertinoTimePicker(
   BuildContext context, {
   DateTime? initialTime,
   DateTime? minimumDate,
@@ -185,6 +185,52 @@ Future<void> showCustomTimePicker(
             mode: CupertinoDatePickerMode.time,
             use24hFormat: true,
             showTimeSeparator: true,
+          ),
+        ),
+        18.height,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: CustomButton(
+            tr('save'),
+            () {
+              result(dateTime);
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        16.height,
+      ],
+    ),
+  );
+}
+
+Future<void> showCupertinoDatePicker(
+  BuildContext context, {
+  DateTime? initialTime,
+  DateTime? minimumDate,
+  bool barrierDismissible = true,
+  required Function(DateTime time) result,
+}) async {
+  DateTime dateTime = initialTime ?? DateTime.now();
+  await showCustomBottomSheetDialog(
+    context: context,
+    isDismissible: barrierDismissible,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        14.height,
+        TextView("Kun tanlang", fontSize: 24.sp),
+        14.height,
+        SizedBox(
+          height: 180.h,
+          child: CupertinoDatePicker(
+            initialDateTime: dateTime,
+            onDateTimeChanged: (time) {
+              dateTime = time;
+            },
+            mode: CupertinoDatePickerMode.date,
+            dateOrder: DatePickerDateOrder.dmy,
+
           ),
         ),
         18.height,

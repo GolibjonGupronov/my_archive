@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/phone/reset_phone_bloc.dart';
@@ -20,8 +19,7 @@ class ResetPhonePage extends StatefulWidget {
 
 class _ResetPhonePageState extends State<ResetPhonePage> {
   final TextEditingController phoneController = TextEditingController();
-  final phoneMaskFormatter =
-      MaskTextInputFormatter(mask: '(##) ###-##-##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  final phoneMaskFormatter = phoneNumberMask(mask: '(##) ###-##-##');
 
   @override
   void dispose() {

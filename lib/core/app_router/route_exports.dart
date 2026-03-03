@@ -1,5 +1,5 @@
 export 'package:go_router/go_router.dart';
-export 'package:my_archive/features/auth/presentation/registration/registration_page.dart';
+export 'package:my_archive/features/auth/presentation/registration/pages/registration_page.dart';
 export 'package:my_archive/features/home/presentation/home_page.dart';
 export 'package:my_archive/features/main/presentation/main_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/profile_page.dart';
@@ -13,3 +13,4 @@ export 'package:my_archive/features/auth/presentation/login/login_page.dart';
 export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_sms_page.dart';
 export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_phone_page.dart';
 export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_password_page.dart';
+export 'package:my_archive/features/auth/presentation/registration/pages/reg_sms_page.dart';

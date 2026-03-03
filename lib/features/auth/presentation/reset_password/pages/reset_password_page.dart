@@ -48,13 +48,14 @@ class ResetPasswordPage extends StatelessWidget {
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(newPassword: value));
                   },
+                  canCopyPaste: false,
                 ),
                 8.height,
                 PasswordItemText(isActive: state.checkText.upperText, text: "Kamida bitta katta harf"),
                 PasswordItemText(isActive: state.checkText.lowerText, text: "Kamida bitta kichik harf"),
                 PasswordItemText(isActive: state.checkText.number, text: "Kamida bitta raqam"),
                 PasswordItemText(isActive: state.checkText.char, text: "Kamida bitta belgi (!@#...)"),
-                PasswordItemText(isActive: state.checkText.length, text: "Kamida 8 ta belgi"),
+                PasswordItemText(isActive: state.checkText.length, text: "Kamida ${Constants.passwordLength} ta belgi"),
                 30.height,
                 CustomTextField(
                   "Yangi parolni tasdiqlash",
@@ -62,6 +63,7 @@ class ResetPasswordPage extends StatelessWidget {
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(againNewPassword: value));
                   },
+                  canCopyPaste: false,
                 ),
                 30.height,
                 CustomButton(tr('send'), () {

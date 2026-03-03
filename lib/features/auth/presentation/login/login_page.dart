@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
@@ -22,8 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final phoneMaskFormatter =
-      MaskTextInputFormatter(mask: '(##) ###-##-##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  final phoneMaskFormatter = phoneNumberMask(mask: '(##) ###-##-##');
 
   @override
   void dispose() {
@@ -54,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: CustomScaffold(
         isExitDialog: true,
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: Column(
@@ -111,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Bounce(
-                        onTap: (){
+                        onTap: () {
                           router.push(ResetPhonePage.tag);
                         },
                         child:
@@ -132,12 +131,18 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Bounce(
-                  child: TextView("Ro'yxatdan o'tish", textDecoration: TextDecoration.underline, color: AppColors.primary),
-                ),
+              Row(
+                children: [
+                  TextView("Akkauntingiz yo‘qmi?"),
+                  8.width,
+                  Bounce(
+                      onTap: () {
+                        context.push(RegistrationPage.tag);
+                      },
+                      child: TextView("Ro'yxatdan o'tish", textDecoration: TextDecoration.underline, color: AppColors.primary)),
+                ],
               ),
+              context.safeBottomSpace(8)
             ],
           ),
         ),

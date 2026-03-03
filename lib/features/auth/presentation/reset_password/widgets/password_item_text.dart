@@ -19,7 +19,7 @@ class PasswordItemText extends StatelessWidget {
               : Icon(CupertinoIcons.clear_circled_solid, color: AppColors.red),
           8.width,
           Expanded(
-            child: TextView(text, color: isActive ? AppColors.black : null),
+            child: TextView(text, color: isActive ? AppColors.primary : AppColors.gray),
           ),
         ],
       ),

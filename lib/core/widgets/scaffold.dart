@@ -23,6 +23,7 @@ class CustomScaffold extends StatefulWidget {
   final bool isTopSafe;
   final String? dialogSubtitle;
   final bool isExitDialog;
+  final bool resizeToAvoidBottomInset;
 
   const CustomScaffold({
     super.key,
@@ -40,6 +41,7 @@ class CustomScaffold extends StatefulWidget {
     this.dialogTitle,
     this.dialogSubtitle,
     this.isExitDialog = false,
+    this.resizeToAvoidBottomInset = true,
   });
 
   @override
@@ -93,6 +95,7 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
         top: widget.isTopSafe,
         bottom: widget.isBottomSafe,
         child: Scaffold(
+          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           appBar: widget.appBar,
           backgroundColor: widget.backgroundColor,
           body: widget.body,

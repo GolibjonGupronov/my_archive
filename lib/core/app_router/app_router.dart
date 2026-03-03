@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -37,7 +38,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
         context: context,
         state: state,
-        child: RegistrationPage(phoneNumber: state.extra as String),
+        child: RegistrationPage(),
       ),
     ),
     GoRoute(
@@ -104,6 +105,14 @@ final GoRouter router = GoRouter(
         context: context,
         state: state,
         child: ResetPasswordPage(),
+      ),
+    ),
+    GoRoute(
+      path: RegSmsPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: RegSmsPage(registrationParams: state.extra as RegistrationParams),
       ),
     ),
   ],
