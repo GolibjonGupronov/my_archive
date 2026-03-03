@@ -9,19 +9,9 @@ enum NextPage {
   update;
 
   String get page => switch (this) {
-        NextPage.auth => PhonePage.tag,
+        NextPage.auth => LoginPage.tag,
         NextPage.main => MainPage.tag,
         NextPage.setup => SetupPage.tag,
         NextPage.update => UpdatePage.tag,
-      };
-}
-
-enum AuthNextPage {
-  sms,
-  registration;
-
-  String get page => switch (this) {
-        AuthNextPage.sms => SmsPage.tag,
-        AuthNextPage.registration => RegistrationPage.tag,
       };
 }

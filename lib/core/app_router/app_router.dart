@@ -33,22 +33,6 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: PhonePage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
-        state: state,
-        child: PhonePage(),
-      ),
-    ),
-    GoRoute(
-      path: SmsPage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
-        state: state,
-        child: SmsPage(phoneNumber: state.extra as String),
-      ),
-    ),
-    GoRoute(
       path: RegistrationPage.tag,
       pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
         context: context,
@@ -88,6 +72,38 @@ final GoRouter router = GoRouter(
         context: context,
         state: state,
         child: SetupPage(),
+      ),
+    ),
+    GoRoute(
+      path: LoginPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: LoginPage(),
+      ),
+    ),
+    GoRoute(
+      path: ResetPhonePage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: ResetPhonePage(),
+      ),
+    ),
+    GoRoute(
+      path: ResetSmsPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: ResetSmsPage(phoneNumber: state.extra as String),
+      ),
+    ),
+    GoRoute(
+      path: ResetPasswordPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: ResetPasswordPage(),
       ),
     ),
   ],

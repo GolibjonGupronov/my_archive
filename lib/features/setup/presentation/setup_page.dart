@@ -33,7 +33,7 @@ class _SetupPageState extends State<SetupPage> {
   void initState() {
     super.initState();
     _initLang = _prefManager.getLanguage;
-    _initMode = AdaptiveThemeMode.dark;
+    _initMode = AdaptiveThemeMode.light;
     _curLang = _initLang;
     pages = [
       LangWidget(
@@ -75,7 +75,7 @@ class _SetupPageState extends State<SetupPage> {
                         child: LinearProgressIndicator(
                           value: _currentIndex >= index ? 1 : 0,
                           color: AppColors.primary,
-                          backgroundColor: AppColors.gray,
+                          backgroundColor: AppColors.lightGray,
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),

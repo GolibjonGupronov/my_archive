@@ -1,6 +1,6 @@
 import 'package:my_archive/core/core_exports.dart';
 
-class SmsState {
+class ResetSmsState {
   final StateStatus smsStatus;
   final StateStatus resendPhoneStatus;
   final String code;
@@ -8,7 +8,7 @@ class SmsState {
   final int second;
   final String errorMessage;
 
-  SmsState({
+  ResetSmsState({
     this.smsStatus = StateStatus.initial,
     this.resendPhoneStatus = StateStatus.initial,
     this.code = '',
@@ -17,7 +17,7 @@ class SmsState {
     this.errorMessage = '',
   });
 
-  SmsState copyWith({
+  ResetSmsState copyWith({
     StateStatus? smsStatus,
     StateStatus? resendPhoneStatus,
     String? code,
@@ -25,7 +25,7 @@ class SmsState {
     int? second,
     String? errorMessage,
   }) =>
-      SmsState(
+      ResetSmsState(
         smsStatus: smsStatus ?? this.smsStatus,
         resendPhoneStatus: resendPhoneStatus ?? this.resendPhoneStatus,
         code: code ?? this.code,

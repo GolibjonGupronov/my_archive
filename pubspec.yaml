@@ -18,7 +18,7 @@ dependencies:
   go_router: ^17.1.0
   easy_localization: ^3.0.8
   flutter_alice: ^2.0.1
-  dio: ^5.9.1
+  dio: ^5.9.2
   http: ^1.6.0
   get_it: ^9.2.1
   shared_preferences: ^2.5.4

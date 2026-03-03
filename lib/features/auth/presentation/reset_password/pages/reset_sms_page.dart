@@ -6,43 +6,43 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
-import 'package:my_archive/features/auth/presentation/sms/bloc/sms_bloc.dart';
-import 'package:my_archive/features/auth/presentation/sms/bloc/sms_event.dart';
-import 'package:my_archive/features/auth/presentation/sms/bloc/sms_state.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_bloc.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_event.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_state.dart';
 
-class SmsPage extends StatelessWidget {
+class ResetSmsPage extends StatelessWidget {
   final String phoneNumber;
 
-  const SmsPage({super.key, required this.phoneNumber});
+  const ResetSmsPage({super.key, required this.phoneNumber});
 
-  static const String tag = '/sms_page';
+  static const String tag = '/reset_sms_page';
   static final TextEditingController smsCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-          SmsBloc(checkSmsUseCase: sl(), userInfoUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
+          ResetSmsBloc(checkSmsUseCase: sl(), userInfoUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<SmsBloc>(context);
+    final bloc = BlocProvider.of<ResetSmsBloc>(context);
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<SmsBloc, SmsState>(
+        BlocListener<ResetSmsBloc, ResetSmsState>(
           listenWhen: (previous, current) => previous.smsStatus != current.smsStatus,
           listener: (context, state) {
             if (state.smsStatus.isFailure) {
               showErrorDialog(context, title: state.errorMessage);
             } else if (state.smsStatus.isSuccess) {
-              router.go(MainPage.tag);
+              router.push(ResetPasswordPage.tag);
             }
           },
         ),
-        BlocListener<SmsBloc, SmsState>(
+        BlocListener<ResetSmsBloc, ResetSmsState>(
           listenWhen: (previous, current) => previous.resendPhoneStatus != current.resendPhoneStatus,
           listener: (context, state) {
             if (state.resendPhoneStatus.isFailure) {
@@ -52,7 +52,7 @@ class SmsPage extends StatelessWidget {
         ),
       ],
       child: CustomScaffold(
-        hasUnsavedChanges: ()=> true,
+        hasUnsavedChanges: () => true,
         dialogTitle: "Ortga qaytmoqchimisiz",
         dialogSubtitle: "",
         body: Padding(
@@ -76,7 +76,7 @@ class SmsPage extends StatelessWidget {
                 },
               ),
               12.height,
-              BlocSelector<SmsBloc, SmsState, ({StateStatus resendPhoneStatus, int second})>(
+              BlocSelector<ResetSmsBloc, ResetSmsState, ({StateStatus resendPhoneStatus, int second})>(
                   selector: (state) => (resendPhoneStatus: state.resendPhoneStatus, second: state.second),
                   builder: (context, state) {
                     return Align(
@@ -103,7 +103,7 @@ class SmsPage extends StatelessWidget {
                     );
                   }),
               20.height,
-              BlocBuilder<SmsBloc, SmsState>(
+              BlocBuilder<ResetSmsBloc, ResetSmsState>(
                 buildWhen: (p, c) => p.resendPhoneStatus == c.resendPhoneStatus && p.second == c.second,
                 builder: (context, state) {
                   return CustomButton(

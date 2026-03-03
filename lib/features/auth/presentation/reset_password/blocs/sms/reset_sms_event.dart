@@ -1,30 +1,30 @@
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
 
-abstract class SmsEvent {}
+abstract class ResetSmsEvent {}
 
-class InitEvent extends SmsEvent {}
+class InitEvent extends ResetSmsEvent {}
 
-class UpdateFieldEvent extends SmsEvent {
+class UpdateFieldEvent extends ResetSmsEvent {
   final String? code;
 
   UpdateFieldEvent({this.code});
 }
 
-class SubmitEvent extends SmsEvent {
+class SubmitEvent extends ResetSmsEvent {
   final CheckSmsParams params;
 
   SubmitEvent({required this.params});
 }
 
-class StartTimerEvent extends SmsEvent {}
+class StartTimerEvent extends ResetSmsEvent {}
 
-class ResendPhoneEvent extends SmsEvent {
+class ResendPhoneEvent extends ResetSmsEvent {
   final String phone;
 
   ResendPhoneEvent({required this.phone});
 }
 
-class SecondEvent extends SmsEvent {
+class SecondEvent extends ResetSmsEvent {
   final int second;
 
   SecondEvent({required this.second});

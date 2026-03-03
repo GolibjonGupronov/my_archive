@@ -24,6 +24,7 @@ class SplashPage extends StatelessWidget {
     final bloc = BlocProvider.of<SplashBloc>(context);
 
     return BlocListener<SplashBloc, SplashState>(
+      listenWhen: (p,c) => p.splashStatus != c.splashStatus,
       listener: (context, state) {
         if (state.splashStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);

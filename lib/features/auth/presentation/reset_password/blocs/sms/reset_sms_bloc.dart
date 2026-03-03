@@ -1,21 +1,22 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
-import 'package:my_archive/features/auth/presentation/sms/bloc/sms_event.dart';
-import 'package:my_archive/features/auth/presentation/sms/bloc/sms_state.dart';
 
-class SmsBloc extends Bloc<SmsEvent, SmsState> {
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_event.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_state.dart';
+
+class ResetSmsBloc extends Bloc<ResetSmsEvent, ResetSmsState> {
   final CheckSmsUseCase checkSmsUseCase;
   final SendPhoneUseCase sendPhoneUseCase;
   final UserInfoUseCase userInfoUseCase;
   Timer? _timer;
   int _seconds = Constants.smsResendPhoneSecond;
 
-  SmsBloc({required this.checkSmsUseCase, required this.userInfoUseCase, required this.sendPhoneUseCase}) : super(SmsState()) {
+  ResetSmsBloc({required this.checkSmsUseCase, required this.userInfoUseCase, required this.sendPhoneUseCase}) : super(ResetSmsState()) {
     on<InitEvent>((event, emit) {
       add(StartTimerEvent());
     });
@@ -45,16 +46,16 @@ class SmsBloc extends Bloc<SmsEvent, SmsState> {
     });
   }
 
-  Future<void> _submit(SubmitEvent event, Emitter<SmsState> emit) async {
+  Future<void> _submit(SubmitEvent event, Emitter<ResetSmsState> emit) async {
     emit(state.copyWith(smsStatus: StateStatus.inProgress));
     final resultSms = await checkSmsUseCase.callUseCase(event.params);
     await resultSms.fold(
-      (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-      (data) async {
+          (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
+          (data) async {
         final resultUser = await userInfoUseCase.callUseCase(NoParams());
         resultUser.fold(
-          (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-          (data) {
+              (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
+              (data) {
             _timer?.cancel();
             emit(state.copyWith(smsStatus: StateStatus.success));
           },
@@ -63,7 +64,7 @@ class SmsBloc extends Bloc<SmsEvent, SmsState> {
     );
   }
 
-  Future<void> _resend(Emitter<SmsState> emit, String phone) async {
+  Future<void> _resend(Emitter<ResetSmsState> emit, String phone) async {
     emit(state.copyWith(resendPhoneStatus: StateStatus.inProgress));
     final result = await sendPhoneUseCase.callUseCase(phone);
     result.fold((fail) {

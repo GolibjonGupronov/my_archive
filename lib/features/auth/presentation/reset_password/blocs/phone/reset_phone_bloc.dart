@@ -1,20 +1,21 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
-import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
-import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';
 
-class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
+import 'reset_phone_event.dart';
+import 'reset_phone_state.dart';
+
+class ResetPhoneBloc extends Bloc<ResetPhoneEvent, ResetPhoneState> {
   final SendPhoneUseCase sendPhoneUseCase;
 
-  PhoneBloc({required this.sendPhoneUseCase}) : super(PhoneState()) {
+  ResetPhoneBloc({required this.sendPhoneUseCase}) : super(ResetPhoneState()) {
     on<InitEvent>((event, emit) {});
 
     on<UpdateFieldEvent>((event, emit) {
       final phone = event.phone ?? state.phone;
       final phoneDigits = phone.replaceAll(RegExp(r'\D'), '');
-      final isPhoneValid = phoneDigits.length == 9;
-      emit(state.copyWith(phone: phone, isActive: isPhoneValid));
+      final isActive = phoneDigits.length == 9;
+      emit(state.copyWith(phone: phone, isActive: isActive));
     });
 
     on<SubmitEvent>((event, emit) async {
@@ -22,14 +23,13 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
     });
   }
 
-  Future<void> _submit(SubmitEvent event, Emitter<PhoneState> emit) async {
+  Future<void> _submit(SubmitEvent event, Emitter<ResetPhoneState> emit) async {
     emit(state.copyWith(phoneStatus: StateStatus.inProgress));
     final result = await sendPhoneUseCase.callUseCase(event.phone);
     result.fold((fail) {
       emit(state.copyWith(phoneStatus: StateStatus.failure, errorMessage: fail.message));
-    }, (isRegistered) {
-      emit(state.copyWith(
-          phoneStatus: StateStatus.success, authNextPage: isRegistered ? AuthNextPage.sms : AuthNextPage.registration));
+    }, (data) {
+      emit(state.copyWith(phoneStatus: StateStatus.success));
     });
   }
 }

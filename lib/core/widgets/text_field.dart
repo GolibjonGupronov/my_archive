@@ -25,6 +25,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLength;
   final String Function(String v)? validate;
   final bool autofocus;
+  final bool canCopyPaste;
   final _EnumTextFieldType _textFieldType;
 
   const CustomTextField._(
@@ -44,6 +45,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.validate,
     this.autofocus = false,
+    this.canCopyPaste = true,
     required _EnumTextFieldType textFieldType,
   }) : _textFieldType = textFieldType;
 
@@ -63,6 +65,7 @@ class CustomTextField extends StatefulWidget {
     final bool obscureText = false,
     final int? maxLength,
     final bool autofocus = false,
+    final bool canCopyPaste = true,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -82,6 +85,7 @@ class CustomTextField extends StatefulWidget {
       maxLength: maxLength,
       validate: validate,
       autofocus: autofocus,
+      canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.text,
     );
   }
@@ -97,6 +101,7 @@ class CustomTextField extends StatefulWidget {
     final Function(String v)? onChanged,
     final String Function(String v)? validate,
     final bool autofocus = false,
+    final bool canCopyPaste = true,
   }) {
     return CustomTextField._(
       title,
@@ -110,6 +115,7 @@ class CustomTextField extends StatefulWidget {
       inputFormatters: inputFormatters ?? [],
       inputType: TextInputType.phone,
       autofocus: autofocus,
+      canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.phone,
     );
   }
@@ -127,6 +133,7 @@ class CustomTextField extends StatefulWidget {
     final List<TextInputFormatter>? inputFormatters,
     final int? maxLength,
     final bool autofocus = false,
+    final bool canCopyPaste = true,
     final String Function(String v)? validate,
   }) {
     String defaultValidator(String v) {
@@ -147,6 +154,7 @@ class CustomTextField extends StatefulWidget {
       inputFormatters: inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
       inputType: inputType,
       autofocus: autofocus,
+      canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.password,
     );
   }
@@ -164,6 +172,7 @@ class CustomTextField extends StatefulWidget {
     final int? maxLength,
     final int maxLines = 4,
     final bool autofocus = false,
+    final bool canCopyPaste = true,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -180,6 +189,7 @@ class CustomTextField extends StatefulWidget {
       inputType: inputType,
       autofocus: autofocus,
       maxLines: maxLines,
+      canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.comment,
     );
   }
@@ -194,6 +204,7 @@ class CustomTextField extends StatefulWidget {
     final Function(String v)? onChanged,
     final int? maxLength,
     final bool autofocus = false,
+    final bool canCopyPaste = true,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -207,6 +218,7 @@ class CustomTextField extends StatefulWidget {
       maxLength: maxLength,
       validate: validate,
       autofocus: autofocus,
+      canCopyPaste: canCopyPaste,
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp('[^0-9,. ]')), ThousandsSeparatorInputFormatter()],
       inputType: const TextInputType.numberWithOptions(decimal: true, signed: false),
       textFieldType: _EnumTextFieldType.thousandFormat,
@@ -294,6 +306,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   children: [
                     Expanded(
                       child: TextField(
+                        enableInteractiveSelection: widget.canCopyPaste,
                         textInputAction: widget.textInputAction,
                         enabled: widget.enabled,
                         obscureText: widget.obscureText ? hiddenPassword : false,

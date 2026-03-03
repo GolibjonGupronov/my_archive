@@ -1,32 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/auth/presentation/phone/bloc/phone_bloc.dart';
-import 'package:my_archive/features/auth/presentation/phone/bloc/phone_event.dart';
-import 'package:my_archive/features/auth/presentation/phone/bloc/phone_state.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/phone/reset_phone_bloc.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/phone/reset_phone_event.dart';
+import 'package:my_archive/features/auth/presentation/reset_password/blocs/phone/reset_phone_state.dart';
 
-class PhonePage extends StatefulWidget {
-  const PhonePage({super.key});
+class ResetPhonePage extends StatefulWidget {
+  const ResetPhonePage({super.key});
 
-  static const String tag = '/phone_page';
+  static const String tag = '/reset_phone_page';
 
   @override
-  State<PhonePage> createState() => _PhonePageState();
+  State<ResetPhonePage> createState() => _ResetPhonePageState();
 }
 
-class _PhonePageState extends State<PhonePage> {
-  late final TextEditingController phoneController;
+class _ResetPhonePageState extends State<ResetPhonePage> {
+  final TextEditingController phoneController = TextEditingController();
   final phoneMaskFormatter =
       MaskTextInputFormatter(mask: '(##) ###-##-##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
-
-  @override
-  void initState() {
-    super.initState();
-    phoneController = TextEditingController();
-  }
 
   @override
   void dispose() {
@@ -37,25 +32,27 @@ class _PhonePageState extends State<PhonePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => PhoneBloc(sendPhoneUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) => ResetPhoneBloc(sendPhoneUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<PhoneBloc>(context);
+    final bloc = BlocProvider.of<ResetPhoneBloc>(context);
 
-    return BlocListener<PhoneBloc, PhoneState>(
+    return BlocListener<ResetPhoneBloc, ResetPhoneState>(
       listenWhen: (p, c) => p.phoneStatus != c.phoneStatus,
       listener: (context, state) {
         if (state.phoneStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.phoneStatus.isSuccess) {
-          router.push(state.authNextPage.page, extra: "+998 ${state.phone}");
+          router.push(ResetSmsPage.tag, extra: "+998 ${state.phone}");
         }
       },
       child: CustomScaffold(
-        isExitDialog: true,
+        hasUnsavedChanges: () => true,
+        dialogTitle: "Ortga qaytmoqchimisiz",
+        dialogSubtitle: "",
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: ListView(
@@ -64,7 +61,7 @@ class _PhonePageState extends State<PhonePage> {
               60.height,
               LogoWidget(),
               8.height,
-              TextView(tr('enter'), fontSize: 24.sp),
+              TextView("Parol tiklash", fontSize: 24.sp),
               8.height,
               Row(
                 children: [
@@ -98,7 +95,7 @@ class _PhonePageState extends State<PhonePage> {
                 ],
               ),
               20.height,
-              BlocBuilder<PhoneBloc, PhoneState>(
+              BlocBuilder<ResetPhoneBloc, ResetPhoneState>(
                 builder: (context, state) {
                   return CustomButton(tr('send'), () {
                     context.hideKeyboard;

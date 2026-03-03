@@ -5,6 +5,7 @@ class ApiUrls {
   static final String _api = dotenv.env['API_PATH']!;
 
   static final String appConfig = "$_api/app_config";
+  static final String sendLogin = "$_api/auth/send-login";
   static final String sendPhone = "$_api/auth/send-phone";
   static final String checkSms = "$_api/auth/check-sms";
   static final String userInfo = "$_api/user/me";
