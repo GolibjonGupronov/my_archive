@@ -100,19 +100,27 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: ResetPasswordPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
-        state: state,
-        child: ResetPasswordPage(),
-      ),
-    ),
-    GoRoute(
       path: RegSmsPage.tag,
       pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
         context: context,
         state: state,
         child: RegSmsPage(registrationParams: state.extra as RegistrationParams),
+      ),
+    ),
+    GoRoute(
+      path: NewPasswordPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: NewPasswordPage(),
+      ),
+    ),
+    GoRoute(
+      path: OldPasswordPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: OldPasswordPage(),
       ),
     ),
   ],

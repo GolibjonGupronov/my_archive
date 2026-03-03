@@ -12,5 +12,6 @@ export 'package:my_archive/features/setup/presentation/setup_page.dart';
 export 'package:my_archive/features/auth/presentation/login/login_page.dart';
 export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_sms_page.dart';
 export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_phone_page.dart';
-export 'package:my_archive/features/auth/presentation/reset_password/pages/reset_password_page.dart';
 export 'package:my_archive/features/auth/presentation/registration/pages/reg_sms_page.dart';
+export 'package:my_archive/features/auth/presentation/change_password/pages/new_password_page.dart';
+export 'package:my_archive/features/auth/presentation/change_password/pages/old_password_page.dart';

@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/registration/registration_event.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/registration/registration_state.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_event.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final SendPhoneUseCase sendPhoneUseCase;

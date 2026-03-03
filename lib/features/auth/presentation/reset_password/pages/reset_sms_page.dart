@@ -38,7 +38,7 @@ class ResetSmsPage extends StatelessWidget {
             if (state.smsStatus.isFailure) {
               showErrorDialog(context, title: state.errorMessage);
             } else if (state.smsStatus.isSuccess) {
-              router.push(ResetPasswordPage.tag);
+              router.push(SplashPage.tag);
             }
           },
         ),

@@ -110,6 +110,8 @@ class ProfilePage extends StatelessWidget {
                   60.height,
                   ProfileItem(title: "Mening ma'lumotlarim", rightWidget: Icon(CupertinoIcons.profile_circled)),
                   20.height,
+                  ProfileItem(onTap: () {}, title: "Parol almashtirish", rightWidget: Icon(CupertinoIcons.lock_shield)),
+                  20.height,
                   ProfileItem(
                       title: tr('settings'),
                       rightWidget: Icon(Icons.settings),
@@ -120,10 +122,10 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Bounce(
-                onTap: (){
-                  showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: (){
+                onTap: () {
+                  showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: () {
                     logoutApp();
                   });
                 },
@@ -137,8 +139,8 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextView(tr('logout'), maxLines: 1, color: AppColors.white),
-                           12.width,
-                           Icon(Icons.logout, color: AppColors.white),
+                          12.width,
+                          Icon(Icons.logout, color: AppColors.white),
                         ],
                       )),
                 ),

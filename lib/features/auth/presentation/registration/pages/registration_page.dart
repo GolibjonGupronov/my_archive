@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/registration/registration_bloc.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/registration/registration_event.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/registration/registration_state.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_bloc.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_event.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_state.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});

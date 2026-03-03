@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/auth/presentation/reset_password/blocs/password/reset_password_bloc.dart';
-import 'package:my_archive/features/auth/presentation/reset_password/blocs/password/reset_password_event.dart';
-import 'package:my_archive/features/auth/presentation/reset_password/blocs/password/reset_password_state.dart';
-import 'package:my_archive/features/auth/presentation/reset_password/widgets/password_item_text.dart';
+import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_bloc.dart';
+import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_event.dart';
+import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_state.dart';
+import 'package:my_archive/features/auth/presentation/change_password/widgets/password_item_text.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  ResetPasswordPage({super.key});
+class NewPasswordPage extends StatelessWidget {
+  NewPasswordPage({super.key});
 
-  static const String tag = '/reset_password_page';
+  static const String tag = '/new_password_page';
+
   final TextEditingController newPassword = TextEditingController();
   final TextEditingController againNewPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ResetPasswordBloc()..add(InitEvent()),
+      create: (BuildContext context) => NewPasswordBloc()..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<ResetPasswordBloc>(context);
+    final bloc = BlocProvider.of<NewPasswordBloc>(context);
 
     return CustomScaffold(
       hasUnsavedChanges: () => true,
@@ -32,7 +33,7 @@ class ResetPasswordPage extends StatelessWidget {
       dialogSubtitle: "",
       body: Padding(
         padding: EdgeInsets.all(16.w),
-        child: BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
+        child: BlocBuilder<NewPasswordBloc, NewPasswordState>(
           builder: (context, state) {
             return ListView(
               primary: false,

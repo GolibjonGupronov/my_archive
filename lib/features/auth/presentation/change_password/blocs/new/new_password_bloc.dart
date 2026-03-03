@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_archive/features/auth/domain/entities/password_check_entity.dart';
 
-import 'reset_password_event.dart';
-import 'reset_password_state.dart';
+import 'new_password_event.dart';
+import 'new_password_state.dart';
 
-class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
-  ResetPasswordBloc() : super(ResetPasswordState()) {
+class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
+  NewPasswordBloc() : super(NewPasswordState()) {
     on<InitEvent>((event, emit) {});
     on<UpdateFieldEvent>((event, emit) {
       final newPassword = event.newPassword ?? state.password;

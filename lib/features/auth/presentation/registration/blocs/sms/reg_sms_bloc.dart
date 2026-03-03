@@ -6,8 +6,8 @@ import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 
-import 'package:my_archive/features/auth/presentation/registration/bloc/sms/reg_sms_event.dart';
-import 'package:my_archive/features/auth/presentation/registration/bloc/sms/reg_sms_state.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_event.dart';
+import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_state.dart';
 
 class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
   final RegistrationUseCase registrationUseCase;
