@@ -4,19 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
-import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
-
 import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_state.dart';
 
 class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
   final RegistrationUseCase registrationUseCase;
   final SendPhoneUseCase sendPhoneUseCase;
-  final UserInfoUseCase userInfoUseCase;
   Timer? _timer;
   int _seconds = Constants.smsResendPhoneSecond;
 
-  RegSmsBloc({required this.registrationUseCase, required this.userInfoUseCase, required this.sendPhoneUseCase}) : super(RegSmsState()) {
+  RegSmsBloc({required this.registrationUseCase, required this.sendPhoneUseCase}) : super(RegSmsState()) {
     on<InitEvent>((event, emit) {
       add(StartTimerEvent());
     });
@@ -47,19 +44,13 @@ class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
   }
 
   Future<void> _submit(SubmitEvent event, Emitter<RegSmsState> emit) async {
-    emit(state.copyWith(smsStatus: StateStatus.inProgress));
+    emit(state.copyWith(regStatus: StateStatus.inProgress));
     final resultSms = await registrationUseCase.callUseCase(event.params);
     await resultSms.fold(
-          (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-          (data) async {
-        final resultUser = await userInfoUseCase.callUseCase(NoParams());
-        resultUser.fold(
-              (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-              (data) {
-            _timer?.cancel();
-            emit(state.copyWith(smsStatus: StateStatus.success));
-          },
-        );
+      (fail) async => emit(state.copyWith(regStatus: StateStatus.failure, errorMessage: fail.message)),
+      (data) async {
+        _timer?.cancel();
+        emit(state.copyWith(regStatus: StateStatus.success));
       },
     );
   }

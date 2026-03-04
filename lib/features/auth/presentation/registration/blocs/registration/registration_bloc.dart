@@ -3,15 +3,13 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
-import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/blocs/registration/registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final SendPhoneUseCase sendPhoneUseCase;
-  final UserInfoUseCase userInfoUseCase;
 
-  RegistrationBloc({required this.sendPhoneUseCase, required this.userInfoUseCase}) : super(RegistrationState()) {
+  RegistrationBloc({required this.sendPhoneUseCase}) : super(RegistrationState()) {
     on<InitEvent>((event, emit) {});
 
     on<SubmitEvent>((event, emit) async {
@@ -35,7 +33,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
   Future<void> _submit(SubmitEvent event, Emitter<RegistrationState> emit) async {
     emit(state.copyWith(regStatus: StateStatus.inProgress));
-    final result = await sendPhoneUseCase.callUseCase(event.params.phone);
+    final result = await sendPhoneUseCase.callUseCase(event.params.phone.phoneReplace);
     result.fold((fail) {
       emit(state.copyWith(regStatus: StateStatus.failure, errorMessage: fail.message));
     }, (data) {

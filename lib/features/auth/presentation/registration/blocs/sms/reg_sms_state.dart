@@ -1,7 +1,7 @@
 import 'package:my_archive/core/core_exports.dart';
 
 class RegSmsState {
-  final StateStatus smsStatus;
+  final StateStatus regStatus;
   final StateStatus resendPhoneStatus;
   final String code;
   final bool isActive;
@@ -9,7 +9,7 @@ class RegSmsState {
   final String errorMessage;
 
   RegSmsState({
-    this.smsStatus = StateStatus.initial,
+    this.regStatus = StateStatus.initial,
     this.resendPhoneStatus = StateStatus.initial,
     this.code = '',
     this.isActive = false,
@@ -18,7 +18,7 @@ class RegSmsState {
   });
 
   RegSmsState copyWith({
-    StateStatus? smsStatus,
+    StateStatus? regStatus,
     StateStatus? resendPhoneStatus,
     String? code,
     bool? isActive,
@@ -26,7 +26,7 @@ class RegSmsState {
     String? errorMessage,
   }) =>
       RegSmsState(
-        smsStatus: smsStatus ?? this.smsStatus,
+        regStatus: regStatus ?? this.regStatus,
         resendPhoneStatus: resendPhoneStatus ?? this.resendPhoneStatus,
         code: code ?? this.code,
         isActive: isActive ?? this.isActive,

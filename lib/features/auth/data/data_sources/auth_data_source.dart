@@ -17,7 +17,9 @@ abstract class AuthDataSource {
 
   Future<AppConfigModel> appConfig();
 
-  Future<String> registration(RegistrationParams params);
+  Future<bool> registration(RegistrationParams params);
+
+  Future<bool> checkOldPassword(String params);
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
@@ -35,10 +37,9 @@ class AuthDataSourceImpl extends AuthDataSource {
   Future<bool> checkSms(CheckSmsParams params) async {
     final isCorrect = params.sms.contains('1111');
 
-    final response = await dio.mock(
-        data: true,
-        statusCode: isCorrect ? 200 : 300,
-        message: "SMS parol xato").post(ApiUrls.checkSms, data: params.toMap);
+    final response = await dio
+        .mock(data: true, statusCode: isCorrect ? 200 : 300, message: "SMS parol xato")
+        .post(ApiUrls.checkSms, data: params.toMap);
     return response.data;
   }
 
@@ -64,17 +65,30 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<String> registration(RegistrationParams params) async {
-    final response = await dio.mock(data: {"token": "TOKEN KELDI"}).post(ApiUrls.registration);
-    return response.data['token'];
+  Future<bool> registration(RegistrationParams params) async {
+    final isCorrect = params.smsCode.contains('1111');
+    final response = await dio
+        .mock(data: true, statusCode: isCorrect ? 200 : 300, message: "SMS parol xato")
+        .post(ApiUrls.registration, data: params.toMap);
+    return response.data;
   }
 
   @override
   Future<String> sendLogin(LoginParams params) async {
     final data = params.phone.contains("+998999940941") && params.password.contains("11111111");
-    final response = await dio
-        .mock(data: {"token": "TOKEN KELDI"}, statusCode: data ? 200 : 300, message: "Login Parol Xato")
-        .post(ApiUrls.sendLogin, data: params.toMap);
+    final response = await dio.mock(
+        data: {"token": "TOKEN KELDI"},
+        statusCode: data ? 200 : 300,
+        message: "Login Parol Xato").post(ApiUrls.sendLogin, data: params.toMap);
     return response.data['token'];
+  }
+
+  @override
+  Future<bool> checkOldPassword(String params) async {
+    final data = params.contains("11111111");
+    final response = await dio
+        .mock(data: true, statusCode: data ? 200 : 300, message: "Parol Xato")
+        .post(ApiUrls.sendLogin, data: {"old_password": params});
+    return response.data;
   }
 }

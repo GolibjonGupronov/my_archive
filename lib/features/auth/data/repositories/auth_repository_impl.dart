@@ -37,14 +37,18 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> registration(RegistrationParams params) {
-    return safeCall2(() async => await authDataSource.registration(params),
-        onSuccess: (data) async => await prefManager.setToken(data));
+  Future<Either<Failure, bool>> registration(RegistrationParams params) {
+    return safeCall(() async => await authDataSource.registration(params));
   }
 
   @override
   Future<Either<Failure, String>> sendLogin(LoginParams params) {
     return safeCall2(() async => await authDataSource.sendLogin(params),
         onSuccess: (data) async => await prefManager.setToken(data));
+  }
+
+  @override
+  Future<Either<Failure, bool>> checkOldPassword(String params) {
+    return safeCall(() async => await authDataSource.checkOldPassword(params));
   }
 }

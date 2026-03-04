@@ -13,16 +13,16 @@ import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg
 class RegSmsPage extends StatelessWidget {
   final RegistrationParams registrationParams;
 
-  const RegSmsPage({super.key, required this.registrationParams});
+  RegSmsPage({super.key, required this.registrationParams});
 
   static const String tag = '/reg_sms_page';
-  static final TextEditingController smsCodeController = TextEditingController();
+
+  final TextEditingController smsCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-          RegSmsBloc(registrationUseCase: sl(), userInfoUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) => RegSmsBloc(registrationUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -33,12 +33,13 @@ class RegSmsPage extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<RegSmsBloc, RegSmsState>(
-          listenWhen: (previous, current) => previous.smsStatus != current.smsStatus,
+          listenWhen: (previous, current) => previous.regStatus != current.regStatus,
           listener: (context, state) {
-            if (state.smsStatus.isFailure) {
+            if (state.regStatus.isFailure) {
               showErrorDialog(context, title: state.errorMessage);
-            } else if (state.smsStatus.isSuccess) {
-              router.push(MainPage.tag);
+            } else if (state.regStatus.isSuccess) {
+              showSuccessToast(context, "Ro'yxatdan o'tdingiz");
+              router.go(SplashPage.tag);
             }
           },
         ),
@@ -110,10 +111,12 @@ class RegSmsPage extends StatelessWidget {
                     "Tasdiqlash",
                     () {
                       context.hideKeyboard;
-                      bloc.add(SubmitEvent(params: registrationParams.copyWith(smsCode: smsCodeController.text)));
+                      bloc.add(SubmitEvent(
+                          params: registrationParams.copyWith(
+                              phone: registrationParams.phone.phoneReplace, smsCode: smsCodeController.text)));
                     },
                     active: state.isActive,
-                    progress: state.smsStatus.isInProgress,
+                    progress: state.regStatus.isInProgress,
                   );
                 },
               )

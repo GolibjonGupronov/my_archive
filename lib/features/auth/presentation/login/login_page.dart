@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: CustomScaffold(
         isExitDialog: true,
-        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: Column(

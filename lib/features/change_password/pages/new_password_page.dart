@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_bloc.dart';
-import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_event.dart';
-import 'package:my_archive/features/auth/presentation/change_password/blocs/new/new_password_state.dart';
-import 'package:my_archive/features/auth/presentation/change_password/widgets/password_item_text.dart';
+import 'package:my_archive/features/change_password/blocs/new/new_password_bloc.dart';
+import 'package:my_archive/features/change_password/blocs/new/new_password_event.dart';
+import 'package:my_archive/features/change_password/blocs/new/new_password_state.dart';
+import 'package:my_archive/features/change_password/widgets/password_item_text.dart';
 
 class NewPasswordPage extends StatelessWidget {
   NewPasswordPage({super.key});
@@ -28,9 +28,6 @@ class NewPasswordPage extends StatelessWidget {
     final bloc = BlocProvider.of<NewPasswordBloc>(context);
 
     return CustomScaffold(
-      hasUnsavedChanges: () => true,
-      dialogTitle: "Ortga qaytmoqchimisiz",
-      dialogSubtitle: "",
       body: Padding(
         padding: EdgeInsets.all(16.w),
         child: BlocBuilder<NewPasswordBloc, NewPasswordState>(
@@ -41,7 +38,7 @@ class NewPasswordPage extends StatelessWidget {
                 60.height,
                 LogoWidget(),
                 8.height,
-                TextView("Parol tiklash", fontSize: 24.sp),
+                TextView("Parol almashtirish", fontSize: 24.sp),
                 20.height,
                 CustomTextField(
                   "Yangi parol",

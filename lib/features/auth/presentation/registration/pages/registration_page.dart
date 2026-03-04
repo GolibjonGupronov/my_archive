@@ -28,7 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => RegistrationBloc(sendPhoneUseCase: sl(), userInfoUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) => RegistrationBloc(sendPhoneUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -139,7 +139,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           "Tug'ilgan kun",
                           "kk.oo.yyyy",
                           () {
-                            // showCustomSingleDatePicker(context, result: (result) {
                             showCupertinoDatePicker(context, result: (result) {
                               bloc.add(UpdateFieldEvent(birthDay: result));
                             });
@@ -163,7 +162,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       bloc.add(
                         SubmitEvent(
                           params: RegistrationParams(
-                            phone: "+998${phoneController.text.phoneReplace}",
+                            phone: "+998 ${phoneController.text}",
                             firstName: firstNameController.text,
                             secondName: secondNameController.text,
                             gender: state.gender,

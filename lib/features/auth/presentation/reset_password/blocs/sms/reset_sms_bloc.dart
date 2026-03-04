@@ -4,19 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.dart';
-import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
-
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_event.dart';
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_state.dart';
 
 class ResetSmsBloc extends Bloc<ResetSmsEvent, ResetSmsState> {
   final CheckSmsUseCase checkSmsUseCase;
   final SendPhoneUseCase sendPhoneUseCase;
-  final UserInfoUseCase userInfoUseCase;
   Timer? _timer;
   int _seconds = Constants.smsResendPhoneSecond;
 
-  ResetSmsBloc({required this.checkSmsUseCase, required this.userInfoUseCase, required this.sendPhoneUseCase}) : super(ResetSmsState()) {
+  ResetSmsBloc({required this.checkSmsUseCase, required this.sendPhoneUseCase}) : super(ResetSmsState()) {
     on<InitEvent>((event, emit) {
       add(StartTimerEvent());
     });
@@ -50,16 +47,10 @@ class ResetSmsBloc extends Bloc<ResetSmsEvent, ResetSmsState> {
     emit(state.copyWith(smsStatus: StateStatus.inProgress));
     final resultSms = await checkSmsUseCase.callUseCase(event.params);
     await resultSms.fold(
-          (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-          (data) async {
-        final resultUser = await userInfoUseCase.callUseCase(NoParams());
-        resultUser.fold(
-              (fail) => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
-              (data) {
-            _timer?.cancel();
-            emit(state.copyWith(smsStatus: StateStatus.success));
-          },
-        );
+      (fail) async => emit(state.copyWith(smsStatus: StateStatus.failure, errorMessage: fail.message)),
+      (data) async {
+        _timer?.cancel();
+        emit(state.copyWith(smsStatus: StateStatus.success));
       },
     );
   }

@@ -13,16 +13,15 @@ import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/r
 class ResetSmsPage extends StatelessWidget {
   final String phoneNumber;
 
-  const ResetSmsPage({super.key, required this.phoneNumber});
+  ResetSmsPage({super.key, required this.phoneNumber});
 
   static const String tag = '/reset_sms_page';
-  static final TextEditingController smsCodeController = TextEditingController();
+  final TextEditingController smsCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-          ResetSmsBloc(checkSmsUseCase: sl(), userInfoUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) => ResetSmsBloc(checkSmsUseCase: sl(), sendPhoneUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -38,7 +37,8 @@ class ResetSmsPage extends StatelessWidget {
             if (state.smsStatus.isFailure) {
               showErrorDialog(context, title: state.errorMessage);
             } else if (state.smsStatus.isSuccess) {
-              router.push(SplashPage.tag);
+              showSuccessToast(context, "Parol almashtirildi");
+              router.go(SplashPage.tag);
             }
           },
         ),
@@ -110,8 +110,7 @@ class ResetSmsPage extends StatelessWidget {
                     "Tasdiqlash",
                     () {
                       context.hideKeyboard;
-                      final phone = "+998${phoneNumber.phoneReplace}";
-                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: phone, sms: smsCodeController.text)));
+                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: phoneNumber.phoneReplace, sms: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.smsStatus.isInProgress,

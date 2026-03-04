@@ -1,13 +1,13 @@
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/repositories/auth_repository.dart';
 
-class RegistrationUseCase extends UseCase<String, RegistrationParams> {
+class RegistrationUseCase extends UseCase<bool, RegistrationParams> {
   final AuthRepository repository;
 
   RegistrationUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> callUseCase(RegistrationParams params) async => await repository.registration(params);
+  Future<Either<Failure, bool>> callUseCase(RegistrationParams params) async => await repository.registration(params);
 }
 
 class RegistrationParams {
@@ -37,11 +37,12 @@ class RegistrationParams {
       };
 
   RegistrationParams copyWith({
+    String? phone,
     String? smsCode,
   }) =>
       RegistrationParams(
         smsCode: smsCode ?? this.smsCode,
-        phone: phone,
+        phone: phone ?? this.phone,
         firstName: firstName,
         secondName: secondName,
         gender: gender,

@@ -16,5 +16,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, AppConfigEntity>> appConfig();
 
-  Future<Either<Failure, String>> registration(RegistrationParams params);
+  Future<Either<Failure, bool>> registration(RegistrationParams params);
+
+  Future<Either<Failure, bool>> checkOldPassword(String params);
 }
