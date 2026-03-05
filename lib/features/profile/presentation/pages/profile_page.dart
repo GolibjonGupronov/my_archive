@@ -108,11 +108,19 @@ class ProfilePage extends StatelessWidget {
                     },
                   ),
                   60.height,
-                  ProfileItem(title: "Mening ma'lumotlarim", rightWidget: Icon(CupertinoIcons.profile_circled)),
+                  ProfileItem(
+                      onTap: () {
+                        context.push(EditProfilePage.tag);
+                      },
+                      title: "Mening ma'lumotlarim",
+                      rightWidget: Icon(CupertinoIcons.profile_circled)),
                   20.height,
-                  ProfileItem(onTap: () {
-                    context.push(OldPasswordPage.tag);
-                  }, title: "Parol almashtirish", rightWidget: Icon(CupertinoIcons.lock_shield)),
+                  ProfileItem(
+                      onTap: () {
+                        context.push(OldPasswordPage.tag);
+                      },
+                      title: "Parol almashtirish",
+                      rightWidget: Icon(CupertinoIcons.lock_shield)),
                   20.height,
                   ProfileItem(
                       title: tr('settings'),

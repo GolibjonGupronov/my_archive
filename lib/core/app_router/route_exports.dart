@@ -15,3 +15,4 @@ export 'package:my_archive/features/auth/presentation/reset_password/pages/reset
 export 'package:my_archive/features/auth/presentation/registration/pages/reg_sms_page.dart';
 export 'package:my_archive/features/change_password/pages/new_password_page.dart';
 export 'package:my_archive/features/change_password/pages/old_password_page.dart';
+export 'package:my_archive/features/edit_profile/presentation/edit_profile_page.dart';

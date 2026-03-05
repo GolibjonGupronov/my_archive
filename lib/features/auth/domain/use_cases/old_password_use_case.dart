@@ -7,5 +7,5 @@ class OldPasswordUseCase extends UseCase<bool, String> {
   OldPasswordUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(String params) async => await repository.checkOldPassword(params);
+  Future<Either<Failure, bool>> callUseCase(String params) async => await repository.oldPassword(params);
 }

@@ -123,6 +123,14 @@ final GoRouter router = GoRouter(
         child: OldPasswordPage(),
       ),
     ),
+    GoRoute(
+      path: EditProfilePage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: EditProfilePage(),
+      ),
+    ),
   ],
 );
 

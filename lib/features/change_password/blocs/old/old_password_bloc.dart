@@ -21,6 +21,7 @@ class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
         emit(state.copyWith(passwordStatus: StateStatus.failure, errorMessage: fail.message));
       }, (data) {
         emit(state.copyWith(passwordStatus: StateStatus.success));
+        emit(OldPasswordState());
       });
     });
   }

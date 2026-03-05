@@ -18,9 +18,7 @@ class OldPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-      OldPasswordBloc(oldPasswordUseCase: sl())
-        ..add(InitEvent()),
+      create: (BuildContext context) => OldPasswordBloc(oldPasswordUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -40,32 +38,32 @@ class OldPasswordPage extends StatelessWidget {
       child: CustomScaffold(
         body: Padding(
           padding: EdgeInsets.all(16.w),
-          child: BlocBuilder<OldPasswordBloc, OldPasswordState>(
-            builder: (context, state) {
-              return ListView(
-                primary: false,
-                children: [
-                  60.height,
-                  LogoWidget(),
-                  8.height,
-                  TextView("Parol almashtirish", fontSize: 24.sp),
-                  20.height,
-                  CustomTextField(
-                    "Eski parol",
-                    controller: passwordController,
-                    onChanged: (value) {
-                      bloc.add(UpdateFieldEvent(password: value));
-                    },
-                    canCopyPaste: false,
-                  ),
-                  30.height,
-                  CustomButton(tr('send'), () {
+          child: ListView(
+            primary: false,
+            children: [
+              60.height,
+              LogoWidget(),
+              8.height,
+              TextView("Parol almashtirish", fontSize: 24.sp),
+              20.height,
+              CustomTextField(
+                "Eski parol",
+                controller: passwordController,
+                onChanged: (value) {
+                  bloc.add(UpdateFieldEvent(password: value));
+                },
+                canCopyPaste: false,
+              ),
+              30.height,
+              BlocBuilder<OldPasswordBloc, OldPasswordState>(
+                builder: (context, state) {
+                  return CustomButton(tr('send'), () {
                     context.hideKeyboard;
                     bloc.add(SubmitEvent(password: passwordController.text));
-                  }, active: state.isActive, progress: state.passwordStatus.isInProgress)
-                ],
-              );
-            },
+                  }, active: state.isActive, progress: state.passwordStatus.isInProgress);
+                },
+              )
+            ],
           ),
         ),
       ),

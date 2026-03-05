@@ -19,7 +19,7 @@ abstract class PrefManager {
 
   Future<void> remove(String key);
 
-  Future<void> clear();
+  // Future<void> clear();
 
   bool get isFirstLaunch;
 
@@ -50,7 +50,7 @@ class PrefManagerImpl implements PrefManager {
   Future<void> remove(String key) async => await prefs.remove(key);
 
   @override
-  Future<void> clear() async => await prefs.clear();
+  // Future<void> clear() async => await prefs.clear();
 
   @override
   LangType get getLanguage => LangType.getObj(prefs.getString(Keys.language) ?? LangType.uz.key);

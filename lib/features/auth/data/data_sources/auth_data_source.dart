@@ -19,7 +19,9 @@ abstract class AuthDataSource {
 
   Future<bool> registration(RegistrationParams params);
 
-  Future<bool> checkOldPassword(String params);
+  Future<bool> oldPassword(String params);
+
+  Future<bool> newPassword(String params);
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
@@ -52,7 +54,7 @@ class AuthDataSourceImpl extends AuthDataSource {
         birthday: "29.02.2000",
         phone: "+998999940941",
         image: "https://picsum.photos/400/200?3");
-    final response = await dio.mock(data: data).post(ApiUrls.userInfo);
+    final response = await dio.mock(data: data).get(ApiUrls.userInfo);
     return UserInfoModel.fromJson(response.data);
   }
 
@@ -60,7 +62,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   Future<AppConfigModel> appConfig() async {
     final data = AppConfigModel(
         iosMinimumBuildCode: 1, androidMinimumBuildCode: 1, googlePlayLink: "googlePlayLink", appStoreLink: "appStoreLink");
-    final response = await dio.mock(data: data).post(ApiUrls.appConfig);
+    final response = await dio.mock(data: data).get(ApiUrls.appConfig);
     return AppConfigModel.fromJson(response.data);
   }
 
@@ -84,11 +86,17 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<bool> checkOldPassword(String params) async {
+  Future<bool> oldPassword(String params) async {
     final data = params.contains("11111111");
     final response = await dio
         .mock(data: true, statusCode: data ? 200 : 300, message: "Parol Xato")
-        .post(ApiUrls.sendLogin, data: {"old_password": params});
+        .post(ApiUrls.oldPassword, data: {"old_password": params});
+    return response.data;
+  }
+
+  @override
+  Future<bool> newPassword(String params) async {
+    final response = await dio.mock(data: true).post(ApiUrls.newPassword, data: {"new_password": params});
     return response.data;
   }
 }

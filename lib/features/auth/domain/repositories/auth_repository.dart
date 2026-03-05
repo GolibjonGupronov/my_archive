@@ -18,5 +18,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, bool>> registration(RegistrationParams params);
 
-  Future<Either<Failure, bool>> checkOldPassword(String params);
+  Future<Either<Failure, bool>> oldPassword(String params);
+
+  Future<Either<Failure, bool>> newPassword(String params);
 }

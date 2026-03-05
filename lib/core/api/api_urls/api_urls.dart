@@ -11,4 +11,7 @@ class ApiUrls {
   static final String userInfo = "$_api/user/me";
   static final String registration = "$_api/user/registration";
   static final String changeImage = "$_api/user/change-image";
+  static final String oldPassword = "$_api/old-password";
+  static final String newPassword = "$_api/new-password";
+  static final String editProfile = "$_api/edit-profile";
 }
