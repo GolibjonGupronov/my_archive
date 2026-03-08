@@ -33,5 +33,6 @@ class InjectionContainer {
     initSplashInjection();
     initAuthInjection();
     initProfileInjection();
+    initStoryInjection();
   }
 }

@@ -30,13 +30,9 @@ class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
       emit(state.copyWith(code: code, isActive: code.length == Constants.smsCodeLength));
     });
 
-    on<SubmitEvent>((event, emit) async {
-      await _submit(event, emit);
-    });
+    on<SubmitEvent>(_submit);
 
-    on<ResendPhoneEvent>((event, emit) async {
-      await _resend(emit, event.phone);
-    });
+    on<ResendPhoneEvent>(_resend);
 
     on<SecondEvent>((event, emit) {
       emit(state.copyWith(second: event.second));
@@ -55,9 +51,9 @@ class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
     );
   }
 
-  Future<void> _resend(Emitter<RegSmsState> emit, String phone) async {
+  Future<void> _resend(ResendPhoneEvent event, Emitter<RegSmsState> emit) async {
     emit(state.copyWith(resendPhoneStatus: StateStatus.inProgress));
-    final result = await sendPhoneUseCase.callUseCase(phone);
+    final result = await sendPhoneUseCase.callUseCase(event.phone);
     result.fold((fail) {
       emit(state.copyWith(resendPhoneStatus: StateStatus.failure, errorMessage: fail.message));
     }, (isRegistered) {

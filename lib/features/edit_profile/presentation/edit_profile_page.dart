@@ -19,12 +19,12 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final UserInfoEntity? user = sl.get<PrefManager>().getUserInfo;
+  final UserInfoEntity? user = sl
+      .get<PrefManager>()
+      .getUserInfo;
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController secondNameController = TextEditingController();
-
-  final phoneMaskFormatter = phoneNumberMask(mask: '(##) ###-##-##');
 
   @override
   void initState() {
@@ -37,14 +37,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
       firstNameController.text = user!.firstName;
       secondNameController.text = user!.secondName;
 
-      phoneController.text = user!.phone;
+      phoneController.text = user!.phone.phoneFormatter(mask: '(##) ###-##-##');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => EditProfileBloc()
+      create: (BuildContext context) =>
+      EditProfileBloc(editProfileUseCase: sl(), userInfoUseCase: sl())
         ..add(InitEvent(
           firstName: user?.firstName,
           secondName: user?.secondName,
@@ -63,136 +64,141 @@ class _EditProfilePageState extends State<EditProfilePage> {
       listener: (context, state) {
         if (state.editStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
-        } else if (state.editStatus.isSuccess) {}
+        } else if (state.editStatus.isSuccess) {
+          router.pop(true);
+        }
       },
-      child: CustomScaffold(
-        hasUnsavedChanges: () => true,
-        dialogTitle: "Ortga qaytmoqchimisiz",
-        dialogSubtitle: "",
-        body: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  primary: false,
-                  children: [
-                    60.height,
-                    LogoWidget(),
-                    8.height,
-                    TextView(tr('sign_up'), fontWeight: FontWeight.bold, fontSize: 24),
-                    12.height,
-                    TextView("Siz kiritgan raqamga tasdiqlash kodi yuboramiz", fontSize: 14),
-                    24.height,
-                    Row(
+      child: BlocSelector<EditProfileBloc, EditProfileState, bool>(
+        selector: (state) => state.isChanged,
+        builder: (context, state) {
+          return CustomScaffold(
+            hasUnsavedChanges: () => state,
+            body: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      primary: false,
                       children: [
-                        BoxContainer(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          borderRadius: BorderRadius.circular(30.r),
-                          child: SizedBox(
-                            height: 60.h,
-                            child: Row(
-                              children: [
-                                Assets.icons.circleFlagUz.svg(width: 26.w, height: 26.w, fit: BoxFit.cover),
-                                4.width,
-                                TextView("+998 "),
-                              ],
+                        60.height,
+                        LogoWidget(),
+                        8.height,
+                        TextView("Ma'lumotlarim", fontWeight: FontWeight.bold, fontSize: 24),
+                        24.height,
+                        Row(
+                          children: [
+                            Opacity(
+                              opacity: 0.5,
+                              child: BoxContainer(
+                                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                borderRadius: BorderRadius.circular(30.r),
+                                child: SizedBox(
+                                  height: 60.h,
+                                  child: Row(
+                                    children: [
+                                      Assets.icons.circleFlagUz.svg(width: 26.w, height: 26.w, fit: BoxFit.cover),
+                                      4.width,
+                                      TextView("+998 "),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            8.width,
+                            Expanded(
+                              child: CustomTextField.phone(
+                                "",
+                                controller: phoneController,
+                                hint: "(00) 000-00-00",
+                                enabled: false,
+                              ),
+                            ),
+                          ],
                         ),
-                        8.width,
-                        Expanded(
-                          child: CustomTextField.phone(
-                            "",
-                            controller: phoneController,
-                            hint: "(00) 000-00-00",
-                            inputFormatters: [phoneMaskFormatter],
-                            onChanged: (value) {},
-                          ),
+                        8.height,
+                        CustomTextField(
+                          "Ism",
+                          controller: firstNameController,
+                          hint: "Masalan: G'olibjon",
+                          onChanged: (value) {
+                            bloc.add(UpdateFieldEvent(firstName: value));
+                          },
                         ),
+                        8.height,
+                        CustomTextField(
+                          "Familiya",
+                          controller: secondNameController,
+                          hint: "Masalan: G'upronov",
+                          onChanged: (value) {
+                            bloc.add(UpdateFieldEvent(secondName: value));
+                          },
+                        ),
+                        8.height,
+                        BlocSelector<EditProfileBloc, EditProfileState, Gender>(
+                          selector: (state) => state.gender,
+                          builder: (context, state) {
+                            debugPrint("GGQ => Gender");
+                            return CustomRadioList(
+                              "Jins",
+                              segments: Gender.values,
+                              getSegmentTitle: (value) => value.title,
+                              onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
+                              activeSegment: state,
+                              activeGradient: state == Gender.male ? Gradients.primaryGradient : Gradients.pinkGradient,
+                            );
+                          },
+                        ),
+                        8.height,
+                        BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
+                          selector: (state) => state.birthDay,
+                          builder: (context, state) {
+                            debugPrint("GGQ => Birthday");
+                            return CustomSelectField(
+                              "Tug'ilgan kun",
+                              "kk.oo.yyyy",
+                                  () {
+                                showCupertinoDatePicker(context, result: (result) {
+                                  bloc.add(UpdateFieldEvent(birthDay: result));
+                                });
+                              },
+                              rightWidget: Icon(CupertinoIcons.calendar),
+                              value: state.formattedDate,
+                            );
+                          },
+                        ),
+                        30.height,
                       ],
                     ),
-                    8.height,
-                    CustomTextField(
-                      "Ism",
-                      controller: firstNameController,
-                      hint: "Masalan: G'olibjon",
-                      onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(firstName: value));
-                      },
-                    ),
-                    8.height,
-                    CustomTextField(
-                      "Familiya",
-                      controller: secondNameController,
-                      hint: "Masalan: G'upronov",
-                      onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(secondName: value));
-                      },
-                    ),
-                    8.height,
-                    BlocSelector<EditProfileBloc, EditProfileState, Gender>(
-                      selector: (state) => state.gender,
-                      builder: (context, state) {
-                        debugPrint("GGQ => Gender");
-                        return CustomRadioList(
-                          "Jins",
-                          segments: Gender.values,
-                          getSegmentTitle: (value) => value.title,
-                          onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
-                          activeSegment: state,
-                          activeGradient: state == Gender.male ? Gradients.primaryGradient : Gradients.pinkGradient,
-                        );
-                      },
-                    ),
-                    8.height,
-                    BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
-                      selector: (state) => state.birthDay,
-                      builder: (context, state) {
-                        debugPrint("GGQ => Birthday");
-                        return CustomSelectField(
-                          "Tug'ilgan kun",
-                          "kk.oo.yyyy",
-                          () {
-                            showCupertinoDatePicker(context, result: (result) {
-                              bloc.add(UpdateFieldEvent(birthDay: result));
-                            });
-                          },
-                          rightWidget: Icon(CupertinoIcons.calendar),
-                          value: state.formattedDate,
-                        );
-                      },
-                    ),
-                    30.height,
-                  ],
-                ),
-              ),
-              20.height,
-              BlocBuilder<EditProfileBloc, EditProfileState>(
-                builder: (context, state) {
-                  return CustomButton(
-                    "Sms yuborish",
-                    () {
-                      context.hideKeyboard;
-                      bloc.add(
-                        SubmitEvent(
-                          params: EditProfileParams(
-                            firstName: firstNameController.text,
-                            secondName: secondNameController.text,
-                            gender: state.gender,
-                            birthDay: state.birthDay!,
-                          ),
-                        ),
+                  ),
+                  20.height,
+                  BlocBuilder<EditProfileBloc, EditProfileState>(
+                    builder: (context, state) {
+                      return CustomButton(
+                        tr('save'),
+                            () {
+                          context.hideKeyboard;
+                          bloc.add(
+                            SubmitEvent(
+                              params: EditProfileParams(
+                                firstName: firstNameController.text,
+                                secondName: secondNameController.text,
+                                gender: state.gender,
+                                birthDay: state.birthDay!,
+                              ),
+                            ),
+                          );
+                        },
+                        active: state.isActive,
+                        progress: state.editStatus.isInProgress,
                       );
                     },
-                    active: state.isActive,
-                    progress: state.editStatus.isInProgress,
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

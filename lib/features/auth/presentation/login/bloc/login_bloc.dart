@@ -3,8 +3,8 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 
-import 'login_event.dart';
-import 'login_state.dart';
+import 'package:my_archive/features/auth/presentation/login/bloc/login_event.dart';
+import 'package:my_archive/features/auth/presentation/login/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase loginUseCase;
@@ -21,9 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(phone: phone, password: password, isActive: isActive));
     });
 
-    on<SubmitEvent>((event, emit) async {
-      await _submit(event, emit);
-    });
+    on<SubmitEvent>(_submit);
   }
 
   Future<void> _submit(SubmitEvent event, Emitter<LoginState> emit) async {

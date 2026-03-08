@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/old_password_use_case.dart';
-
-import 'old_password_event.dart';
-import 'old_password_state.dart';
+import 'package:my_archive/features/change_password/blocs/old/old_password_event.dart';
+import 'package:my_archive/features/change_password/blocs/old/old_password_state.dart';
 
 class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
   final OldPasswordUseCase oldPasswordUseCase;

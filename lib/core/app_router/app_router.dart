@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_archive/core/app_router/args.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 
@@ -130,6 +131,17 @@ final GoRouter router = GoRouter(
         state: state,
         child: EditProfilePage(),
       ),
+    ),
+    GoRoute(
+      path: StoryPage.tag,
+      pageBuilder: (context, state) {
+        final args = state.extra as StoryPageArgs;
+        return buildPageWithSlideRightTransition<void>(
+          context: context,
+          state: state,
+          child: StoryPage(storyList: args.storyList, activeIndex: args.activeIndex, itemCheck: args.itemCheck),
+        );
+      },
     ),
   ],
 );

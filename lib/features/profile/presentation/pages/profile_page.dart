@@ -109,8 +109,11 @@ class ProfilePage extends StatelessWidget {
                   ),
                   60.height,
                   ProfileItem(
-                      onTap: () {
-                        context.push(EditProfilePage.tag);
+                      onTap: () async {
+                        var value = await context.push(EditProfilePage.tag);
+                        if (value != null) {
+                          bloc.add(InitEvent());
+                        }
                       },
                       title: "Mening ma'lumotlarim",
                       rightWidget: Icon(CupertinoIcons.profile_circled)),

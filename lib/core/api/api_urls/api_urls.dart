@@ -14,4 +14,5 @@ class ApiUrls {
   static final String oldPassword = "$_api/old-password";
   static final String newPassword = "$_api/new-password";
   static final String editProfile = "$_api/edit-profile";
+  static final String storyList = "$_api/story_list";
 }

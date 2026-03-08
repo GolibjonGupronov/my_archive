@@ -12,9 +12,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   RegistrationBloc({required this.sendPhoneUseCase}) : super(RegistrationState()) {
     on<InitEvent>((event, emit) {});
 
-    on<SubmitEvent>((event, emit) async {
-      await _submit(event, emit);
-    });
+    on<SubmitEvent>(_submit);
 
     on<UpdateFieldEvent>((event, emit) async {
       final firstName = event.firstName ?? state.firstName;

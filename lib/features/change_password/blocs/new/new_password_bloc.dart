@@ -3,8 +3,8 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/password_check_entity.dart';
 import 'package:my_archive/features/auth/domain/use_cases/new_password_use_case.dart';
 
-import 'new_password_event.dart';
-import 'new_password_state.dart';
+import 'package:my_archive/features/change_password/blocs/new/new_password_event.dart';
+import 'package:my_archive/features/change_password/blocs/new/new_password_state.dart';
 
 class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
   final NewPasswordUseCase newPasswordUseCase;
@@ -13,9 +13,7 @@ class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
   NewPasswordBloc({required this.newPasswordUseCase, required this.prefManager}) : super(NewPasswordState()) {
     on<InitEvent>((event, emit) {});
 
-    on<SubmitEvent>((event, emit) async {
-      await _submit(event, emit);
-    });
+    on<SubmitEvent>(_submit);
 
     on<UpdateFieldEvent>((event, emit) {
       final newPassword = event.newPassword ?? state.password;

@@ -10,7 +10,13 @@ class EditProfileState {
   final String errorMessage;
   final String phone;
 
-  EditProfileState({
+  final bool isChanged;
+  final String initialFirstName;
+  final String initialSecondName;
+  final Gender initialGender;
+  final DateTime? initialBirthDay;
+
+  const EditProfileState({
     this.editStatus = StateStatus.initial,
     this.firstName = '',
     this.secondName = '',
@@ -19,6 +25,11 @@ class EditProfileState {
     this.isActive = false,
     this.errorMessage = '',
     this.phone = '',
+    this.isChanged = false,
+    this.initialFirstName = '',
+    this.initialSecondName = '',
+    this.initialBirthDay,
+    this.initialGender = Gender.male,
   });
 
   EditProfileState copyWith({
@@ -30,6 +41,11 @@ class EditProfileState {
     bool? isActive,
     String? errorMessage,
     String? phone,
+    bool? isChanged,
+    String? initialFirstName,
+    String? initialSecondName,
+    Gender? initialGender,
+    DateTime? initialBirthDay,
   }) =>
       EditProfileState(
         editStatus: editStatus ?? this.editStatus,
@@ -40,5 +56,10 @@ class EditProfileState {
         isActive: isActive ?? this.isActive,
         errorMessage: errorMessage ?? this.errorMessage,
         phone: phone ?? this.phone,
+        isChanged: isChanged ?? this.isChanged,
+        initialFirstName: initialFirstName ?? this.initialFirstName,
+        initialSecondName: initialSecondName ?? this.initialSecondName,
+        initialGender: initialGender ?? this.initialGender,
+        initialBirthDay: initialBirthDay ?? this.initialBirthDay,
       );
 }
