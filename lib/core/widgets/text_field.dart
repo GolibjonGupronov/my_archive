@@ -31,13 +31,13 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField._(
     this.title, {
     this.controller,
-    this.required = false,
-    this.onChanged,
     this.hint,
     this.comment = "",
-    this.inputType,
-    this.inputFormatters,
+    this.required = false,
     this.enabled = true,
+    this.inputType,
+    this.onChanged,
+    this.inputFormatters,
     this.minLines,
     this.maxLines,
     this.textInputAction,
@@ -112,8 +112,8 @@ class CustomTextField extends StatefulWidget {
       enabled: enabled,
       onChanged: onChanged,
       validate: validate,
-      inputFormatters: inputFormatters ?? [],
       inputType: TextInputType.phone,
+      inputFormatters: inputFormatters ?? [],
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.phone,
@@ -130,15 +130,15 @@ class CustomTextField extends StatefulWidget {
     final bool obscureText = true,
     final TextInputType? inputType,
     final Function(String v)? onChanged,
-    final List<TextInputFormatter>? inputFormatters,
+    List<TextInputFormatter>? inputFormatters,
     final int? maxLength,
     final bool autofocus = false,
     final bool canCopyPaste = true,
-    final String Function(String v)? validate,
+    String Function(String v)? validate,
   }) {
-    String defaultValidator(String v) {
-      return v.removeSpaces.length < Constants.passwordLength ? tr('min_chars_required'.plural(Constants.passwordLength)) : "";
-    }
+    validate ??= (String v) =>
+        v.removeSpaces.length < Constants.passwordLength ? tr('min_chars_required'.plural(Constants.passwordLength)) : "";
+    inputFormatters ??= [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
 
     return CustomTextField._(
       title,
@@ -149,10 +149,10 @@ class CustomTextField extends StatefulWidget {
       enabled: enabled,
       obscureText: obscureText,
       onChanged: onChanged,
-      validate: validate ?? defaultValidator,
+      validate: validate,
       maxLength: maxLength,
-      inputFormatters: inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
       inputType: inputType,
+      inputFormatters: inputFormatters,
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.password,
@@ -185,10 +185,10 @@ class CustomTextField extends StatefulWidget {
       onChanged: onChanged,
       validate: validate,
       maxLength: maxLength,
-      inputFormatters: inputFormatters,
       inputType: inputType,
-      autofocus: autofocus,
+      inputFormatters: inputFormatters,
       maxLines: maxLines,
+      autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       textFieldType: _EnumTextFieldType.comment,
     );
@@ -253,13 +253,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         error = widget.validate!(v);
       }
       if (errorMessage != error) {
-        setState(() {
-          errorMessage = error;
-        });
+        setState(() => errorMessage = error);
       }
     });
 
-    if (widget.onChanged != null) widget.onChanged!(v);
+    widget.onChanged?.call(v);
   }
 
   @override
@@ -321,7 +319,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           disabledBorder: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 18.h),
                           isDense: true,
-                          suffixText: null,
                         ),
                         autofocus: widget.autofocus,
                         inputFormatters: widget.inputFormatters,
@@ -331,27 +328,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         keyboardType: widget.inputType,
                         minLines: widget.obscureText ? null : widget.minLines,
                         maxLines: widget.obscureText ? 1 : (widget.maxLines ?? 1),
-                        onChanged: (v) {
-                          onChanged(v);
-                        },
+                        onChanged: onChanged,
                         maxLength: widget.maxLength,
                       ),
                     ),
                     if (widget.obscureText)
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Bounce(
-                          onTap: () {
-                            setState(() {
-                              hiddenPassword = !hiddenPassword;
-                            });
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 16.w),
-                            child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
-                                width: 24.w,
-                                colorFilter:
-                                    (hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3)).svgColor()),
+                      Bounce(
+                        onTap: () => setState(() => hiddenPassword = !hiddenPassword),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: (hiddenPassword ? Assets.icons.eyeOpen : Assets.icons.eyeHide).svg(
+                            width: 24.w,
+                            colorFilter: (hiddenPassword ? AppColors.primary : AppColors.gray.withValues(alpha: 0.3)).svgColor(),
                           ),
                         ),
                       ),
@@ -382,7 +370,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               widget.comment,
               fontWeight: FontWeight.w400,
               color: AppColors.gray,
-            )
+            ),
           ],
         ],
       ),

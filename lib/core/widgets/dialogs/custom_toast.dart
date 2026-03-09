@@ -4,60 +4,80 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_archive/core/core_exports.dart';
 
-void showErrorToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
-  final fToast = FToast();
-  fToast.removeCustomToast();
-  fToast.init(context);
-
-  Widget toast = Row(
-    children: [
-      const Icon(Icons.warning_rounded, color: AppColors.red),
-      12.width,
-      Expanded(child: TextView(message)),
-    ],
-  );
-
-  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
-}
-
-void showSuccessToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
-  final fToast = FToast();
-  fToast.removeCustomToast();
-  fToast.init(context);
-
-  Widget toast = Row(
-    children: [
-      const Icon(CupertinoIcons.checkmark_alt_circle_fill, color: AppColors.green),
-      12.width,
-      Expanded(child: TextView(message)),
-    ],
-  );
-
-  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
-}
-
-void showInfoToast(BuildContext context, String message, {int second = Constants.toastDuration, bool isDismissible = true}) {
-  final fToast = FToast();
-  fToast.removeCustomToast();
-  fToast.init(context);
-
-  Widget toast = Row(
-    children: [
-      const Icon(CupertinoIcons.info_circle_fill, color: AppColors.orange),
-      12.width,
-      Expanded(child: TextView(message)),
-    ],
-  );
-
-  _show(fToast: fToast, second: second, child: toast, isDismissible: isDismissible);
-}
-
-void _show({
-  required FToast fToast,
-  required Widget child,
-  required int second,
-  required bool isDismissible,
+void showErrorToast(
+  BuildContext context,
+  String message, {
+  int second = Constants.toastDuration,
+  bool isDismissible = true,
+  VoidCallback? action,
+  String? actionTitle,
 }) {
+  _showToast(
+    context,
+    message,
+    icon: Icons.warning_rounded,
+    color: AppColors.red,
+    second: second,
+    isDismissible: isDismissible,
+    action: action,
+    actionTitle: actionTitle,
+  );
+}
+
+void showSuccessToast(
+  BuildContext context,
+  String message, {
+  int second = Constants.toastDuration,
+  bool isDismissible = true,
+  VoidCallback? action,
+  String? actionTitle,
+}) {
+  _showToast(
+    context,
+    message,
+    icon: CupertinoIcons.checkmark_alt_circle_fill,
+    color: AppColors.green,
+    second: second,
+    isDismissible: isDismissible,
+    action: action,
+    actionTitle: actionTitle,
+  );
+}
+
+void showInfoToast(
+  BuildContext context,
+  String message, {
+  int second = Constants.toastDuration,
+  bool isDismissible = true,
+  VoidCallback? action,
+  String? actionTitle,
+}) {
+  _showToast(
+    context,
+    message,
+    icon: CupertinoIcons.info_circle_fill,
+    color: AppColors.orange,
+    second: second,
+    isDismissible: isDismissible,
+    action: action,
+    actionTitle: actionTitle,
+  );
+}
+
+void _showToast(
+  BuildContext context,
+  String message, {
+  required IconData icon,
+  required Color color,
+  int second = Constants.toastDuration,
+  bool isDismissible = true,
+  final VoidCallback? action,
+  final String? actionTitle,
+}) {
+  final fToast = FToast();
+  fToast.removeCustomToast();
+  fToast.init(context);
+
   final toastKey = UniqueKey();
 
   fToast.showToast(
@@ -80,10 +100,26 @@ void _show({
               Padding(
                 padding: EdgeInsets.only(
                   left: 16.w,
-                  right: 16.w,
+                  right: 8.w,
                   top: 16.h,
                 ),
-                child: child,
+                child: Row(
+                  children: [
+                    Icon(icon, color: color),
+                    12.width,
+                    Expanded(child: TextView(message)),
+                    4.width,
+                    if (action != null)
+                      Bounce(
+                        onTap: action,
+                        child: BoxContainer(
+                            padding: EdgeInsets.all(8.w),
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: AppColors.primary,
+                            child: TextView(actionTitle ?? "Batafsil", color: AppColors.white)),
+                      )
+                  ],
+                ),
               ),
               12.height,
               TweenAnimationBuilder<double>(
@@ -92,8 +128,7 @@ void _show({
                 builder: (context, value, _) {
                   return LinearProgressIndicator(
                     value: value,
-                    backgroundColor:
-                    AppColors.primary.withValues(alpha: 0.3),
+                    backgroundColor: AppColors.primary.withValues(alpha: 0.3),
                     valueColor: AlwaysStoppedAnimation<Color>(
                       AppColors.primary,
                     ),
@@ -106,7 +141,7 @@ void _show({
       ),
     ),
     toastDuration: Duration(seconds: second),
-    positionedToastBuilder: (context, child, gravity){
+    positionedToastBuilder: (context, child, gravity) {
       final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
       return Positioned(

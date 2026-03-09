@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                   return StoryListView(storyList: state.storyList);
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

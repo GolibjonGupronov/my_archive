@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/widgets/dialogs/media_picker.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
@@ -82,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                                         if (state.changeImageStatus.isInProgress) {
                                           return;
                                         }
-                                        showImagePicker(
+                                        MediaPicker.showImagePicker(
                                             ctx: context,
                                             onResult: (result) {
                                               bloc.add(ChangeImageEvent(result));
