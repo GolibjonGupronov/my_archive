@@ -74,6 +74,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         builder: (context, state) {
           return CustomScaffold(
             hasUnsavedChanges: () => state,
+            appBar: CustomAppBar(""),
             body: Padding(
               padding: EdgeInsets.all(16.w),
               child: Column(
@@ -82,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: ListView(
                       primary: false,
                       children: [
-                        60.height,
+                        10.height,
                         LogoWidget(),
                         8.height,
                         TextView("Ma'lumotlarim", fontWeight: FontWeight.bold, fontSize: 24),

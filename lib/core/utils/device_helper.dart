@@ -45,8 +45,13 @@ class DeviceHelper {
     return _iosInfo!.model.toLowerCase().contains('ipad');
   }
 
-  static String? get androidModel {
+  static AndroidDeviceInfo? get androidInfo {
     if (!Platform.isAndroid || _androidInfo == null) return null;
-    return _androidInfo!.model;
+    return _androidInfo!;
+  }
+
+  static IosDeviceInfo? get iosInfo {
+    if (!Platform.isIOS || _iosInfo == null) return null;
+    return _iosInfo!;
   }
 }

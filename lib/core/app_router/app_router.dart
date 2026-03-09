@@ -143,6 +143,14 @@ final GoRouter router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: DeviceSessionPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: DeviceSessionPage(),
+      ),
+    ),
   ],
 );
 

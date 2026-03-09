@@ -39,12 +39,13 @@ class NewPasswordPage extends StatelessWidget {
         }
       },
       child: CustomScaffold(
+        appBar: CustomAppBar(""),
         body: Padding(
           padding: EdgeInsets.all(16.w),
           child: ListView(
             primary: false,
             children: [
-              60.height,
+              10.height,
               LogoWidget(),
               8.height,
               TextView("Parol almashtirish", fontSize: 24.sp),

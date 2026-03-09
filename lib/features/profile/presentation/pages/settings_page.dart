@@ -28,9 +28,11 @@ class SettingsPage extends StatelessWidget {
           20.height,
           ProfileItem(title: "Bildirishnoma", rightWidget: CupertinoSwitch(value: true, onChanged: (value) {})),
           20.height,
-          ProfileItem(title: "Til", onTap: () {
-            showCustomBottomSheetDialog(context: context, child: LanguageWidget());
-          }),
+          ProfileItem(
+              title: "Til",
+              onTap: () {
+                showCustomBottomSheetDialog(context: context, child: LanguageWidget());
+              }),
         ],
       ),
     );

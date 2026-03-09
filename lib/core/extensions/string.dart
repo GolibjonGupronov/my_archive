@@ -3,6 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:my_archive/core/core_exports.dart';
 
 extension CustomString on String {
+  String get capitalize {
+    if (isEmpty) return this;
+    return this[0].toUpperCase() + substring(1).toLowerCase();
+  }
+
   String? get nullIfEmpty => trim().isEmpty ? null : this;
 
   double get parseToDouble => double.tryParse(replaceAll(' ', '')) ?? 0.0;
@@ -49,12 +54,6 @@ extension FormattedAmountString on String? {
   String get formattedAmount => ExtensionHelper.thousandDecimalFormat(_value);
 
   String get formattedAmountEmpty => _value == 0 ? "" : formattedAmount;
-
-  String get capitalize {
-    final value = this ?? '';
-    if (value.isEmpty) return "";
-    return value[0].toUpperCase() + value.substring(1).toLowerCase();
-  }
 }
 
 extension HexColorStrinng on String {

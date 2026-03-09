@@ -132,6 +132,13 @@ class ProfilePage extends StatelessWidget {
                       onTap: () {
                         context.push(SettingsPage.tag);
                       }),
+                  20.height,
+                  ProfileItem(
+                      title: "Qurilma sessiyasi",
+                      onTap: () {
+                        context.push(DeviceSessionPage.tag);
+                      },
+                      rightWidget: Icon(Icons.phone_android_rounded)),
                 ],
               ),
             ),

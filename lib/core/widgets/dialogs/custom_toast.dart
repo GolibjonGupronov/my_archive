@@ -65,8 +65,8 @@ void showInfoToast(
 }
 
 void _showToast(
-  BuildContext context,
-  String message, {
+  final BuildContext context,
+  final String message, {
   required IconData icon,
   required Color color,
   int second = Constants.toastDuration,
