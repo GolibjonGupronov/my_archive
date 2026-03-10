@@ -3,13 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/widgets/dialogs/media_picker.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
+import 'package:my_archive/features/profile/presentation/widgets/profile_image.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -45,100 +44,42 @@ class ProfilePage extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 32.h),
                 children: [
-                  BlocSelector<ProfileBloc, ProfileState, ({StateStatus changeImageStatus, String userImage, String fullName})>(
-                    selector: (state) => (
-                      changeImageStatus: state.changeImageStatus,
-                      userImage: state.userImage,
-                      fullName: state.user?.fullName ?? ""
-                    ),
-                    builder: (context, state) {
-                      return Column(
-                        children: [
-                          Center(
-                            child: SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: Stack(
-                                children: [
-                                  Bounce(
-                                    onTap: () {
-                                      router.push(ImageZoomPage.tag, extra: [state.userImage]);
-                                    },
-                                    child: BoxContainer(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: AppColors.primary),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: state.userImage.isEmpty
-                                            ? Assets.images.logo.image()
-                                            : CustomImageView(pathOrUrl: state.userImage),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Bounce(
-                                      onTap: () {
-                                        if (state.changeImageStatus.isInProgress) {
-                                          return;
-                                        }
-                                        MediaPicker.showImagePicker(
-                                            ctx: context,
-                                            onResult: (result) {
-                                              bloc.add(ChangeImageEvent(result));
-                                            },
-                                            initAspectRatio: CropAspectRatioPreset.square);
-                                      },
-                                      child: BoxContainer(
-                                        shape: BoxShape.circle,
-                                        child: state.changeImageStatus.isInProgress
-                                            ? Padding(padding: EdgeInsets.all(4.w), child: CupertinoActivityIndicator())
-                                            : Icon(CupertinoIcons.camera_circle_fill, size: 30.w),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          8.height,
-                          TextView(state.fullName, style: AppTheme.textTheme.displayLarge, textAlign: TextAlign.center)
-                        ],
-                      );
-                    },
-                  ),
+                  ProfileImage(bloc: bloc),
                   60.height,
                   ProfileItem(
-                      onTap: () async {
-                        var value = await context.push(EditProfilePage.tag);
-                        if (value != null) {
-                          bloc.add(InitEvent());
-                        }
-                      },
-                      title: "Mening ma'lumotlarim",
-                      rightWidget: Icon(CupertinoIcons.profile_circled)),
+                    onTap: () async {
+                      var value = await context.push(EditProfilePage.tag);
+                      if (value != null) {
+                        bloc.add(InitEvent());
+                      }
+                    },
+                    title: "Mening ma'lumotlarim",
+                    rightWidget: Icon(CupertinoIcons.profile_circled),
+                  ),
                   20.height,
                   ProfileItem(
-                      onTap: () {
-                        context.push(OldPasswordPage.tag);
-                      },
-                      title: "Parol almashtirish",
-                      rightWidget: Icon(CupertinoIcons.lock_shield)),
+                    onTap: () {
+                      context.push(OldPasswordPage.tag);
+                    },
+                    title: "Parol almashtirish",
+                    rightWidget: Icon(CupertinoIcons.lock_shield),
+                  ),
                   20.height,
                   ProfileItem(
-                      title: tr('settings'),
-                      rightWidget: Icon(Icons.settings),
-                      onTap: () {
-                        context.push(SettingsPage.tag);
-                      }),
+                    title: tr('settings'),
+                    rightWidget: Icon(Icons.settings),
+                    onTap: () {
+                      context.push(SettingsPage.tag);
+                    },
+                  ),
                   20.height,
                   ProfileItem(
-                      title: "Qurilma sessiyasi",
-                      onTap: () {
-                        context.push(DeviceSessionPage.tag);
-                      },
-                      rightWidget: Icon(Icons.phone_android_rounded)),
+                    title: "Qurilma sessiyasi",
+                    onTap: () {
+                      context.push(DeviceSessionPage.tag);
+                    },
+                    rightWidget: Icon(Icons.phone_android_rounded),
+                  ),
                 ],
               ),
             ),

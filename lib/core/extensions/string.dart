@@ -8,6 +8,8 @@ extension CustomString on String {
     return this[0].toUpperCase() + substring(1).toLowerCase();
   }
 
+  String get getFirstLetters => isEmpty ? "" : trim().split(RegExp(r'\s+')).map((word) => word[0].toUpperCase()).join();
+
   String? get nullIfEmpty => trim().isEmpty ? null : this;
 
   double get parseToDouble => double.tryParse(replaceAll(' ', '')) ?? 0.0;

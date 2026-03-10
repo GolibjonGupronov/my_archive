@@ -17,7 +17,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   Future<String> changeImage(String params) async {
     final data = {"image": params};
 
-    final formData = FormData.fromMap({'image': await MultipartFile.fromFile(params, filename: params)});
+    final formData = FormData.fromMap({if (params.isNotEmpty) 'image': await MultipartFile.fromFile(params, filename: params)});
 
     final response = await dio.mock(data: data).post(ApiUrls.changeImage, data: formData);
     return response.data['image'];
