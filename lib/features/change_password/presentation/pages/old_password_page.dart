@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/change_password/blocs/old/old_password_bloc.dart';
-import 'package:my_archive/features/change_password/blocs/old/old_password_event.dart';
-import 'package:my_archive/features/change_password/blocs/old/old_password_state.dart';
+import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_bloc.dart';
+import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_event.dart';
+import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_state.dart';
 
 class OldPasswordPage extends StatelessWidget {
   OldPasswordPage({super.key});

@@ -18,10 +18,6 @@ abstract class AuthDataSource {
   Future<AppConfigModel> appConfig();
 
   Future<bool> registration(RegistrationParams params);
-
-  Future<bool> oldPassword(String params);
-
-  Future<bool> newPassword(String params);
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
@@ -83,20 +79,5 @@ class AuthDataSourceImpl extends AuthDataSource {
         statusCode: data ? 200 : 300,
         message: "Login Parol Xato").post(ApiUrls.sendLogin, data: params.toMap);
     return response.data['token'];
-  }
-
-  @override
-  Future<bool> oldPassword(String params) async {
-    final data = params.contains("11111111");
-    final response = await dio
-        .mock(data: true, statusCode: data ? 200 : 300, message: "Parol Xato")
-        .post(ApiUrls.oldPassword, data: {"old_password": params});
-    return response.data;
-  }
-
-  @override
-  Future<bool> newPassword(String params) async {
-    final response = await dio.mock(data: true).post(ApiUrls.newPassword, data: {"new_password": params});
-    return response.data;
   }
 }
