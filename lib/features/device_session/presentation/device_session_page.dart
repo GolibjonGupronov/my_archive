@@ -42,7 +42,16 @@ class DeviceSessionPage extends StatelessWidget {
                     separatorBuilder: (c, i) => Divider(height: 40.h),
                     itemCount: 3)
                 : state.deviceSessions.isEmpty
-                    ? Center(child: TextView("Hechnima yo'q"))
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.phonelink_off_rounded, size: 64.w),
+                            12.height,
+                            TextView("Qurilma biriktirilmagan"),
+                          ],
+                        ),
+                      )
                     : ListView.separated(
                         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                         itemBuilder: (context, index) {

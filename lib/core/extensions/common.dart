@@ -1,18 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/core_exports.dart';
-
-extension StateStateExtension on StateStatus {
-  bool get isInitial => this == StateStatus.initial;
-
-  bool get isInProgress => this == StateStatus.inProgress;
-
-  bool get isSuccess => this == StateStatus.success;
-
-  bool get isFailure => this == StateStatus.failure;
-
-  bool get isCanceled => this == StateStatus.canceled;
-}
 
 extension HexColor on Color {
   String toHex({bool leadingHashSign = true, bool includeAlpha = true}) {

@@ -93,6 +93,7 @@ extension StringDateParsing on String {
     "yyyy-MM-dd",
     "yyyy.MM.dd",
     "MM-dd-yyyy",
+    "yyyy-MM-ddTHH:mm:ssZ"
   ].map((e) => DateFormat(e)).toList();
 
   DateTime? get toDateTime {
@@ -105,5 +106,12 @@ extension StringDateParsing on String {
       } catch (_) {}
     }
     return null;
+  }
+
+  String formatTo(String outputFormat) {
+    final date = toDateTime;
+    if (date == null) return "";
+
+    return DateFormat(outputFormat).format(date);
   }
 }

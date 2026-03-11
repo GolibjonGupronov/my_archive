@@ -3,7 +3,7 @@ import 'package:my_archive/features/device_session/domain/entities/device_sessio
 class DeviceSessionModel extends DeviceSessionEntity {
   DeviceSessionModel({
     required super.deviceName,
-    required super.operatingSystem,
+    required super.operatingSystemType,
     required super.appVersion,
     required super.releaseVersion,
     required super.sdk,
@@ -13,7 +13,7 @@ class DeviceSessionModel extends DeviceSessionEntity {
 
   factory DeviceSessionModel.fromJson(Map<String, dynamic> json) => DeviceSessionModel(
         deviceName: json['device_name'],
-        operatingSystem: json['operating_system'],
+        operatingSystemType: json['operating_system'],
         appVersion: json['app_version'],
         releaseVersion: json['release_version'],
         sdk: json['sdk'],
@@ -23,7 +23,7 @@ class DeviceSessionModel extends DeviceSessionEntity {
 
   Map<String, dynamic> toJson() => {
         'device_name': deviceName,
-        'operating_system': operatingSystem,
+        'operating_system': operatingSystemType,
         'app_version': appVersion,
         'release_version': releaseVersion,
         'sdk': sdk,

@@ -14,15 +14,10 @@ class DeviceSessionItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BoxContainer(
-          borderRadius: BorderRadius.circular(8.r),
-          padding: EdgeInsets.all(4.w),
-          color: AppColors.primary,
-          child: Icon(
-            Icons.apple,
-            size: 30.w,
-            color: AppColors.white,
-          ),
-        ),
+            borderRadius: BorderRadius.circular(8.r),
+            padding: EdgeInsets.all(4.w),
+            color: AppColors.primary,
+            child: Icon(item.operatingSystemType.icon, size: 30.w, color: AppColors.white)),
         12.width,
         Expanded(
           child: Column(
@@ -31,7 +26,7 @@ class DeviceSessionItem extends StatelessWidget {
               TextView(item.deviceName),
               2.height,
               TextView(
-                  "${item.operatingSystem} ${item.appVersion}, ${item.operatingSystem} ${item.releaseVersion} (${item.sdk})",
+                  "${item.operatingSystemType.title} ${item.appVersion}, ${item.operatingSystemType.title} ${item.releaseVersion} (${item.sdk})",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400),
               2.height,
