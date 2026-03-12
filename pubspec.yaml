@@ -28,7 +28,7 @@ dependencies:
   overlay_support: ^2.1.0
   adaptive_theme: ^3.7.2
   intl: ^0.20.2
-  get: ^4.7.3
+#  get: ^4.7.3
   equatable: ^2.0.8
   flutter_svg: ^2.2.3
   photo_view: ^0.15.0

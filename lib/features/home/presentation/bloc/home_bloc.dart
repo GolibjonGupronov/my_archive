@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/home/presentation/bloc/home_event.dart';
 import 'package:my_archive/features/home/presentation/bloc/home_state.dart';
@@ -9,6 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required this.storyListUseCase}) : super(HomeState()) {
     on<InitEvent>((event, emit) {
+      debugPrint("GGQ => HomeBloc InitEvent");
       add(StoryListEvent());
     });
 

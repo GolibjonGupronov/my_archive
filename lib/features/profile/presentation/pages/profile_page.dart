@@ -23,6 +23,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    debugPrint("GGQ => ProfilePage");
     final bloc = BlocProvider.of<ProfileBloc>(context);
 
     return MultiBlocListener(
@@ -37,6 +38,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ],
       child: CustomScaffold(
+        resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(tr('profile')),
         body: Column(
           children: [

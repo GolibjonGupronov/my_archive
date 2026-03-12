@@ -9,13 +9,19 @@ import 'package:my_archive/features/main/presentation/bloc/main_bloc.dart';
 import 'package:my_archive/features/main/presentation/bloc/main_event.dart';
 import 'package:my_archive/features/main/presentation/bloc/main_state.dart';
 
-class MainPage extends StatelessWidget {
-  MainPage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   static const String tag = '/main_page';
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   final List<BottomNavItemEntity> bottomNavigationItems = [
-    BottomNavItemEntity(tr('home'), HomePage(), CupertinoIcons.house, BottomNavMainPage.home),
-    BottomNavItemEntity(tr('profile'), ProfilePage(), CupertinoIcons.person_crop_circle, BottomNavMainPage.profile),
+    BottomNavItemEntity('home', HomePage(), CupertinoIcons.house, BottomNavMainPage.home),
+    BottomNavItemEntity('profile', ProfilePage(), CupertinoIcons.person_crop_circle, BottomNavMainPage.profile),
   ];
 
   @override
@@ -27,14 +33,15 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    debugPrint("GGQ => MainPage");
     final bloc = BlocProvider.of<MainBloc>(context);
     final pages = bottomNavigationItems.map((item) => item.page).toList();
 
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
-        debugPrint("GGQ => MainPage");
         return CustomScaffold(
           isExitDialog: true,
+          resizeToAvoidBottomInset: false,
           body: Stack(alignment: Alignment.center, children: [
             IndexedStack(index: state.activePage.index, children: pages),
             Positioned(
@@ -56,7 +63,7 @@ class MainPage extends StatelessWidget {
                         },
                         isActive: state.activePage == item.navItem,
                         iconData: item.icon,
-                        title: item.title,
+                        title: item.key.tr(),
                       );
                     }).toList(),
                   ),

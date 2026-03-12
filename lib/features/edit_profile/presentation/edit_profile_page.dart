@@ -72,6 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: BlocSelector<EditProfileBloc, EditProfileState, bool>(
         selector: (state) => state.isChanged,
         builder: (context, state) {
+          debugPrint("GGQ => state.isChanged");
           return CustomScaffold(
             hasUnsavedChanges: () => state,
             appBar: CustomAppBar(""),
@@ -162,7 +163,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   () {
                                 DateTimePicker.cupertinoDate(context, result: (result) {
                                   bloc.add(UpdateFieldEvent(birthDay: result));
-                                });
+                                }, initialDate: state);
                               },
                               rightWidget: Icon(CupertinoIcons.calendar),
                               value: state.formattedDate,

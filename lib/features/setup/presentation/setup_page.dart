@@ -7,7 +7,6 @@ import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/setup/presentation/widgets/lang_widget.dart';
 import 'package:my_archive/features/setup/presentation/widgets/theme_widget.dart';
-import 'package:get/get.dart';
 
 class SetupPage extends StatefulWidget {
   const SetupPage({super.key});
@@ -53,7 +52,6 @@ class _SetupPageState extends State<SetupPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AdaptiveTheme.of(context).setThemeMode(_initMode);
       context.setLocale(_initLang.locale);
-      Get.updateLocale(_initLang.locale);
     });
   }
 

@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class LanguageWidget extends StatefulWidget {
   const LanguageWidget({super.key});
@@ -44,7 +42,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                   });
                 },
                 child: BoxContainer(
-                  color: context.isDarkModeEnable?AppColors.scaffoldDarkBackground:AppColors.foregroundSecondary,
+                  color: context.isDarkModeEnable ? AppColors.scaffoldDarkBackground : AppColors.foregroundSecondary,
                   borderRadius: BorderRadius.circular(40.r),
                   padding: EdgeInsets.all(16.w),
                   child: Row(
@@ -84,8 +82,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
   void changeLanguage(BuildContext context, LangType lang) async {
     _prefManager.setLanguage(lang);
     context.setLocale(lang.locale);
-    await Get.updateLocale(lang.locale);
-    initializeDateFormatting(lang.key);
-    router.go(SplashPage.tag);
+    context.pop();
   }
 }

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_alice/alice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -197,7 +196,7 @@ class _MyAppState extends State<MyApp> {
     final next = currentLang.next;
     pref.setLanguage(next);
     context.setLocale(next.locale);
-    await Get.updateLocale(next.locale);
+    // await Get.updateLocale(next.locale);
     // await initializeDateFormatting(next.key);
     _debugOverlayEntry?.markNeedsBuild();
   }

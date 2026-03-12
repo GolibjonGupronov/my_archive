@@ -95,12 +95,12 @@ class DateTimePicker {
 
   static Future<void> cupertinoDate(
       BuildContext context, {
-        DateTime? initialTime,
+        DateTime? initialDate,
         DateTime? minimumDate,
         bool barrierDismissible = true,
         required Function(DateTime time) result,
       }) async {
-    DateTime dateTime = initialTime ?? DateTime.now();
+    DateTime dateTime = initialDate ?? DateTime.now();
     await showCustomBottomSheetDialog(
       context: context,
       isDismissible: barrierDismissible,

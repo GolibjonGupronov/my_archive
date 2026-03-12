@@ -9,9 +9,8 @@ class MainState {
 
   MainState copyWith({
     BottomNavMainPage? activePage,
-  }) {
-    return MainState(
-      activePage: activePage ?? this.activePage,
-    );
-  }
+  }) =>
+      MainState(
+        activePage: activePage ?? this.activePage,
+      );
 }
