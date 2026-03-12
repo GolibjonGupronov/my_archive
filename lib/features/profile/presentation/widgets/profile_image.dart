@@ -33,6 +33,7 @@ class ProfileImage extends StatelessWidget {
                       barrierDismissible: true,
                       builder: (context) {
                         return Dialog(
+                          elevation: 0,
                           backgroundColor: Colors.transparent,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -59,7 +60,7 @@ class ProfileImage extends StatelessWidget {
                                         initAspectRatio: CropAspectRatioPreset.square,
                                       );
                                     },
-                                    cameraHeightPadding: 16.h,
+                                    isLarge: true,
                                   ),
                                 ),
                               ),
@@ -82,7 +83,7 @@ class ProfileImage extends StatelessWidget {
                                     border: Border.all(color: AppColors.white),
                                     color: AppColors.red,
                                     shape: BoxShape.circle,
-                                    child: Icon(CupertinoIcons.trash),
+                                    child: Icon(CupertinoIcons.trash, color: AppColors.white),
                                   ),
                                 ),
                             ],
@@ -109,7 +110,7 @@ class ProfileImage extends StatelessWidget {
                             initAspectRatio: CropAspectRatioPreset.square,
                           );
                         },
-                        cameraHeightPadding: 4.h,
+                        isLarge: false,
                       ),
                     ),
                   ),
@@ -129,9 +130,9 @@ class _AvatarView extends StatelessWidget {
   final String image;
   final String fullName;
   final VoidCallback onCameraTap;
-  final double cameraHeightPadding;
+  final bool isLarge;
 
-  const _AvatarView({required this.image, required this.fullName, required this.onCameraTap, required this.cameraHeightPadding});
+  const _AvatarView({required this.image, required this.fullName, required this.onCameraTap, required this.isLarge});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +144,8 @@ class _AvatarView extends StatelessWidget {
                 child: Center(
                   child: TextView(
                     fullName.getFirstLetters,
-                    fontSize: 30.sp,
+                    fontSize: (isLarge ? 60 : 30).sp,
+                    color: AppColors.white,
                   ),
                 ),
               )
@@ -155,9 +157,9 @@ class _AvatarView extends StatelessWidget {
           child: InkWell(
             onTap: onCameraTap,
             child: BoxContainer(
-              padding: EdgeInsets.symmetric(vertical: cameraHeightPadding),
-              color: AppColors.gray.withValues(alpha: .5),
-              child: Icon(CupertinoIcons.photo_camera, size: 22.w),
+              padding: EdgeInsets.symmetric(vertical: (isLarge ? 14 : 4).h),
+              color: AppColors.gray.withValues(alpha: .8),
+              child: Icon(CupertinoIcons.photo_camera, size: (isLarge ? 30 : 22).w, color: AppColors.white),
             ),
           ),
         )
