@@ -84,7 +84,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: ListView(
                       primary: false,
                       children: [
-                        10.height,
                         LogoWidget(),
                         8.height,
                         TextView("Ma'lumotlarim", fontWeight: FontWeight.bold, fontSize: 24),

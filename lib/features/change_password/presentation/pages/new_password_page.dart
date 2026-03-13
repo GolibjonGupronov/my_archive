@@ -45,7 +45,6 @@ class NewPasswordPage extends StatelessWidget {
           child: ListView(
             primary: false,
             children: [
-              10.height,
               LogoWidget(),
               8.height,
               TextView("Parol almashtirish", fontSize: 24.sp),

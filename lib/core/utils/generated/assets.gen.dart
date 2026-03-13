@@ -54,8 +54,8 @@ class $AssetsImagesGen {
   /// File path: assets/images/instagram.png
   AssetGenImage get instagram => const AssetGenImage('assets/images/instagram.png');
 
-  /// File path: assets/images/logo.jpeg
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpeg');
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/telegram.png
   AssetGenImage get telegram => const AssetGenImage('assets/images/telegram.png');

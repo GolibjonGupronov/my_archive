@@ -10,12 +10,13 @@ class LogoWidget extends StatelessWidget {
     return SizedBox(
       height: 120.h,
       child: Center(
-        child: TextView(
-          "LOGO",
-          fontSize: 64.sp,
-          color: AppColors.primary,
-          fontWeight: FontWeight.w900,
-        ),
+        child: Assets.images.logo.image(),
+        // child: TextView(
+        //   "LOGO",
+        //   fontSize: 64.sp,
+        //   color: AppColors.primary,
+        //   fontWeight: FontWeight.w900,
+        // ),
       ),
     );
   }
