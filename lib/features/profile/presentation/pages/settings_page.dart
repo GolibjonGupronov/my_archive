@@ -13,6 +13,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("GGQ => SettingsPage");
     return CustomScaffold(
       appBar: CustomAppBar(tr('settings')),
       body: ListView(

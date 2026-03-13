@@ -35,6 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildPage(BuildContext context) {
+    debugPrint("GGQ => RegistrationPage");
     final bloc = BlocProvider.of<RegistrationBloc>(context);
 
     return BlocListener<RegistrationBloc, RegistrationState>(
