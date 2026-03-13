@@ -29,7 +29,7 @@ class SettingsPage extends StatelessWidget {
           ProfileItem(title: "Bildirishnoma", rightWidget: CupertinoSwitch(value: true, onChanged: (value) {})),
           20.height,
           ProfileItem(
-              title: "Til",
+              title: "Til - ${sl.get<PrefManager>().getLanguage.short}",
               onTap: () {
                 showCustomBottomSheetDialog(context: context, child: LanguageWidget());
               }),

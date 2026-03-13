@@ -9,16 +9,11 @@ import 'package:my_archive/features/main/presentation/bloc/main_bloc.dart';
 import 'package:my_archive/features/main/presentation/bloc/main_event.dart';
 import 'package:my_archive/features/main/presentation/bloc/main_state.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainPage extends StatelessWidget {
+  MainPage({super.key});
 
   static const String tag = '/main_page';
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   final List<BottomNavItemEntity> bottomNavigationItems = [
     BottomNavItemEntity('home', HomePage(), CupertinoIcons.house, BottomNavMainPage.home),
     BottomNavItemEntity('profile', ProfilePage(), CupertinoIcons.person_crop_circle, BottomNavMainPage.profile),
