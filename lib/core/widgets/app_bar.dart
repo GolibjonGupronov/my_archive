@@ -6,7 +6,7 @@ import 'package:my_archive/core/core_exports.dart';
 class CustomAppBar extends AppBar {
   CustomAppBar(
     String titleText, {
-    bool? canBack,
+    bool? showBackButton,
     super.backgroundColor,
     super.key,
     super.actions,
@@ -14,8 +14,8 @@ class CustomAppBar extends AppBar {
           title: TextView(titleText, textAlign: TextAlign.center),
           elevation: 0,
           centerTitle: true,
-          leadingWidth: _resolveCanBack(canBack) ? 56.w : 0,
-          leading: _resolveCanBack(canBack)
+          leadingWidth: _resolveCanBack(showBackButton) ? 56.w : 0,
+          leading: _resolveCanBack(showBackButton)
               ? Bounce(
                   onTap: () async {
                     Navigator.of(globalNavigatorKey.currentContext!).maybePop();

@@ -79,9 +79,9 @@ class _LanguageWidgetState extends State<LanguageWidget> {
     );
   }
 
-  void changeLanguage(BuildContext context, LangType lang) async {
+  Future<void> changeLanguage(BuildContext context, LangType lang) async {
     _prefManager.setLanguage(lang);
-    context.setLocale(lang.locale);
+    await context.setLocale(lang.locale);
     await Get.updateLocale(lang.locale);
     router.pop();
   }

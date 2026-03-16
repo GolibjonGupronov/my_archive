@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
         ),
       ],
       child: CustomScaffold(
-        appBar: CustomAppBar(tr('home')),
+        appBar: CustomAppBar(tr('home'), showBackButton: false),
         body: CustomScrollView(
           controller: ScrollController(),
           slivers:[

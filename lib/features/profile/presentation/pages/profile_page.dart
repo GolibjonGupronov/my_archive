@@ -39,7 +39,7 @@ class ProfilePage extends StatelessWidget {
       ],
       child: CustomScaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(tr('profile')),
+        appBar: CustomAppBar(tr('profile'), showBackButton: false),
         body: Column(
           children: [
             Expanded(
