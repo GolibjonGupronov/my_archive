@@ -82,13 +82,13 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
         if (hasChanges) {
           await showRejectDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
               subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
-              onConfirm: () => router.pop(),
+              onConfirm: () => Navigator.of(context).pop(true),
               type: MyDialogType.warning);
           return;
         }
 
-        if (router.canPop()) {
-          router.pop();
+        if (widget.canPop && Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
         }
       },
       child: SafeArea(

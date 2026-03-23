@@ -85,9 +85,10 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
-              routeInformationParser: router.routeInformationParser,
-              routeInformationProvider: router.routeInformationProvider,
-              routerDelegate: router.routerDelegate,
+              routerConfig: router,
+              // routeInformationParser: router.routeInformationParser,
+              // routeInformationProvider: router.routeInformationProvider,
+              // routerDelegate: router.routerDelegate,
               builder: (context, child) => ScrollConfiguration(
                 behavior: NoGlowScrollBehavior(),
                 child: MediaQuery(

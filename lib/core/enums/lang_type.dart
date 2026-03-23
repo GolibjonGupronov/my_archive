@@ -22,13 +22,8 @@ enum LangType {
       };
 
   String get title => switch (this) {
-        LangType.uz => "O'zbekcha",
+        LangType.uz => "O'zbek",
         LangType.ru => "Русский",
-      };
-
-  String get short => switch (this) {
-        LangType.uz => "O'z",
-        LangType.ru => "Ру",
       };
 
   SvgGenImage get iconSvg => switch (this) {
