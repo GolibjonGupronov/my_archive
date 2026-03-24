@@ -5,12 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/profile/presentation/widgets/language_widget.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   static const String tag = '/settings';
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     debugPrint("GGQ => SettingsPage");
@@ -27,7 +33,25 @@ class SettingsPage extends StatelessWidget {
                     AdaptiveTheme.of(context).toggleThemeMode(useSystem: false);
                   })),
           20.height,
-          ProfileItem(title: "Bildirishnoma", rightWidget: CupertinoSwitch(value: true, onChanged: (value) {})),
+          ProfileItem(
+            title: "Bildirishnoma",
+            onTap: () async {
+              bool isGranted = await PermissionService.requestNotificationPermission();
+              if (!isGranted) {
+               await openAppSettings();
+               setState((){});
+              }
+            },
+            rightWidget: FutureBuilder<bool>(
+              future: PermissionService.requestNotificationPermission(),
+              builder: (context, snapshot) {
+                bool isGranted = snapshot.data ?? false;
+                return isGranted
+                    ? CupertinoSwitch(value: isGranted, onChanged: (value) async {})
+                    : Icon(CupertinoIcons.info_circle_fill, color: AppColors.red);
+              },
+            ),
+          ),
           20.height,
           ProfileItem(
             title: "Til",

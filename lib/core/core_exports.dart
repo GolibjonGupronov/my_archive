@@ -30,7 +30,7 @@ export 'package:my_archive/core/extensions/string.dart';
 export 'package:my_archive/core/local_storage/pref_manager/pref_manager.dart';
 export 'package:my_archive/core/mixins/mixins.dart';
 export 'package:my_archive/core/mixins/safe_caller.dart';
-export 'package:my_archive/core/services/bot/bot_service.dart';
+export 'package:my_archive/core/services/bot_service.dart';
 export 'package:my_archive/core/services/permissions/location.dart';
 export 'package:my_archive/core/services/permissions/permissions.dart';
 export 'package:my_archive/core/theme/app_theme.dart';

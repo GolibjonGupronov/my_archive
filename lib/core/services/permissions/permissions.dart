@@ -24,6 +24,8 @@ class PermissionService {
   static Future<bool> requestLocationPermissionWithToast(BuildContext context) async =>
       _requestPermissionWithToast(permission: Permission.location, context: context, message: tr('allow_access_location'));
 
+  static Future<bool> requestNotificationPermission() async => await _requestPermission(Permission.notification);
+
   static Future<bool> _requestPermission(Permission permission) async {
     PermissionStatus status = await permission.status;
 

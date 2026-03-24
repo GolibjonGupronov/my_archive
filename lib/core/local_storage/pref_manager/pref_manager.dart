@@ -19,11 +19,13 @@ abstract class PrefManager {
 
   Future<void> remove(String key);
 
-  // Future<void> clear();
-
   bool get isFirstLaunch;
 
   Future<void> setNotFirstLaunch(bool value);
+
+  String get getFCMToken;
+
+  Future<void> setFCMToken(String value);
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -50,9 +52,6 @@ class PrefManagerImpl implements PrefManager {
   Future<void> remove(String key) async => await prefs.remove(key);
 
   @override
-  // Future<void> clear() async => await prefs.clear();
-
-  @override
   LangType get getLanguage => LangType.getObj(prefs.getString(Keys.language) ?? LangType.uz.key);
 
   @override
@@ -63,4 +62,10 @@ class PrefManagerImpl implements PrefManager {
 
   @override
   Future<void> setNotFirstLaunch(bool value) async => await prefs.setBool(Keys.firstLaunch, value);
+
+  @override
+  String get getFCMToken => prefs.getString(Keys.fcmToken) ?? "";
+
+  @override
+  Future<void> setFCMToken(String value) async => await prefs.setString(Keys.fcmToken, value);
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "691075950526",
+    "project_id": "myarchive-dfa60",
+    "storage_bucket": "myarchive-dfa60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691075950526:android:10c16f6efe58e034ee7bef",
+        "android_client_info": {
+          "package_name": "com.example.my_archive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH0rRRSV89Lzb3iLnO1WZEf9Ij_y8MqTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

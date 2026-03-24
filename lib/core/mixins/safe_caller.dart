@@ -5,11 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
 void logoutApp() async {
   await sl.get<PrefManager>().setToken("");
   router.go(SplashPage.tag);
+  await NotificationService.deleteFCMToken;
 }
 
 mixin SafeCaller {

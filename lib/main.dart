@@ -3,17 +3,26 @@ import 'dart:io';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_alice/alice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/core/widgets/common/floating_buttons.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 final Alice alice = Alice(showNotification: false);
 AdaptiveThemeMode? savedThemeMode;
+
+@pragma('vm:entry-point')
+Future<void> backgroundHandler(RemoteMessage msg) async {
+  await Firebase.initializeApp();
+  NotificationService.showNotification(msg);
+}
 
 void main() {
   runZonedGuarded<Future<void>>(
@@ -23,6 +32,9 @@ void main() {
       await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       await InjectionContainer.init();
       await DeviceHelper.init();
+      await Firebase.initializeApp();
+      await NotificationService.init();
+      FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
       savedThemeMode = await AdaptiveTheme.getThemeMode();
 
