@@ -8,5 +8,22 @@ class UserInfoUseCase extends UseCase<UserInfoEntity, NoParams> {
   UserInfoUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, UserInfoEntity>> callUseCase(NoParams params) async => await repository.getUserInfo();
+  Future<Either<Failure, UserInfoEntity>> callUseCase(NoParams params) async {
+    bool isEnabled = true;
+
+    if (params is NotificationParams) {
+      isEnabled = params.isNotificationEnabled;
+    }
+
+    return await repository.getUserInfo(isNotificationEnabled: isEnabled);
+  }
+}
+
+class NotificationParams extends NoParams {
+  final bool isNotificationEnabled;
+
+  NotificationParams({required this.isNotificationEnabled});
+
+  @override
+  List<Object> get props => [isNotificationEnabled];
 }

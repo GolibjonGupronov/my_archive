@@ -17,4 +17,9 @@ class ProfileRepositoryImpl with SafeCaller implements ProfileRepository {
   Future<Either<Failure, bool>> editProfile(EditProfileParams params) {
     return safeCall(() async => await profileDataSource.editProfile(params));
   }
+
+  @override
+  Future<Either<Failure, bool>> enableNotification(bool params) {
+    return safeCall(() async => await profileDataSource.enableNotification(params));
+  }
 }

@@ -6,6 +6,8 @@ abstract class ProfileDataSource {
   Future<String> changeImage(String params);
 
   Future<bool> editProfile(EditProfileParams params);
+
+  Future<bool> enableNotification(bool params);
 }
 
 class ProfileDataSourceImpl extends ProfileDataSource {
@@ -26,6 +28,12 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   @override
   Future<bool> editProfile(EditProfileParams params) async {
     final response = await dio.mock(data: true).post(ApiUrls.editProfile, data: params.toMap);
+    return response.data;
+  }
+
+  @override
+  Future<bool> enableNotification(bool params) async {
+    final response = await dio.mock(data: true).post(ApiUrls.enableNotification, data: {"enable" : params});
     return response.data;
   }
 }

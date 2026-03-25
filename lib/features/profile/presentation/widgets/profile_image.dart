@@ -54,7 +54,7 @@ class ProfileImage extends StatelessWidget {
                                       MediaPicker.showImagePicker(
                                         ctx: context,
                                         onResult: (result) {
-                                          bloc.add(ChangeImageEvent(result));
+                                          bloc.add(ChangeImageEvent(path: result));
                                           router.pop();
                                         },
                                         initAspectRatio: CropAspectRatioPreset.square,
@@ -72,7 +72,7 @@ class ProfileImage extends StatelessWidget {
                                       context,
                                       "Rasmni o'chirmoqchimisiz",
                                       onConfirm: () {
-                                        bloc.add(ChangeImageEvent(""));
+                                        bloc.add(ChangeImageEvent(path: ""));
                                         router.pop();
                                       },
                                       type: MyDialogType.warning,
@@ -105,7 +105,7 @@ class ProfileImage extends StatelessWidget {
                           MediaPicker.showImagePicker(
                             ctx: context,
                             onResult: (result) {
-                              bloc.add(ChangeImageEvent(result));
+                              bloc.add(ChangeImageEvent(path: result));
                             },
                             initAspectRatio: CropAspectRatioPreset.square,
                           );

@@ -5,4 +5,6 @@ abstract class ProfileRepository {
   Future<Either<Failure, String>> changeImage(String params);
 
   Future<Either<Failure, bool>> editProfile(EditProfileParams params);
+
+  Future<Either<Failure, bool>> enableNotification(bool params);
 }

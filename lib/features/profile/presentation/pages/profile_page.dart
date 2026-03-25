@@ -17,7 +17,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ProfileBloc(prefManager: sl(), changeImageUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) => ProfileBloc(prefManager: sl(), changeImageUseCase: sl(), enableNotificationUseCase: sl(), userInfoUseCase: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -71,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                     title: tr('settings'),
                     rightWidget: Icon(Icons.settings),
                     onTap: () {
-                      context.push(SettingsPage.tag);
+                      context.push(SettingsPage.tag, extra: bloc);
                     },
                   ),
                   20.height,

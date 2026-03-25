@@ -9,6 +9,7 @@ class UserInfoModel extends UserInfoEntity {
     required super.birthday,
     required super.phone,
     required super.image,
+    required super.isNotificationEnabled,
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> json) => UserInfoModel(
@@ -18,6 +19,7 @@ class UserInfoModel extends UserInfoEntity {
         birthday: json['birthday'] ?? "",
         phone: json['phone'] ?? "",
         image: json['image'] ?? "",
+        isNotificationEnabled: json['is_notification_enabled'] ?? true,
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,14 +29,6 @@ class UserInfoModel extends UserInfoEntity {
         'birthday': birthday,
         'phone': phone,
         'image': image,
+        'is_notification_enabled': isNotificationEnabled,
       };
-
-  UserInfoEntity toEntity() => UserInfoEntity(
-        firstName: firstName,
-        secondName: secondName,
-        gender: gender,
-        birthday: birthday,
-        phone: phone,
-        image: image,
-      );
 }

@@ -13,7 +13,7 @@ abstract class AuthDataSource {
 
   Future<bool> checkSms(CheckSmsParams params);
 
-  Future<UserInfoModel> getUserInfo();
+  Future<UserInfoModel> getUserInfo({bool isNotificationEnabled = true});
 
   Future<AppConfigModel> appConfig();
 
@@ -42,14 +42,15 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<UserInfoModel> getUserInfo() async {
+  Future<UserInfoModel> getUserInfo({bool isNotificationEnabled = true}) async {
     final data = UserInfoModel(
         firstName: "G'olibjon",
         secondName: "G'upronov",
         gender: Gender.male,
         birthday: "29.02.2000",
         phone: "+998999940941",
-        image: "https://picsum.photos/400/200?3");
+        image: "https://picsum.photos/400/200?3",
+        isNotificationEnabled: isNotificationEnabled);
     final response = await dio.mock(data: data).get(ApiUrls.userInfo);
     return UserInfoModel.fromJson(response.data);
   }

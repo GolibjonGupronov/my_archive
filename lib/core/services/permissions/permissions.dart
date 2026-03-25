@@ -24,41 +24,44 @@ class PermissionService {
   static Future<bool> requestLocationPermissionWithToast(BuildContext context) async =>
       _requestPermissionWithToast(permission: Permission.location, context: context, message: tr('allow_access_location'));
 
-  static Future<bool> requestNotificationPermission() async => await _requestPermission(Permission.notification);
+  static Future<bool> requestNotificationPermission({bool canRequest = true}) async =>
+      await _requestPermission(Permission.notification, canRequest: canRequest);
+}
 
-  static Future<bool> _requestPermission(Permission permission) async {
-    PermissionStatus status = await permission.status;
+Future<bool> _requestPermission(Permission permission, {bool canRequest = true}) async {
+  PermissionStatus status = await permission.status;
 
-    if (status.isGranted) {
-      return true;
-    }
-
-    status = await permission.request();
-
-    return status.isGranted;
+  if (status.isGranted) {
+    return true;
   }
 
-  static Future<bool> _requestPermissionWithToast(
-      {required Permission permission, required BuildContext context, required String message}) async {
-    PermissionStatus status = await permission.status;
+  if (canRequest) {
+    status = await permission.request();
+  }
 
-    if (status.isGranted) {
+  return status.isGranted;
+}
+
+Future<bool> _requestPermissionWithToast(
+    {required Permission permission, required BuildContext context, required String message}) async {
+  PermissionStatus status = await permission.status;
+
+  if (status.isGranted) {
+    return true;
+  } else if (status.isDenied) {
+    final result = await permission.request();
+    if (result.isGranted) {
       return true;
-    } else if (status.isDenied) {
-      final result = await permission.request();
-      if (result.isGranted) {
-        return true;
-      } else if (result.isPermanentlyDenied) {
-        showErrorToast(context, message, action: () async {
-          await openAppSettings();
-        });
-      }
-    } else if (status.isPermanentlyDenied) {
+    } else if (result.isPermanentlyDenied) {
       showErrorToast(context, message, action: () async {
         await openAppSettings();
       });
     }
-
-    return false;
+  } else if (status.isPermanentlyDenied) {
+    showErrorToast(context, message, action: () async {
+      await openAppSettings();
+    });
   }
+
+  return false;
 }

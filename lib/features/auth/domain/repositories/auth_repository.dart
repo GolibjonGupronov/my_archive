@@ -12,7 +12,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, bool>> checkSms(CheckSmsParams params);
 
-  Future<Either<Failure, UserInfoEntity>> getUserInfo();
+  Future<Either<Failure, UserInfoEntity>> getUserInfo({bool isNotificationEnabled = true});
 
   Future<Either<Failure, AppConfigEntity>> appConfig();
 

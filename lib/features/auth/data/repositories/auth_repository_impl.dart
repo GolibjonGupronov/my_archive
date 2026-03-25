@@ -24,9 +24,9 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserInfoEntity>> getUserInfo() {
+  Future<Either<Failure, UserInfoEntity>> getUserInfo({bool isNotificationEnabled = true}) {
     return safeCall2(
-      () async => await authDataSource.getUserInfo(),
+      () async => await authDataSource.getUserInfo(isNotificationEnabled: isNotificationEnabled),
       onSuccess: (data) async => await prefManager.setUserInfo(data),
     );
   }

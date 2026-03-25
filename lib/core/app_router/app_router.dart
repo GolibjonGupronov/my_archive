@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/args.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -65,7 +66,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
         context: context,
         state: state,
-        child: SettingsPage(),
+        child: SettingsPage(bloc: state.extra as ProfileBloc),
       ),
     ),
     GoRoute(

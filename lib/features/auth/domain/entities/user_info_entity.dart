@@ -7,6 +7,8 @@ class UserInfoEntity {
   final String birthday;
   final String phone;
   final String image;
+  final bool isNotificationEnabled;
+
 
   UserInfoEntity({
     required this.firstName,
@@ -15,6 +17,7 @@ class UserInfoEntity {
     required this.birthday,
     required this.phone,
     required this.image,
+    required this.isNotificationEnabled,
   });
 
   String get fullName => "$firstName\n$secondName";
