@@ -16,7 +16,7 @@ class ProfileState {
     this.userImage = "",
     this.errorMessage = "",
     this.isGranted = false,
-    this.isNotificationEnabled = false,
+    this.isNotificationEnabled = true,
   });
 
   ProfileState copyWith({
