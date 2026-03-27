@@ -18,3 +18,4 @@ export 'package:my_archive/features/change_password/presentation/pages/old_passw
 export 'package:my_archive/features/edit_profile/presentation/edit_profile_page.dart';
 export 'package:my_archive/features/story/presentation/story_page.dart';
 export 'package:my_archive/features/device_session/presentation/device_session_page.dart';
+export 'package:my_archive/features/profile/presentation/pages/security_page.dart';

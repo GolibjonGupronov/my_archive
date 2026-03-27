@@ -52,7 +52,8 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
         children: [
           ProfileItem(
             title: "Tungi rejim",
-            rightWidget: CupertinoSwitch(
+            prefixIconData: CupertinoIcons.moon_fill,
+            suffixWidget: CupertinoSwitch(
               value: AdaptiveTheme.of(context).mode.isDark,
               onChanged: (value) {
                 AdaptiveTheme.of(context).toggleThemeMode(useSystem: false);
@@ -66,17 +67,14 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
             builder: (context, state) {
               return ProfileItem(
                 title: "Bildirishnoma",
-                onTap: () {
-                  if (!state.isGranted) {
-                    openAppSettings();
-                  }
-                },
-                rightWidget: state.isGranted
+                prefixIconData: CupertinoIcons.bell_fill,
+                onTap: !state.isGranted ? () => openAppSettings() : null,
+                suffixWidget: state.isGranted
                     ? CupertinoSwitch(
-                    value: state.isNotificationEnabled,
-                    onChanged: (value) {
-                      widget.bloc.add(EnableNotificationEvent(value: value));
-                    })
+                        value: state.isNotificationEnabled,
+                        onChanged: (value) {
+                          widget.bloc.add(EnableNotificationEvent(value: value));
+                        })
                     : Icon(CupertinoIcons.info_circle_fill, color: AppColors.red),
               );
             },
@@ -84,10 +82,11 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
           20.height,
           ProfileItem(
             title: "Til",
+            prefixIconData: CupertinoIcons.globe,
             onTap: () {
               showCustomBottomSheetDialog(context: context, child: LanguageWidget());
             },
-            rightWidget: Row(
+            suffixWidget: Row(
               children: [
                 TextView(sl.get<PrefManager>().getLanguage.title, maxLines: 1),
                 10.width,

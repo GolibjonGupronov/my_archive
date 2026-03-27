@@ -17,7 +17,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ProfileBloc(prefManager: sl(), changeImageUseCase: sl(), enableNotificationUseCase: sl(), userInfoUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) =>
+          ProfileBloc(prefManager: sl(), changeImageUseCase: sl(), enableNotificationUseCase: sl(), userInfoUseCase: sl())
+            ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -49,38 +51,30 @@ class ProfilePage extends StatelessWidget {
                   ProfileImage(bloc: bloc),
                   60.height,
                   ProfileItem(
+                    title: "Mening ma'lumotlarim",
+                    prefixIconData: CupertinoIcons.profile_circled,
                     onTap: () async {
                       var value = await context.push(EditProfilePage.tag);
                       if (value != null) {
                         bloc.add(InitEvent());
                       }
                     },
-                    title: "Mening ma'lumotlarim",
-                    rightWidget: Icon(CupertinoIcons.profile_circled),
                   ),
                   20.height,
                   ProfileItem(
+                    title: "Xavfsizlik",
+                    prefixIconData: CupertinoIcons.lock_shield,
                     onTap: () {
-                      context.push(OldPasswordPage.tag);
+                      context.push(SecurityPage.tag);
                     },
-                    title: "Parol almashtirish",
-                    rightWidget: Icon(CupertinoIcons.lock_shield),
                   ),
                   20.height,
                   ProfileItem(
                     title: tr('settings'),
-                    rightWidget: Icon(Icons.settings),
+                    prefixIconData: Icons.settings,
                     onTap: () {
                       context.push(SettingsPage.tag, extra: bloc);
                     },
-                  ),
-                  20.height,
-                  ProfileItem(
-                    title: "Qurilma sessiyasi",
-                    onTap: () {
-                      context.push(DeviceSessionPage.tag);
-                    },
-                    rightWidget: Icon(Icons.phone_android_rounded),
                   ),
                 ],
               ),
@@ -96,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                 child: BoxContainer(
                   color: AppColors.red.withValues(alpha: .8),
                   withShadow: true,
-                  borderRadius: BorderRadius.circular(16.r),
+                  borderRadius: BorderRadius.circular(60.r),
                   child: SizedBox(
                       height: 54.h,
                       child: Row(

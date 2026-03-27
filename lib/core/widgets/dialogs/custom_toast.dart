@@ -98,11 +98,7 @@ void _showToast(
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                  left: 16.w,
-                  right: 8.w,
-                  top: 16.h,
-                ),
+                padding: EdgeInsets.only(left: 16.w, right: 8.w, top: 16.h),
                 child: Row(
                   children: [
                     Icon(icon, color: color),
@@ -114,7 +110,7 @@ void _showToast(
                         onTap: action,
                         child: BoxContainer(
                             padding: EdgeInsets.all(8.w),
-                            borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(50.r),
                             color: AppColors.primary,
                             child: TextView(actionTitle ?? "Batafsil", color: AppColors.white)),
                       )
