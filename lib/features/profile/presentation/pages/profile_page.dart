@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                     title: "Xavfsizlik",
                     prefixIconData: CupertinoIcons.lock_shield,
                     onTap: () {
-                      context.push(SecurityPage.tag);
+                      context.push(SecurityPage.tag, extra: bloc);
                     },
                   ),
                   20.height,

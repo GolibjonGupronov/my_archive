@@ -6,6 +6,7 @@ class LoginState {
   final bool isActive;
   final String phone;
   final String password;
+  final bool hasPin;
 
   LoginState({
     this.loginStatus = StateStatus.initial,
@@ -13,6 +14,7 @@ class LoginState {
     this.isActive = false,
     this.phone = '',
     this.password = '',
+    this.hasPin = false,
   });
 
   LoginState copyWith({
@@ -21,6 +23,7 @@ class LoginState {
     bool? isActive,
     String? phone,
     String? password,
+    bool? hasPin,
   }) =>
       LoginState(
         loginStatus: loginStatus ?? this.loginStatus,
@@ -28,5 +31,6 @@ class LoginState {
         isActive: isActive ?? this.isActive,
         phone: phone ?? this.phone,
         password: password ?? this.password,
+        hasPin: hasPin ?? this.hasPin,
       );
 }

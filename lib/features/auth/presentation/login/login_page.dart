@@ -33,7 +33,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => LoginBloc(loginUseCase: sl(), userInfoUseCase: sl())..add(InitEvent()),
+      create: (BuildContext context) =>
+          LoginBloc(loginUseCase: sl(), userInfoUseCase: sl(), secureStorage: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -48,7 +49,11 @@ class _LoginPageState extends State<LoginPage> {
         if (state.loginStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.loginStatus.isSuccess) {
-          router.go(MainPage.tag);
+            router.go(MainPage.tag);
+          // if (state.hasPin) {
+          // } else {
+          //   router.go(SetPinPage.tag);
+          // }
         }
       },
       child: CustomScaffold(

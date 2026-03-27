@@ -24,7 +24,7 @@ class RegSmsBloc extends Bloc<RegSmsEvent, RegSmsState> {
       _startTimer();
     });
 
-    on<UpdateFieldEvent>((event, emit) async {
+    on<UpdateFieldEvent>((event, emit) {
       final code = event.code ?? state.code;
 
       emit(state.copyWith(code: code, isActive: code.length == Constants.smsCodeLength));

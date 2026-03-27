@@ -20,6 +20,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       required this.userInfoUseCase})
       : super(ProfileState()) {
     on<InitEvent>((event, emit) {
+      add(CheckBiometricEvent());
       emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? ""));
     });
 
@@ -54,6 +55,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
       transformer: restartable(),
     );
+
+    on<ToggleBiometricEvent>((event, emit) async {
+      await prefManager.setBiometric(event.value);
+      emit(state.copyWith(isBiometricEnabled: prefManager.isBiometric));
+    });
+
+    on<CheckBiometricEvent>((event, emit) async {
+      emit(state.copyWith(isBiometricEnabled: prefManager.isBiometric));
+    });
 
     on<ChangeImageEvent>((event, emit) async {
       emit(state.copyWith(changeImageStatus: StateStatus.inProgress, userImage: event.path));

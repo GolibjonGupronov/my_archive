@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
+import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
 
 class SecurityPage extends StatelessWidget {
-  const SecurityPage({super.key});
+  final ProfileBloc bloc;
+
+  const SecurityPage({super.key, required this.bloc});
 
   static const String tag = '/security_page';
 
@@ -28,16 +34,26 @@ class SecurityPage extends StatelessWidget {
           ProfileItem(
             title: "Ilova qulfi",
             prefixIconData: CupertinoIcons.lock_fill,
-            onTap: () {},
+            onTap: () {
+              context.push(AppLockPage.tag).then((value) => bloc.add(CheckBiometricEvent()));
+            },
           ),
           20.height,
-          ProfileItem(
-            title: "Biometrik qulf",
-            prefixIconData: Icons.fingerprint_rounded,
-            suffixWidget: CupertinoSwitch(
-              value: false,
-              onChanged: (value) {},
-            ),
+          BlocSelector<ProfileBloc, ProfileState, bool>(
+            bloc: bloc,
+            selector: (state) => state.isBiometricEnabled,
+            builder: (context, state) {
+              return ProfileItem(
+                title: "Biometrik qulf",
+                prefixIconData: Icons.fingerprint_rounded,
+                suffixWidget: CupertinoSwitch(
+                  value: state,
+                  onChanged: (value) {
+                    bloc.add(ToggleBiometricEvent(value: value));
+                  },
+                ),
+              );
+            },
           ),
           20.height,
           ProfileItem(

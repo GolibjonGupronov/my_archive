@@ -9,4 +9,5 @@ class Constants {
   static const int refreshSeconds = 10;
   static const int smsResendPhoneSecond = 60;
   static const int smsCodeLength = 4;
+  static const int pinCodeLength = 4;
 }

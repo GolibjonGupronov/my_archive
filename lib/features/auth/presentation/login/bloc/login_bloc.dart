@@ -1,17 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
-
 import 'package:my_archive/features/auth/presentation/login/bloc/login_event.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase loginUseCase;
   final UserInfoUseCase userInfoUseCase;
+  final SecureStorage secureStorage;
 
-  LoginBloc({required this.loginUseCase, required this.userInfoUseCase}) : super(LoginState()) {
-    on<InitEvent>((event, emit) {});
+  LoginBloc({required this.loginUseCase, required this.userInfoUseCase, required this.secureStorage}) : super(LoginState()) {
+    on<InitEvent>((event, emit) async {
+      emit(state.copyWith(hasPin: await secureStorage.hasPin()));
+    });
 
     on<UpdateFieldEvent>((event, emit) {
       final phone = event.phone ?? state.phone;

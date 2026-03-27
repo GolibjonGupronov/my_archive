@@ -19,3 +19,4 @@ export 'package:my_archive/features/edit_profile/presentation/edit_profile_page.
 export 'package:my_archive/features/story/presentation/story_page.dart';
 export 'package:my_archive/features/device_session/presentation/device_session_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/security_page.dart';
+export 'package:my_archive/features/app_lock/presentation/app_lock_page.dart';

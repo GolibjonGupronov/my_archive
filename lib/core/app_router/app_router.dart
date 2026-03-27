@@ -74,7 +74,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
         context: context,
         state: state,
-        child: SecurityPage(),
+        child: SecurityPage(bloc: state.extra as ProfileBloc),
       ),
     ),
     GoRoute(
@@ -158,6 +158,14 @@ final GoRouter router = GoRouter(
         context: context,
         state: state,
         child: DeviceSessionPage(),
+      ),
+    ),
+    GoRoute(
+      path: AppLockPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: AppLockPage(),
       ),
     ),
   ],

@@ -10,8 +10,16 @@ class ChangeImageEvent extends ProfileEvent {
 
 class IsGrantedEvent extends ProfileEvent {}
 
+class CheckBiometricEvent extends ProfileEvent {}
+
 class EnableNotificationEvent extends ProfileEvent {
   final bool value;
 
   EnableNotificationEvent({required this.value});
+}
+
+class ToggleBiometricEvent extends ProfileEvent {
+  final bool value;
+
+  ToggleBiometricEvent({required this.value});
 }

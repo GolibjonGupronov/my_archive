@@ -3,6 +3,7 @@ import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.
 abstract class RegSmsEvent {}
 
 class InitEvent extends RegSmsEvent {}
+
 class UpdateFieldEvent extends RegSmsEvent {
   final String? code;
 
