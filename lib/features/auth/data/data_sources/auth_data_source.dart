@@ -13,7 +13,7 @@ abstract class AuthDataSource {
 
   Future<bool> checkSms(CheckSmsParams params);
 
-  Future<UserInfoModel> getUserInfo({bool isNotificationEnabled = true});
+  Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled});
 
   Future<AppConfigModel> appConfig();
 
@@ -42,7 +42,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<UserInfoModel> getUserInfo({bool isNotificationEnabled = true}) async {
+  Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled}) async {
     final data = UserInfoModel(
         firstName: "G'olibjon",
         secondName: "G'upronov",

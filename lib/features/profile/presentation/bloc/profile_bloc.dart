@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/change_image_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';
@@ -12,12 +13,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ChangeImageUseCase changeImageUseCase;
   final EnableNotificationUseCase enableNotificationUseCase;
   final UserInfoUseCase userInfoUseCase;
+  final SecureStorage secureStorage;
 
-  ProfileBloc(
-      {required this.prefManager,
-      required this.changeImageUseCase,
-      required this.enableNotificationUseCase,
-      required this.userInfoUseCase})
+  ProfileBloc({required this.prefManager,
+    required this.changeImageUseCase,
+    required this.enableNotificationUseCase,
+    required this.userInfoUseCase,
+    required this.secureStorage,
+  })
       : super(ProfileState()) {
     on<InitEvent>((event, emit) {
       add(CheckBiometricEvent());
@@ -30,7 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<EnableNotificationEvent>(
-      (event, emit) async {
+          (event, emit) async {
         if (state.isNotificationEnabled == event.value) return;
         emit(state.copyWith(isNotificationEnabled: event.value));
 
@@ -69,8 +72,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeImageStatus: StateStatus.inProgress, userImage: event.path));
       final result = await changeImageUseCase.callUseCase(event.path);
       result.fold(
-          (fail) => emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "")),
-          (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
+              (fail) =>
+              emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "")),
+              (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
     });
   }
 }

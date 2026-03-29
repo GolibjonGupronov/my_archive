@@ -17,9 +17,13 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-          ProfileBloc(prefManager: sl(), changeImageUseCase: sl(), enableNotificationUseCase: sl(), userInfoUseCase: sl())
-            ..add(InitEvent()),
+      create: (BuildContext context) => ProfileBloc(
+          prefManager: sl(),
+          changeImageUseCase: sl(),
+          enableNotificationUseCase: sl(),
+          userInfoUseCase: sl(),
+          secureStorage: sl())
+        ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }

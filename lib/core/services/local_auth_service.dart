@@ -1,0 +1,36 @@
+import 'package:flutter/cupertino.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:my_archive/core/core_exports.dart';
+
+class LocalAuthService {
+  static final LocalAuthentication _localAuthentication = LocalAuthentication();
+  static final PrefManager _prefManager = sl.get<PrefManager>();
+
+  static Future<void> tryBiometric() async {
+    if (await canUseBiometric()) {
+      bool ok = await authenticate();
+      debugPrint("GGQ => biometric auth result: $ok");
+      _prefManager.setBiometric(ok);
+    }
+  }
+
+  static Future<bool> canUseBiometric() async {
+    return await _localAuthentication.canCheckBiometrics && await _localAuthentication.isDeviceSupported();
+  }
+
+  static Future<bool> authenticate() async {
+    try {
+      debugPrint("GGQ => authenticate");
+      return await _localAuthentication.authenticate(
+        localizedReason: 'Qulfni ochish uchun tasdiqlang',
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+        ),
+      );
+    } catch (e) {
+      debugPrint("GGQ => error $e");
+      return false;
+    }
+  }
+}
