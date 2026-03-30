@@ -55,7 +55,8 @@ class BoxContainer extends StatelessWidget {
                         offset: const Offset(1, 1))
                   ]
                 : [],
-        color: gradient != null ? null : (color ?? (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary)),
+        color:
+            gradient != null ? null : (color ?? (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary)),
         borderRadius: borderRadius,
         border: border,
         gradient: gradient,

@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
         appBar: CustomAppBar(tr('home'), showBackButton: false),
         body: CustomScrollView(
           controller: ScrollController(),
-          slivers:[
+          slivers: [
             SliverToBoxAdapter(
               child: BlocSelector<HomeBloc, HomeState, ({StateStatus storyStatus, List<StoryEntity> storyList})>(
                 selector: (state) => (storyStatus: state.storyStatus, storyList: state.storyList),

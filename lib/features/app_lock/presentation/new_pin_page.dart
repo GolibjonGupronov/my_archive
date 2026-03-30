@@ -41,14 +41,17 @@ class NewPinPage extends StatelessWidget {
               children: [
                 LogoWidget(),
                 30.height,
-                TextView("Yangi PIN kod kiriting"),
+                TextView("Yangi PIN kod kiriting", textAlign: TextAlign.center),
                 20.height,
                 PinPutWithKeyboard(
                   controller: pinCodeController,
                   maxLength: Constants.pinCodeLength,
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
-                  }, onComplete: () { bloc.add(SavePinEvent(pinCode: pinCodeController.text)); },
+                  },
+                  onComplete: () {
+                    bloc.add(SavePinEvent(pinCode: pinCodeController.text));
+                  },
                 ),
               ],
             ),

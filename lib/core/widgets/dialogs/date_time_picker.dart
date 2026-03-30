@@ -94,12 +94,12 @@ class DateTimePicker {
   }
 
   static Future<void> cupertinoDate(
-      BuildContext context, {
-        DateTime? initialDate,
-        DateTime? minimumDate,
-        bool barrierDismissible = true,
-        required Function(DateTime time) result,
-      }) async {
+    BuildContext context, {
+    DateTime? initialDate,
+    DateTime? minimumDate,
+    bool barrierDismissible = true,
+    required Function(DateTime time) result,
+  }) async {
     DateTime dateTime = initialDate ?? DateTime.now();
     await showCustomBottomSheetDialog(
       context: context,
@@ -119,7 +119,6 @@ class DateTimePicker {
               },
               mode: CupertinoDatePickerMode.date,
               dateOrder: DatePickerDateOrder.dmy,
-
             ),
           ),
           18.height,
@@ -127,7 +126,7 @@ class DateTimePicker {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: CustomButton(
               tr('save'),
-                  () {
+              () {
                 result(dateTime);
                 Navigator.pop(context);
               },

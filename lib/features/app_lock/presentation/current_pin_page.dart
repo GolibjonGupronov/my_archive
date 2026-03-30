@@ -39,20 +39,21 @@ class CurrentPinPage extends StatelessWidget {
           appBar: CustomAppBar("PIN"),
           body: Padding(
             padding: EdgeInsets.all(16.w),
-            child: Column(
+            child: ListView(
               children: [
                 LogoWidget(),
                 30.height,
-                TextView("Hozirgi PIN kod kiriting"),
+                TextView("Hozirgi PIN kod kiriting", textAlign: TextAlign.center),
                 20.height,
                 PinPutWithKeyboard(
                   controller: pinCodeController,
                   maxLength: Constants.pinCodeLength,
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
-                  }, onComplete: () {
-                  bloc.add(CheckCurrentPinEvent(pinCode: pinCodeController.text));
-                },
+                  },
+                  onComplete: () {
+                    bloc.add(CheckCurrentPinEvent(pinCode: pinCodeController.text));
+                  },
                 ),
               ],
             ),

@@ -6,7 +6,7 @@ import 'package:my_archive/features/profile/domain/use_cases/change_image_use_ca
 import 'package:my_archive/features/profile/domain/use_cases/edit_profile_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';
 
-void initProfileInjection(){
+void initProfileInjection() {
   sl.registerSingleton<ProfileDataSource>(ProfileDataSourceImpl(dio: sl()));
   sl.registerSingleton<ProfileRepository>(ProfileRepositoryImpl(profileDataSource: sl()));
   sl.registerSingleton<ChangeImageUseCase>(ChangeImageUseCase(repository: sl()));

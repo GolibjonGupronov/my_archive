@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         if (state.loginStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.loginStatus.isSuccess) {
-            router.go(MainPage.tag);
+          router.go(MainPage.tag);
           // if (state.hasPin) {
           // } else {
           //   router.go(SetPinPage.tag);

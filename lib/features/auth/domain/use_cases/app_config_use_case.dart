@@ -2,10 +2,11 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 import 'package:my_archive/features/auth/domain/repositories/auth_repository.dart';
 
-class AppConfigUseCase extends UseCase<AppConfigEntity, NoParams>{
+class AppConfigUseCase extends UseCase<AppConfigEntity, NoParams> {
   final AuthRepository repository;
 
   AppConfigUseCase({required this.repository});
+
   @override
   Future<Either<Failure, AppConfigEntity>> callUseCase(NoParams params) async => await repository.appConfig();
 }

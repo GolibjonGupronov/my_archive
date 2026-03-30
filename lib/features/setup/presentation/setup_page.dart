@@ -39,12 +39,14 @@ class _SetupPageState extends State<SetupPage> {
         onTap: (LangType item) {
           _curLang = item;
           debugPrint("GGQ => ${item.title}");
-        }, initLang: _initLang,
+        },
+        initLang: _initLang,
       ),
       ThemeWidget(
         onTap: (AdaptiveThemeMode theme) {
           AdaptiveTheme.of(context).setThemeMode(theme);
-        }, initMode: _initMode,
+        },
+        initMode: _initMode,
       )
     ];
     _controller = PageController(initialPage: _currentIndex);

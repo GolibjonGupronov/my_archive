@@ -16,11 +16,13 @@ class ReadStoryEvent extends StoryEvent {}
 
 class UpdateIndicatorEvent extends StoryEvent {
   final int indicatorProgress;
+
   UpdateIndicatorEvent({required this.indicatorProgress});
 }
 
 class UpdatedActivePageEvent extends StoryEvent {
   final int index;
+
   UpdatedActivePageEvent({required this.index});
 }
 

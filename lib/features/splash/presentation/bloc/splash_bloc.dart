@@ -14,7 +14,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final PrefManager prefManager;
   final SecureStorage secureStorage;
 
-  SplashBloc({required this.userInfoUseCase, required this.prefManager, required this.appConfigUseCase, required this.secureStorage}) : super(SplashState()) {
+  SplashBloc(
+      {required this.userInfoUseCase, required this.prefManager, required this.appConfigUseCase, required this.secureStorage})
+      : super(SplashState()) {
     on<InitEvent>((event, emit) async {
       add(AppConfigEvent());
     });

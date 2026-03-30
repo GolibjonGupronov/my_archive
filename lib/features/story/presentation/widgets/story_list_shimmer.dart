@@ -15,7 +15,10 @@ class StoryListShimmer extends StatelessWidget {
           primary: false,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return CustomShimmer(width: 110.w,radius: 16.r,);
+            return CustomShimmer(
+              width: 110.w,
+              radius: 16.r,
+            );
           },
           separatorBuilder: (c, i) => 12.width,
           itemCount: 5),

@@ -33,7 +33,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<bool> enableNotification(bool params) async {
-    final response = await dio.mock(data: true).post(ApiUrls.enableNotification, data: {"enable" : params});
+    final response = await dio.mock(data: true).post(ApiUrls.enableNotification, data: {"enable": params});
     return response.data;
   }
 }

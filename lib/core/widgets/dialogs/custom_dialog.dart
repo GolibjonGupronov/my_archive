@@ -369,7 +369,7 @@ class _CustomDialog extends StatelessWidget {
                                 Expanded(
                                   child: CustomButton(
                                     confirmButton.text,
-                                        () {
+                                    () {
                                       router.pop();
                                       onConfirm?.call();
                                     },
@@ -391,7 +391,6 @@ class _CustomDialog extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-
                               ],
                             ),
                           ],

@@ -9,9 +9,7 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120.h,
-      child: Center(
-        child: Assets.images.logo.image()
-      ),
+      child: Center(child: Assets.images.logo.image()),
     );
   }
 }

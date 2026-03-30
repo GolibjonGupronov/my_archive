@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/main.dart';
 
 class BotService {
   static final Dio _dio = Dio();

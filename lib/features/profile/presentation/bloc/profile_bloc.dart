@@ -15,13 +15,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserInfoUseCase userInfoUseCase;
   final SecureStorage secureStorage;
 
-  ProfileBloc({required this.prefManager,
+  ProfileBloc({
+    required this.prefManager,
     required this.changeImageUseCase,
     required this.enableNotificationUseCase,
     required this.userInfoUseCase,
     required this.secureStorage,
-  })
-      : super(ProfileState()) {
+  }) : super(ProfileState()) {
     on<InitEvent>((event, emit) {
       emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? ""));
     });
@@ -32,7 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<EnableNotificationEvent>(
-          (event, emit) async {
+      (event, emit) async {
         if (state.isNotificationEnabled == event.value) return;
         emit(state.copyWith(isNotificationEnabled: event.value));
 
@@ -62,9 +62,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeImageStatus: StateStatus.inProgress, userImage: event.path));
       final result = await changeImageUseCase.callUseCase(event.path);
       result.fold(
-              (fail) =>
-              emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "")),
-              (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
+          (fail) => emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "")),
+          (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
     });
   }
 }

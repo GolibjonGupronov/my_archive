@@ -6,8 +6,8 @@ import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/password_check_entity.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_bloc.dart';
-import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_state.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_event.dart';
+import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_state.dart';
 import 'package:my_archive/features/change_password/presentation/widgets/password_item_text.dart';
 
 class NewPasswordPage extends StatelessWidget {

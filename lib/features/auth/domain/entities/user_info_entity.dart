@@ -9,7 +9,6 @@ class UserInfoEntity {
   final String image;
   final bool isNotificationEnabled;
 
-
   UserInfoEntity({
     required this.firstName,
     required this.secondName,

@@ -20,7 +20,6 @@ class MyLockBloc extends Bloc<MyLockEvent, MyLockState> {
       await prefManager.setBiometric(event.value);
       emit(state.copyWith(isBiometricEnabled: prefManager.isBiometric));
       debugPrint("GGQ => State after ToggleBiometricEvent: ${state.isBiometricEnabled}");
-
     });
 
     on<CheckBiometricEvent>((event, emit) async {

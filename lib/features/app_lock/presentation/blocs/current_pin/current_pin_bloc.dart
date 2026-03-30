@@ -23,6 +23,5 @@ class CurrentPinBloc extends Bloc<CurrentPinEvent, CurrentPinState> {
     on<UpdateFieldEvent>((event, emit) {
       emit(state.copyWith(isActive: event.pinCode.length == Constants.pinCodeLength));
     });
-
   }
 }

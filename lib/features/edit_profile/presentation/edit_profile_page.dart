@@ -20,9 +20,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final UserInfoEntity? user = sl
-      .get<PrefManager>()
-      .getUserInfo;
+  final UserInfoEntity? user = sl.get<PrefManager>().getUserInfo;
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController secondNameController = TextEditingController();
@@ -45,8 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-      EditProfileBloc(editProfileUseCase: sl(), userInfoUseCase: sl())
+      create: (BuildContext context) => EditProfileBloc(editProfileUseCase: sl(), userInfoUseCase: sl())
         ..add(InitEvent(
           firstName: user?.firstName,
           secondName: user?.secondName,
@@ -159,7 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             return CustomSelectField(
                               "Tug'ilgan kun",
                               "kk.oo.yyyy",
-                                  () {
+                              () {
                                 DateTimePicker.cupertinoDate(context, result: (result) {
                                   bloc.add(UpdateFieldEvent(birthDay: result));
                                 }, initialDate: state);
@@ -178,7 +175,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     builder: (context, state) {
                       return CustomButton(
                         tr('save'),
-                            () {
+                        () {
                           context.hideKeyboard;
                           bloc.add(
                             SubmitEvent(

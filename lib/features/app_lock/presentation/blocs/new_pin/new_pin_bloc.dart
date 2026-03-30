@@ -9,8 +9,9 @@ import 'new_pin_state.dart';
 class NewPinBloc extends Bloc<NewPinEvent, NewPinState> {
   final SecureStorage secureStorage;
   final PrefManager prefManager;
+
   NewPinBloc({required this.secureStorage, required this.prefManager}) : super(NewPinState()) {
-    on<InitEvent>((event, emit){});
+    on<InitEvent>((event, emit) {});
 
     on<SavePinEvent>((event, emit) async {
       emit(state.copyWith(appLockStatus: StateStatus.inProgress));
