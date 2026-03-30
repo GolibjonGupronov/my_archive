@@ -30,38 +30,39 @@ class AppLockPage extends StatelessWidget {
       listenWhen: (previous, current) => previous.lockStatus != current.lockStatus,
       listener: (context, state) {
         if (state.lockStatus.isSuccess) {
-          context.go(MainPage.tag);
+          context.pop(true);
         } else if (state.lockStatus.isFailure) {
           showErrorToast(context, state.errorMessage);
         }
       },
       child: CustomScaffold(
+          canPop: false,
           body: Padding(
-        padding: EdgeInsets.all(16.w),
-        child: ListView(
-          children: [
-            90.height,
-            LogoWidget(),
-            30.height,
-            TextView("PIN kod kiriting", textAlign: TextAlign.center),
-            20.height,
-            PinPutWithKeyboard(
-              controller: pinCodeController,
-              maxLength: Constants.pinCodeLength,
-              onChanged: (value) {
-                bloc.add(UpdateFieldEvent(pinCode: value));
-              },
-              onFingerprint: () {
-                bloc.add(InitEvent());
-              },
-              showFingerPrint: true,
-              onComplete: () {
-                bloc.add(CheckPinEvent(pinCode: pinCodeController.text));
-              },
+            padding: EdgeInsets.all(16.w),
+            child: ListView(
+              children: [
+                90.height,
+                LogoWidget(),
+                30.height,
+                TextView("PIN kod kiriting", textAlign: TextAlign.center),
+                20.height,
+                PinPutWithKeyboard(
+                  controller: pinCodeController,
+                  maxLength: Constants.pinCodeLength,
+                  onChanged: (value) {
+                    bloc.add(UpdateFieldEvent(pinCode: value));
+                  },
+                  onFingerprint: () {
+                    bloc.add(InitEvent());
+                  },
+                  showFingerPrint: true,
+                  onComplete: () {
+                    bloc.add(CheckPinEvent(pinCode: pinCodeController.text));
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

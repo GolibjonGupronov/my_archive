@@ -32,7 +32,11 @@ class SplashPage extends StatelessWidget {
         } else if (state.splashStatus.isSuccess) {
           if (state.nextPage == NextPage.main) {
             if (await bloc.secureStorage.hasPin()) {
-              router.push(AppLockPage.tag);
+              router.push(AppLockPage.tag).then((value) {
+                if (value != null) {
+                  router.go(MainPage.tag);
+                }
+              });
               return;
             }
           }

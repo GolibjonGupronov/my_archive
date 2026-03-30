@@ -13,6 +13,7 @@ import 'package:http/http.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/core/widgets/common/floating_buttons.dart';
+import 'package:my_archive/features/app_lock/presentation/app_lock_wrapper.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 final Alice alice = Alice(showNotification: false);
@@ -98,15 +99,12 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               routerConfig: router,
-              // routeInformationParser: router.routeInformationParser,
-              // routeInformationProvider: router.routeInformationProvider,
-              // routerDelegate: router.routerDelegate,
               builder: (context, child) => ScrollConfiguration(
                 behavior: NoGlowScrollBehavior(),
                 child: MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
                   child: Overlay(initialEntries: [
-                    OverlayEntry(builder: (_) => child!),
+                    OverlayEntry(builder: (_) => AppLockWrapper(child: child!)),
                     OverlayEntry(builder: (_) => FloatingButtons()),
                   ]),
                 ),
