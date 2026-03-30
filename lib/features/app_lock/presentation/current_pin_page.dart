@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/current_pin/current_pin_bloc.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/current_pin/current_pin_event.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/current_pin/current_pin_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_bloc.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_state.dart';
 
 class CurrentPinPage extends StatelessWidget {
   CurrentPinPage({super.key});

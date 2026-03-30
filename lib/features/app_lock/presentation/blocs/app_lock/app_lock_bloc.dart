@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/app_lock/app_lock_event.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/app_lock/app_lock_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_state.dart';
 
 class AppLockBloc extends Bloc<AppLockEvent, AppLockState> {
   final SecureStorage secureStorage;

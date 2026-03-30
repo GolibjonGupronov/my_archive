@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/lock/my_lock_bloc.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/lock/my_lock_event.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/lock/my_lock_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_bloc.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_state.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
 
 class MyLockPage extends StatelessWidget {

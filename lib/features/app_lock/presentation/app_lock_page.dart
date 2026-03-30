@@ -4,9 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/app_lock/app_lock_bloc.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/app_lock/app_lock_event.dart';
-import 'package:my_archive/features/app_lock/presentation/bloc/app_lock/app_lock_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_bloc.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_state.dart';
+import 'package:my_archive/features/app_lock/presentation/widgets/pin_keyboard.dart';
 
 class AppLockPage extends StatelessWidget {
   AppLockPage({super.key});
@@ -42,22 +43,24 @@ class AppLockPage extends StatelessWidget {
           children: [
             90.height,
             Expanded(
-                child: Column(
-              children: [
-                LogoWidget(),
-                30.height,
-                TextView("PIN kod kiriting"),
-                20.height,
-                CustomPinPut(
-                    controller: pinCodeController,
-                    context: context,
-                    length: Constants.pinCodeLength,
-                    obscureText: true,
-                    onChanged: (value) {
-                      bloc.add(UpdateFieldEvent(pinCode: value));
-                    }),
-              ],
-            )),
+              child: ListView(
+                children: [
+                  LogoWidget(),
+                  30.height,
+                  TextView("PIN kod kiriting", textAlign: TextAlign.center),
+                  20.height,
+                  CustomPinPut(
+                      controller: pinCodeController,
+                      context: context,
+                      length: Constants.pinCodeLength,
+                      obscureText: true,
+                      onChanged: (value) {
+                        bloc.add(UpdateFieldEvent(pinCode: value));
+                      }),
+                  PinKeyboard()
+                ],
+              ),
+            ),
             FutureBuilder(
               future: LocalAuthService.canUseBiometric(),
               builder: (context, snapshot) {
