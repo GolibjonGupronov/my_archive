@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/widgets/pin_put_with_keyboard.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_bloc.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_state.dart';
@@ -45,14 +46,13 @@ class NewPinPage extends StatelessWidget {
                     30.height,
                     TextView("Yangi PIN kod kiriting"),
                     20.height,
-                    CustomPinPut(
-                        controller: pinCodeController,
-                        context: context,
-                        length: Constants.pinCodeLength,
-                        obscureText: true,
-                        onChanged: (value) {
-                          bloc.add(UpdateFieldEvent(pinCode: value));
-                        }),
+                    PinPutWithKeyboard(
+                      controller: pinCodeController,
+                      maxLength: Constants.pinCodeLength,
+                      onChanged: (value) {
+                        bloc.add(UpdateFieldEvent(pinCode: value));
+                      },
+                    ),
                   ],
                 )),
                 BlocBuilder<NewPinBloc, NewPinState>(

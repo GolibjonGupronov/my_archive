@@ -13,7 +13,7 @@ class AppLockBloc extends Bloc<AppLockEvent, AppLockState> {
     on<InitEvent>((event, emit) async {
       if (prefManager.isBiometric == true) {
         emit(state.copyWith(lockStatus: StateStatus.inProgress));
-        if (await LocalAuthService.canUseBiometric()) {
+        if (LocalAuthService.canUseBiometric) {
           if (await LocalAuthService.authenticate()) {
             emit(state.copyWith(lockStatus: StateStatus.success));
           }

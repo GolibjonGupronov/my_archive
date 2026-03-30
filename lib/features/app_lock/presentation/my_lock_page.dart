@@ -57,33 +57,25 @@ class MyLockPage extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    FutureBuilder(
-                        future: LocalAuthService.canUseBiometric(),
-                        builder: (context, snapshot) {
-                          if (!(snapshot.data ?? false)) return const SizedBox();
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              BlocSelector<MyLockBloc, MyLockState, bool>(
-                                selector: (state) => state.isBiometricEnabled,
-                                builder: (context, state) {
-                                  debugPrint("GGQ => Biometric state: $state");
-                                  return ProfileItem(
-                                    title: "Biometrik qulf",
-                                    prefixIconData: Icons.fingerprint_rounded,
-                                    suffixWidget: CupertinoSwitch(
-                                      value: state,
-                                      onChanged: (value) async {
-                                        bloc.add(ToggleBiometricEvent(value: value));
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                              20.height,
-                            ],
+                    if (LocalAuthService.canUseBiometric) ...[
+                      BlocSelector<MyLockBloc, MyLockState, bool>(
+                        selector: (state) => state.isBiometricEnabled,
+                        builder: (context, state) {
+                          debugPrint("GGQ => Biometric state: $state");
+                          return ProfileItem(
+                            title: "Biometrik qulf",
+                            prefixIconData: Icons.fingerprint_rounded,
+                            suffixWidget: CupertinoSwitch(
+                              value: state,
+                              onChanged: (value) async {
+                                bloc.add(ToggleBiometricEvent(value: value));
+                              },
+                            ),
                           );
-                        }),
+                        },
+                      ),
+                      20.height,
+                    ],
                     ProfileItem(
                       title: "Ilova qulfini o'chirish",
                       prefixIconData: CupertinoIcons.trash,

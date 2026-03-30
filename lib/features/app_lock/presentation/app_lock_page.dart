@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/services/local_auth_service.dart';
+import 'package:my_archive/core/widgets/pin_put_with_keyboard.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_bloc.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_state.dart';
-import 'package:my_archive/features/app_lock/presentation/widgets/pin_keyboard.dart';
 
 class AppLockPage extends StatelessWidget {
   AppLockPage({super.key});
@@ -49,37 +48,19 @@ class AppLockPage extends StatelessWidget {
                   30.height,
                   TextView("PIN kod kiriting", textAlign: TextAlign.center),
                   20.height,
-                  CustomPinPut(
-                      controller: pinCodeController,
-                      context: context,
-                      length: Constants.pinCodeLength,
-                      obscureText: true,
-                      onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(pinCode: value));
-                      }),
-                  PinKeyboard()
+                  PinPutWithKeyboard(
+                    controller: pinCodeController,
+                    maxLength: Constants.pinCodeLength,
+                    onChanged: (value) {
+                      bloc.add(UpdateFieldEvent(pinCode: value));
+                    },
+                    onFingerprint: () {
+                      bloc.add(InitEvent());
+                    },
+                    showFingerPrint: true,
+                  ),
                 ],
               ),
-            ),
-            FutureBuilder(
-              future: LocalAuthService.canUseBiometric(),
-              builder: (context, snapshot) {
-                if (bloc.prefManager.isBiometric == false || snapshot.data == false) return const SizedBox();
-                return Column(
-                  children: [
-                    Bounce(
-                      onTap: () {
-                        bloc.add(InitEvent());
-                      },
-                      child: TextView(
-                        "Yoki biometrikani ishlating",
-                        textDecoration: TextDecoration.underline,
-                      ),
-                    ),
-                    20.height,
-                  ],
-                );
-              },
             ),
             BlocBuilder<AppLockBloc, AppLockState>(
               builder: (context, state) {

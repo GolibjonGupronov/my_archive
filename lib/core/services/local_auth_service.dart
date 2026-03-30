@@ -9,16 +9,14 @@ class LocalAuthService {
   static final PrefManager _prefManager = sl.get<PrefManager>();
 
   static Future<void> tryBiometric() async {
-    if (await canUseBiometric()) {
+    if (canUseBiometric) {
       bool ok = await authenticate();
       debugPrint("GGQ => biometric auth result: $ok");
       _prefManager.setBiometric(ok);
     }
   }
 
-  static Future<bool> canUseBiometric() async {
-    return await _localAuthentication.canCheckBiometrics && await _localAuthentication.isDeviceSupported();
-  }
+  static bool get canUseBiometric => DeviceHelper.canUseBiometric;
 
   static Future<bool> authenticate() async {
     try {
