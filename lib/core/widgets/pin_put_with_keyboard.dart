@@ -16,6 +16,7 @@ enum PinKey {
   zero,
   fingerprint,
   backspace,
+  done,
   none;
 
   String get key => switch (this) {
@@ -45,12 +46,13 @@ enum PinKey {
       ];
 }
 
-class PinPutWithKeyboard extends StatelessWidget {
+class PinPutWithKeyboard extends StatefulWidget {
   final TextEditingController controller;
   final int maxLength;
   final bool obscureText;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onFingerprint;
+  final VoidCallback? onComplete;
   final bool showFingerPrint;
 
   const PinPutWithKeyboard({
@@ -61,36 +63,46 @@ class PinPutWithKeyboard extends StatelessWidget {
     this.onChanged,
     this.onFingerprint,
     this.showFingerPrint = false,
+    required this.onComplete,
   });
 
+  @override
+  State<PinPutWithKeyboard> createState() => _PinPutWithKeyboardState();
+}
+
+class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
   void _handleKeyTap(PinKey key) {
-    final text = controller.text;
+    final text = widget.controller.text;
 
     if (key == PinKey.backspace) {
       if (text.isNotEmpty) {
-        controller.text = text.substring(0, text.length - 1);
+        widget.controller.text = text.substring(0, text.length - 1);
       }
     } else if (key == PinKey.fingerprint) {
-      onFingerprint?.call();
+      widget.onFingerprint?.call();
+      return;
+    } else if (key == PinKey.done) {
+      widget.onComplete?.call();
       return;
     } else {
-      if (text.length < maxLength) {
-        controller.text = text + key.key;
+      if (text.length < widget.maxLength) {
+        widget.controller.text = text + key.key;
       }
     }
 
-    controller.selection = TextSelection.fromPosition(
-      TextPosition(offset: controller.text.length),
-    );
+    setState(() {});
 
-    onChanged?.call(controller.text);
+    widget.controller.selection = TextSelection.fromPosition(TextPosition(offset: widget.controller.text.length));
+
+    widget.onChanged?.call(widget.controller.text);
   }
 
   List<PinKey> get _buildKeyboard {
-    final hasBio = LocalAuthService.canUseBiometric && sl.get<PrefManager>().isBiometric == true && showFingerPrint;
+    final hasBio = LocalAuthService.canUseBiometric && sl.get<PrefManager>().isBiometric == true && widget.showFingerPrint;
+    final isDone = widget.controller.text.length == widget.maxLength;
     return [
       ...PinKey.topNumbers,
-      hasBio ? PinKey.fingerprint : PinKey.none,
+      isDone ? PinKey.done : (hasBio ? PinKey.fingerprint : PinKey.none),
       PinKey.zero,
       PinKey.backspace,
     ];
@@ -98,18 +110,19 @@ class PinPutWithKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("GGQ => PinPutWithKeyboard");
     final rows = _chunk(_buildKeyboard, 3);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomPinPut(
-          controller: controller,
+          controller: widget.controller,
           context: context,
-          length: maxLength,
-          obscureText: obscureText,
+          length: widget.maxLength,
+          obscureText: widget.obscureText,
           readOnly: true,
-          onChanged: onChanged,
+          onChanged: widget.onChanged,
           showBorder: false,
         ),
         SizedBox(height: 24.h),
@@ -152,6 +165,12 @@ class PinPutWithKeyboard extends StatelessWidget {
     switch (key) {
       case PinKey.fingerprint:
         return Icon(Icons.fingerprint, size: 30.sp);
+      case PinKey.done:
+        return TextView(
+          "OK",
+          fontWeight: FontWeight.bold,
+          fontSize: 24.sp,
+        );
       case PinKey.backspace:
         return Icon(Icons.backspace_outlined, size: 30.sp);
       default:

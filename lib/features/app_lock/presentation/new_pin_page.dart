@@ -37,30 +37,18 @@ class NewPinPage extends StatelessWidget {
           appBar: CustomAppBar("Ilova qulfi"),
           body: Padding(
             padding: EdgeInsets.all(16.w),
-            child: Column(
+            child: ListView(
               children: [
-                Expanded(
-                    child: Column(
-                  children: [
-                    LogoWidget(),
-                    30.height,
-                    TextView("Yangi PIN kod kiriting"),
-                    20.height,
-                    PinPutWithKeyboard(
-                      controller: pinCodeController,
-                      maxLength: Constants.pinCodeLength,
-                      onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(pinCode: value));
-                      },
-                    ),
-                  ],
-                )),
-                BlocBuilder<NewPinBloc, NewPinState>(
-                  builder: (context, state) {
-                    return CustomButton("Saqlash", () {
-                      bloc.add(SavePinEvent(pinCode: pinCodeController.text));
-                    }, active: state.isActive);
-                  },
+                LogoWidget(),
+                30.height,
+                TextView("Yangi PIN kod kiriting"),
+                20.height,
+                PinPutWithKeyboard(
+                  controller: pinCodeController,
+                  maxLength: Constants.pinCodeLength,
+                  onChanged: (value) {
+                    bloc.add(UpdateFieldEvent(pinCode: value));
+                  }, onComplete: () { bloc.add(SavePinEvent(pinCode: pinCodeController.text)); },
                 ),
               ],
             ),

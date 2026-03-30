@@ -41,28 +41,18 @@ class CurrentPinPage extends StatelessWidget {
             padding: EdgeInsets.all(16.w),
             child: Column(
               children: [
-                Expanded(
-                    child: Column(
-                  children: [
-                    LogoWidget(),
-                    30.height,
-                    TextView("Hozirgi PIN kod kiriting"),
-                    20.height,
-                    PinPutWithKeyboard(
-                      controller: pinCodeController,
-                      maxLength: Constants.pinCodeLength,
-                      onChanged: (value) {
-                        bloc.add(UpdateFieldEvent(pinCode: value));
-                      },
-                    ),
-                  ],
-                )),
-                BlocBuilder<CurrentPinBloc, CurrentPinState>(
-                  builder: (context, state) {
-                    return CustomButton("Saqlash", () {
-                      bloc.add(CheckCurrentPinEvent(pinCode: pinCodeController.text));
-                    }, active: state.isActive);
-                  },
+                LogoWidget(),
+                30.height,
+                TextView("Hozirgi PIN kod kiriting"),
+                20.height,
+                PinPutWithKeyboard(
+                  controller: pinCodeController,
+                  maxLength: Constants.pinCodeLength,
+                  onChanged: (value) {
+                    bloc.add(UpdateFieldEvent(pinCode: value));
+                  }, onComplete: () {
+                  bloc.add(CheckCurrentPinEvent(pinCode: pinCodeController.text));
+                },
                 ),
               ],
             ),

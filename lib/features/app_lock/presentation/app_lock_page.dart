@@ -38,35 +38,25 @@ class AppLockPage extends StatelessWidget {
       child: CustomScaffold(
           body: Padding(
         padding: EdgeInsets.all(16.w),
-        child: Column(
+        child: ListView(
           children: [
             90.height,
-            Expanded(
-              child: ListView(
-                children: [
-                  LogoWidget(),
-                  30.height,
-                  TextView("PIN kod kiriting", textAlign: TextAlign.center),
-                  20.height,
-                  PinPutWithKeyboard(
-                    controller: pinCodeController,
-                    maxLength: Constants.pinCodeLength,
-                    onChanged: (value) {
-                      bloc.add(UpdateFieldEvent(pinCode: value));
-                    },
-                    onFingerprint: () {
-                      bloc.add(InitEvent());
-                    },
-                    showFingerPrint: true,
-                  ),
-                ],
-              ),
-            ),
-            BlocBuilder<AppLockBloc, AppLockState>(
-              builder: (context, state) {
-                return CustomButton("Saqlash", () {
-                  bloc.add(CheckPinEvent(pinCode: pinCodeController.text));
-                }, active: state.isActive);
+            LogoWidget(),
+            30.height,
+            TextView("PIN kod kiriting", textAlign: TextAlign.center),
+            20.height,
+            PinPutWithKeyboard(
+              controller: pinCodeController,
+              maxLength: Constants.pinCodeLength,
+              onChanged: (value) {
+                bloc.add(UpdateFieldEvent(pinCode: value));
+              },
+              onFingerprint: () {
+                bloc.add(InitEvent());
+              },
+              showFingerPrint: true,
+              onComplete: () {
+                bloc.add(CheckPinEvent(pinCode: pinCodeController.text));
               },
             ),
           ],
