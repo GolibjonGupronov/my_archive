@@ -5,11 +5,17 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
 void logoutApp() async {
-  await sl.get<PrefManager>().setToken("");
+  final prefs = sl.get<PrefManager>();
+  final secure = sl.get<SecureStorage>();
+
+  await prefs.setToken("");
+  await prefs.removeBiometric();
+  await secure.deletePin();
   router.go(SplashPage.tag);
   await NotificationService.deleteFCMToken;
 }
@@ -115,8 +121,6 @@ String _buildErrorText(DioException error) {
     buffer.writeln("📥 ResponseData: ${_short(error.response?.data)}");
   }
 
-  buffer.writeln("💬 Message: ${error.message}");
-
   return buffer.toString();
 }
 
@@ -142,7 +146,6 @@ void _prettyDebugPrint(Object error, StackTrace stackTrace) {
     buffer.writeln("URL: ${error.requestOptions.uri}");
     buffer.writeln("Method: ${error.requestOptions.method}");
     buffer.writeln("StatusCode: ${error.response?.statusCode}");
-    buffer.writeln("Message: ${error.message}");
     buffer.writeln("Data: ${error.response?.data}");
     buffer.writeln("────────── StackTrace ──────────");
     buffer.writeln(stackTrace);

@@ -2,16 +2,11 @@ abstract class AppLockEvent {}
 
 class InitEvent extends AppLockEvent {}
 
-class SavePinEvent extends AppLockEvent {
+
+class CheckPinEvent extends AppLockEvent {
   final String pinCode;
 
-  SavePinEvent({required this.pinCode});
-}
-
-class CheckOldPinEvent extends AppLockEvent {
-  final String pinCode;
-
-  CheckOldPinEvent({required this.pinCode});
+  CheckPinEvent({required this.pinCode});
 }
 
 class UpdateFieldEvent extends AppLockEvent {
@@ -19,3 +14,6 @@ class UpdateFieldEvent extends AppLockEvent {
 
   UpdateFieldEvent({required this.pinCode});
 }
+
+
+

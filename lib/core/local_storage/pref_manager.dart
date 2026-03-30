@@ -17,8 +17,6 @@ abstract class PrefManager {
 
   Future<void> setUserInfo(UserInfoModel user);
 
-  Future<void> remove(String key);
-
   bool get isFirstLaunch;
 
   Future<void> setNotFirstLaunch(bool value);
@@ -30,6 +28,8 @@ abstract class PrefManager {
   bool? get isBiometric;
 
   Future<void> setBiometric(bool value);
+
+  Future<void> removeBiometric();
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -60,9 +60,6 @@ class PrefManagerImpl implements PrefManager {
   Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(_user, jsonEncode(user.toJson()));
 
   @override
-  Future<void> remove(String key) async => await prefs.remove(key);
-
-  @override
   LangType get getLanguage => LangType.getObj(prefs.getString(_language) ?? LangType.uz.key);
 
   @override
@@ -85,4 +82,7 @@ class PrefManagerImpl implements PrefManager {
 
   @override
   Future<void> setBiometric(bool value) async => await prefs.setBool(_biometric, value);
+
+  @override
+  Future<void> removeBiometric() async => await prefs.remove(_biometric);
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/app_config_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
@@ -11,8 +12,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final UserInfoUseCase userInfoUseCase;
   final AppConfigUseCase appConfigUseCase;
   final PrefManager prefManager;
+  final SecureStorage secureStorage;
 
-  SplashBloc({required this.userInfoUseCase, required this.prefManager, required this.appConfigUseCase}) : super(SplashState()) {
+  SplashBloc({required this.userInfoUseCase, required this.prefManager, required this.appConfigUseCase, required this.secureStorage}) : super(SplashState()) {
     on<InitEvent>((event, emit) async {
       add(AppConfigEvent());
     });

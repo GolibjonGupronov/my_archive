@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/args.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/features/app_lock/presentation/bloc/current_pin/current_pin_bloc.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 
@@ -166,6 +167,30 @@ final GoRouter router = GoRouter(
         context: context,
         state: state,
         child: AppLockPage(),
+      ),
+    ),
+    GoRoute(
+      path: CurrentPinPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: CurrentPinPage(),
+      ),
+    ),
+    GoRoute(
+      path: MyLockPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: MyLockPage(),
+      ),
+    ),
+    GoRoute(
+      path: NewPinPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: NewPinPage(),
       ),
     ),
   ],

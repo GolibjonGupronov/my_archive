@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/main.dart';
 
 class BotService {
   static final Dio _dio = Dio();
@@ -80,7 +81,7 @@ Future<void> _sendMessage(String text) async {
 
   if (botToken.isEmpty || chatId == null) return;
 
-  final url = 'https://api.telegram_bot.org/bot$botToken/sendMessage';
+  final url = 'https://api.telegram.org/bot$botToken/sendMessage';
 
   try {
     await BotService._dio.post(

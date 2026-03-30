@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+import 'package:local_auth_darwin/local_auth_darwin.dart';
 import 'package:my_archive/core/core_exports.dart';
 
 class LocalAuthService {
@@ -23,10 +25,18 @@ class LocalAuthService {
       debugPrint("GGQ => authenticate");
       return await _localAuthentication.authenticate(
         localizedReason: 'Qulfni ochish uchun tasdiqlang',
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-        ),
+        authMessages: <AuthMessages>[
+          AndroidAuthMessages(
+            signInTitle: 'Qulfni ochish',
+            signInHint: 'Tasdiqlash',
+            cancelButton: 'Bekor qilish',
+          ),
+          const IOSAuthMessages(
+            cancelButton: 'Bekor qilish',
+          ),
+        ],
+        biometricOnly: true,
+        persistAcrossBackgrounding: true,
       );
     } catch (e) {
       debugPrint("GGQ => error $e");

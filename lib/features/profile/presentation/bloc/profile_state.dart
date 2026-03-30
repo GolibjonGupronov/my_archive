@@ -8,7 +8,6 @@ class ProfileState {
   final String errorMessage;
   final bool isGranted;
   final bool isNotificationEnabled;
-  final bool isBiometricEnabled;
 
   ProfileState({
     this.changeImageStatus = StateStatus.initial,
@@ -17,7 +16,6 @@ class ProfileState {
     this.errorMessage = "",
     this.isGranted = false,
     this.isNotificationEnabled = true,
-    this.isBiometricEnabled = false,
   });
 
   ProfileState copyWith({
@@ -27,7 +25,6 @@ class ProfileState {
     String? errorMessage,
     bool? isGranted,
     bool? isNotificationEnabled,
-    bool? isBiometricEnabled,
   }) {
     return ProfileState(
       changeImageStatus: changeImageStatus ?? this.changeImageStatus,
@@ -36,7 +33,6 @@ class ProfileState {
       errorMessage: errorMessage ?? this.errorMessage,
       isGranted: isGranted ?? this.isGranted,
       isNotificationEnabled: isNotificationEnabled ?? this.isNotificationEnabled,
-      isBiometricEnabled: isBiometricEnabled ?? this.isBiometricEnabled,
     );
   }
 }

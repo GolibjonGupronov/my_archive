@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
@@ -15,7 +16,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-          SplashBloc(userInfoUseCase: sl(), prefManager: sl(), appConfigUseCase: sl())..add(InitEvent()),
+          SplashBloc(userInfoUseCase: sl(), prefManager: sl(), appConfigUseCase: sl(), secureStorage: sl())..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -26,11 +27,17 @@ class SplashPage extends StatelessWidget {
 
     return BlocListener<SplashBloc, SplashState>(
       listenWhen: (p,c) => p.splashStatus != c.splashStatus,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.splashStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.splashStatus.isSuccess) {
-          context.go(state.nextPage.page);
+          if (state.nextPage == NextPage.main) {
+            if (await bloc.secureStorage.hasPin()) {
+              router.push(AppLockPage.tag);
+              return;
+            }
+          }
+          router.go(state.nextPage.page);
         }
       },
       child: CustomScaffold(

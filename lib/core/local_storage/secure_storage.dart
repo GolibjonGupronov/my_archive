@@ -8,6 +8,8 @@ abstract class SecureStorage {
   Future<void> savePin(String pin);
 
   Future<String> getPin();
+
+  Future<void> deletePin();
 }
 
 class SecureStorageImpl extends SecureStorage {
@@ -36,5 +38,10 @@ class SecureStorageImpl extends SecureStorage {
   @override
   Future<bool> hasPin() async {
     return (await getPin()).isNotEmpty;
+  }
+
+  @override
+  Future<void> deletePin() async {
+    return await storage.delete(key: _pinKey);
   }
 }

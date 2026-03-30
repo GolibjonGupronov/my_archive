@@ -22,8 +22,8 @@ class NotificationService {
     const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings();
 
     const initSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsDarwin);
-    await _flutterLocalNotificationsPlugin.initialize(initSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {});
+    await _flutterLocalNotificationsPlugin.initialize(
+        settings: initSettings, onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {});
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       _channelId,
@@ -57,7 +57,8 @@ class NotificationService {
         priority: Priority.high,
       ),
     );
-    await _flutterLocalNotificationsPlugin.show(msg.messageId?.hashCode ?? 1, title, body, details, payload: 'Payload');
+    await _flutterLocalNotificationsPlugin.show(
+        id: msg.messageId?.hashCode ?? 1, title: title, body: body, notificationDetails: details, payload: 'Payload');
   }
 
   static Future<void> _getFCMToken() async {
