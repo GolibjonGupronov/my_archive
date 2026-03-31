@@ -12,7 +12,8 @@ enum AutoLockTimeType {
   after5Minutes,
   after10Minutes,
   after30Minutes,
-  after1Hour;
+  after1Hour,
+  disable;
 
   static AutoLockTimeType getObj(String key) => AutoLockTimeType.values.firstWhere((e) => e.name == key);
 
@@ -28,6 +29,7 @@ enum AutoLockTimeType {
         AutoLockTimeType.after10Minutes => "10 minut",
         AutoLockTimeType.after30Minutes => "30 minut",
         AutoLockTimeType.after1Hour => "1 soat",
+        AutoLockTimeType.disable => "O'chirish",
       };
 
   int get seconds => switch (this) {
@@ -40,6 +42,7 @@ enum AutoLockTimeType {
         AutoLockTimeType.after10Minutes => 10 * 60,
         AutoLockTimeType.after30Minutes => 30 * 60,
         AutoLockTimeType.after1Hour => 60 * 60,
+        AutoLockTimeType.disable => -1,
       };
 }
 

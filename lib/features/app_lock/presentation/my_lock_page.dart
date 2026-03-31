@@ -91,7 +91,7 @@ class MyLockPage extends StatelessWidget {
                                     },
                                     initialTime: state));
                           },
-                          suffixWidget: TextView(state.title, color: AppColors.gray, fontWeight: FontWeight.w400),
+                          suffixWidget: TextView(state.title,fontWeight: FontWeight.w400),
                         );
                       },
                     ),

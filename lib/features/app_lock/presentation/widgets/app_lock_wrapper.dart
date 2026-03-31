@@ -39,13 +39,15 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
     }
 
     if (state == AppLifecycleState.resumed) {
+      final seconds = _prefManager.getAutoLockTime.seconds;
+      if (seconds == -1) {
+        return;
+      }
       if (_pausedAt == null || _count > 0) return;
       _count++;
       final diff = DateTime.now().difference(_pausedAt!);
       final currentLocation = router.routerDelegate.currentConfiguration.uri.toString();
-      if (diff > Duration(seconds: _prefManager.getAutoLockTime.seconds) &&
-          currentLocation != SplashPage.tag &&
-          currentLocation != AppLockPage.tag) {
+      if (diff > Duration(seconds: seconds) && currentLocation != SplashPage.tag && currentLocation != AppLockPage.tag) {
         _openLockIfNeeded();
       }
     }
