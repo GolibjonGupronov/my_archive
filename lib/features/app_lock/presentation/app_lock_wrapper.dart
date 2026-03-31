@@ -14,10 +14,9 @@ class AppLockWrapper extends StatefulWidget {
 
 class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObserver {
   DateTime? _pausedAt;
-
-  final Duration lockDelay = const Duration(seconds: 2);
-
+  int _count = 0;
   bool _isShowingLock = false;
+  final PrefManager _prefManager = sl.get<PrefManager>();
 
   @override
   void initState() {
@@ -33,16 +32,20 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    debugPrint("GGQ => AppLifecycleState $state");
     if (state == AppLifecycleState.paused) {
+      _count = 0;
       _pausedAt = DateTime.now();
     }
 
     if (state == AppLifecycleState.resumed) {
-      if (_pausedAt == null) return;
-
+      if (_pausedAt == null || _count > 0) return;
+      _count++;
       final diff = DateTime.now().difference(_pausedAt!);
-
-      if (diff > lockDelay) {
+      final currentLocation = router.routerDelegate.currentConfiguration.uri.toString();
+      if (diff > Duration(seconds: _prefManager.getAutoLockTime.seconds) &&
+          currentLocation != SplashPage.tag &&
+          currentLocation != AppLockPage.tag) {
         _openLockIfNeeded();
       }
     }

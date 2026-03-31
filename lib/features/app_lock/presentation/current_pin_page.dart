@@ -14,6 +14,7 @@ class CurrentPinPage extends StatelessWidget {
   static const String tag = '/current_pin_page';
 
   final TextEditingController pinCodeController = TextEditingController();
+  final ShakeController shakeController = ShakeController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,9 @@ class CurrentPinPage extends StatelessWidget {
         if (state.checkCurrentPinStatus.isSuccess) {
           context.pushReplacement(MyLockPage.tag);
         } else if (state.checkCurrentPinStatus.isFailure) {
+          pinCodeController.clear();
+          bloc.add(UpdateFieldEvent(pinCode: ""));
+          shakeController.shake();
           showErrorToast(context, state.errorMessage);
         }
       },
@@ -46,12 +50,13 @@ class CurrentPinPage extends StatelessWidget {
                 TextView("Hozirgi PIN kod kiriting", textAlign: TextAlign.center),
                 20.height,
                 PinPutWithKeyboard(
+                  shakeController: shakeController,
                   controller: pinCodeController,
                   maxLength: Constants.pinCodeLength,
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
                   },
-                  onComplete: () {
+                  onDone: () {
                     bloc.add(CheckCurrentPinEvent(pinCode: pinCodeController.text));
                   },
                 ),

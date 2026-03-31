@@ -49,7 +49,7 @@ class NewPinPage extends StatelessWidget {
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
                   },
-                  onComplete: () {
+                  onDone: () {
                     bloc.add(SavePinEvent(pinCode: pinCodeController.text));
                   },
                 ),

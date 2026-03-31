@@ -8,6 +8,7 @@ import 'package:my_archive/core/services/local_auth_service.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_bloc.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/lock/my_lock_state.dart';
+import 'package:my_archive/features/app_lock/presentation/widgets/auto_lock_widget.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
 
 class MyLockPage extends StatelessWidget {
@@ -40,7 +41,7 @@ class MyLockPage extends StatelessWidget {
           children: [
             ProfileItem(
               title: "Yangi PIN o'rnatish",
-              prefixIconData: Icons.key_rounded,
+              prefixIconData: CupertinoIcons.lock_rotation_open,
               onTap: () {
                 context.push(NewPinPage.tag).then((value) {
                   if (value != null) router.pop();
@@ -76,11 +77,30 @@ class MyLockPage extends StatelessWidget {
                       ),
                       20.height,
                     ],
+                    BlocSelector<MyLockBloc, MyLockState, AutoLockTimeType>(
+                      selector: (state) => state.autoLockTime,
+                      builder: (context, state) {
+                        return ProfileItem(
+                          title: "Avtomatik qulflash",
+                          prefixIconData: CupertinoIcons.time,
+                          onTap: () {
+                            showCustomDialog(context,
+                                child: AutoLockWidget(
+                                    onTimeSelected: (AutoLockTimeType type) {
+                                      bloc.add(AutoLockTimeEvent(timeType: type));
+                                    },
+                                    initialTime: state));
+                          },
+                          suffixWidget: TextView(state.title, color: AppColors.gray, fontWeight: FontWeight.w400),
+                        );
+                      },
+                    ),
+                    20.height,
                     ProfileItem(
                       title: "Ilova qulfini o'chirish",
                       prefixIconData: CupertinoIcons.trash,
                       onTap: () {
-                        showConfirmDialog(context, "Ilova qulfini o'chirish",
+                        showRejectDialog(context, "Ilova qulfini o'chirish",
                             subTitle: "Haqiqatan ham ilova qulfini o'chirmoqchimisiz?", onConfirm: () {
                           bloc.add(RemovePinEvent());
                         });

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:my_archive/core/constants/keys.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/features/app_lock/presentation/widgets/auto_lock_widget.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +31,11 @@ abstract class PrefManager {
 
   Future<void> setBiometric(bool value);
 
-  Future<void> removeBiometric();
+  Future<void> remove(String key);
+
+  AutoLockTimeType get getAutoLockTime;
+
+  Future<void> setAutoLockTime(AutoLockTimeType value);
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -37,52 +43,52 @@ class PrefManagerImpl implements PrefManager {
 
   PrefManagerImpl({required this.prefs});
 
-  static const String _token = 'token';
-  static const String _language = 'language';
-  static const String _user = 'user';
-  static const String _firstLaunch = 'first_launch';
-  static const String _fcmToken = "fcm_token";
-  static const String _biometric = "is_biometric";
+  @override
+  String get getToken => prefs.getString(Keys.token) ?? "";
 
   @override
-  String get getToken => prefs.getString(_token) ?? "";
-
-  @override
-  Future<void> setToken(String token) async => await prefs.setString(_token, token);
+  Future<void> setToken(String token) async => await prefs.setString(Keys.token, token);
 
   @override
   UserInfoModel? get getUserInfo {
-    final data = prefs.getString(_user);
+    final data = prefs.getString(Keys.user);
     return data == null ? null : UserInfoModel.fromJson(jsonDecode(data));
   }
 
   @override
-  Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(_user, jsonEncode(user.toJson()));
+  Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(Keys.user, jsonEncode(user.toJson()));
 
   @override
-  LangType get getLanguage => LangType.getObj(prefs.getString(_language) ?? LangType.uz.key);
+  LangType get getLanguage => LangType.getObj(prefs.getString(Keys.language) ?? LangType.uz.key);
 
   @override
-  Future<void> setLanguage(LangType lang) async => await prefs.setString(_language, lang.key);
+  Future<void> setLanguage(LangType lang) async => await prefs.setString(Keys.language, lang.key);
 
   @override
-  bool get isFirstLaunch => prefs.getBool(_firstLaunch) ?? true;
+  bool get isFirstLaunch => prefs.getBool(Keys.firstLaunch) ?? true;
 
   @override
-  Future<void> setNotFirstLaunch(bool value) async => await prefs.setBool(_firstLaunch, value);
+  Future<void> setNotFirstLaunch(bool value) async => await prefs.setBool(Keys.firstLaunch, value);
 
   @override
-  String get getFCMToken => prefs.getString(_fcmToken) ?? "";
+  String get getFCMToken => prefs.getString(Keys.fcmToken) ?? "";
 
   @override
-  Future<void> setFCMToken(String value) async => await prefs.setString(_fcmToken, value);
+  Future<void> setFCMToken(String value) async => await prefs.setString(Keys.fcmToken, value);
 
   @override
-  bool? get isBiometric => prefs.getBool(_biometric);
+  bool? get isBiometric => prefs.getBool(Keys.biometric);
 
   @override
-  Future<void> setBiometric(bool value) async => await prefs.setBool(_biometric, value);
+  Future<void> setBiometric(bool value) async => await prefs.setBool(Keys.biometric, value);
 
   @override
-  Future<void> removeBiometric() async => await prefs.remove(_biometric);
+  Future<void> remove(String key) async => await prefs.remove(key);
+
+  @override
+  AutoLockTimeType get getAutoLockTime =>
+      AutoLockTimeType.getObj(prefs.getString(Keys.autoLockTime) ?? AutoLockTimeType.after10Seconds.key);
+
+  @override
+  Future<void> setAutoLockTime(AutoLockTimeType value) async => await prefs.setString(Keys.autoLockTime, value.key);
 }

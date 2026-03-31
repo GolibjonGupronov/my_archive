@@ -52,8 +52,9 @@ class PinPutWithKeyboard extends StatefulWidget {
   final bool obscureText;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onFingerprint;
-  final VoidCallback? onComplete;
+  final VoidCallback? onDone;
   final bool showFingerPrint;
+  final ShakeController? shakeController;
 
   const PinPutWithKeyboard({
     super.key,
@@ -63,7 +64,8 @@ class PinPutWithKeyboard extends StatefulWidget {
     this.onChanged,
     this.onFingerprint,
     this.showFingerPrint = false,
-    required this.onComplete,
+    required this.onDone,
+    this.shakeController,
   });
 
   @override
@@ -82,7 +84,7 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
       widget.onFingerprint?.call();
       return;
     } else if (key == PinKey.done) {
-      widget.onComplete?.call();
+      widget.onDone?.call();
       return;
     } else {
       if (text.length < widget.maxLength) {
@@ -109,6 +111,12 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+      widget.controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     debugPrint("GGQ => PinPutWithKeyboard");
     final rows = _chunk(_buildKeyboard, 3);
@@ -116,14 +124,20 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CustomPinPut(
-          controller: widget.controller,
-          context: context,
-          length: widget.maxLength,
-          obscureText: widget.obscureText,
-          readOnly: true,
-          onChanged: widget.onChanged,
-          showBorder: false,
+        ShakeAnimation(
+          controller: widget.shakeController,
+          onStart: () {
+            setState(() {});
+          },
+          child: CustomPinPut(
+            controller: widget.controller,
+            context: context,
+            length: widget.maxLength,
+            obscureText: widget.obscureText,
+            readOnly: true,
+            onChanged: widget.onChanged,
+            showBorder: false,
+          ),
         ),
         SizedBox(height: 24.h),
         ...rows.map((row) {

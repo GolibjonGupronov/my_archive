@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:my_archive/core/constants/keys.dart';
 
 abstract class SecureStorage {
   Future<bool> checkPin(String pin);
@@ -9,7 +10,7 @@ abstract class SecureStorage {
 
   Future<String> getPin();
 
-  Future<void> deletePin();
+  Future<void> delete(String key);
 }
 
 class SecureStorageImpl extends SecureStorage {
@@ -17,31 +18,18 @@ class SecureStorageImpl extends SecureStorage {
 
   SecureStorageImpl({required this.storage});
 
-  static const String _pinKey = 'user_pin';
+  @override
+  Future<bool> checkPin(String pin) async => (await getPin()) == pin;
 
   @override
-  Future<bool> checkPin(String pin) async {
-    final saved = await getPin();
-    return saved == pin;
-  }
+  Future<void> savePin(String pin) async => await storage.write(key: Keys.pinKey, value: pin);
 
   @override
-  Future<void> savePin(String pin) async {
-    await storage.write(key: _pinKey, value: pin);
-  }
+  Future<String> getPin() async => await storage.read(key: Keys.pinKey) ?? "";
 
   @override
-  Future<String> getPin() async {
-    return await storage.read(key: _pinKey) ?? "";
-  }
+  Future<bool> hasPin() async => (await getPin()).isNotEmpty;
 
   @override
-  Future<bool> hasPin() async {
-    return (await getPin()).isNotEmpty;
-  }
-
-  @override
-  Future<void> deletePin() async {
-    return await storage.delete(key: _pinKey);
-  }
+  Future<void> delete(String key) async => await storage.delete(key: key);
 }

@@ -2,6 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+class ShakeController {
+  VoidCallback? _shake;
+
+  void _bind(VoidCallback shake) {
+    _shake = shake;
+  }
+
+  void shake() {
+    _shake?.call();
+  }
+}
+
 /// ShakeAnimation - elementni chayqatib ko'rsatadi (xato holatda)
 /// [onComplete] - animatsiya tugagandan keyin chaqiriladi
 class ShakeAnimation extends StatefulWidget {
@@ -10,6 +22,8 @@ class ShakeAnimation extends StatefulWidget {
   final double shakeOffset;
   final int shakeCount;
   final VoidCallback? onComplete;
+  final VoidCallback? onStart;
+  final ShakeController? controller;
 
   const ShakeAnimation({
     super.key,
@@ -18,6 +32,8 @@ class ShakeAnimation extends StatefulWidget {
     this.shakeOffset = 10.0,
     this.shakeCount = 4,
     this.onComplete,
+    this.onStart,
+    this.controller,
   });
 
   @override
@@ -32,17 +48,21 @@ class _ShakeAnimationState extends State<ShakeAnimation> with SingleTickerProvid
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this, duration: widget.duration);
-    _animation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.linear),
-    );
-
+    _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+    widget.controller?._bind(_startShake);
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onComplete?.call();
+      } else if (status == AnimationStatus.forward) {
+        widget.onStart?.call();
       }
     });
 
-    _controller.forward();
+    // _controller.forward();
+  }
+
+  void _startShake() {
+    _controller.forward(from: 0);
   }
 
   @override

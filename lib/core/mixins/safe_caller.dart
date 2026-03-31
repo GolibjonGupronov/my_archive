@@ -5,17 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/remove_storage.dart';
 import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
-void logoutApp() async {
-  final prefs = sl.get<PrefManager>();
-  final secure = sl.get<SecureStorage>();
-
-  await prefs.setToken("");
-  await prefs.removeBiometric();
-  await secure.deletePin();
+Future<void> logoutApp() async {
+  await RemoveStorage.logoutApp();
   router.go(SplashPage.tag);
   await NotificationService.deleteFCMToken;
 }

@@ -1,3 +1,5 @@
+import 'package:my_archive/features/app_lock/presentation/widgets/auto_lock_widget.dart';
+
 abstract class MyLockEvent {}
 
 class InitEvent extends MyLockEvent {}
@@ -11,3 +13,9 @@ class ToggleBiometricEvent extends MyLockEvent {
 }
 
 class RemovePinEvent extends MyLockEvent {}
+
+class AutoLockTimeEvent extends MyLockEvent {
+  final AutoLockTimeType timeType;
+
+  AutoLockTimeEvent({required this.timeType});
+}

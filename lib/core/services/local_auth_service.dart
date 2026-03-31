@@ -34,7 +34,7 @@ class LocalAuthService {
           ),
         ],
         biometricOnly: true,
-        persistAcrossBackgrounding: true,
+        // persistAcrossBackgrounding: true,
       );
     } catch (e) {
       debugPrint("GGQ => error $e");

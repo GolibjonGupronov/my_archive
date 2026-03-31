@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
@@ -11,10 +12,14 @@ class AppLockBloc extends Bloc<AppLockEvent, AppLockState> {
 
   AppLockBloc({required this.secureStorage, required this.prefManager}) : super(AppLockState()) {
     on<InitEvent>((event, emit) async {
+      debugPrint("GGQ => AppLockBloc InitEvent");
       if (prefManager.isBiometric == true) {
+        debugPrint("GGQ => isBiometric");
         emit(state.copyWith(lockStatus: StateStatus.inProgress));
         if (LocalAuthService.canUseBiometric) {
+          debugPrint("GGQ => canUseBiometric");
           if (await LocalAuthService.authenticate()) {
+            debugPrint("GGQ => after authenticate");
             emit(state.copyWith(lockStatus: StateStatus.success));
           }
         }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/local_storage/remove_storage.dart';
 import 'package:my_archive/features/auth/domain/entities/password_check_entity.dart';
 import 'package:my_archive/features/change_password/domain/use_cases/new_password_use_case.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_event.dart';
@@ -49,7 +50,7 @@ class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
     result.fold((fail) {
       emit(state.copyWith(passwordStatus: StateStatus.failure, errorMessage: fail.message));
     }, (data) {
-      prefManager.setToken('');
+      RemoveStorage.clearToken();
       emit(state.copyWith(passwordStatus: StateStatus.success));
     });
   }

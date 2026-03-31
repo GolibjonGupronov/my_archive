@@ -14,6 +14,7 @@ class AppLockPage extends StatelessWidget {
   static const String tag = '/app_lock_page';
 
   final TextEditingController pinCodeController = TextEditingController();
+  final ShakeController shakeController = ShakeController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,9 @@ class AppLockPage extends StatelessWidget {
         if (state.lockStatus.isSuccess) {
           context.pop(true);
         } else if (state.lockStatus.isFailure) {
+          pinCodeController.clear();
+          bloc.add(UpdateFieldEvent(pinCode: ""));
+          shakeController.shake();
           showErrorToast(context, state.errorMessage);
         }
       },
@@ -48,6 +52,7 @@ class AppLockPage extends StatelessWidget {
                 20.height,
                 PinPutWithKeyboard(
                   controller: pinCodeController,
+                  shakeController: shakeController,
                   maxLength: Constants.pinCodeLength,
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
@@ -56,7 +61,7 @@ class AppLockPage extends StatelessWidget {
                     bloc.add(InitEvent());
                   },
                   showFingerPrint: true,
-                  onComplete: () {
+                  onDone: () {
                     bloc.add(CheckPinEvent(pinCode: pinCodeController.text));
                   },
                 ),

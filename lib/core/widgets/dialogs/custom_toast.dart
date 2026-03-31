@@ -143,7 +143,7 @@ void _showToast(
       return Positioned(
         left: 16.w,
         right: 16.w,
-        bottom: bottomInset + 16.h,
+        bottom: bottomInset + 30.h,
         child: child,
       );
     },
