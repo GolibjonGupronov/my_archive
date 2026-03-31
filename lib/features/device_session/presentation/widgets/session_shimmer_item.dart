@@ -14,8 +14,8 @@ class SessionShimmerItem extends StatelessWidget {
       children: [
         CustomShimmer(
           child: BoxContainer(
-            borderRadius: BorderRadius.circular(8.r),
-            padding: EdgeInsets.all(4.w),
+            borderRadius: BorderRadius.circular(30.r),
+            padding: EdgeInsets.all(8.w),
             child: Icon(Icons.apple, size: 30.w),
           ),
         ),

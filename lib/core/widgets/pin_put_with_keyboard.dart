@@ -85,6 +85,7 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
       return;
     } else if (key == PinKey.done) {
       widget.onDone?.call();
+      setState(() {});
       return;
     } else {
       if (text.length < widget.maxLength) {
@@ -113,7 +114,7 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
   @override
   void dispose() {
     super.dispose();
-      widget.controller.dispose();
+    widget.controller.dispose();
   }
 
   @override
@@ -165,7 +166,7 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
 
   Widget _buildKey(PinKey key) {
     return InkWell(
-      onTap: () => _handleKeyTap(key),
+      onTap: () => key == PinKey.none ? null : _handleKeyTap(key),
       child: BoxContainer(
         width: 80.w,
         height: 80.w,
@@ -180,19 +181,11 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
       case PinKey.fingerprint:
         return Icon(Icons.fingerprint, size: 30.sp);
       case PinKey.done:
-        return TextView(
-          "OK",
-          fontWeight: FontWeight.bold,
-          fontSize: 24.sp,
-        );
+        return TextView("OK", fontWeight: FontWeight.bold, fontSize: 22.sp);
       case PinKey.backspace:
         return Icon(Icons.backspace_outlined, size: 30.sp);
       default:
-        return TextView(
-          key.key,
-          fontWeight: FontWeight.bold,
-          fontSize: 30.sp,
-        );
+        return TextView(key.key, fontWeight: FontWeight.bold, fontSize: 30.sp);
     }
   }
 }

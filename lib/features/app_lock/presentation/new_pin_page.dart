@@ -13,6 +13,7 @@ class NewPinPage extends StatelessWidget {
   static const String tag = '/new_pin_page';
 
   final TextEditingController pinCodeController = TextEditingController();
+  final ShakeController shakeController = ShakeController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,12 @@ class NewPinPage extends StatelessWidget {
     return BlocListener<NewPinBloc, NewPinState>(
       listenWhen: (previous, current) => previous.appLockStatus != current.appLockStatus,
       listener: (context, state) {
-        if (state.appLockStatus.isSuccess) {
+        if (state.appLockStatus.isFailure) {
+          pinCodeController.clear();
+          bloc.add(UpdateFieldEvent(pinCode: ""));
+          shakeController.shake();
+          showErrorToast(context, state.errorMessage);
+        } else if (state.appLockStatus.isSuccess) {
           showSuccessToast(context, "Ilova qulfi o'rnatildi");
           router.pop(true);
         }
@@ -41,16 +47,24 @@ class NewPinPage extends StatelessWidget {
               children: [
                 LogoWidget(),
                 30.height,
-                TextView("Yangi PIN kod kiriting", textAlign: TextAlign.center),
+                BlocSelector<NewPinBloc, NewPinState, String>(
+                  selector: (state) => state.newPinCode,
+                  builder: (context, state) {
+                    return TextView(state.isEmpty ? "Yangi PIN kod kiriting" : "Qayta PIN kod kiriting",
+                        textAlign: TextAlign.center);
+                  },
+                ),
                 20.height,
                 PinPutWithKeyboard(
                   controller: pinCodeController,
+                  shakeController: shakeController,
                   maxLength: Constants.pinCodeLength,
                   onChanged: (value) {
                     bloc.add(UpdateFieldEvent(pinCode: value));
                   },
                   onDone: () {
                     bloc.add(SavePinEvent(pinCode: pinCodeController.text));
+                    pinCodeController.clear();
                   },
                 ),
               ],

@@ -14,8 +14,8 @@ class DeviceSessionItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BoxContainer(
-            borderRadius: BorderRadius.circular(8.r),
-            padding: EdgeInsets.all(4.w),
+            borderRadius: BorderRadius.circular(30.r),
+            padding: EdgeInsets.all(8.w),
             color: AppColors.primary,
             child: Icon(item.operatingSystemType.icon, size: 30.w, color: AppColors.white)),
         12.width,

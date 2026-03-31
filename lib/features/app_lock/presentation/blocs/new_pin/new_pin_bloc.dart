@@ -14,10 +14,22 @@ class NewPinBloc extends Bloc<NewPinEvent, NewPinState> {
     on<InitEvent>((event, emit) {});
 
     on<SavePinEvent>((event, emit) async {
+      if (state.newPinCode.isEmpty) {
+        emit(state.copyWith(newPinCode: event.pinCode));
+        return;
+      }
       emit(state.copyWith(appLockStatus: StateStatus.inProgress));
-      if (prefManager.isBiometric == null) await LocalAuthService.tryBiometric();
-      await secureStorage.savePin(event.pinCode);
-      emit(state.copyWith(appLockStatus: StateStatus.success));
+      if (event.pinCode.isEmpty) {
+        emit(state.copyWith(appLockStatus: StateStatus.failure, errorMessage: "PIN kiriting"));
+        return;
+      }
+      if (state.newPinCode == event.pinCode) {
+        if (prefManager.isBiometric == null) await LocalAuthService.tryBiometric();
+        await secureStorage.savePin(event.pinCode);
+        emit(state.copyWith(appLockStatus: StateStatus.success));
+      } else {
+        emit(state.copyWith(appLockStatus: StateStatus.failure, errorMessage: "PIN kod mos emas"));
+      }
     });
 
     on<UpdateFieldEvent>((event, emit) {
