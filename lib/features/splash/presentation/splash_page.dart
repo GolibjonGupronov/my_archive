@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/app_lock/presentation/app_lock_wrapper.dart';
+import 'package:my_archive/features/app_lock/presentation/widgets/app_lock_wrapper.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_state.dart';

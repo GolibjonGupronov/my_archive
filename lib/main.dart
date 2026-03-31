@@ -13,7 +13,7 @@ import 'package:http/http.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/core/widgets/common/floating_buttons.dart';
-import 'package:my_archive/features/app_lock/presentation/app_lock_wrapper.dart';
+import 'package:my_archive/features/app_lock/presentation/widgets/app_lock_wrapper.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 final Alice alice = Alice(showNotification: false);
