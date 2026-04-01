@@ -29,7 +29,7 @@ enum AutoLockTimeType {
         AutoLockTimeType.after10Minutes => "10 minut",
         AutoLockTimeType.after30Minutes => "30 minut",
         AutoLockTimeType.after1Hour => "1 soat",
-        AutoLockTimeType.disable => "O'chirish",
+        AutoLockTimeType.disable => "O'chiq",
       };
 
   int get seconds => switch (this) {
