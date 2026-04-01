@@ -3,23 +3,35 @@ import 'package:my_archive/features/device_session/domain/entities/device_sessio
 
 class DeviceSessionState {
   final StateStatus sessionStatus;
-  final List<DeviceSessionEntity> deviceSessions;
+  final StateStatus terminateStatus;
+  final List<DeviceSessionEntity> noActiveDevices;
+  final DeviceSessionEntity? activeDevice;
+  final bool noDevice;
   final String errorMessage;
 
   DeviceSessionState({
     this.sessionStatus = StateStatus.initial,
-    this.deviceSessions = const [],
+    this.terminateStatus = StateStatus.initial,
+    this.noActiveDevices = const [],
+    this.activeDevice,
+    this.noDevice = true,
     this.errorMessage = "",
   });
 
   DeviceSessionState copyWith({
     StateStatus? sessionStatus,
-    List<DeviceSessionEntity>? deviceSessions,
+    StateStatus? terminateStatus,
+    List<DeviceSessionEntity>? noActiveDevices,
+    DeviceSessionEntity? activeDevice,
+    bool? noDevice,
     String? errorMessage,
   }) =>
       DeviceSessionState(
         sessionStatus: sessionStatus ?? this.sessionStatus,
-        deviceSessions: deviceSessions ?? this.deviceSessions,
+        terminateStatus: terminateStatus ?? this.terminateStatus,
+        noActiveDevices: noActiveDevices ?? this.noActiveDevices,
+        activeDevice: activeDevice ?? this.activeDevice,
+        noDevice: noDevice ?? this.noDevice,
         errorMessage: errorMessage ?? this.errorMessage,
       );
 }

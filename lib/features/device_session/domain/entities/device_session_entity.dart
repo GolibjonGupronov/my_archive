@@ -27,6 +27,7 @@ enum OperatingSystemType {
 }
 
 class DeviceSessionEntity {
+  final int id;
   final String deviceName;
   final OperatingSystemType operatingSystemType;
   final String appVersion;
@@ -34,8 +35,10 @@ class DeviceSessionEntity {
   final String sdk;
   final String address;
   final String dateTime;
+  final bool isCurrent;
 
   DeviceSessionEntity({
+    required this.id,
     required this.deviceName,
     required this.operatingSystemType,
     required this.appVersion,
@@ -43,5 +46,6 @@ class DeviceSessionEntity {
     required this.sdk,
     required this.address,
     required this.dateTime,
+    required this.isCurrent,
   });
 }

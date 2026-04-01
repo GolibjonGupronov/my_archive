@@ -3,4 +3,5 @@ import 'package:my_archive/features/device_session/domain/entities/device_sessio
 
 abstract class DeviceSessionRepository {
   Future<Either<Failure, List<DeviceSessionEntity>>> getDeviceSessions();
+  Future<Either<Failure, bool>> terminateDevice(int params);
 }

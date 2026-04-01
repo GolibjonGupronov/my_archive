@@ -16,5 +16,6 @@ class ApiUrls {
   static final String editProfile = "$_api/edit-profile";
   static final String storyList = "$_api/story_list";
   static final String deviceSessionList = "$_api/device_session_list";
+  static final String terminateDevice = "$_api/terminate_device";
   static final String enableNotification = "$_api/enable_notification";
 }

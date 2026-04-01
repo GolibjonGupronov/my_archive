@@ -5,6 +5,7 @@ import 'package:my_archive/features/device_session/domain/entities/device_sessio
 
 abstract class DeviceSessionDataSource {
   Future<List<DeviceSessionModel>> getDeviceSessions();
+  Future<bool> terminateDevice(int params);
 }
 
 class DeviceSessionDataSourceImpl extends DeviceSessionDataSource {
@@ -17,10 +18,17 @@ class DeviceSessionDataSourceImpl extends DeviceSessionDataSource {
     final response = await dio.mock(data: _deviceSessions).post(ApiUrls.deviceSessionList);
     return (response.data as List<dynamic>).map((e) => DeviceSessionModel.fromJson(e)).toList();
   }
+
+  @override
+  Future<bool> terminateDevice(int params) async {
+    final response = await dio.mock(data: true).post(ApiUrls.terminateDevice);
+    return response.data;
+  }
 }
 
 List<DeviceSessionModel> get _deviceSessions => [
       DeviceSessionModel(
+        id: 1,
         deviceName: "${(DeviceHelper.androidInfo?.brand ?? "").capitalize} ${DeviceHelper.androidInfo?.model}",
         operatingSystemType: OperatingSystemType.android,
         appVersion: DeviceHelper.packageInfo.version,
@@ -28,8 +36,10 @@ List<DeviceSessionModel> get _deviceSessions => [
         sdk: "${DeviceHelper.androidInfo?.version.sdkInt ?? 0}",
         address: "Tashkent, Uzbekistan",
         dateTime: "29/02/2000",
+        isCurrent: true,
       ),
       DeviceSessionModel(
+        id: 2,
         deviceName: "Iphone 17 Pro Max",
         operatingSystemType: OperatingSystemType.ios,
         appVersion: "1.2.4",
@@ -37,5 +47,28 @@ List<DeviceSessionModel> get _deviceSessions => [
         sdk: "12",
         address: "Tashkent, Uzbekistan",
         dateTime: "28/02/2000",
-      )
+        isCurrent: false,
+      ),
+      DeviceSessionModel(
+        id: 3,
+        deviceName: "${(DeviceHelper.androidInfo?.brand ?? "").capitalize} ${DeviceHelper.androidInfo?.model}",
+        operatingSystemType: OperatingSystemType.android,
+        appVersion: DeviceHelper.packageInfo.version,
+        releaseVersion: DeviceHelper.androidInfo?.version.release ?? "",
+        sdk: "${DeviceHelper.androidInfo?.version.sdkInt ?? 0}",
+        address: "Tashkent, Uzbekistan",
+        dateTime: "29/02/2000",
+        isCurrent: false,
+      ),
+      DeviceSessionModel(
+        id: 4,
+        deviceName: "Iphone 17 Pro Max",
+        operatingSystemType: OperatingSystemType.ios,
+        appVersion: "1.2.4",
+        releaseVersion: "26.3",
+        sdk: "12",
+        address: "Tashkent, Uzbekistan",
+        dateTime: "28/02/2000",
+        isCurrent: false,
+      ),
     ];
