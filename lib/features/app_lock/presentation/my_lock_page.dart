@@ -91,7 +91,13 @@ class MyLockPage extends StatelessWidget {
                                     },
                                     initialTime: state));
                           },
-                          suffixWidget: TextView(state.title,fontWeight: FontWeight.w400),
+                          suffixWidget: Row(
+                            children: [
+                              TextView(state.title,fontWeight: FontWeight.w400, fontSize: 14.sp),
+                              4.width,
+                              Icon(CupertinoIcons.chevron_forward)
+                            ],
+                          ),
                         );
                       },
                     ),
