@@ -8,3 +8,5 @@ Future<bool?> callNumber(String phone) async => await launchUrl(Uri(scheme: 'tel
 
 MaskTextInputFormatter phoneNumberMask({String mask = '+998 (##) ### ## ##'}) =>
     MaskTextInputFormatter(mask: mask, filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+
+bool canShowEmpty(List list, bool progress) => list.isEmpty && !progress;

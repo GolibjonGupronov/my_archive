@@ -27,7 +27,7 @@ abstract class PrefManager {
 
   Future<void> setFCMToken(String value);
 
-  bool? get isBiometric;
+  bool get isBiometric;
 
   Future<void> setBiometric(bool value);
 
@@ -77,7 +77,7 @@ class PrefManagerImpl implements PrefManager {
   Future<void> setFCMToken(String value) async => await prefs.setString(Keys.fcmToken, value);
 
   @override
-  bool? get isBiometric => prefs.getBool(Keys.biometric);
+  bool get isBiometric => prefs.getBool(Keys.biometric) ?? false;
 
   @override
   Future<void> setBiometric(bool value) async => await prefs.setBool(Keys.biometric, value);

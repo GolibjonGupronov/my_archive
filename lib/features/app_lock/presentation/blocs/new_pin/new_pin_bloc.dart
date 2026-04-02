@@ -3,8 +3,8 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
 
-import 'new_pin_event.dart';
-import 'new_pin_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_state.dart';
 
 class NewPinBloc extends Bloc<NewPinEvent, NewPinState> {
   final SecureStorage secureStorage;
@@ -24,7 +24,10 @@ class NewPinBloc extends Bloc<NewPinEvent, NewPinState> {
         return;
       }
       if (state.newPinCode == event.pinCode) {
-        if (prefManager.isBiometric == null) await LocalAuthService.tryBiometric();
+        if (prefManager.isBiometric == false){
+          final bool auth = await LocalAuthService.tryBiometric();
+          await prefManager.setBiometric(auth);
+        }
         await secureStorage.savePin(event.pinCode);
         emit(state.copyWith(appLockStatus: StateStatus.success));
       } else {

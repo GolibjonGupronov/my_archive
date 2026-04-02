@@ -70,7 +70,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           CustomButton(
             tr('save'),
             () {
-              changeLanguage(context, _curLang);
+              changeLanguage(_curLang);
             },
           ),
           context.safeBottomSpace(16),
@@ -79,10 +79,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
     );
   }
 
-  Future<void> changeLanguage(BuildContext context, LangType lang) async {
+  Future<void> changeLanguage(LangType lang) async {
     _prefManager.setLanguage(lang);
     await context.setLocale(lang.locale);
     await Get.updateLocale(lang.locale);
+    if (!mounted) return;
     Navigator.of(context).pop();
   }
 }

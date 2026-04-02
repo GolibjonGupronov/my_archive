@@ -3,7 +3,7 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/edit_profile/presentation/bloc/edit_profile_event.dart';
 import 'package:my_archive/features/edit_profile/presentation/bloc/edit_profile_state.dart';
-import 'package:my_archive/features/profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:my_archive/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final EditProfileUseCase editProfileUseCase;

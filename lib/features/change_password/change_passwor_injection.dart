@@ -1,6 +1,6 @@
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/change_password/data/data_sources/change_password_data_source.dart';
-import 'package:my_archive/features/change_password/data/repositories/auth_repository_impl.dart';
+import 'package:my_archive/features/change_password/data/repositories/change_password_repository_impl.dart';
 import 'package:my_archive/features/change_password/domain/repositories/change_password_repository.dart';
 import 'package:my_archive/features/change_password/domain/use_cases/new_password_use_case.dart';
 import 'package:my_archive/features/change_password/domain/use_cases/old_password_use_case.dart';

@@ -84,7 +84,7 @@ class DeviceSessionPage extends StatelessWidget {
                                   Bounce(
                                     onTap: () {
                                       if (!progress) {
-                                        showRejectDialog(context, "Barcha sessiyalarni tugatish",
+                                        showRejectDialog(context, "Barcha sessiyalarni to'xtatish",
                                             subTitle: "Haqiqatdan ham barcha sessiyalarni tugatmoqchimisiz?", onConfirm: () {
                                           bloc.add(TerminateAllEvent());
                                         });
@@ -99,7 +99,7 @@ class DeviceSessionPage extends StatelessWidget {
                                         children: [
                                           Icon(CupertinoIcons.hand_raised_fill, color: AppColors.white),
                                           8.width,
-                                          TextView("Boshqa barcha sessiyalarni tugatish", color: AppColors.white),
+                                          TextView("Boshqa barcha sessiyalarni to'xtatish", color: AppColors.white),
                                         ],
                                       ),
                                     ),
@@ -115,7 +115,7 @@ class DeviceSessionPage extends StatelessWidget {
                             Padding(
                                 padding: EdgeInsets.only(left: 8.w, bottom: 12.h, top: 12.h),
                                 child: TextView("Boshqa qurilmalar")),
-                            _check(state.noActiveDevices, progress)
+                            canShowEmpty(state.noActiveDevices, progress)
                                 ? Center(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ class DeviceSessionPage extends StatelessWidget {
                                           return Bounce(
                                               onTap: () {
                                                 if (!progress) {
-                                                  showRejectDialog(context, "Ushbu sessiyai tugatish",
+                                                  showRejectDialog(context, "Ushbu sessiyani to'xtatish",
                                                       subTitle: "Haqiqatdan ham ushbu \"${item.deviceName}\" sessiyani tugatmoqchimisiz?",
                                                       onConfirm: () {
                                                     bloc.add(TerminateDeviceEvent(id: item.id));
@@ -160,8 +160,4 @@ class DeviceSessionPage extends StatelessWidget {
       ),
     );
   }
-}
-
-bool _check(List list, bool progress) {
-  return list.isEmpty && !progress;
 }

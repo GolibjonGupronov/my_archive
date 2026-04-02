@@ -39,83 +39,70 @@ class MyLockPage extends StatelessWidget {
         body: ListView(
           padding: EdgeInsets.all(20.w),
           children: [
-            ProfileItem(
-              title: "Yangi PIN o'rnatish",
-              prefixIconData: CupertinoIcons.lock_rotation_open,
-              onTap: () {
-                context.push(NewPinPage.tag).then((value) {
-                  if (value != null) router.pop();
-                });
-              },
-            ),
-            20.height,
-            BlocSelector<MyLockBloc, MyLockState, bool>(
-              selector: (state) => state.hasPin,
-              builder: (context, state) {
-                if (!state) {
-                  return const SizedBox();
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (LocalAuthService.canUseBiometric) ...[
-                      BlocSelector<MyLockBloc, MyLockState, bool>(
-                        selector: (state) => state.isBiometricEnabled,
-                        builder: (context, state) {
-                          debugPrint("GGQ => Biometric state: $state");
-                          return ProfileItem(
-                            title: "Biometrik qulf",
-                            prefixIconData: Icons.fingerprint_rounded,
-                            suffixWidget: CupertinoSwitch(
-                              value: state,
-                              onChanged: (value) async {
-                                bloc.add(ToggleBiometricEvent(value: value));
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      20.height,
-                    ],
-                    BlocSelector<MyLockBloc, MyLockState, AutoLockTimeType>(
-                      selector: (state) => state.autoLockTime,
-                      builder: (context, state) {
-                        return ProfileItem(
-                          title: "Avtomatik qulflash",
-                          prefixIconData: CupertinoIcons.time,
-                          onTap: () {
-                            showCustomDialog(context,
-                                child: AutoLockWidget(
-                                    onTimeSelected: (AutoLockTimeType type) {
-                                      bloc.add(AutoLockTimeEvent(timeType: type));
-                                    },
-                                    initialTime: state));
+            Column(
+              spacing: 20.h,
+              children: [
+                ProfileItem(
+                  title: "Yangi PIN o'rnatish",
+                  prefixIconData: CupertinoIcons.lock_rotation_open,
+                  onTap: () {
+                    context.push(NewPinPage.tag).then((value) {
+                      if (value != null) router.pop();
+                    });
+                  },
+                ),
+                if (LocalAuthService.canUseBiometric)
+                  BlocSelector<MyLockBloc, MyLockState, bool>(
+                    selector: (state) => state.isBiometricEnabled,
+                    builder: (context, state) {
+                      debugPrint("GGQ => Biometric state: $state");
+                      return ProfileItem(
+                        title: "Biometrik qulf",
+                        prefixIconData: Icons.fingerprint_rounded,
+                        suffixWidget: CupertinoSwitch(
+                          value: state,
+                          onChanged: (value) async {
+                            bloc.add(ToggleBiometricEvent(value: value));
                           },
-                          suffixWidget: Row(
-                            children: [
-                              TextView(state.title,fontWeight: FontWeight.w400, fontSize: 14.sp),
-                              4.width,
-                              Icon(CupertinoIcons.chevron_forward)
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    20.height,
-                    ProfileItem(
-                      title: "Ilova qulfini o'chirish",
-                      prefixIconData: CupertinoIcons.trash,
+                        ),
+                      );
+                    },
+                  ),
+                BlocSelector<MyLockBloc, MyLockState, AutoLockTimeType>(
+                  selector: (state) => state.autoLockTime,
+                  builder: (context, state) {
+                    return ProfileItem(
+                      title: "Avtomatik qulflash",
+                      prefixIconData: CupertinoIcons.time,
                       onTap: () {
-                        showRejectDialog(context, "Ilova qulfini o'chirish",
-                            subTitle: "Haqiqatan ham ilova qulfini o'chirmoqchimisiz?", onConfirm: () {
-                          bloc.add(RemovePinEvent());
-                        });
+                        showCustomDialog(context,
+                            child: AutoLockWidget(
+                                onTimeSelected: (AutoLockTimeType type) {
+                                  bloc.add(AutoLockTimeEvent(timeType: type));
+                                },
+                                initialTime: state));
                       },
-                    ),
-                    20.height,
-                  ],
-                );
-              },
+                      suffixWidget: Row(
+                        children: [
+                          TextView(state.title, fontWeight: FontWeight.w400, color: AppColors.gray),
+                          4.width,
+                          Icon(CupertinoIcons.chevron_forward, color: AppColors.gray)
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                ProfileItem(
+                  title: "Ilova qulfini o'chirish",
+                  prefixIconData: CupertinoIcons.trash,
+                  onTap: () {
+                    showRejectDialog(context, "Ilova qulfini o'chirish",
+                        subTitle: "Haqiqatan ham ilova qulfini o'chirmoqchimisiz?", onConfirm: () {
+                      bloc.add(RemovePinEvent());
+                    });
+                  },
+                ),
+              ],
             ),
           ],
         ),

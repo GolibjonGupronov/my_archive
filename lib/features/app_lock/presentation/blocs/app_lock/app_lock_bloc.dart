@@ -12,14 +12,10 @@ class AppLockBloc extends Bloc<AppLockEvent, AppLockState> {
 
   AppLockBloc({required this.secureStorage, required this.prefManager}) : super(AppLockState()) {
     on<InitEvent>((event, emit) async {
-      debugPrint("GGQ => AppLockBloc InitEvent");
-      if (prefManager.isBiometric == true) {
-        debugPrint("GGQ => isBiometric");
-        emit(state.copyWith(lockStatus: StateStatus.inProgress));
-        if (LocalAuthService.canUseBiometric) {
-          debugPrint("GGQ => canUseBiometric");
+      if (LocalAuthService.canUseBiometric) {
+        if (prefManager.isBiometric == true) {
+          emit(state.copyWith(lockStatus: StateStatus.inProgress));
           if (await LocalAuthService.authenticate()) {
-            debugPrint("GGQ => after authenticate");
             emit(state.copyWith(lockStatus: StateStatus.success));
           }
         }

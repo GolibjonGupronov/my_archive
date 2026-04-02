@@ -6,14 +6,14 @@ import 'package:my_archive/core/core_exports.dart';
 
 class LocalAuthService {
   static final LocalAuthentication _localAuthentication = LocalAuthentication();
-  static final PrefManager _prefManager = sl.get<PrefManager>();
 
-  static Future<void> tryBiometric() async {
+  static Future<bool> tryBiometric() async {
     if (canUseBiometric) {
-      bool ok = await authenticate();
-      debugPrint("GGQ => biometric auth result: $ok");
-      _prefManager.setBiometric(ok);
+      bool auth = await authenticate();
+      debugPrint("GGQ => biometric auth result: $auth");
+      return auth;
     }
+    return false;
   }
 
   static bool get canUseBiometric => DeviceHelper.canUseBiometric;

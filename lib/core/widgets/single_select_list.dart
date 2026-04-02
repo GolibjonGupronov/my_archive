@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
 
-class SingleSelectItemModel {
+class SingleSelectItemEntity {
   final String title;
   final dynamic value;
   final List<String> extraVisibleValues;
 
-  SingleSelectItemModel(this.title, this.value, {this.extraVisibleValues = const []});
+  SingleSelectItemEntity(this.title, this.value, {this.extraVisibleValues = const []});
 }
 
 class SingleSelectListWidget extends StatefulWidget {
-  final List<SingleSelectItemModel> items;
+  final List<SingleSelectItemEntity> items;
   final dynamic selectedItem;
   final Function(dynamic item) onSelect;
   final ScrollController scrollController;
@@ -25,7 +25,7 @@ class SingleSelectListWidget extends StatefulWidget {
 
 class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
   late dynamic _selectedItem;
-  List<SingleSelectItemModel> lists = [];
+  List<SingleSelectItemEntity> lists = [];
   final TextEditingController _searchController = TextEditingController();
 
   @override

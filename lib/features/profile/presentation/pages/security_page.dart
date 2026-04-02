@@ -20,33 +20,36 @@ class SecurityPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(20.w),
         children: [
-          ProfileItem(
-            title: "Parolni tahrirlash",
-            prefixIconData: Icons.key_rounded,
-            onTap: () {
-              context.push(OldPasswordPage.tag);
-            },
-          ),
-          20.height,
-          ProfileItem(
-            title: "Ilova qulfi",
-            prefixIconData: CupertinoIcons.lock_fill,
-            onTap: () async {
-              if (await bloc.secureStorage.hasPin()) {
-                router.push(CurrentPinPage.tag);
-              } else {
-                router.push(NewPinPage.tag);
-              }
-            },
-          ),
-          20.height,
-          ProfileItem(
-            title: "Qurilma sessiyasi",
-            prefixIconData: Icons.phone_android_rounded,
-            onTap: () {
-              context.push(DeviceSessionPage.tag);
-            },
-          ),
+          Column(
+            spacing: 20.h,
+            children: [
+              ProfileItem(
+                title: "Parolni tahrirlash",
+                prefixIconData: Icons.key_rounded,
+                onTap: () {
+                  context.push(OldPasswordPage.tag);
+                },
+              ),
+              ProfileItem(
+                title: "Ilova qulfi",
+                prefixIconData: CupertinoIcons.lock_fill,
+                onTap: () async {
+                  if (await bloc.secureStorage.hasPin()) {
+                    router.push(CurrentPinPage.tag);
+                  } else {
+                    router.push(NewPinPage.tag);
+                  }
+                },
+              ),
+              ProfileItem(
+                title: "Qurilma sessiyasi",
+                prefixIconData: Icons.phone_android_rounded,
+                onTap: () {
+                  context.push(DeviceSessionPage.tag);
+                },
+              ),
+            ],
+          )
         ],
       ),
     );

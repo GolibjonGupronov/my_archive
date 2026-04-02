@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart
 import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_image.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -45,7 +48,30 @@ class ProfilePage extends StatelessWidget {
       ],
       child: CustomScaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(tr('profile'), showBackButton: false),
+        appBar: CustomAppBar(
+          tr('profile'),
+          showBackButton: false,
+          actions: [
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(right: 16.w),
+                child: Bounce(
+                  onTap: () {
+                    showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: () {
+                      logoutApp();
+                    });
+                  },
+                  child: BoxContainer(
+                    padding: EdgeInsets.all(8.w),
+                    color: AppColors.red,
+                    shape: BoxShape.circle,
+                    child: Icon(Icons.logout_rounded, color: AppColors.white, size: 20.w),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         body: Column(
           children: [
             Expanded(
@@ -53,59 +79,51 @@ class ProfilePage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 32.h),
                 children: [
                   ProfileImage(bloc: bloc),
-                  60.height,
-                  ProfileItem(
-                    title: "Mening ma'lumotlarim",
-                    prefixIconData: CupertinoIcons.profile_circled,
-                    onTap: () async {
-                      var value = await context.push(EditProfilePage.tag);
-                      if (value != null) {
-                        bloc.add(InitEvent());
-                      }
-                    },
-                  ),
-                  20.height,
-                  ProfileItem(
-                    title: "Xavfsizlik",
-                    prefixIconData: CupertinoIcons.lock_shield,
-                    onTap: () {
-                      context.push(SecurityPage.tag, extra: bloc);
-                    },
-                  ),
-                  20.height,
-                  ProfileItem(
-                    title: tr('settings'),
-                    prefixIconData: Icons.settings,
-                    onTap: () {
-                      context.push(SettingsPage.tag, extra: bloc);
-                    },
+                  50.height,
+                  Column(
+                    spacing: 15.h,
+                    children: [
+                      ProfileItem(
+                        title: "Mening ma'lumotlarim",
+                        prefixIconData: CupertinoIcons.profile_circled,
+                        onTap: () async {
+                          var value = await context.push(EditProfilePage.tag);
+                          if (value != null) {
+                            bloc.add(InitEvent());
+                          }
+                        },
+                      ),
+                      ProfileItem(
+                        title: "Xavfsizlik",
+                        prefixIconData: CupertinoIcons.lock_shield,
+                        onTap: () {
+                          context.push(SecurityPage.tag, extra: bloc);
+                        },
+                      ),
+                      ProfileItem(
+                        title: tr('settings'),
+                        prefixIconData: Icons.settings,
+                        onTap: () {
+                          context.push(SettingsPage.tag, extra: bloc);
+                        },
+                      ),
+                      ProfileItem(
+                        title: "Yordam",
+                        prefixIconData: Icons.help,
+                        onTap: () {
+                          context.push(HelpPage.tag);
+                        },
+                      ),
+                      ProfileItem(
+                        title: "Ulashish",
+                        prefixIconData: Icons.share_rounded,
+                        onTap: () {
+                          shareApp();
+                        },
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Bounce(
-                onTap: () {
-                  showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: () {
-                    logoutApp();
-                  });
-                },
-                child: BoxContainer(
-                  color: AppColors.red.withValues(alpha: .8),
-                  withShadow: true,
-                  borderRadius: BorderRadius.circular(60.r),
-                  child: SizedBox(
-                      height: 54.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextView(tr('logout'), maxLines: 1, color: AppColors.white),
-                          12.width,
-                          Icon(Icons.logout, color: AppColors.white),
-                        ],
-                      )),
-                ),
               ),
             ),
             10.height,
@@ -116,4 +134,18 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void shareApp() async {
+  final androidLink = 'https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med';
+  final iosLink = 'https://apps.apple.com/us/app/evomed/id6758425374';
+
+  final link = Platform.isIOS ? iosLink : androidLink;
+
+  await SharePlus.instance.share(
+    ShareParams(
+      text: '🚀 Ilovani yuklab oling:\n$link',
+      subject: 'Bizning ilova',
+    ),
+  );
 }

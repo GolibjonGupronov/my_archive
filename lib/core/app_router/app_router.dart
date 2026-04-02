@@ -184,6 +184,22 @@ final GoRouter router = GoRouter(
         child: NewPinPage(),
       ),
     ),
+    GoRoute(
+      path: HelpPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: HelpPage(),
+      ),
+    ),
+    GoRoute(
+      path: FaqPage.tag,
+      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
+        context: context,
+        state: state,
+        child: FaqPage(),
+      ),
+    ),
   ],
 );
 

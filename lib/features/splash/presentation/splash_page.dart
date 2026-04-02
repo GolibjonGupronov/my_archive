@@ -31,6 +31,11 @@ class SplashPage extends StatelessWidget {
         if (state.splashStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.splashStatus.isSuccess) {
+          if (state.isFirstLaunch == true) {
+            if (!context.mounted) return;
+            await showCustomBottomSheetDialog(context: context, child: LanguageWidget())
+                .then((value) async => await sl.get<PrefManager>().setNotFirstLaunch(false));
+          }
           if (state.nextPage == NextPage.main) {
             if (await bloc.secureStorage.hasPin()) {
               router.push(AppLockPage.tag).then((value) {
@@ -41,12 +46,6 @@ class SplashPage extends StatelessWidget {
               return;
             }
           }
-          if (state.isFirstLaunch == true) {
-            if (!context.mounted) return;
-            await showCustomBottomSheetDialog(context: context, child: LanguageWidget())
-                .then((value) async => await sl.get<PrefManager>().setNotFirstLaunch(false));
-          }
-
           router.go(state.nextPage.page);
         }
       },

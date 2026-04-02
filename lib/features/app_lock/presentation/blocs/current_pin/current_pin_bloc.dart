@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/secure_storage.dart';
 
-import 'current_pin_event.dart';
-import 'current_pin_state.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_event.dart';
+import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_state.dart';
 
 class CurrentPinBloc extends Bloc<CurrentPinEvent, CurrentPinState> {
   final SecureStorage secureStorage;

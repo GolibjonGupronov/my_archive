@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:my_archive/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:my_archive/features/faq/data/models/faq_model.dart';
 
 abstract class ProfileDataSource {
   Future<String> changeImage(String params);

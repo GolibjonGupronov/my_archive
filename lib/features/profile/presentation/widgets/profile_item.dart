@@ -36,7 +36,7 @@ class ProfileItem extends StatelessWidget {
                 12.width,
                 Expanded(child: TextView(title, maxLines: 1)),
                 4.width,
-                suffixWidget ?? Icon(CupertinoIcons.chevron_forward),
+                suffixWidget ?? Icon(CupertinoIcons.chevron_forward, color: AppColors.gray),
               ],
             )),
       ),
