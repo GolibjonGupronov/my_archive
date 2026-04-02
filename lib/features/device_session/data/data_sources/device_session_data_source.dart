@@ -35,7 +35,7 @@ List<DeviceSessionModel> get _deviceSessions => [
         releaseVersion: DeviceHelper.androidInfo?.version.release ?? "",
         sdk: "${DeviceHelper.androidInfo?.version.sdkInt ?? 0}",
         address: "Tashkent, Uzbekistan",
-        dateTime: "29/02/2000",
+        dateTime: "24/02/2026",
         isCurrent: true,
       ),
       DeviceSessionModel(
@@ -46,7 +46,7 @@ List<DeviceSessionModel> get _deviceSessions => [
         releaseVersion: "26.3",
         sdk: "12",
         address: "Tashkent, Uzbekistan",
-        dateTime: "28/02/2000",
+        dateTime: "28/02/2026",
         isCurrent: false,
       ),
       DeviceSessionModel(
@@ -57,7 +57,7 @@ List<DeviceSessionModel> get _deviceSessions => [
         releaseVersion: DeviceHelper.androidInfo?.version.release ?? "",
         sdk: "${DeviceHelper.androidInfo?.version.sdkInt ?? 0}",
         address: "Tashkent, Uzbekistan",
-        dateTime: "29/02/2000",
+        dateTime: "27/02/2026",
         isCurrent: false,
       ),
       DeviceSessionModel(
@@ -68,7 +68,7 @@ List<DeviceSessionModel> get _deviceSessions => [
         releaseVersion: "26.3",
         sdk: "12",
         address: "Tashkent, Uzbekistan",
-        dateTime: "28/02/2000",
+        dateTime: "28/02/2026",
         isCurrent: false,
       ),
     ];

@@ -110,7 +110,7 @@ extension StringDateParsing on String {
 
   String formatTo(String outputFormat) {
     final date = toDateTime;
-    if (date == null) return "";
+    if (date == null) return "--";
 
     return DateFormat(outputFormat).format(date);
   }

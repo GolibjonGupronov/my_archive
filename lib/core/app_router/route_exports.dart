@@ -19,7 +19,6 @@ export 'package:my_archive/features/main/presentation/main_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/profile_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/security_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/settings_page.dart';
-export 'package:my_archive/features/setup/presentation/setup_page.dart';
 export 'package:my_archive/features/splash/presentation/splash_page.dart';
 export 'package:my_archive/features/story/presentation/story_page.dart';
 export 'package:my_archive/features/update/presentation/update_page.dart';

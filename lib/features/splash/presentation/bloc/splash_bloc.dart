@@ -21,12 +21,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       add(AppConfigEvent());
     });
     on<AppConfigEvent>((event, emit) async {
-      if (prefManager.isFirstLaunch) {
-        emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.setup));
-      } else {
-        await _appConfig(emit);
-      }
+      await _appConfig(emit);
     });
+
     on<UserDataEvent>((event, emit) async {
       await _getUserInfo(emit);
     });
@@ -48,13 +45,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   Future<void> _getUserInfo(Emitter<SplashState> emit) async {
+    emit(state.copyWith(isFirstLaunch: prefManager.isFirstLaunch));
     if (prefManager.getToken.isEmpty) {
       emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
     } else {
       final result = await userInfoUseCase.callUseCase(NoParams());
       result.fold(
         (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
-        (data) => emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main)),
+        (data) => emit(
+            state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main)),
       );
     }
   }
