@@ -10,6 +10,5 @@ void initProfileInjection() {
   sl.registerSingleton<ProfileDataSource>(ProfileDataSourceImpl(dio: sl()));
   sl.registerSingleton<ProfileRepository>(ProfileRepositoryImpl(profileDataSource: sl()));
   sl.registerSingleton<ChangeImageUseCase>(ChangeImageUseCase(repository: sl()));
-  sl.registerSingleton<EditProfileUseCase>(EditProfileUseCase(repository: sl()));
   sl.registerSingleton<EnableNotificationUseCase>(EnableNotificationUseCase(repository: sl()));
 }

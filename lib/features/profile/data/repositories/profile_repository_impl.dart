@@ -1,5 +1,4 @@
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
 import 'package:my_archive/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:my_archive/features/profile/domain/repositories/profile_repository.dart';
 
@@ -11,11 +10,6 @@ class ProfileRepositoryImpl with SafeCaller implements ProfileRepository {
   @override
   Future<Either<Failure, String>> changeImage(String params) {
     return safeCall(() async => await profileDataSource.changeImage(params));
-  }
-
-  @override
-  Future<Either<Failure, bool>> editProfile(EditProfileParams params) {
-    return safeCall(() async => await profileDataSource.editProfile(params));
   }
 
   @override

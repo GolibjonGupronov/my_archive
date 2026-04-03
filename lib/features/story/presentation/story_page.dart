@@ -40,7 +40,7 @@ class _StoryPageState extends State<StoryPage> {
       create: (_) => StoryBloc(
           storyList: widget.storyList,
           currentIndex: widget.activeIndex,
-          pageController: PageController(initialPage: widget.activeIndex))
+          pageController: PageController(initialPage: widget.activeIndex), readStoryUseCase: sl())
         ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );

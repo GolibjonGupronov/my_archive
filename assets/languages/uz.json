@@ -49,5 +49,8 @@
   "enter_password": "Parol kiriting",
   "enter_comment": "Izoh kiriting",
   "field_required": "Bu maydon majburiy",
+  "update_app": "Iltimos ilovani yangilang!",
+  "update_app_message": "Ilovaning so‘nggi versiyasini {} orqali yuklab oling va yangi imkoniyatlardan foydalaning!",
+  "update": "Yangilash",
   "yes": "Ha"
 }

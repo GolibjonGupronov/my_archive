@@ -60,8 +60,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/telegram.png
   AssetGenImage get telegram => const AssetGenImage('assets/images/telegram.png');
 
+  /// File path: assets/images/update.png
+  AssetGenImage get update => const AssetGenImage('assets/images/update.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [facebook, instagram, logo, telegram];
+  List<AssetGenImage> get values => [facebook, instagram, logo, telegram, update];
 }
 
 class $AssetsLanguagesGen {

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_archive/features/story/domain/entities/story_entity.dart';
+import 'package:my_archive/features/story/domain/use_cases/read_story_use_case.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_event.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_state.dart';
 import 'package:video_player/video_player.dart';
@@ -18,10 +19,13 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
   late final AppLifecycleListener _lifecycleListener;
 
+  final ReadStoryUseCase readStoryUseCase;
+
   StoryBloc({
     required this.storyList,
     required this.currentIndex,
     required this.pageController,
+    required this.readStoryUseCase,
   })  : _progressList = List.filled(storyList.length, 0),
         super(const StoryState()) {
     on<InitEvent>((event, emit) {
@@ -42,8 +46,8 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
     on<UpdatedActivePageEvent>(_onUpdatedActivePage);
 
     on<ReadStoryEvent>((event, emit) {
-      // final item = storyList[currentIndex];
-      // if (!item.isRead) _storyRepository.readStory(item.id);
+      final item = storyList[currentIndex];
+      if (!item.isRead) readStoryUseCase.callUseCase(item.id);
     });
 
     on<FinishPageEvent>((event, emit) {

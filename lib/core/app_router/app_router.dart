@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/args.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
+import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 
@@ -24,7 +25,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
         context: context,
         state: state,
-        child: UpdatePage(),
+        child: UpdatePage(appConfigEntity: state.extra as AppConfigEntity),
       ),
     ),
     GoRoute(

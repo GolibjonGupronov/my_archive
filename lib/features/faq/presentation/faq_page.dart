@@ -5,6 +5,8 @@ import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_bloc.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_event.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_state.dart';
+import 'package:my_archive/features/faq/presentation/widgets/faq_item.dart';
+import 'package:my_archive/features/faq/presentation/widgets/faq_shimmer_item.dart';
 
 class FaqPage extends StatelessWidget {
   const FaqPage({super.key});
@@ -48,19 +50,12 @@ class FaqPage extends StatelessWidget {
                 : ListView.separated(
                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     itemBuilder: (context, index) {
-                      final faq = state.faqList[index];
-                      return ExpansionTile(
-                        title: TextView(faq.question, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 12.h, left: 12.w, right: 12.w),
-                            child: TextView(faq.answer, fontSize: 13.sp, color: Colors.grey[700]),
-                          ),
-                        ],
-                      );
+                      if (progress) return FaqShimmerItem();
+                      final item = state.faqList[index];
+                      return FaqItem(item: item);
                     },
-                    separatorBuilder: (context, index) => Divider(height: 1.h),
-                    itemCount: state.faqList.length,
+                    separatorBuilder: (context, index) => 10.height,
+                    itemCount: progress ? 3 : state.faqList.length,
                   );
           },
         ),

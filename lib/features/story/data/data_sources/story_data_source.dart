@@ -7,6 +7,8 @@ import 'package:my_archive/features/story/domain/entities/story_entity.dart';
 
 abstract class StoryDataSource {
   Future<List<StoryModel>> storyList();
+
+  Future<bool> readStory(int params);
 }
 
 class StoryDataSourceImpl extends StoryDataSource {
@@ -18,6 +20,12 @@ class StoryDataSourceImpl extends StoryDataSource {
   Future<List<StoryModel>> storyList() async {
     final response = await dio.mock(data: _storyList).get(ApiUrls.storyList);
     return (response.data as List<dynamic>).map((e) => StoryModel.fromJson(e)).toList();
+  }
+
+  @override
+  Future<bool> readStory(int params) async {
+    final response = await dio.mock(data: true).post(ApiUrls.readStory, data: {"id": params});
+    return response.data;
   }
 }
 

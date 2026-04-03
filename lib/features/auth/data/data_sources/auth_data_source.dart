@@ -58,7 +58,10 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<AppConfigModel> appConfig() async {
     final data = AppConfigModel(
-        iosMinimumBuildCode: 1, androidMinimumBuildCode: 1, googlePlayLink: "googlePlayLink", appStoreLink: "appStoreLink");
+        iosMinimumBuildCode: 1,
+        androidMinimumBuildCode: 1,
+        googlePlayLink: "https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med",
+        appStoreLink: "https://apps.apple.com/us/app/evomed/id6758425374");
     final response = await dio.mock(data: data).get(ApiUrls.appConfig);
     return AppConfigModel.fromJson(response.data);
   }

@@ -1,8 +1,8 @@
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/profile/domain/repositories/profile_repository.dart';
+import 'package:my_archive/features/edit_profile/domain/repositories/edit_profile_repository.dart';
 
 class EditProfileUseCase extends UseCase<bool, EditProfileParams> {
-  final ProfileRepository repository;
+  final EditProfileRepository repository;
 
   EditProfileUseCase({required this.repository});
 

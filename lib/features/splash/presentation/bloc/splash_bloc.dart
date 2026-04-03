@@ -39,7 +39,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       if (buildCode == null || buildCode >= (Platform.isAndroid ? data.androidMinimumBuildCode : data.iosMinimumBuildCode)) {
         add(UserDataEvent());
       } else {
-        emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.update));
+        emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.update, appConfig: data));
       }
     });
   }

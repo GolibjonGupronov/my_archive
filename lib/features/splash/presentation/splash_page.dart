@@ -46,7 +46,7 @@ class SplashPage extends StatelessWidget {
               return;
             }
           }
-          router.go(state.nextPage.page);
+          router.go(state.nextPage.page, extra: state.nextPage == NextPage.update ? state.appConfig : null);
         }
       },
       child: CustomScaffold(
