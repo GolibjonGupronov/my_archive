@@ -44,13 +44,16 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled}) async {
     final data = UserInfoModel(
-        firstName: "G'olibjon",
-        secondName: "G'upronov",
-        gender: Gender.male,
-        birthday: "29.02.2000",
-        phone: "+998999940941",
-        image: "https://picsum.photos/400/200?3",
-        isNotificationEnabled: isNotificationEnabled);
+      firstName: "G'olibjon",
+      secondName: "G'upronov",
+      gender: Gender.male,
+      birthday: "29.02.2000",
+      phone: "+998999940941",
+      image: "https://picsum.photos/400/200?3",
+      isNotificationEnabled: isNotificationEnabled,
+      callCenter: "0000",
+      telegramBot: "https://t.me/m0b1leDevel0per",
+    );
     final response = await dio.mock(data: data).get(ApiUrls.userInfo);
     return UserInfoModel.fromJson(response.data);
   }

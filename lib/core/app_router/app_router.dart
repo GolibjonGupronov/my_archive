@@ -5,6 +5,8 @@ import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart'
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 
+enum AppTransitionType { fade, slideRight, slideUp, scale }
+
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
@@ -14,33 +16,33 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: SplashPage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
+        type: AppTransitionType.fade,
         child: SplashPage(),
       ),
     ),
     GoRoute(
       path: UpdatePage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
+        type: AppTransitionType.fade,
         child: UpdatePage(appConfigEntity: state.extra as AppConfigEntity),
       ),
     ),
     GoRoute(
       path: MainPage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
+        type: AppTransitionType.fade,
         child: MainPage(),
       ),
     ),
     GoRoute(
       path: RegistrationPage.tag,
-      pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
+        type: AppTransitionType.fade,
         child: RegistrationPage(),
       ),
     ),
@@ -49,87 +51,78 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) {
         final items = List<String>.from(state.extra as List);
         if (items.isEmpty) {
-          return buildPageWithFadeTransition<void>(
-            context: context,
+          return buildPage<void>(
             state: state,
+            type: AppTransitionType.fade,
             child: NoImagePage(),
           );
         }
-        return buildPageWithFadeTransition<void>(
-          context: context,
+        return buildPage<void>(
           state: state,
+          type: AppTransitionType.fade,
           child: ImageZoomPage(items: items),
         );
       },
     ),
     GoRoute(
       path: SettingsPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: SettingsPage(bloc: state.extra as ProfileBloc),
       ),
     ),
     GoRoute(
       path: SecurityPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: SecurityPage(bloc: state.extra as ProfileBloc),
       ),
     ),
     GoRoute(
       path: LoginPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: LoginPage(),
       ),
     ),
     GoRoute(
       path: ResetPhonePage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: ResetPhonePage(),
       ),
     ),
     GoRoute(
       path: ResetSmsPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: ResetSmsPage(phoneNumber: state.extra as String),
       ),
     ),
     GoRoute(
       path: RegSmsPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: RegSmsPage(registrationParams: state.extra as RegistrationParams),
       ),
     ),
     GoRoute(
       path: NewPasswordPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: NewPasswordPage(),
       ),
     ),
     GoRoute(
       path: OldPasswordPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: OldPasswordPage(),
       ),
     ),
     GoRoute(
       path: EditProfilePage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: EditProfilePage(),
       ),
@@ -138,8 +131,7 @@ final GoRouter router = GoRouter(
       path: StoryPage.tag,
       pageBuilder: (context, state) {
         final args = state.extra as StoryPageArgs;
-        return buildPageWithSlideRightTransition<void>(
-          context: context,
+        return buildPage<void>(
           state: state,
           child: StoryPage(storyList: args.storyList, activeIndex: args.activeIndex, itemCheck: args.itemCheck),
         );
@@ -147,56 +139,50 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: DeviceSessionPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: DeviceSessionPage(),
       ),
     ),
     GoRoute(
       path: AppLockPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
+        type: AppTransitionType.scale,
         child: AppLockPage(),
       ),
     ),
     GoRoute(
       path: CurrentPinPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: CurrentPinPage(),
       ),
     ),
     GoRoute(
       path: MyLockPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: MyLockPage(),
       ),
     ),
     GoRoute(
       path: NewPinPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: NewPinPage(),
       ),
     ),
     GoRoute(
       path: HelpPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: HelpPage(),
       ),
     ),
     GoRoute(
       path: FaqPage.tag,
-      pageBuilder: (context, state) => buildPageWithSlideRightTransition<void>(
-        context: context,
+      pageBuilder: (context, state) => buildPage<void>(
         state: state,
         child: FaqPage(),
       ),
@@ -204,64 +190,34 @@ final GoRouter router = GoRouter(
   ],
 );
 
-CustomTransitionPage buildPageWithScaleTransition<T>({
-  required BuildContext context,
+CustomTransitionPage<T> buildPage<T>({
   required GoRouterState state,
   required Widget child,
-}) {
-  return CustomTransitionPage<T>(
-    key: state.pageKey,
-    child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) => ScaleTransition(scale: animation, child: child),
-  );
-}
-
-CustomTransitionPage buildPageWithFadeTransition<T>({
-  required BuildContext context,
-  required GoRouterState state,
-  required Widget child,
+  AppTransitionType type = AppTransitionType.slideRight,
 }) {
   return CustomTransitionPage<T>(
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return FadeTransition(opacity: animation, child: child);
-    },
-  );
-}
+      switch (type) {
+        case AppTransitionType.fade:
+          return FadeTransition(opacity: animation, child: child);
 
-CustomTransitionPage<T> buildPageWithSlideUpTransition<T>({
-  required BuildContext context,
-  required GoRouterState state,
-  required Widget child,
-}) {
-  return CustomTransitionPage<T>(
-    key: state.pageKey,
-    child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      final Offset begin = Offset(0.0, 1.0);
-      final Offset end = Offset.zero;
-      final Tween<Offset> offsetTween = Tween(begin: begin, end: end);
-      final Animation<Offset> offsetAnimation = animation.drive(offsetTween);
-      return SlideTransition(position: offsetAnimation, child: child);
-    },
-  );
-}
+        case AppTransitionType.slideRight:
+          return SlideTransition(
+            position: animation.drive(Tween(begin: const Offset(1, 0), end: Offset.zero)),
+            child: child,
+          );
 
-CustomTransitionPage<T> buildPageWithSlideRightTransition<T>({
-  required BuildContext context,
-  required GoRouterState state,
-  required Widget child,
-}) {
-  return CustomTransitionPage<T>(
-    key: state.pageKey,
-    child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      final Offset begin = Offset(1.0, 0.0);
-      final Offset end = Offset.zero;
-      final Tween<Offset> offsetTween = Tween(begin: begin, end: end);
-      final Animation<Offset> offsetAnimation = animation.drive(offsetTween);
-      return SlideTransition(position: offsetAnimation, child: child);
+        case AppTransitionType.slideUp:
+          return SlideTransition(
+            position: animation.drive(Tween(begin: const Offset(0, 1), end: Offset.zero)),
+            child: child,
+          );
+
+        case AppTransitionType.scale:
+          return ScaleTransition(scale: animation, child: child);
+      }
     },
   );
 }

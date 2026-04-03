@@ -118,7 +118,7 @@ class ProfilePage extends StatelessWidget {
                         title: "Ulashish",
                         prefixIconData: Icons.share_rounded,
                         onTap: () {
-                          shareApp();
+                          _shareApp;
                         },
                       ),
                     ],
@@ -136,7 +136,7 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-void shareApp() async {
+Future<void> get _shareApp async {
   final androidLink = 'https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med';
   final iosLink = 'https://apps.apple.com/us/app/evomed/id6758425374';
 

@@ -23,28 +23,35 @@ extension CustomString on String {
     return '...${substring(length - keep)}';
   }
 
-  String phoneFormatter({String mask = "+### (##) ###-##-##"}) {
-    final digits = replaceAll(RegExp(r'\D'), '');
-    int digitIndex = digits.length - 1;
+  String phoneFormatter({String mask = "+000 (00) 000-00-00"}) {
+    if (mask.isEmpty) {
+      return this;
+    }
+    final chars = replaceAll(RegExp(r'\D+'), '').split('');
 
-    final buffer = StringBuffer();
+    if (chars.length != mask.replaceAll(RegExp(r'\D+'), '').length) {
+      return this;
+    }
 
-    for (int i = mask.length - 1; i >= 0; i--) {
-      final maskChar = mask[i];
-
-      if (maskChar == '#') {
-        if (digitIndex >= 0) {
-          buffer.write(digits[digitIndex]);
-          digitIndex--;
+    final result = <String>[];
+    var index = 0;
+    for (var i = 0; i < mask.length; i++) {
+      if (index >= chars.length) {
+        break;
+      }
+      final curChar = chars[index];
+      if (mask[i] == '0') {
+        if (ExtensionHelper.isDigit(curChar)) {
+          result.add(curChar);
+          index++;
         } else {
           break;
         }
       } else {
-        buffer.write(maskChar);
+        result.add(mask[i]);
       }
     }
-
-    return buffer.toString().split('').reversed.join();
+    return result.join();
   }
 
   String get phoneReplace => replaceAll(" ", "").replaceAll("(", "").replaceAll(")", "").replaceAll("-", "");

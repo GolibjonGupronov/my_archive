@@ -11,7 +11,8 @@
     "server_error": "Server xatosi. Keyinroq urinib ko'ring.",
     "server_response_timeout": "Server javobi vaqti tugadi.",
     "unexpected_error": "Kutilmagan xato. Qayta urinib ko'ring.",
-    "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring."
+    "unknown_error": "Xato yuz berdi. Qayta urinib ko'ring.",
+    "type_error": "Ma’lumot turi xatosi."
   },
   "settings": "Sozlamalar",
   "logout": "Chiqish",

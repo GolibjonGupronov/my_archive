@@ -24,6 +24,14 @@ class BotService {
     final report = await _buildServerErrorText(text);
     await _sendMessage(report);
   }
+
+  static Future<void> sendTypeError(String text) async {
+    if (kDebugMode) {
+      return;
+    }
+    final report = await _buildTypeErrorText(text);
+    await _sendMessage(report);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -31,42 +39,37 @@ class BotService {
 /* -------------------------------------------------------------------------- */
 
 Future<String> _buildMobileBugText(FlutterErrorDetails details) async {
-  final device = await _getDeviceInfo();
-  final packageInfo = DeviceHelper.packageInfo;
-
+  String device = await _deviceText;
   return '''
 🐞 MOBILE BUG
 
-Project: ${Constants.appName}
-Date: ${DateTime.now().toIso8601String()}
+$_title
+💬 Error: ${details.exceptionAsString()}
+📍 Stacktrace: ${_shortStack(details.stack)}
 
-Error:
-${details.exceptionAsString()}
-
-Stacktrace:
-${_shortStack(details.stack)}
-
-Device: $device
-OS: ${Platform.operatingSystem}
-Version: ${packageInfo.version} (${packageInfo.buildNumber})
+$device
 ''';
 }
 
 Future<String> _buildServerErrorText(String text) async {
-  final device = await _getDeviceInfo();
-  final packageInfo = DeviceHelper.packageInfo;
-
+  String device = await _deviceText;
   return '''
 🚨 SERVER ERROR
 
-Project: ${Constants.appName}
-Date: ${DateTime.now().toIso8601String()}
-
+$_title
 $text
+$device
+''';
+}
 
-Device: $device
-OS: ${Platform.operatingSystem}
-Version: ${packageInfo.version} (${packageInfo.buildNumber})
+Future<String> _buildTypeErrorText(String text) async {
+  String device = await _deviceText;
+  return '''
+📌 TYPE ERROR
+
+$_title
+$text
+$device
 ''';
 }
 
@@ -98,7 +101,24 @@ Future<void> _sendMessage(String text) async {
 /*                                DEVICE INFO                                 */
 /* -------------------------------------------------------------------------- */
 
-Future<String> _getDeviceInfo() async {
+String get _title {
+  return '''
+📝 Project: ${Constants.appName}
+📅 Date: ${DateTime.now().toIso8601String()}
+''';
+}
+
+Future<String> get _deviceText async {
+  final device = await _getDeviceInfo;
+  final packageInfo = DeviceHelper.packageInfo;
+  return '''
+📱 Device: $device
+🖥 OS: ${Platform.operatingSystem}
+🔢 Version: ${packageInfo.version} (${packageInfo.buildNumber})
+''';
+}
+
+Future<String> get _getDeviceInfo async {
   final deviceInfo = DeviceHelper.deviceInfo;
 
   try {

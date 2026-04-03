@@ -8,6 +8,8 @@ class UserInfoEntity {
   final String phone;
   final String image;
   final bool isNotificationEnabled;
+  final String callCenter;
+  final String telegramBot;
 
   UserInfoEntity({
     required this.firstName,
@@ -17,6 +19,8 @@ class UserInfoEntity {
     required this.phone,
     required this.image,
     required this.isNotificationEnabled,
+    required this.callCenter,
+    required this.telegramBot,
   });
 
   String get fullName => "$firstName\n$secondName";

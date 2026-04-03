@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/remove_storage.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/notification_service.dart';
 import 'package:my_archive/features/splash/presentation/splash_page.dart';
 
@@ -23,7 +22,7 @@ mixin SafeCaller {
       return Right(result);
     } catch (e, stackTrace) {
       _prettyDebugPrint(e, stackTrace);
-      return Left(ServerFailure(message: _handleDioError(e)));
+      return Left(ServerFailure(message: _handleDioError(e, stackTrace)));
     }
   }
 
@@ -44,16 +43,19 @@ mixin SafeCaller {
       return Right(result);
     } catch (e, stackTrace) {
       _prettyDebugPrint(e, stackTrace);
-      return Left(ServerFailure(message: _handleDioError(e)));
+      return Left(ServerFailure(message: _handleDioError(e, stackTrace)));
     }
   }
 }
 
-String _handleDioError(dynamic error) {
-  if (error is DioException) {
+String _handleDioError(dynamic error, StackTrace? stackTrace) {
+  if (error is TypeError) {
+    _sendErrorToBot(error, stackTrace);
+    return tr('error_dio.type_error');
+  } else if (error is DioException) {
     final res = error.response;
     if (res?.statusCode == 500) {
-      _sendErrorToBot(error);
+      _sendErrorToBot(error, stackTrace);
     }
     if (res?.statusCode == 401) {
       logoutApp();
@@ -96,13 +98,17 @@ String _handleDioError(dynamic error) {
   return tr('error_dio.unexpected_error');
 }
 
-void _sendErrorToBot(dynamic error) {
+void _sendErrorToBot(dynamic error, StackTrace? stackTrace) {
   try {
-    BotService.sendServerError(_buildErrorText(error));
+    if (error is TypeError) {
+      BotService.sendTypeError(_buildTypeErrorText(error, stackTrace));
+    } else {
+      BotService.sendServerError(_buildErrorText(error, stackTrace));
+    }
   } catch (_) {}
 }
 
-String _buildErrorText(DioException error) {
+String _buildErrorText(DioException error, StackTrace? stackTrace) {
   final buffer = StringBuffer();
 
   buffer.writeln("🌐 URL: ${error.requestOptions.uri}");
@@ -117,6 +123,21 @@ String _buildErrorText(DioException error) {
     buffer.writeln("📥 ResponseData: ${_short(error.response?.data)}");
   }
 
+  if (stackTrace != null) {
+    buffer.writeln("📍 StackTrace: ${_shortStack(stackTrace)}");
+  }
+
+  return buffer.toString();
+}
+
+String _buildTypeErrorText(TypeError error, StackTrace? stackTrace) {
+  final buffer = StringBuffer();
+
+  buffer.writeln("💬 Error: $error");
+  if (stackTrace != null) {
+    buffer.writeln("📍 StackTrace: ${_shortStack(stackTrace)}");
+  }
+
   return buffer.toString();
 }
 
@@ -126,6 +147,11 @@ String _short(dynamic data, {int max = 500}) {
     return "${text.substring(0, max)}...";
   }
   return text;
+}
+
+String _shortStack(StackTrace? stackTrace, {int maxLines = 10}) {
+  if (stackTrace == null) return '';
+  return stackTrace.toString().split('\n').take(maxLines).join('\n');
 }
 
 String getPrettyJSONString(Object jsonObject) {
