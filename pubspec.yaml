@@ -42,7 +42,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   fluttertoast: ^9.0.0
   image_cropper: ^12.2.1
-  permission_handler: ^13.0.1
+  permission_handler: ^12.0.3
   geolocator: ^14.0.3
   image_picker: ^1.2.3
   mask_text_input_formatter: ^2.9.0
@@ -59,7 +59,7 @@ dependencies:
   local_auth: ^3.0.2
   local_auth_android: ^2.0.8
   local_auth_darwin: ^2.0.3
-  flutter_secure_storage: ^11.0.0
+  flutter_secure_storage: ^10.3.1
 
   share_plus: ^13.3.0
 
