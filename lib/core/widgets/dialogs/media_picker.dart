@@ -71,25 +71,21 @@ class MediaPicker {
                       if (!await PermissionService.requestFilePermissionWithToast(ctx)) {
                         return;
                       }
-                      final files = await FilePicker.platform.pickFiles(
-                        // allowCompression: true,
-                        allowMultiple: false,
-                      );
-                      if (files != null && files.files.isNotEmpty) {
+                      final files = await FilePicker.pickFiles();
+                      if (files.isNotEmpty) {
                         final List<String> filePath = [];
                         final List<String> fileNames = [];
-                        final List<int> fileSizes = [];
-                        for (var file in files.files) {
+                        for (var file in files) {
                           if (file.path != null) {
                             filePath.add(file.path!);
                             fileNames.add(file.name);
-                            fileSizes.add(file.size);
                           }
                         }
 
                         if (filePath.isNotEmpty) {
                           onResult(filePath.first);
                         } else {
+                          if(!ctx.mounted) return;
                           showErrorToast(ctx, tr('file_not_found'));
                         }
                       }

@@ -83,6 +83,8 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
         return tr('error_dio.request_canceled');
       case DioExceptionType.connectionError:
         return tr('error_dio.network_error');
+      case DioExceptionType.transformTimeout:
+        return tr('error_dio.transform_timeout');
       case DioExceptionType.unknown:
         return tr('error_dio.unknown_error');
     }

@@ -271,7 +271,7 @@ class _MockErrorInterceptorHandler extends ErrorInterceptorHandler {
   }
 
   @override
-  void reject(DioException error) {
+  void reject(DioException error, [bool callFollowingErrorInterceptor = false]) {
     throw error;
   }
 

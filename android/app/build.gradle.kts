@@ -6,6 +6,7 @@ val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -14,7 +15,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.my_archive"
+    namespace = "uz.golibjon.my_archive"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -29,7 +30,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.my_archive"
+        applicationId = "uz.golibjon.my_archive"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
