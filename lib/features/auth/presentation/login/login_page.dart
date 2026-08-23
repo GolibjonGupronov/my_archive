@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextView("Ro'yxatdan o'tish", textDecoration: TextDecoration.underline, color: AppColors.primary)),
                 ],
               ),
-              context.safeBottomSpace(8)
+              8.height
             ],
           ),
         ),

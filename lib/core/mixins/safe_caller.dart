@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/remove_storage.dart';
@@ -52,7 +53,9 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
   if (error is TypeError) {
     _sendErrorToBot(error, stackTrace);
     return tr('error_dio.type_error');
-  } else if (error is DioException) {
+  }
+
+  if (error is DioException) {
     final res = error.response;
     if (res?.statusCode == 500) {
       _sendErrorToBot(error, stackTrace);
@@ -88,9 +91,13 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
       case DioExceptionType.unknown:
         return tr('error_dio.unknown_error');
     }
-  } else if (error is SocketException) {
+  }
+
+  if (error is SocketException) {
     return tr('error_dio.no_internet');
-  } else if (error is HttpException) {
+  }
+
+  if (error is HttpException) {
     return error.message.isNotEmpty ? error.message : tr('error_dio.http_error');
   }
 
@@ -174,6 +181,13 @@ void _prettyDebugPrint(Object error, StackTrace stackTrace) {
     buffer.writeln("────────── StackTrace ──────────");
     buffer.writeln(stackTrace);
     buffer.writeln("════════════════════════════════");
+  } else if (error is FirebaseException) {
+    buffer.writeln("══════════ 🔥 FIREBASE ERROR ══════════");
+    buffer.writeln("Code: ${error.code}");
+    buffer.writeln("Message: ${error.message}");
+    buffer.writeln("────────── StackTrace ──────────");
+    buffer.writeln(stackTrace);
+    buffer.writeln("════════════════════════════════════════");
   } else {
     buffer.writeln("══════════ ❌ ERROR ══════════");
     buffer.writeln("🕒 Time: ${DateTime.now()}");

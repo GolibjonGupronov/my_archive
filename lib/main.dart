@@ -31,9 +31,9 @@ void main() {
       WidgetsFlutterBinding.ensureInitialized();
       await EasyLocalization.ensureInitialized();
       await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      await Firebase.initializeApp();
       await InjectionContainer.init();
       await DeviceHelper.init();
-      await Firebase.initializeApp();
       await NotificationService.init();
       FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 

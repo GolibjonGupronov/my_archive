@@ -1,5 +1,7 @@
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/data/data_sources/auth_data_source.dart';
+import 'package:my_archive/features/auth/data/data_sources/auth_data_source_impl.dart';
+import 'package:my_archive/features/auth/data/data_sources/firebase_auth_data_source_impl.dart';
 import 'package:my_archive/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:my_archive/features/auth/domain/repositories/auth_repository.dart';
 import 'package:my_archive/features/auth/domain/use_cases/app_config_use_case.dart';
@@ -10,7 +12,8 @@ import 'package:my_archive/features/auth/domain/use_cases/send_phone_use_case.da
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 
 void initAuthInjection() {
-  sl.registerSingleton<AuthDataSource>(AuthDataSourceImpl(dio: sl()));
+  // sl.registerSingleton<AuthDataSource>(AuthDataSourceImpl(dio: sl()));
+  sl.registerSingleton<AuthDataSource>(FirebaseAuthDataSourceImpl(firebaseAuth: sl(), firestore: sl(), prefManager: sl()));
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(authDataSource: sl(), prefManager: sl()));
   sl.registerSingleton<LoginUseCase>(LoginUseCase(repository: sl()));
   sl.registerSingleton<SendPhoneUseCase>(SendPhoneUseCase(repository: sl()));

@@ -80,6 +80,7 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
         final hasChanges = widget.hasUnsavedChanges?.call() ?? false;
 
         if (hasChanges) {
+          if (!context.mounted) return;
           await showRejectDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
               subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
               onConfirm: () => Navigator.of(context).pop(true),
@@ -87,6 +88,7 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
           return;
         }
 
+        if (!context.mounted) return;
         if (widget.canPop && Navigator.of(context).canPop()) {
           Navigator.of(context).pop();
         }

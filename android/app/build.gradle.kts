@@ -16,7 +16,7 @@ plugins {
 
 android {
     namespace = "uz.golibjon.my_archive"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
