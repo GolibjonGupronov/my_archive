@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => ProfilePage");
+    logger("GGQ => ProfilePage");
     final bloc = BlocProvider.of<ProfileBloc>(context);
 
     return MultiBlocListener(

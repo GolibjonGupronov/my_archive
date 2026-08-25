@@ -47,7 +47,7 @@ class NotificationService {
     String title = msg.notification?.title ?? msg.data['title'] ?? Constants.appName;
     String body = msg.notification?.body ?? msg.data['body'] ?? "Bizni kuzatib boring";
 
-    debugPrint('GGQ => $title $body');
+    logger('GGQ => $title $body');
     const NotificationDetails details = NotificationDetails(
       android: AndroidNotificationDetails(
         _channelId,
@@ -63,7 +63,7 @@ class NotificationService {
 
   static Future<void> _getFCMToken() async {
     String? fcmToken = await _firebaseMessaging.getToken();
-    debugPrint("FCM_TOKEN: $fcmToken");
+    logger("FCM_TOKEN: $fcmToken");
     if (fcmToken != null) {
       await sl.get<PrefManager>().setFCMToken(fcmToken);
     }
@@ -78,17 +78,17 @@ class NotificationService {
       apnsToken = await _firebaseMessaging.getAPNSToken();
 
       if (apnsToken == null) {
-        debugPrint('⏳ Waiting for APNS token... (attempt ${retries + 1}/$maxRetries)');
+        logger('⏳ Waiting for APNS token... (attempt ${retries + 1}/$maxRetries)');
         await Future.delayed(const Duration(seconds: 1));
         retries++;
       } else {
-        debugPrint('✅ APNS_TOKEN: $apnsToken');
+        logger('✅ APNS_TOKEN: $apnsToken');
       }
     }
 
     if (apnsToken == null) {
-      debugPrint('⚠️ APNS token still null after $maxRetries attempts');
-      debugPrint('⚠️ But APNs device token was registered, so notifications should still work');
+      logger('⚠️ APNS token still null after $maxRetries attempts');
+      logger('⚠️ But APNs device token was registered, so notifications should still work');
     }
   }
 

@@ -119,7 +119,7 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("GGQ => PinPutWithKeyboard");
+    logger("GGQ => PinPutWithKeyboard");
     final rows = _chunk(_buildKeyboard, 3);
 
     return Column(

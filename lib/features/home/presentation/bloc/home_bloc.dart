@@ -10,7 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required this.storyListUseCase}) : super(HomeState()) {
     on<InitEvent>((event, emit) {
-      debugPrint("GGQ => HomeBloc InitEvent");
+      logger("GGQ => HomeBloc InitEvent");
       add(StoryListEvent());
     });
 

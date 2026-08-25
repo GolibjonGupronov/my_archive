@@ -22,7 +22,7 @@ class SplashPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => SplashPage");
+    logger("GGQ => SplashPage");
     final bloc = BlocProvider.of<SplashBloc>(context);
 
     return BlocListener<SplashBloc, SplashState>(

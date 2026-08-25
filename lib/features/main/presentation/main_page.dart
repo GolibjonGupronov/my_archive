@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => MainPage");
+    logger("GGQ => MainPage");
     final bloc = BlocProvider.of<MainBloc>(context);
     final pages = bottomNavigationItems.map((item) => item.page).toList();
 

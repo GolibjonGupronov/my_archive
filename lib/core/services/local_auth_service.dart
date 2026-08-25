@@ -10,7 +10,7 @@ class LocalAuthService {
   static Future<bool> tryBiometric() async {
     if (canUseBiometric) {
       bool auth = await authenticate();
-      debugPrint("GGQ => biometric auth result: $auth");
+      logger("GGQ => biometric auth result: $auth");
       return auth;
     }
     return false;
@@ -20,7 +20,7 @@ class LocalAuthService {
 
   static Future<bool> authenticate() async {
     try {
-      debugPrint("GGQ => authenticate");
+      logger("GGQ => authenticate");
       return await _localAuthentication.authenticate(
         localizedReason: 'Qulfni ochish uchun tasdiqlang',
         authMessages: <AuthMessages>[
@@ -37,7 +37,7 @@ class LocalAuthService {
         // persistAcrossBackgrounding: true,
       );
     } catch (e) {
-      debugPrint("GGQ => error $e");
+      logger("GGQ => error $e");
       return false;
     }
   }

@@ -36,7 +36,7 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => ResetPhonePage");
+    logger("GGQ => ResetPhonePage");
     final bloc = BlocProvider.of<ResetPhoneBloc>(context);
 
     return BlocListener<ResetPhoneBloc, ResetPhoneState>(

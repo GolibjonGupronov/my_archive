@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => LoginPage");
+    logger("GGQ => LoginPage");
     final bloc = BlocProvider.of<LoginBloc>(context);
 
     return BlocListener<LoginBloc, LoginState>(

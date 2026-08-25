@@ -35,7 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    debugPrint("GGQ => RegistrationPage");
+    logger("GGQ => RegistrationPage");
     final bloc = BlocProvider.of<RegistrationBloc>(context);
 
     return BlocListener<RegistrationBloc, RegistrationState>(
@@ -121,7 +121,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     BlocSelector<RegistrationBloc, RegistrationState, Gender>(
                       selector: (state) => state.gender,
                       builder: (context, state) {
-                        debugPrint("GGQ => Gender");
+                        logger("GGQ => Gender");
                         return CustomRadioList(
                           "Jins",
                           segments: Gender.values,
@@ -136,7 +136,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     BlocSelector<RegistrationBloc, RegistrationState, DateTime?>(
                       selector: (state) => state.birthDay,
                       builder: (context, state) {
-                        debugPrint("GGQ => Birthday");
+                        logger("GGQ => Birthday");
                         return CustomSelectField(
                           "Tug'ilgan kun",
                           "kk.oo.yyyy",

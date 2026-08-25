@@ -198,5 +198,5 @@ void _prettyDebugPrint(Object error, StackTrace stackTrace) {
     buffer.writeln("════════════════════════════════");
   }
 
-  debugPrint(buffer.toString());
+  logger(buffer.toString());
 }

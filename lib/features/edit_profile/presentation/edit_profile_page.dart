@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: BlocSelector<EditProfileBloc, EditProfileState, bool>(
         selector: (state) => state.isChanged,
         builder: (context, state) {
-          debugPrint("GGQ => state.isChanged");
+          logger("GGQ => state.isChanged");
           return CustomScaffold(
             hasUnsavedChanges: () => state,
             appBar: CustomAppBar(""),
@@ -137,7 +137,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             BlocSelector<EditProfileBloc, EditProfileState, Gender>(
                               selector: (state) => state.gender,
                               builder: (context, state) {
-                                debugPrint("GGQ => Gender");
+                                logger("GGQ => Gender");
                                 return CustomRadioList(
                                   "Jins",
                                   segments: Gender.values,
@@ -151,7 +151,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
                               selector: (state) => state.birthDay,
                               builder: (context, state) {
-                                debugPrint("GGQ => Birthday");
+                                logger("GGQ => Birthday");
                                 return CustomSelectField(
                                   "Tug'ilgan kun",
                                   "kk.oo.yyyy",

@@ -32,7 +32,7 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    debugPrint("GGQ => AppLifecycleState $state");
+    logger("GGQ => AppLifecycleState $state");
     if (state == AppLifecycleState.paused) {
       _count = 0;
       _pausedAt = DateTime.now();

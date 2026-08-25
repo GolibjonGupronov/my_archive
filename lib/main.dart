@@ -70,10 +70,10 @@ void main() {
 }
 
 void catchUnhandledExceptions(Object error, StackTrace? stack, {bool fatal = true}) {
-  debugPrintStack(stackTrace: stack, label: error.toString());
+  loggerStack(stackTrace: stack, label: error.toString());
   try {
     // FirebaseCrashlytics.instance.recordError(error, stack, fatal: fatal);
-    debugPrintStack(stackTrace: stack, label: error.toString());
+    loggerStack(stackTrace: stack, label: error.toString());
   } catch (_) {}
 }
 
