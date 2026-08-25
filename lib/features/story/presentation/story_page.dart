@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_action_entity.dart';
@@ -40,7 +41,8 @@ class _StoryPageState extends State<StoryPage> {
       create: (_) => StoryBloc(
           storyList: widget.storyList,
           currentIndex: widget.activeIndex,
-          pageController: PageController(initialPage: widget.activeIndex), readStoryUseCase: sl())
+          pageController: PageController(initialPage: widget.activeIndex),
+          readStoryUseCase: sl())
         ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
@@ -98,14 +100,16 @@ class _StoryPageState extends State<StoryPage> {
                             ),
                             if (item.action != null)
                               Positioned(
-                                left: 16,
-                                right: 16,
-                                bottom: context.safeBottom(10),
-                                child: CustomButton(
-                                  item.action!.title,
-                                  () => switch (item.action!.type) {
-                                    StoryActionType.link => openUrl(item.action!.actionData),
-                                  },
+                                left: 16.w,
+                                right: 16.w,
+                                bottom: 10.h,
+                                child: SafeArea(
+                                  child: CustomButton(
+                                    item.action!.title,
+                                    () => switch (item.action!.type) {
+                                      StoryActionType.link => openUrl(item.action!.actionData),
+                                    },
+                                  ),
                                 ),
                               ),
                           ],
@@ -197,7 +201,7 @@ class _TopGradient extends StatelessWidget {
       left: 0,
       right: 0,
       child: Container(
-        height: context.safeTop(100),
+        height: 100.h,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -226,9 +230,9 @@ class _TopBar extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: context.safeTop(10),
+        left: 16.w,
+        right: 16.w,
+        top: 10.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -258,7 +262,7 @@ class _TopBar extends StatelessWidget {
                               percent: bloc.currentIndex > index
                                   ? 1.0
                                   : (bloc.currentIndex == index ? state.indicatorProgress : 0) / 100.0,
-                              barRadius: const Radius.circular(24),
+                              barRadius: Radius.circular(24.r),
                             ),
                           ),
                         ),
@@ -268,16 +272,16 @@ class _TopBar extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 16),
+          16.height,
           Align(
             alignment: Alignment.topRight,
             child: Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: EdgeInsets.only(right: 16.w),
               child: InkWell(
                 onTap: () => context.pop(),
-                child: const Icon(
+                child: Icon(
                   CupertinoIcons.clear,
-                  size: 32,
+                  size: 32.w,
                   color: AppColors.white,
                 ),
               ),

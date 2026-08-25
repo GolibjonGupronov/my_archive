@@ -73,7 +73,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
               changeLanguage(_curLang);
             },
           ),
-          context.safeBottomSpace(16),
+          16.height,
         ],
       ),
     );

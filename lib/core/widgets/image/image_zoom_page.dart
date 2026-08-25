@@ -123,16 +123,18 @@ class ImageZoomPageState extends State<ImageZoomPage> {
             ),
           ),
           Positioned(
-            top: context.safeTop(20),
+            top: 20.h,
             left: 16.w,
-            child: Bounce(
-              onTap: () {
-                context.pop();
-              },
-              child: BoxContainer(
-                shape: BoxShape.circle,
-                padding: EdgeInsets.all(10.w),
-                child: Icon(CupertinoIcons.chevron_back, size: 18.w),
+            child: SafeArea(
+              child: Bounce(
+                onTap: () {
+                  context.pop();
+                },
+                child: BoxContainer(
+                  shape: BoxShape.circle,
+                  padding: EdgeInsets.all(10.w),
+                  child: Icon(CupertinoIcons.chevron_back, size: 18.w),
+                ),
               ),
             ),
           ),

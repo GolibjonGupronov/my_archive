@@ -128,7 +128,7 @@ class ProfilePage extends StatelessWidget {
             ),
             10.height,
             AboutUsSocial(),
-            context.safeBottomSpace(80),
+            80.height
           ],
         ),
       ),

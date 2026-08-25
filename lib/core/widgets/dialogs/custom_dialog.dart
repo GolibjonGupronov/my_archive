@@ -312,6 +312,7 @@ class _CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("GGQ => _CustomDialog.build");
     final ic = icon ?? type.icon;
 
     final confirmButton = confirmButtonStyle ?? DialogButton.confirm();
@@ -337,63 +338,65 @@ class _CustomDialog extends StatelessWidget {
               ),
             ),
           Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: 26.w,
-                  right: 26.w,
-                  bottom: context.keyboardBottom + context.safeBottom(16.h),
-                  top: context.keyboardTop + context.safeTop(16.h)),
-              child: BoxContainer(
-                padding: EdgeInsets.all(16.w),
-                borderRadius: BorderRadius.circular(16.r),
-                child: Material(
-                  color: Colors.transparent,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    primary: false,
-                    children: child != null
-                        ? [child!]
-                        : [
-                            if (ic != null) Center(child: ic),
-                            if (ic != null) 12.height,
-                            TextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
-                            if (subTitle != null) 8.height,
-                            if (subTitle != null)
-                              TextView(subTitle!,
-                                  textAlign: subTitleAlignment,
-                                  style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
-                            24.height,
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomButton(
-                                    confirmButton.text,
-                                    () {
-                                      router.pop();
-                                      onConfirm?.call();
-                                    },
-                                    fillColor: confirmButton.buttonColor,
-                                    textColor: confirmButton.textColor,
-                                  ),
-                                ),
-                                if (visibleCancel) ...[
-                                  10.width,
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: 26.w,
+                    right: 26.w,
+                    bottom: context.keyboardBottom + 16.h,
+                    top: 16.h),
+                child: BoxContainer(
+                  padding: EdgeInsets.all(16.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      primary: false,
+                      children: child != null
+                          ? [child!]
+                          : [
+                              if (ic != null) Center(child: ic),
+                              if (ic != null) 12.height,
+                              TextView(title, fontSize: 20.sp, textAlign: TextAlign.center),
+                              if (subTitle != null) 8.height,
+                              if (subTitle != null)
+                                TextView(subTitle!,
+                                    textAlign: subTitleAlignment,
+                                    style: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.gray)),
+                              24.height,
+                              Row(
+                                children: [
                                   Expanded(
                                     child: CustomButton(
-                                      cancelButton.text,
+                                      confirmButton.text,
                                       () {
                                         router.pop();
-                                        onCancel?.call();
+                                        onConfirm?.call();
                                       },
-                                      fillColor: cancelButton.buttonColor,
-                                      textColor: cancelButton.textColor,
+                                      fillColor: confirmButton.buttonColor,
+                                      textColor: confirmButton.textColor,
                                     ),
                                   ),
+                                  if (visibleCancel) ...[
+                                    10.width,
+                                    Expanded(
+                                      child: CustomButton(
+                                        cancelButton.text,
+                                        () {
+                                          router.pop();
+                                          onCancel?.call();
+                                        },
+                                        fillColor: cancelButton.buttonColor,
+                                        textColor: cancelButton.textColor,
+                                      ),
+                                    ),
+                                  ],
                                 ],
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                    ),
                   ),
                 ),
               ),

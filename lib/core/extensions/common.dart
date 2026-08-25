@@ -26,19 +26,9 @@ extension CustomTime on TimeOfDay {
 extension BuildContextExtensions on BuildContext {
   MediaQueryData get _mediaQuery => MediaQuery.of(this);
 
-  EdgeInsets get safePadding => _mediaQuery.padding;
-
   EdgeInsets get viewInsets => _mediaQuery.viewInsets;
 
   Size get screenSize => _mediaQuery.size;
-
-  double safeBottom([double extra = 0.0]) => safePadding.bottom + extra;
-
-  double safeTop([double extra = 0.0]) => safePadding.top + extra;
-
-  SizedBox safeBottomSpace([double extra = 0.0]) => SizedBox(height: safeBottom(extra));
-
-  SizedBox safeTopSpace([double extra = 0.0]) => SizedBox(height: safeTop(extra));
 
   double get screenHeight => screenSize.height;
 

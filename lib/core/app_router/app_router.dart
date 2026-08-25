@@ -49,7 +49,9 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ImageZoomPage.tag,
       pageBuilder: (context, state) {
-        final items = List<String>.from(state.extra as List);
+        final extra = state.extra;
+        final items = extra is List ? extra.whereType<String>().toList() : <String>[];
+
         if (items.isEmpty) {
           return buildPage<void>(
             state: state,
