@@ -16,7 +16,7 @@ bool canShowEmpty(List list, bool progress) => list.isEmpty && !progress;
 
 void logger(Object? message) {
   if (kDebugMode) {
-    logger('[DEBUG] $message');
+    debugPrint('[DEBUG] $message');
   }
 }
 

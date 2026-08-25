@@ -56,7 +56,7 @@ class CustomPinPut extends Pinput {
       textStyle: AppTheme.textTheme.displayLarge?.copyWith(fontSize: 28.sp),
       decoration: BoxDecoration(
         color: isError
-            ? AppColors.red.withOpacity(0.1)
+            ? AppColors.red.withValues(alpha: 0.1)
             : (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary),
         borderRadius: BorderRadius.circular(16.r),
         border: isError ? Border.all(color: AppColors.red, width: 2) : null,

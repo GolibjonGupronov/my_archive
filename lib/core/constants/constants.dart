@@ -8,6 +8,6 @@ class Constants {
   static const int toastDuration = 4;
   static const int refreshSeconds = 10;
   static const int smsResendPhoneSecond = 60;
-  static const int smsCodeLength = 4;
-  static const int pinCodeLength = 4;
+  static const int smsCodeLength = 6;
+  static const int pinCodeLength = 6;
 }
