@@ -5,14 +5,19 @@ import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_entity.dart';
 
-class StoryListView extends StatelessWidget {
+class StoryListView extends StatefulWidget {
   final List<StoryEntity> storyList;
 
   const StoryListView({super.key, required this.storyList});
 
   @override
+  State<StoryListView> createState() => _StoryListViewState();
+}
+
+class _StoryListViewState extends State<StoryListView> {
+  @override
   Widget build(BuildContext context) {
-    return storyList.isEmpty
+    return widget.storyList.isEmpty
         ? SizedBox()
         : SizedBox(
             height: 120.h,
@@ -22,32 +27,34 @@ class StoryListView extends StatelessWidget {
                 primary: false,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  final item = storyList[index];
+                  final item = widget.storyList[index];
 
                   return Bounce(
                     onTap: () {
                       context.push(StoryPage.tag,
                           extra: StoryPageArgs(
-                              storyList: storyList,
+                              storyList: widget.storyList,
                               activeIndex: index,
                               itemCheck: (StoryEntity item) {
                                 if (item.isRead != true) {
-                                  item.isRead = true;
+                                  setState(() {
+                                    item.isRead = true;
+                                  });
                                 }
                               }));
                     },
                     child: BoxContainer(
                       width: 110.w,
-                      border: BoxBorder.all(color: item.isRead ? AppColors.gray : AppColors.primary),
+                      border: BoxBorder.all(color: item.isRead ? AppColors.gray : AppColors.primary, width: 2),
                       borderRadius: BorderRadius.circular(16.r),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15.r),
+                        borderRadius: BorderRadius.circular(14.r),
                         child: Stack(
                           children: [
                             Positioned.fill(child: CustomImageView(pathOrUrl: item.thumbnail)),
                             Positioned.fill(
                               child: BoxContainer(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                                 gradient: LinearGradient(
                                   colors: [
                                     AppColors.black.withValues(alpha: 0.8),
@@ -77,7 +84,7 @@ class StoryListView extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (c, i) => 12.width,
-                itemCount: storyList.length),
+                itemCount: widget.storyList.length),
           );
   }
 }

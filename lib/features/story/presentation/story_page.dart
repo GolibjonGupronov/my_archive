@@ -15,7 +15,7 @@ import 'package:my_archive/features/story/presentation/bloc/story_state.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:video_player/video_player.dart';
 
-class StoryPage extends StatefulWidget {
+class StoryPage extends StatelessWidget {
   final List<StoryEntity> storyList;
   final int activeIndex;
   final Function(StoryEntity item) itemCheck;
@@ -25,24 +25,14 @@ class StoryPage extends StatefulWidget {
   static const String tag = '/story_page';
 
   @override
-  State<StoryPage> createState() => _StoryPageState();
-}
-
-class _StoryPageState extends State<StoryPage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.itemCheck(widget.storyList[widget.activeIndex]);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => StoryBloc(
-          storyList: widget.storyList,
-          currentIndex: widget.activeIndex,
-          pageController: PageController(initialPage: widget.activeIndex),
-          readStoryUseCase: sl())
+          storyList: storyList,
+          currentIndex: activeIndex,
+          pageController: PageController(initialPage: activeIndex),
+          readStoryUseCase: sl(),
+          onItemRead: (item) => itemCheck(item))
         ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
@@ -77,7 +67,6 @@ class _StoryPageState extends State<StoryPage> {
                 controller: bloc.pageController,
                 onPageChanged: (index) {
                   final item = bloc.storyList[index];
-                  widget.itemCheck(item);
                   bloc.add(UpdatedActivePageEvent(index: index));
                 },
                 children: bloc.storyList
@@ -103,7 +92,7 @@ class _StoryPageState extends State<StoryPage> {
                               Positioned(
                                 left: 16.w,
                                 right: 16.w,
-                                bottom: 10.h,
+                                bottom: 20.h,
                                 child: SafeArea(
                                   child: CustomButton(
                                     item.action!.title,
@@ -229,66 +218,68 @@ class _TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<StoryBloc>();
 
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 16.w,
-        right: 16.w,
-        top: 10.h,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 4,
-            child: BlocBuilder<StoryBloc, StoryState>(
-              buildWhen: (prev, curr) =>
-                  prev.indicatorProgress != curr.indicatorProgress || prev.currentIndex != curr.currentIndex,
-              builder: (context, state) {
-                return Row(
-                  children: bloc.storyList
-                      .mapIndexed(
-                        (index, _) => Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              right: index == bloc.storyList.length - 1 ? 0 : 8,
-                            ),
-                            child: LinearPercentIndicator(
-                              animation: true,
-                              backgroundColor: AppColors.white.withValues(alpha: 0.3),
-                              progressColor: AppColors.white,
-                              padding: EdgeInsets.zero,
-                              animateFromLastPercent: true,
-                              animationDuration: 100,
-                              lineHeight: 4,
-                              percent: bloc.currentIndex > index
-                                  ? 1.0
-                                  : (bloc.currentIndex == index ? state.indicatorProgress : 0) / 100.0,
-                              barRadius: Radius.circular(24.r),
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 16.w,
+          right: 16.w,
+          top: 10.h,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 4,
+              child: BlocBuilder<StoryBloc, StoryState>(
+                buildWhen: (prev, curr) =>
+                    prev.indicatorProgress != curr.indicatorProgress || prev.currentIndex != curr.currentIndex,
+                builder: (context, state) {
+                  return Row(
+                    children: bloc.storyList
+                        .mapIndexed(
+                          (index, _) => Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: index == bloc.storyList.length - 1 ? 0 : 8,
+                              ),
+                              child: LinearPercentIndicator(
+                                animation: true,
+                                backgroundColor: AppColors.white.withValues(alpha: 0.3),
+                                progressColor: AppColors.white,
+                                padding: EdgeInsets.zero,
+                                animateFromLastPercent: true,
+                                animationDuration: 100,
+                                lineHeight: 4,
+                                percent: bloc.currentIndex > index
+                                    ? 1.0
+                                    : (bloc.currentIndex == index ? state.indicatorProgress : 0) / 100.0,
+                                barRadius: Radius.circular(24.r),
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
+                        )
+                        .toList(),
+                  );
+                },
+              ),
             ),
-          ),
-          16.height,
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.only(right: 16.w),
-              child: InkWell(
-                onTap: () => context.pop(),
-                child: Icon(
-                  CupertinoIcons.clear,
-                  size: 32.w,
-                  color: AppColors.white,
+            16.height,
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: 16.w),
+                child: InkWell(
+                  onTap: () => context.pop(),
+                  child: Icon(
+                    CupertinoIcons.clear,
+                    size: 32.w,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

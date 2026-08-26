@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_archive/core/api/api_urls/firebase_urls.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/auth/data/data_sources/auth_data_source.dart';
 import 'package:my_archive/features/auth/data/models/app_config_model.dart';
@@ -21,7 +22,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<AppConfigModel> appConfig() async {
-    final doc = await firestore.collection('app_config').doc('mobile').get();
+    final doc = await firestore.collection(FirebaseUrls.appConfig).doc(FirebaseUrls.appConfigId).get();
     if (doc.exists && doc.data() != null) {
       return AppConfigModel.fromJson(doc.data()!);
     } else {
@@ -38,7 +39,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
   Future<UserInfoModel> getUserInfo() async {
     final uid = prefManager.getToken;
 
-    final doc = await firestore.collection('users').doc(uid).get();
+    final doc = await firestore.collection(FirebaseUrls.users).doc(uid).get();
 
     if (doc.exists && doc.data() != null) {
       return UserInfoModel.fromJson(doc.data()!);
@@ -68,7 +69,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
 
     final uid = user.uid;
 
-    await firestore.collection('users').doc(uid).set(params.toMap);
+    await firestore.collection(FirebaseUrls.users).doc(uid).set(params.toMap);
 
     return true;
   }
@@ -84,7 +85,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
     final completer = Completer<bool>();
 
     try {
-      final userQuery = await firestore.collection('users').where('phone', isEqualTo: phone).limit(1).get();
+      final userQuery = await firestore.collection(FirebaseUrls.users).where('phone', isEqualTo: phone).limit(1).get();
 
       if (userQuery.docs.isNotEmpty) {
         logger("GGQ => User already exists: $phone");

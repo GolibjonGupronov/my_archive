@@ -20,13 +20,15 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
   late final AppLifecycleListener _lifecycleListener;
 
   final ReadStoryUseCase readStoryUseCase;
+  final Function(StoryEntity)? onItemRead;
 
-  StoryBloc({
-    required this.storyList,
-    required this.currentIndex,
-    required this.pageController,
-    required this.readStoryUseCase,
-  })  : _progressList = List.filled(storyList.length, 0),
+  StoryBloc(
+      {required this.storyList,
+      required this.currentIndex,
+      required this.pageController,
+      required this.readStoryUseCase,
+      this.onItemRead})
+      : _progressList = List.filled(storyList.length, 0),
         super(const StoryState()) {
     on<InitEvent>((event, emit) {
       add(UpdatedActivePageEvent(index: currentIndex));
@@ -48,6 +50,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
     on<ReadStoryEvent>((event, emit) {
       final item = storyList[currentIndex];
       if (!item.isRead) readStoryUseCase.callUseCase(item.id);
+      onItemRead?.call(item);
     });
 
     on<FinishPageEvent>((event, emit) {
@@ -118,6 +121,8 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
     final item = storyList[currentIndex];
 
+    add(ReadStoryEvent());
+
     if (item.resourceType == StoryFileType.video) {
       final controller = VideoPlayerController.networkUrl(Uri.parse(item.resourceData));
       await controller.initialize();
@@ -130,7 +135,6 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
       if (!state.isPaused) controller.play();
     }
 
-    add(ReadStoryEvent());
     _initTimer();
   }
 

@@ -47,7 +47,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(state.copyWith(isNotificationEnabled: !event.value));
         }, (data) async {
           if (emit.isDone) return;
-          final resultUser = await userInfoUseCase.callUseCase(NotificationParams(isNotificationEnabled: event.value));
+          final resultUser = await userInfoUseCase.callUseCase(NoParams());
 
           if (emit.isDone) return;
           resultUser.fold((fail) {}, (data) {
@@ -62,7 +62,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeImageStatus: StateStatus.inProgress, userImage: event.path));
       final result = await changeImageUseCase.callUseCase(event.path);
       result.fold(
-          (fail) => emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "")),
+          (fail) => emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "", errorMessage: fail.message)),
           (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
     });
   }
