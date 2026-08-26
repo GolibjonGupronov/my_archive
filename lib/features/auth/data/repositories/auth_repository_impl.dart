@@ -10,8 +10,9 @@ import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.
 class AuthRepositoryImpl with SafeCaller implements AuthRepository {
   final AuthDataSource authDataSource;
   final PrefManager prefManager;
+  final SecureStorage secureStorage;
 
-  AuthRepositoryImpl({required this.authDataSource, required this.prefManager});
+  AuthRepositoryImpl({required this.authDataSource, required this.prefManager, required this.secureStorage});
 
   @override
   Future<Either<Failure, bool>> sendPhone(String phone) async {
@@ -45,6 +46,6 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
   @override
   Future<Either<Failure, String>> sendLogin(LoginParams params) {
     return safeCall2(() async => await authDataSource.sendLogin(params),
-        onSuccess: (data) async => await prefManager.setToken(data));
+        onSuccess: (data) async => await secureStorage.setToken(data));
   }
 }

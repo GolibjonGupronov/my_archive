@@ -6,7 +6,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/di/injection_exports.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt sl = GetIt.instance;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 
 class AppLockWrapper extends StatefulWidget {
   final Widget child;

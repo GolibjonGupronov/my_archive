@@ -5,7 +5,7 @@ import 'package:my_archive/main.dart';
 class CustomInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers.addAll({"token": sl.get<PrefManager>().getToken, 'lang': sl.get<PrefManager>().getLanguage.key});
+    options.headers.addAll({"token": sl.get<SecureStorage>().getToken, 'lang': sl.get<PrefManager>().getLanguage.key});
     super.onRequest(options, handler);
   }
 }

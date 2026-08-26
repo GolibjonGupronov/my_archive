@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/change_image_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';

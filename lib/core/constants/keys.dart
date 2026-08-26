@@ -1,6 +1,5 @@
 class Keys {
   /// PrefManager keys
-  static const String token = 'token';
   static const String language = 'language';
   static const String user = 'user';
   static const String firstLaunch = 'first_launch';
@@ -11,4 +10,5 @@ class Keys {
 
   /// SecureStorage keys
   static const String pinKey = 'user_pin';
+  static const String token = 'token';
 }

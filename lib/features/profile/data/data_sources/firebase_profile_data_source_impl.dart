@@ -5,9 +5,9 @@ import 'package:my_archive/features/profile/data/data_sources/profile_data_sourc
 
 class FirebaseProfileDataSourceImpl extends ProfileDataSource {
   final FirebaseFirestore firestore;
-  final PrefManager prefManager;
+  final SecureStorage secureStorage;
 
-  FirebaseProfileDataSourceImpl({required this.firestore, required this.prefManager});
+  FirebaseProfileDataSourceImpl({required this.firestore, required this.secureStorage});
 
   @override
   Future<String> changeImage(String params) {
@@ -17,7 +17,7 @@ class FirebaseProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<bool> enableNotification(bool params) async {
-    final uid = prefManager.getToken;
+    final uid = await secureStorage.getToken;
     final doc = firestore.collection(FirebaseUrls.users).doc(uid);
     await doc.update({'is_notification_enabled' : params});
     return true;

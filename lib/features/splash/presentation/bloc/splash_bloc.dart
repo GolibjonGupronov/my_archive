@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/app_config_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';
@@ -46,7 +45,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   Future<void> _getUserInfo(Emitter<SplashState> emit) async {
     emit(state.copyWith(isFirstLaunch: prefManager.isFirstLaunch));
-    if (prefManager.getToken.isEmpty) {
+    if ((await secureStorage.getToken).isEmpty) {
       emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.auth));
     } else {
       final result = await userInfoUseCase.callUseCase(NoParams());

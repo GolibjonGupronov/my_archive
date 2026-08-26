@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_event.dart';

@@ -27,6 +27,7 @@ export 'package:my_archive/core/extensions/helper.dart';
 export 'package:my_archive/core/extensions/number.dart';
 export 'package:my_archive/core/extensions/string.dart';
 export 'package:my_archive/core/local_storage/pref_manager.dart';
+export 'package:my_archive/core/local_storage/secure_storage.dart';
 export 'package:my_archive/core/mixins/mixins.dart';
 export 'package:my_archive/core/mixins/safe_caller.dart';
 export 'package:my_archive/core/services/bot_service.dart';

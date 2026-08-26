@@ -14,11 +14,11 @@ import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.
 class FirebaseAuthDataSourceImpl extends AuthDataSource {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firestore;
-  final PrefManager prefManager;
+  final SecureStorage secureStorage;
 
   String _verificationId = "";
 
-  FirebaseAuthDataSourceImpl({required this.firebaseAuth, required this.firestore, required this.prefManager});
+  FirebaseAuthDataSourceImpl({required this.firebaseAuth, required this.firestore, required this.secureStorage});
 
   @override
   Future<AppConfigModel> appConfig() async {
@@ -37,7 +37,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<UserInfoModel> getUserInfo() async {
-    final uid = prefManager.getToken;
+    final uid = await secureStorage.getToken;
 
     final doc = await firestore.collection(FirebaseUrls.users).doc(uid).get();
 

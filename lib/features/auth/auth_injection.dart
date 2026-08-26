@@ -13,8 +13,8 @@ import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dar
 
 void initAuthInjection() {
   // sl.registerSingleton<AuthDataSource>(AuthDataSourceImpl(dio: sl()));
-  sl.registerSingleton<AuthDataSource>(FirebaseAuthDataSourceImpl(firebaseAuth: sl(), firestore: sl(), prefManager: sl()));
-  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(authDataSource: sl(), prefManager: sl()));
+  sl.registerSingleton<AuthDataSource>(FirebaseAuthDataSourceImpl(firebaseAuth: sl(), firestore: sl(), secureStorage: sl()));
+  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(authDataSource: sl(), prefManager: sl(), secureStorage: sl()));
   sl.registerSingleton<LoginUseCase>(LoginUseCase(repository: sl()));
   sl.registerSingleton<SendPhoneUseCase>(SendPhoneUseCase(repository: sl()));
   sl.registerSingleton<RegistrationUseCase>(RegistrationUseCase(repository: sl()));
