@@ -122,7 +122,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
           dayWidget = Container(
             decoration: decoration,
             child: Center(
-              child: Text(MaterialLocalizations.of(context).formatDecimal(date.day), style: textStyle),
+              child: TextView(MaterialLocalizations.of(context).formatDecimal(date.day), style: textStyle),
             ),
           );
         }
@@ -136,7 +136,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(year.toString(), style: textStyle),
+                TextView(year.toString(), style: textStyle),
                 if (isCurrentYear == true)
                   Container(
                       margin: EdgeInsets.only(left: 6.h),

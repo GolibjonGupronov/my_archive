@@ -37,7 +37,7 @@ class SplashPage extends StatelessWidget {
                 .then((value) async => await sl.get<PrefManager>().setNotFirstLaunch(false));
           }
           if (state.nextPage == NextPage.main) {
-            if (await bloc.secureStorage.hasPin()) {
+            if (await bloc.secureStorage.hasPin) {
               router.push(AppLockPage.tag).then((value) {
                 if (value != null) {
                   router.go(MainPage.tag);

@@ -35,7 +35,7 @@ class BottomNavItem extends StatelessWidget {
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                 color: isActive ? AppColors.white : AppColors.gray,
               ),
-              child: Text(title, textAlign: TextAlign.center),
+              child: TextView(title, textAlign: TextAlign.center),
             ),
           ],
         ),

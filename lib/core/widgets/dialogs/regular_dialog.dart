@@ -41,7 +41,7 @@ Future<void> showDraggableBottomSheet({
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: Row(
                       children: [
-                        Expanded(child: Text(title, style: AppTheme.textTheme.displayLarge)),
+                        Expanded(child: TextView(title, style: AppTheme.textTheme.displayLarge)),
                         GestureDetector(
                           onTap: () => context.pop(),
                           child: Container(

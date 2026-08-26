@@ -12,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({required this.loginUseCase, required this.userInfoUseCase, required this.secureStorage}) : super(LoginState()) {
     on<InitEvent>((event, emit) async {
-      emit(state.copyWith(hasPin: await secureStorage.hasPin()));
+      emit(state.copyWith(hasPin: await secureStorage.hasPin));
     });
 
     on<UpdateFieldEvent>((event, emit) {

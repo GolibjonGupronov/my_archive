@@ -35,7 +35,7 @@ class SecurityPage extends StatelessWidget {
                 title: "Ilova qulfi",
                 prefixIconData: CupertinoIcons.lock_fill,
                 onTap: () async {
-                  if (await bloc.secureStorage.hasPin()) {
+                  if (await bloc.secureStorage.hasPin) {
                     router.push(CurrentPinPage.tag);
                   } else {
                     router.push(NewPinPage.tag);

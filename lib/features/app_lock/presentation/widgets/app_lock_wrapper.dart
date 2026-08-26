@@ -55,7 +55,7 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
   Future<void> _openLockIfNeeded() async {
     if (_isShowingLock) return;
 
-    final hasCode = await sl.get<SecureStorage>().hasPin();
+    final hasCode = await sl.get<SecureStorage>().hasPin;
 
     if (!hasCode) return;
 

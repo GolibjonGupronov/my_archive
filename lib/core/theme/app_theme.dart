@@ -6,21 +6,21 @@ class AppTheme {
   AppTheme._();
 
   static final textTheme = TextTheme(
-    displayLarge: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
-    displayMedium: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
-    displaySmall: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400),
-    headlineLarge: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
-    headlineMedium: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-    headlineSmall: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
-    titleLarge: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
-    titleMedium: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
-    titleSmall: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
-    bodyLarge: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w700),
-    bodyMedium: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-    bodySmall: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
-    labelLarge: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w700),
-    labelMedium: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
-    labelSmall: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400),
+    displayLarge: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700, fontFamily: _getFontFamily),
+    displayMedium: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, fontFamily: _getFontFamily),
+    displaySmall: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400, fontFamily: _getFontFamily),
+    headlineLarge: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, fontFamily: _getFontFamily),
+    headlineMedium: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, fontFamily: _getFontFamily),
+    headlineSmall: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400, fontFamily: _getFontFamily),
+    titleLarge: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, fontFamily: _getFontFamily),
+    titleMedium: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, fontFamily: _getFontFamily),
+    titleSmall: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400, fontFamily: _getFontFamily),
+    bodyLarge: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w700, fontFamily: _getFontFamily),
+    bodyMedium: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, fontFamily: _getFontFamily),
+    bodySmall: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, fontFamily: _getFontFamily),
+    labelLarge: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w700, fontFamily: _getFontFamily),
+    labelMedium: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500, fontFamily: _getFontFamily),
+    labelSmall: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400, fontFamily: _getFontFamily),
   );
 
   static final lightTheme = ThemeData(
@@ -91,3 +91,5 @@ class AppTheme {
     ),
   );
 }
+
+String get _getFontFamily => FontFamily.aeonikPro;

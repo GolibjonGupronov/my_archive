@@ -8,11 +8,11 @@ abstract class SecureStorage {
 
   Future<bool> checkPin(String pin);
 
-  Future<bool> hasPin();
+  Future<bool> get hasPin;
 
   Future<void> savePin(String pin);
 
-  Future<String> getPin();
+  Future<String> get getPin;
 
   Future<void> delete(String key);
 }
@@ -29,16 +29,16 @@ class SecureStorageImpl extends SecureStorage {
   Future<void> setToken(String token) async => await storage.write(key: Keys.token, value: token);
 
   @override
-  Future<bool> checkPin(String pin) async => (await getPin()) == pin;
+  Future<bool> checkPin(String pin) async => (await getPin) == pin;
 
   @override
   Future<void> savePin(String pin) async => await storage.write(key: Keys.pinKey, value: pin);
 
   @override
-  Future<String> getPin() async => await storage.read(key: Keys.pinKey) ?? "";
+  Future<String> get getPin async => await storage.read(key: Keys.pinKey) ?? "";
 
   @override
-  Future<bool> hasPin() async => (await getPin()).isNotEmpty;
+  Future<bool> get hasPin async => (await getPin).isNotEmpty;
 
   @override
   Future<void> delete(String key) async => await storage.delete(key: key);

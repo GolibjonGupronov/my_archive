@@ -46,7 +46,7 @@ class _FloatingButtonsState extends State<FloatingButtons> {
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                    child: Center(child: Text(sl.get<PrefManager>().getLanguage.key, style: TextStyle(color: AppColors.white))),
+                    child: Center(child: TextView(sl.get<PrefManager>().getLanguage.key, style: TextStyle(color: AppColors.white))),
                   ),
                 ),
               ),

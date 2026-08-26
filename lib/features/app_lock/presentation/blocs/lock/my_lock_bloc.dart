@@ -12,7 +12,7 @@ class MyLockBloc extends Bloc<MyLockEvent, MyLockState> {
 
   MyLockBloc({required this.secureStorage, required this.prefManager}) : super(MyLockState()) {
     on<InitEvent>((event, emit) async {
-      emit(state.copyWith(hasPin: await secureStorage.hasPin(), autoLockTime: prefManager.getAutoLockTime));
+      emit(state.copyWith(hasPin: await secureStorage.hasPin, autoLockTime: prefManager.getAutoLockTime));
       add(CheckBiometricEvent());
     });
 
