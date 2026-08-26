@@ -28,12 +28,13 @@ class RegistrationParams {
   });
 
   Map<String, dynamic> get toMap => {
-        'phone': phone,
         'first_name': firstName,
         'second_name': secondName,
         'gender': gender.key,
-        'birth_day': birthDay.toBackendDate,
-        'smsCode': smsCode,
+        'birthday': birthDay.toBackendDate,
+        'phone': phone,
+        'image': null,
+        'is_notification_enabled': true,
       };
 
   RegistrationParams copyWith({

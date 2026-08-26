@@ -45,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    logger("GGQ => SettingsPage");
     return CustomScaffold(
       appBar: CustomAppBar(tr('settings')),
       body: ListView(

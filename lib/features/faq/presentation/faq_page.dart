@@ -22,6 +22,7 @@ class FaqPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => FaqPage");
     final bloc = BlocProvider.of<FaqBloc>(context);
 
     return BlocListener<FaqBloc, FaqState>(

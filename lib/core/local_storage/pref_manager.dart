@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:my_archive/core/constants/keys.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/app_lock/presentation/widgets/auto_lock_widget.dart';
+import 'package:my_archive/features/auth/data/models/app_config_model.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,6 +37,10 @@ abstract class PrefManager {
   AutoLockTimeType get getAutoLockTime;
 
   Future<void> setAutoLockTime(AutoLockTimeType value);
+
+  AppConfigModel? get getAppConfig;
+
+  Future<void> setAppConfig(AppConfigModel value);
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -91,4 +96,13 @@ class PrefManagerImpl implements PrefManager {
 
   @override
   Future<void> setAutoLockTime(AutoLockTimeType value) async => await prefs.setString(Keys.autoLockTime, value.key);
+
+  @override
+  AppConfigModel? get getAppConfig {
+    final data = prefs.getString(Keys.appConfig);
+    return data == null ? null : AppConfigModel.fromJson(jsonDecode(data));
+  }
+
+  @override
+  Future<void> setAppConfig(AppConfigModel value) async => await prefs.setString(Keys.appConfig, jsonEncode(value.toJson()));
 }

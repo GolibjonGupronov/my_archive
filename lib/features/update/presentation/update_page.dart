@@ -15,6 +15,7 @@ class UpdatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger("GGQ => UpdatePage");
     return CustomScaffold(
       isExitDialog: true,
       appBar: CustomAppBar("Yangi versiya"),

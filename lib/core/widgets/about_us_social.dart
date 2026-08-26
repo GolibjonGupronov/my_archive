@@ -5,10 +5,16 @@ import 'package:my_archive/core/core_exports.dart';
 class AboutUsSocial extends StatelessWidget {
   const AboutUsSocial({super.key});
 
-  void _open(String url) => openUrl(url);
+  void _open(BuildContext context, String? url) {
+    if ((url ?? "").isEmpty) {
+      showErrorDialog(context, title: "Ma'lumot yo'q");
+    }
+    openUrl(url!);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final appConfig = sl.get<PrefManager>().getAppConfig;
     return Column(
       children: [
         Row(
@@ -16,15 +22,15 @@ class AboutUsSocial extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Bounce(
-              onTap: () => _open("https://t.me/m0b1leDevel0per"),
+              onTap: () => _open(context, appConfig?.telegram),
               child: Assets.images.telegram.image(width: 30),
             ),
             Bounce(
-              onTap: () => _open("https://www.instagram.com/golibjongupronov"),
+              onTap: () => _open(context, appConfig?.instagram),
               child: Assets.images.instagram.image(width: 30),
             ),
             Bounce(
-              onTap: () => _open("https://www.facebook.com/g.olibjon.g.upronov"),
+              onTap: () => _open(context, appConfig?.facebook),
               child: Assets.images.facebook.image(width: 30),
             ),
           ],

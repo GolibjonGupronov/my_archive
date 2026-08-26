@@ -28,6 +28,7 @@ class RegSmsPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => RegSmsPage");
     final bloc = BlocProvider.of<RegSmsBloc>(context);
 
     return MultiBlocListener(

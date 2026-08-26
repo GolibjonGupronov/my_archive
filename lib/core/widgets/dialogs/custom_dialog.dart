@@ -312,7 +312,6 @@ class _CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger("GGQ => _CustomDialog.build");
     final ic = icon ?? type.icon;
 
     final confirmButton = confirmButtonStyle ?? DialogButton.confirm();

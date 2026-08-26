@@ -11,7 +11,7 @@ abstract class AuthDataSource {
 
   Future<bool> checkSms(CheckSmsParams params);
 
-  Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled});
+  Future<UserInfoModel> getUserInfo();
 
   Future<AppConfigModel> appConfig();
 

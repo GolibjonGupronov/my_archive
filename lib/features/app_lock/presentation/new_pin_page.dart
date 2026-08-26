@@ -24,6 +24,7 @@ class NewPinPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => NewPinPage");
     final bloc = BlocProvider.of<NewPinBloc>(context);
 
     return BlocListener<NewPinBloc, NewPinState>(

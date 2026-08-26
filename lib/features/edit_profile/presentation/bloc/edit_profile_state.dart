@@ -9,7 +9,6 @@ class EditProfileState {
   final bool isActive;
   final String errorMessage;
   final String phone;
-
   final bool isChanged;
   final String initialFirstName;
   final String initialSecondName;

@@ -10,8 +10,6 @@ class UserInfoModel extends UserInfoEntity {
     required super.phone,
     required super.image,
     required super.isNotificationEnabled,
-    required super.callCenter,
-    required super.telegramBot,
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> json) => UserInfoModel(
@@ -22,8 +20,6 @@ class UserInfoModel extends UserInfoEntity {
         phone: json['phone'] ?? "",
         image: json['image'] ?? "",
         isNotificationEnabled: json['is_notification_enabled'] ?? true,
-        callCenter: json['call_center'] ?? "",
-        telegramBot: json['telegram_bot'] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,7 +30,5 @@ class UserInfoModel extends UserInfoEntity {
         'phone': phone,
         'image': image,
         'is_notification_enabled': isNotificationEnabled,
-        'call_center': callCenter,
-        'telegram_bot': telegramBot,
       };
 }

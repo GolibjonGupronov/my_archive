@@ -21,12 +21,12 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<AppConfigModel> appConfig() async {
-    final data = AppConfigModel(
-        iosMinimumBuildCode: 1,
-        androidMinimumBuildCode: 1,
-        googlePlayLink: "https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med",
-        appStoreLink: "https://apps.apple.com/us/app/evomed/id6758425374");
-    return data;
+    final doc = await firestore.collection('app_config').doc('mobile').get();
+    if (doc.exists && doc.data() != null) {
+      return AppConfigModel.fromJson(doc.data()!);
+    } else {
+      throw Exception("App Config topilmadi");
+    }
   }
 
   @override
@@ -35,7 +35,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled}) async {
+  Future<UserInfoModel> getUserInfo() async {
     final uid = prefManager.getToken;
 
     final doc = await firestore.collection('users').doc(uid).get();
@@ -48,9 +48,29 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<bool> registration(RegistrationParams params) {
-    // TODO: implement registration
-    throw UnimplementedError();
+  Future<bool> registration(RegistrationParams params) async {
+    final verificationId = _verificationId;
+
+    if (verificationId.isEmpty) {
+      throw FirebaseAuthException(code: 'verification-id-null', message: 'Verification ID topilmadi.');
+    }
+
+    final userCredential = await firebaseAuth
+        .signInWithCredential(PhoneAuthProvider.credential(verificationId: verificationId, smsCode: params.smsCode));
+
+    final user = userCredential.user;
+
+    if (user == null) {
+      throw FirebaseAuthException(code: 'user-null', message: 'User yaratilmadi.');
+    }
+
+    await user.linkWithCredential(EmailAuthProvider.credential(email: "${params.phone}@gmail.com", password: params.smsCode));
+
+    final uid = user.uid;
+
+    await firestore.collection('users').doc(uid).set(params.toMap);
+
+    return true;
   }
 
   @override
@@ -64,6 +84,18 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
     final completer = Completer<bool>();
 
     try {
+      final userQuery = await firestore.collection('users').where('phone', isEqualTo: phone).limit(1).get();
+
+      if (userQuery.docs.isNotEmpty) {
+        logger("GGQ => User already exists: $phone");
+
+        if (!completer.isCompleted) {
+          completer.completeError("Bu telefon raqami allaqachon ro‘yxatdan o‘tgan.");
+        }
+
+        return completer.future;
+      }
+
       await firebaseAuth.verifyPhoneNumber(
         phoneNumber: phone,
         // 1. Avtomatik tasdiqlash (asosan Android-da)

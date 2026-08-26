@@ -7,6 +7,7 @@ class Keys {
   static const String fcmToken = "fcm_token";
   static const String biometric = "is_biometric";
   static const String autoLockTime = "auto_lock_time";
+  static const String appConfig = "app_config";
 
   /// SecureStorage keys
   static const String pinKey = 'user_pin';

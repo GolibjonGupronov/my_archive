@@ -31,12 +31,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     loadUserData();
   }
 
-  void loadUserData() async {
+  void loadUserData() {
     if (user != null) {
       firstNameController.text = user!.firstName;
       secondNameController.text = user!.secondName;
 
-      phoneController.text = user!.phone.phoneFormatter(mask: '(##) ###-##-##');
+      phoneController.text = (user!.phone.replaceFirst("+998", "")).phoneFormatter(mask: '(00) 000-00-00');
     }
   }
 
@@ -55,6 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => EditProfilePage");
     final bloc = BlocProvider.of<EditProfileBloc>(context);
 
     return BlocListener<EditProfileBloc, EditProfileState>(
@@ -69,7 +70,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: BlocSelector<EditProfileBloc, EditProfileState, bool>(
         selector: (state) => state.isChanged,
         builder: (context, state) {
-          logger("GGQ => state.isChanged");
           return CustomScaffold(
             hasUnsavedChanges: () => state,
             appBar: CustomAppBar(""),
@@ -137,7 +137,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             BlocSelector<EditProfileBloc, EditProfileState, Gender>(
                               selector: (state) => state.gender,
                               builder: (context, state) {
-                                logger("GGQ => Gender");
                                 return CustomRadioList(
                                   "Jins",
                                   segments: Gender.values,
@@ -151,7 +150,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
                               selector: (state) => state.birthDay,
                               builder: (context, state) {
-                                logger("GGQ => Birthday");
                                 return CustomSelectField(
                                   "Tug'ilgan kun",
                                   "kk.oo.yyyy",

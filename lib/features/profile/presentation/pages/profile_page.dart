@@ -137,8 +137,8 @@ class ProfilePage extends StatelessWidget {
 }
 
 Future<void> get _shareApp async {
-  final androidLink = 'https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med';
-  final iosLink = 'https://apps.apple.com/us/app/evomed/id6758425374';
+  String androidLink = sl.get<PrefManager>().getAppConfig?.googlePlayLink ?? "";
+  String iosLink = sl.get<PrefManager>().getAppConfig?.appStoreLink ?? "";
 
   final link = Platform.isIOS ? iosLink : androidLink;
 

@@ -23,7 +23,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.secureStorage,
   }) : super(ProfileState()) {
     on<InitEvent>((event, emit) {
-      emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? ""));
+      emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? "", isNotificationEnabled: prefManager.getUserInfo?.isNotificationEnabled ?? true));
     });
 
     on<IsGrantedEvent>((event, emit) async {

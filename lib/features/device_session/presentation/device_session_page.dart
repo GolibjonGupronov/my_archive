@@ -24,6 +24,7 @@ class DeviceSessionPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => DeviceSessionPage");
     final bloc = BlocProvider.of<DeviceSessionBloc>(context);
 
     return MultiBlocListener(

@@ -29,7 +29,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<UserInfoModel> getUserInfo({required bool isNotificationEnabled}) async {
+  Future<UserInfoModel> getUserInfo() async {
     final data = UserInfoModel(
       firstName: "G'olibjon",
       secondName: "G'upronov",
@@ -37,9 +37,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       birthday: "29.02.2000",
       phone: "+998999940941",
       image: "https://picsum.photos/400/200?3",
-      isNotificationEnabled: isNotificationEnabled,
-      callCenter: "0000",
-      telegramBot: "https://t.me/m0b1leDevel0per",
+      isNotificationEnabled: false,
     );
     final response = await dio.mock(data: data).get(ApiUrls.userInfo);
     return UserInfoModel.fromJson(response.data);
@@ -48,10 +46,16 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<AppConfigModel> appConfig() async {
     final data = AppConfigModel(
-        iosMinimumBuildCode: 1,
-        androidMinimumBuildCode: 1,
-        googlePlayLink: "https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med",
-        appStoreLink: "https://apps.apple.com/us/app/evomed/id6758425374");
+      iosMinimumBuildCode: 1,
+      androidMinimumBuildCode: 1,
+      googlePlayLink: "https://play.google.com/store/apps/details?id=uz.evo_med_group.evo_med",
+      appStoreLink: "https://apps.apple.com/us/app/evomed/id6758425374",
+      callCenter: "0941",
+      telegramBot: "https://t.me/m0b1leDevel0per",
+      telegram: "https://t.me/m0b1leDevel0per",
+      instagram: "https://www.instagram.com/golibjongupronov",
+      facebook: "https://www.facebook.com/g.olibjon.g.upronov",
+    );
     final response = await dio.mock(data: data).get(ApiUrls.appConfig);
     return AppConfigModel.fromJson(response.data);
   }

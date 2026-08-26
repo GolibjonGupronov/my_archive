@@ -37,7 +37,6 @@ class _StoryPageState extends State<StoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    logger("GGQ => StoryPage");
     return BlocProvider(
       create: (_) => StoryBloc(
           storyList: widget.storyList,
@@ -50,6 +49,7 @@ class _StoryPageState extends State<StoryPage> {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => StoryPage");
     final bloc = BlocProvider.of<StoryBloc>(context);
 
     return BlocListener<StoryBloc, StoryState>(

@@ -15,6 +15,7 @@ class SecurityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger("GGQ => SecurityPage");
     return CustomScaffold(
       appBar: CustomAppBar("Xavfsizlik"),
       body: ListView(

@@ -25,6 +25,7 @@ class AppLockPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => AppLockPage");
     final bloc = BlocProvider.of<AppLockBloc>(context);
 
     return BlocListener<AppLockBloc, AppLockState>(

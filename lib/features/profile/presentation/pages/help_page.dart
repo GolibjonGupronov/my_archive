@@ -12,6 +12,7 @@ class HelpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger("GGQ => HelpPage");
     return CustomScaffold(
       appBar: CustomAppBar("Yordam"),
       body: ListView(
@@ -31,7 +32,7 @@ class HelpPage extends StatelessWidget {
                 title: "Qo'ng'iroq qilish",
                 prefixIconData: CupertinoIcons.phone,
                 onTap: () {
-                  String number = sl.get<PrefManager>().getUserInfo?.callCenter ?? "";
+                  String number = sl.get<PrefManager>().getAppConfig?.callCenter ?? "";
                   if (number.isNotEmpty) {
                     _callCenter(context, number);
                   } else {
@@ -43,7 +44,7 @@ class HelpPage extends StatelessWidget {
                 title: "Telegram",
                 prefixIconData: CupertinoIcons.chat_bubble_text,
                 onTap: () {
-                  String telegram = sl.get<PrefManager>().getUserInfo?.telegramBot ?? "";
+                  String telegram = sl.get<PrefManager>().getAppConfig?.telegramBot ?? "";
                   if (telegram.isNotEmpty) {
                     openUrl(telegram);
                   } else {

@@ -27,6 +27,7 @@ class ResetSmsPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => ResetSmsPage");
     final bloc = BlocProvider.of<ResetSmsBloc>(context);
 
     return MultiBlocListener(

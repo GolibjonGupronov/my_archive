@@ -27,6 +27,7 @@ class NewPasswordPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => NewPasswordPage");
     final bloc = BlocProvider.of<NewPasswordBloc>(context);
 
     return BlocListener<NewPasswordBloc, NewPasswordState>(

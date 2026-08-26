@@ -121,7 +121,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     BlocSelector<RegistrationBloc, RegistrationState, Gender>(
                       selector: (state) => state.gender,
                       builder: (context, state) {
-                        logger("GGQ => Gender");
                         return CustomRadioList(
                           "Jins",
                           segments: Gender.values,
@@ -136,7 +135,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     BlocSelector<RegistrationBloc, RegistrationState, DateTime?>(
                       selector: (state) => state.birthDay,
                       builder: (context, state) {
-                        logger("GGQ => Birthday");
                         return CustomSelectField(
                           "Tug'ilgan kun",
                           "kk.oo.yyyy",

@@ -25,6 +25,7 @@ class CurrentPinPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
+    logger("GGQ => CurrentPinPage");
     final bloc = BlocProvider.of<CurrentPinBloc>(context);
 
     return BlocListener<CurrentPinBloc, CurrentPinState>(
