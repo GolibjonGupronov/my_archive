@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
             Positioned(
               bottom: 0,
               child: Padding(
-                padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
+                padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 14.h),
                 child: BoxContainer(
                   color: (context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary).withValues(alpha: 0.96),
                   padding: EdgeInsets.all(4.w),

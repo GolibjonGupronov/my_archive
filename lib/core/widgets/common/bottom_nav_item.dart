@@ -28,14 +28,14 @@ class BottomNavItem extends StatelessWidget {
                   color: isActive ? AppColors.white : AppColors.gray,
                   size: 22.w,
                 )),
-            4.height,
+            2.height,
             AnimatedDefaultTextStyle(
               duration: Duration(milliseconds: 100),
               style: AppTheme.textTheme.titleMedium!.copyWith(
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                 color: isActive ? AppColors.white : AppColors.gray,
               ),
-              child: TextView(title, textAlign: TextAlign.center),
+              child: Text(title, textAlign: TextAlign.center),
             ),
           ],
         ),
