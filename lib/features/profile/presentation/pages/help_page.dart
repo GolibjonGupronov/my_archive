@@ -70,7 +70,14 @@ Future<void> _callCenter(BuildContext context, String phone) async {
                     context.pop();
                     callNumber(phone);
                   },
-                  child: TextView(phone.phoneFormatter(), fontSize: 22.sp, fontWeight: FontWeight.bold)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextView(phone.phoneFormatter(), fontSize: 22.sp, fontWeight: FontWeight.bold),
+                      8.width,
+                      Icon(CupertinoIcons.phone_fill, size: 24.w, color: AppColors.primary),
+                    ],
+                  )),
             ],
             cancelButton: CupertinoActionSheetAction(
                 onPressed: () {

@@ -186,7 +186,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           );
                         },
-                        active: state.isActive,
+                        active: state.isActive && state.isChanged,
                         progress: state.editStatus.isInProgress,
                       );
                     },

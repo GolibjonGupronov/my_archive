@@ -24,12 +24,14 @@ class SecurityPage extends StatelessWidget {
           Column(
             spacing: 20.h,
             children: [
-              ProfileItem(
-                title: "Parolni tahrirlash",
-                prefixIconData: Icons.key_rounded,
-                onTap: () {
-                  context.push(OldPasswordPage.tag);
-                },
+              ComingSoonWidget(
+                child: ProfileItem(
+                  title: "Parolni tahrirlash",
+                  prefixIconData: Icons.key_rounded,
+                  onTap: () {
+                    context.push(OldPasswordPage.tag);
+                  },
+                ),
               ),
               ProfileItem(
                 title: "Ilova qulfi",

@@ -27,6 +27,6 @@ class EditProfileParams {
         'first_name': firstName,
         'second_name': secondName,
         'gender': gender.key,
-        'birth_day': birthDay.toBackendDate,
+        'birthday': birthDay.toBackendDate,
       };
 }
