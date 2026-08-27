@@ -107,6 +107,9 @@ extension StringDateParsing on String {
     final value = trim();
     if (value.isEmpty) return null;
 
+    final isoDate = DateTime.tryParse(value);
+    if (isoDate != null) return isoDate;
+
     for (final format in _cachedFormats) {
       try {
         return format.parseStrict(value);

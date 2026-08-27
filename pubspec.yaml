@@ -43,7 +43,6 @@ dependencies:
   fluttertoast: ^10.0.0
   image_cropper: ^12.2.1
   permission_handler: ^13.0.1
-  geolocator: ^14.0.3
   image_picker: ^1.2.3
   mask_text_input_formatter: ^2.9.0
   url_launcher: ^6.3.2
@@ -55,6 +54,10 @@ dependencies:
   flutter_local_notifications: ^22.3.0
   flutter_secure_storage: ^10.3.1
   share_plus: ^13.3.0
+  android_id: ^0.5.2+1
+
+  geolocator: ^14.0.3
+  geocoding: ^5.0.0
 
   firebase_messaging: ^16.5.0
   firebase_core: ^4.13.0

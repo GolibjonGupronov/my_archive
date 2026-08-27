@@ -26,11 +26,11 @@ class DeviceSessionItem extends StatelessWidget {
               TextView(item.deviceName),
               2.height,
               TextView(
-                  "${item.operatingSystemType.title} ${item.appVersion}, ${item.operatingSystemType.title} ${item.releaseVersion} (${item.sdk})",
+                  "${item.operatingSystemType.title} ${item.appVersion}, ${item.operatingSystemType.title} ${item.releaseVersion}",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400),
               2.height,
-              TextView(item.address, fontSize: 14.sp, color: AppColors.gray, fontWeight: FontWeight.w400),
+              TextView(item.address?.address ?? "--", fontSize: 14.sp, color: AppColors.gray, fontWeight: FontWeight.w400),
             ],
           ),
         ),

@@ -1,22 +1,5 @@
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_action_entity.dart';
-
-enum StoryFileType {
-  none,
-  image,
-  video;
-
-  static StoryFileType getObj(String key) => switch (key) {
-        'video' => StoryFileType.video,
-        'image' => StoryFileType.image,
-        _ => StoryFileType.none,
-      };
-
-  String get key => switch (this) {
-        StoryFileType.video => 'video',
-        StoryFileType.image => 'image',
-        StoryFileType.none => '',
-      };
-}
 
 class StoryEntity {
   final int id;

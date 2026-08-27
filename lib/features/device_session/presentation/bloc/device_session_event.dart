@@ -9,7 +9,7 @@ class LoadDataEvent extends DeviceSessionEvent {}
 class TerminateAllEvent extends DeviceSessionEvent {}
 
 class TerminateDeviceEvent extends DeviceSessionEvent {
-  final int id;
+  final String id;
 
   TerminateDeviceEvent({required this.id});
 }

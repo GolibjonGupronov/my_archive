@@ -34,7 +34,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     result.fold((fail) {
       emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message));
     }, (data) {
-      final int? buildCode = int.tryParse(DeviceHelper.packageInfo.buildNumber);
+      final int? buildCode = int.tryParse(DeviceService.packageInfo.buildNumber);
       if (buildCode == null || buildCode >= (Platform.isAndroid ? data.androidMinimumBuildCode : data.iosMinimumBuildCode)) {
         add(UserDataEvent());
       } else {

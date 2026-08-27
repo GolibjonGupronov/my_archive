@@ -33,8 +33,9 @@ void main() {
       await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       await Firebase.initializeApp();
       await InjectionContainer.init();
-      await DeviceHelper.init();
+      await DeviceService.init();
       await NotificationService.init();
+      await PermissionService.requestInitialPermissions();
       FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
       savedThemeMode = await AdaptiveTheme.getThemeMode();

@@ -4,6 +4,13 @@ import 'package:my_archive/core/widgets/dialogs/custom_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionService {
+  PermissionService._();
+
+  static Future<void> requestInitialPermissions() async {
+    await requestLocationPermission();
+    await requestNotificationPermission();
+  }
+
   static Future<bool> requestCameraPermission() async => await _requestPermission(Permission.camera);
 
   static Future<bool> requestCameraPermissionWithToast(BuildContext context) async =>
@@ -53,14 +60,18 @@ Future<bool> _requestPermissionWithToast(
     if (result.isGranted) {
       return true;
     } else if (result.isPermanentlyDenied) {
+      if(context.mounted) {
+        showErrorToast(context, message, action: () async {
+          await openAppSettings();
+        });
+      }
+    }
+  } else if (status.isPermanentlyDenied) {
+    if(context.mounted) {
       showErrorToast(context, message, action: () async {
         await openAppSettings();
       });
     }
-  } else if (status.isPermanentlyDenied) {
-    showErrorToast(context, message, action: () async {
-      await openAppSettings();
-    });
   }
 
   return false;

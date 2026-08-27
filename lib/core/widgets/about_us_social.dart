@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 
 class AboutUsSocial extends StatelessWidget {
   const AboutUsSocial({super.key});
@@ -14,7 +15,7 @@ class AboutUsSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appConfig = sl.get<PrefManager>().getAppConfig;
+    AppConfigEntity? appConfig = sl.get<PrefManager>().getAppConfig;
     return Column(
       children: [
         Row(
@@ -44,7 +45,7 @@ class AboutUsSocial extends StatelessWidget {
         ),
         2.height,
         TextView(
-          "Ilova versiyasi: ${DeviceHelper.packageInfo.version}",
+          "Ilova versiyasi: ${DeviceService.packageInfo.version}",
           textAlign: TextAlign.center,
           fontSize: 12,
           color: AppColors.gray,

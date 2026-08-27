@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:my_archive/core/api/error/exception.dart';
 import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/core/local_storage/remove_storage.dart';
 import 'package:my_archive/core/services/notification_service.dart';
@@ -101,6 +102,9 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
     return error.message.isNotEmpty ? error.message : tr('error_dio.http_error');
   }
 
+  if (error is UnAuthorizedException) {
+    logoutApp();
+  }
   if (kDebugMode) {
     return error.toString();
   }

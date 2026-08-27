@@ -1,3 +1,4 @@
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_action_entity.dart';
 
 class StoryActionModel extends StoryActionEntity {

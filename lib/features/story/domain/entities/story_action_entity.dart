@@ -1,15 +1,4 @@
-enum StoryActionType {
-  link;
-
-  static StoryActionType getObj(String key) => switch (key) {
-        'link' => StoryActionType.link,
-        _ => StoryActionType.link,
-      };
-
-  String get key => switch (this) {
-        StoryActionType.link => 'link',
-      };
-}
+import 'package:my_archive/core/core_exports.dart';
 
 class StoryActionEntity {
   final String title;

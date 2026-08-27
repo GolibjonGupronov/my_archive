@@ -15,7 +15,7 @@ class LocalAuthService {
     return false;
   }
 
-  static bool get canUseBiometric => DeviceHelper.canUseBiometric;
+  static bool get canUseBiometric => DeviceService.canUseBiometric;
 
   static Future<bool> authenticate() async {
     try {

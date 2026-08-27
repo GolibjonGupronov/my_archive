@@ -32,7 +32,7 @@ class DeviceSessionBloc extends Bloc<DeviceSessionEvent, DeviceSessionState> {
     });
 
     on<TerminateAllEvent>((event, emit) async {
-      await terminate(emit, -1);
+      await terminate(emit, "all");
     });
 
     on<TerminateDeviceEvent>((event, emit) async {
@@ -40,7 +40,7 @@ class DeviceSessionBloc extends Bloc<DeviceSessionEvent, DeviceSessionState> {
     });
   }
 
-  Future<void> terminate(Emitter<DeviceSessionState> emit, int id) async {
+  Future<void> terminate(Emitter<DeviceSessionState> emit, String id) async {
     emit(state.copyWith(terminateStatus: StateStatus.inProgress));
     final result = await terminateDeviceUseCase.callUseCase(id);
     result.fold((fail) {

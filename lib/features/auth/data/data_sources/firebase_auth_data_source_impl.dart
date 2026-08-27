@@ -65,7 +65,13 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
       throw FirebaseAuthException(code: 'user-null', message: 'User yaratilmadi.');
     }
 
-    await user.linkWithCredential(EmailAuthProvider.credential(email: "${params.phone}@gmail.com", password: params.smsCode));
+    final email = "${params.phone}@gmail.com";
+
+    final hasPasswordProvider = user.providerData.any((provider) => provider.providerId == 'password');
+
+    if (!hasPasswordProvider) {
+      await user.linkWithCredential(EmailAuthProvider.credential(email: email, password: params.smsCode));
+    }
 
     final uid = user.uid;
 
@@ -77,7 +83,18 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
   @override
   Future<String> sendLogin(LoginParams params) async {
     final response = await firebaseAuth.signInWithEmailAndPassword(email: "${params.phone}@gmail.com", password: params.password);
-    return response.user?.uid ?? "";
+    final user = response.user;
+
+    if (user == null) {
+      throw FirebaseAuthException(
+        code: 'user-null',
+        message: 'User topilmadi.',
+      );
+    }
+
+    final uid = user.uid;
+    await _saveDeviseSession(uid);
+    return uid;
   }
 
   @override
@@ -135,5 +152,34 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
     }
 
     return completer.future;
+  }
+
+  Future<void> _saveDeviseSession(String uid) async {
+    final deviceId = DeviceService.deviceId;
+
+    if (deviceId.isEmpty) {
+      throw Exception('Device ID topilmadi');
+    }
+    final sessionRef = firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).doc(deviceId);
+    final snapshot = await sessionRef.get();
+    final address = await LocationService.getCurrentLocation();
+    if (!snapshot.exists) {
+      await sessionRef.set({
+        'device_id': deviceId,
+        'device_name': DeviceService.deviceModel,
+        'operating_system': OperatingSystemType.current.key,
+        'app_version': DeviceService.packageInfo.version,
+        'release_version': DeviceService.osVersion,
+        'address': address?.toJson(),
+        'date_time': FieldValue.serverTimestamp(),
+        'is_current': false,
+      });
+    } else {
+      await sessionRef.update({
+        'address': address?.toJson(),
+        'date_time': FieldValue.serverTimestamp(),
+        'is_current': false,
+      });
+    }
   }
 }

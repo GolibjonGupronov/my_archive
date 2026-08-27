@@ -110,7 +110,7 @@ String get _title {
 
 Future<String> get _deviceText async {
   final device = await _getDeviceInfo;
-  final packageInfo = DeviceHelper.packageInfo;
+  final packageInfo = DeviceService.packageInfo;
   return '''
 📱 Device: $device
 🖥 OS: ${Platform.operatingSystem}
@@ -119,7 +119,7 @@ Future<String> get _deviceText async {
 }
 
 Future<String> get _getDeviceInfo async {
-  final deviceInfo = DeviceHelper.deviceInfo;
+  final deviceInfo = DeviceService.deviceInfo;
 
   try {
     if (Platform.isAndroid) {

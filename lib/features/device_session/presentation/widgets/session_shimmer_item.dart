@@ -26,13 +26,13 @@ class SessionShimmerItem extends StatelessWidget {
             children: [
               CustomShimmer(
                 alignment: Alignment.centerLeft,
-                child: TextView("${(DeviceHelper.androidInfo?.brand ?? "").capitalize} ${DeviceHelper.androidInfo?.model}"),
+                child: TextView(DeviceService.deviceModel),
               ),
               2.height,
               CustomShimmer(
                 alignment: Alignment.centerLeft,
                 child: TextView(
-                    "${Platform.operatingSystem.capitalize} ${DeviceHelper.packageInfo.version}, ${Platform.operatingSystem.capitalize} ${DeviceHelper.androidInfo?.version.release} (${DeviceHelper.androidInfo?.version.sdkInt})",
+                    "${Platform.operatingSystem.capitalize} ${DeviceService.packageInfo.version}, ${Platform.operatingSystem.capitalize} ${DeviceService.osVersion}",
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400),
               ),

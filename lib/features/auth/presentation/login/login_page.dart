@@ -8,6 +8,8 @@ import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_bloc.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_event.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_state.dart';
+import 'package:my_archive/features/device_session/data/models/device_session_model.dart';
+import 'package:my_archive/features/device_session/domain/entities/device_session_entity.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -125,10 +127,11 @@ class _LoginPageState extends State<LoginPage> {
                           context.hideKeyboard;
                           bloc.add(SubmitEvent(
                               params: LoginParams(
-                                  phone: "+998${phoneController.text.phoneReplace}", password: passwordController.text)));
+                                  phone: "+998${phoneController.text.phoneReplace}",
+                                  password: passwordController.text)));
                         }, active: state.isActive, progress: state.loginStatus.isInProgress);
                       },
-                    )
+                    ),
                   ],
                 ),
               ),

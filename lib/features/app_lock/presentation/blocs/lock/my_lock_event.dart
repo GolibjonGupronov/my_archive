@@ -1,3 +1,4 @@
+import 'package:my_archive/core/core_exports.dart';
 import 'package:my_archive/features/app_lock/presentation/widgets/auto_lock_widget.dart';
 
 abstract class MyLockEvent {}

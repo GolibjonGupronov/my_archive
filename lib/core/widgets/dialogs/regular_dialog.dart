@@ -82,31 +82,33 @@ Future<void> showCustomBottomSheetDialog({
     containerWidget: (context, animation, child) => Material(
       color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.white,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          4.height,
-          Center(
-            child: Container(
-              width: 36.w,
-              height: 4.h,
-              margin: EdgeInsets.all(8.w),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.r), color: AppColors.gray),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            4.height,
+            Center(
+              child: Container(
+                width: 36.w,
+                height: 4.h,
+                margin: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.r), color: AppColors.gray),
+              ),
             ),
-          ),
-          2.height,
-          Container(
-            constraints: BoxConstraints(maxHeight: context.screenHeight * .8),
-            child: ListView(
-              physics: ClampingScrollPhysics(),
-              padding: EdgeInsets.zero,
-              primary: false,
-              shrinkWrap: true,
-              children: [child],
+            2.height,
+            Container(
+              constraints: BoxConstraints(maxHeight: context.screenHeight * .8),
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                padding: EdgeInsets.zero,
+                primary: false,
+                shrinkWrap: true,
+                children: [child],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
