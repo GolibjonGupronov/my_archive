@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/route_exports.dart';
 import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/services/logout_service.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
@@ -57,8 +58,8 @@ class ProfilePage extends StatelessWidget {
                 padding: EdgeInsets.only(right: 16.w),
                 child: Bounce(
                   onTap: () {
-                    showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: () {
-                      logoutApp();
+                    showRejectDialog(context, tr('logout'), subTitle: tr('confirm_logout'), onConfirm: () async {
+                      await LogoutService.logoutApp();
                     });
                   },
                   child: BoxContainer(

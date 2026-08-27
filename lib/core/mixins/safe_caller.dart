@@ -7,15 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/api/error/exception.dart';
 import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/local_storage/remove_storage.dart';
-import 'package:my_archive/core/services/notification_service.dart';
-import 'package:my_archive/features/splash/presentation/splash_page.dart';
-
-Future<void> logoutApp() async {
-  await RemoveStorage.logoutApp();
-  router.go(SplashPage.tag);
-  await NotificationService.deleteFCMToken;
-}
+import 'package:my_archive/core/services/logout_service.dart';
 
 mixin SafeCaller {
   Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {
@@ -62,7 +54,7 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
       _sendErrorToBot(error, stackTrace);
     }
     if (res?.statusCode == 401) {
-      logoutApp();
+      LogoutService.logoutApp();
       return tr('error_dio.login_expired');
     }
     if (res != null && res.data is Map<String, dynamic>) {
@@ -103,7 +95,7 @@ String _handleDioError(dynamic error, StackTrace? stackTrace) {
   }
 
   if (error is UnAuthorizedException) {
-    logoutApp();
+    LogoutService.logoutApp();
   }
   if (kDebugMode) {
     return error.toString();

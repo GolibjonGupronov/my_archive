@@ -11,4 +11,10 @@ class MainDataSourceImpl extends MainDataSource {
     // TODO: implement checkSession
     throw UnimplementedError();
   }
+
+  @override
+  Future<Stream<bool>> watchSession() async {
+    // TODO: implement watchSession
+    throw UnimplementedError();
+  }
 }

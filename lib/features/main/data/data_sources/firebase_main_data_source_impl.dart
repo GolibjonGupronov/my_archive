@@ -15,12 +15,28 @@ class FirebaseMainDataSourceImpl extends MainDataSource {
     final uid = await secureStorage.getToken;
     final deviceId = DeviceService.deviceId;
 
-    final sessionDoc =
+    final doc =
         await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).doc(deviceId).get();
 
-    if (!sessionDoc.exists) {
+    if (!doc.exists) {
       throw UnAuthorizedException();
     }
     return true;
+  }
+
+  @override
+  Future<Stream<bool>> watchSession() async {
+    final uid = await secureStorage.getToken;
+    final deviceId = DeviceService.deviceId;
+    if (uid.isEmpty || deviceId.isEmpty) {
+      return Stream.value(false);
+    }
+    return firestore
+        .collection(FirebaseUrls.users)
+        .doc(uid)
+        .collection(FirebaseUrls.deviceSessions)
+        .doc(deviceId)
+        .snapshots()
+        .map((snapshot) => snapshot.exists);
   }
 }

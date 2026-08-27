@@ -9,3 +9,7 @@ class ActiveMainPageEvent extends MainEvent {
 
   ActiveMainPageEvent({required this.activePage});
 }
+
+class WatchSessionEvent extends MainEvent {}
+
+class SessionExpiredEvent extends MainEvent {}
