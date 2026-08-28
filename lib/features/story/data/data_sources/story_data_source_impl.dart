@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/story/data/data_sources/story_data_source.dart';
 import 'package:my_archive/features/story/data/models/story_action_model.dart';
 import 'package:my_archive/features/story/data/models/story_model.dart';
-import 'package:my_archive/features/story/domain/entities/story_action_entity.dart';
-import 'package:my_archive/features/story/domain/entities/story_entity.dart';
 
 class StoryDataSourceImpl extends StoryDataSource {
   final Dio dio;

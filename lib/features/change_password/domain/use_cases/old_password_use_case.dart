@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/change_password/domain/repositories/change_password_repository.dart';
 
 class OldPasswordUseCase extends UseCase<bool, String> {

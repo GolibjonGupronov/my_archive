@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/device_session/data/data_sources/device_session_data_source.dart';
 import 'package:my_archive/features/device_session/domain/entities/device_session_entity.dart';
 import 'package:my_archive/features/device_session/domain/repositories/device_session_repository.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/services/logout_service.dart';
 import 'package:my_archive/features/main/domain/use_cases/check_session_use_case.dart';
 import 'package:my_archive/features/main/domain/use_cases/watch_session_use_case.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/device_session/presentation/bloc/device_session_bloc.dart';
 import 'package:my_archive/features/device_session/presentation/bloc/device_session_event.dart';
 import 'package:my_archive/features/device_session/presentation/bloc/device_session_state.dart';

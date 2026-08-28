@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
 
 class SecurityPage extends StatelessWidget {
-  final ProfileBloc bloc;
-
-  const SecurityPage({super.key, required this.bloc});
+  const SecurityPage({super.key});
 
   static const String tag = '/security_page';
 
@@ -37,7 +34,8 @@ class SecurityPage extends StatelessWidget {
                 title: "Ilova qulfi",
                 prefixIconData: CupertinoIcons.lock_fill,
                 onTap: () async {
-                  if (await bloc.secureStorage.hasPin) {
+                  final hasPin = await sl.get<SecureStorage>().hasPin;
+                  if (hasPin) {
                     router.push(CurrentPinPage.tag);
                   } else {
                     router.push(NewPinPage.tag);

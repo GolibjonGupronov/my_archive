@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/profile/domain/repositories/profile_repository.dart';
 
 class ChangeImageUseCase extends UseCase<String, String> {

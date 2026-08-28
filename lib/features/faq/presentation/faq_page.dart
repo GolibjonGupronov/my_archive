@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_bloc.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_event.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_state.dart';

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/auth/data/data_sources/auth_data_source.dart';
 import 'package:my_archive/features/auth/data/models/app_config_model.dart';
 import 'package:my_archive/features/auth/data/models/user_info_model.dart';

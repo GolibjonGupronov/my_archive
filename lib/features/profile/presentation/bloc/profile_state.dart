@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
 
 class ProfileState {

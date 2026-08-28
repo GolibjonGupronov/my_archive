@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 
 enum BottomNavMainPage { home, profile }
 

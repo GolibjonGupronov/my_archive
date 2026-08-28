@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/widgets/pin_put_with_keyboard.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_bloc.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_event.dart';

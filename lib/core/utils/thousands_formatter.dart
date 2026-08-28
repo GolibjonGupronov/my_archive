@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 
 class ThousandsSeparatorInputFormatter extends TextInputFormatter {
   int decimal = Constants.afterDot;

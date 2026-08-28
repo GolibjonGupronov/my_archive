@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 
 class BoxContainer extends StatelessWidget {
   final Widget? child;

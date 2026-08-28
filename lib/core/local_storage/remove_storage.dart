@@ -1,5 +1,5 @@
 import 'package:my_archive/core/constants/keys.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 
 class RemoveStorage {
   static final _prefManager = sl.get<PrefManager>();

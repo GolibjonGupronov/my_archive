@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/change_image_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';
@@ -12,14 +12,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ChangeImageUseCase changeImageUseCase;
   final EnableNotificationUseCase enableNotificationUseCase;
   final UserInfoUseCase userInfoUseCase;
-  final SecureStorage secureStorage;
 
   ProfileBloc({
     required this.prefManager,
     required this.changeImageUseCase,
     required this.enableNotificationUseCase,
     required this.userInfoUseCase,
-    required this.secureStorage,
   }) : super(ProfileState()) {
     on<InitEvent>((event, emit) {
       emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? "", isNotificationEnabled: prefManager.getUserInfo?.isNotificationEnabled ?? true));

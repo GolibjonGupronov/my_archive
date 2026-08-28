@@ -2,14 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_bloc.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_event.dart';
 import 'package:my_archive/features/auth/presentation/login/bloc/login_state.dart';
-import 'package:my_archive/features/device_session/data/models/device_session_model.dart';
-import 'package:my_archive/features/device_session/domain/entities/device_session_entity.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

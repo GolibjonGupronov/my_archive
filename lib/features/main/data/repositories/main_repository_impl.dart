@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/main/data/data_sources/main_data_source.dart';
 import 'package:my_archive/features/main/domain/repositories/main_repository.dart';
 

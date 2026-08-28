@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/edit_profile/domain/repositories/edit_profile_repository.dart';
 
 class EditProfileUseCase extends UseCase<bool, EditProfileParams> {

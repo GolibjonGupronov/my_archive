@@ -1,4 +1,4 @@
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/story/domain/repositories/story_repository.dart';
 
 class ReadStoryUseCase extends UseCase<bool, int> {

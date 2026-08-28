@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_archive/core/api/api_urls/firebase_urls.dart';
 import 'package:my_archive/core/api/error/exception.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/main/data/data_sources/main_data_source.dart';
 
 class FirebaseMainDataSourceImpl extends MainDataSource {

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
-
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_state.dart';
 

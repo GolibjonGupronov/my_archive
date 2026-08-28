@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/change_password/domain/use_cases/old_password_use_case.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_event.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_state.dart';

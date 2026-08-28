@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/profile/presentation/widgets/language_widget.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:my_archive/features/splash/presentation/bloc/splash_event.dart';

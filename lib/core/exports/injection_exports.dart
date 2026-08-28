@@ -3,7 +3,7 @@ export 'package:my_archive/features/change_password/change_passwor_injection.dar
 export 'package:my_archive/features/device_session/device_session_injection.dart';
 export 'package:my_archive/features/edit_profile/edit_profile_injection.dart';
 export 'package:my_archive/features/faq/faq_injection.dart';
+export 'package:my_archive/features/main/main_injection.dart';
 export 'package:my_archive/features/profile/profile_injection.dart';
 export 'package:my_archive/features/splash/splash_injection.dart';
 export 'package:my_archive/features/story/story_injection.dart';
-export 'package:my_archive/features/main/main_injection.dart';

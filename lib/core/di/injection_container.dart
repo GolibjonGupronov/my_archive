@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_archive/core/core_exports.dart';
-import 'package:my_archive/core/di/injection_exports.dart';
+import 'package:my_archive/core/api/firebase_interceptor.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/injection_exports.dart';
+import 'package:my_archive/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt sl = GetIt.instance;
@@ -42,6 +44,7 @@ class InjectionContainer {
   static Future<void> _firebase() async {
     sl.registerLazySingleton(() => FirebaseAuth.instance);
     sl.registerLazySingleton(() => FirebaseFirestore.instance);
+    sl.registerLazySingleton(() => FirebaseAliceLogger(alice));
     // sl.registerLazySingleton(() => FirebaseStorage.instance);
     // sl.registerLazySingleton(() => FirebaseMessaging.instance);
   }

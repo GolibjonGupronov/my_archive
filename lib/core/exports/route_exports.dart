@@ -14,13 +14,13 @@ export 'package:my_archive/features/change_password/presentation/pages/new_passw
 export 'package:my_archive/features/change_password/presentation/pages/old_password_page.dart';
 export 'package:my_archive/features/device_session/presentation/device_session_page.dart';
 export 'package:my_archive/features/edit_profile/presentation/edit_profile_page.dart';
+export 'package:my_archive/features/faq/presentation/faq_page.dart';
 export 'package:my_archive/features/home/presentation/home_page.dart';
 export 'package:my_archive/features/main/presentation/main_page.dart';
+export 'package:my_archive/features/profile/presentation/pages/help_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/profile_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/security_page.dart';
 export 'package:my_archive/features/profile/presentation/pages/settings_page.dart';
 export 'package:my_archive/features/splash/presentation/splash_page.dart';
 export 'package:my_archive/features/story/presentation/story_page.dart';
 export 'package:my_archive/features/update/presentation/update_page.dart';
-export 'package:my_archive/features/profile/presentation/pages/help_page.dart';
-export 'package:my_archive/features/faq/presentation/faq_page.dart';

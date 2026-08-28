@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/main.dart';
 
 class CustomInterceptor extends Interceptor {

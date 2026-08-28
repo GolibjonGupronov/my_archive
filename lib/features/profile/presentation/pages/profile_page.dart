@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_archive/core/app_router/route_exports.dart';
-import 'package:my_archive/core/core_exports.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/services/logout_service.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
@@ -24,10 +24,8 @@ class ProfilePage extends StatelessWidget {
       create: (BuildContext context) => ProfileBloc(
           prefManager: sl(),
           changeImageUseCase: sl(),
-          enableNotificationUseCase: sl(),
-          userInfoUseCase: sl(),
-          secureStorage: sl())
-        ..add(InitEvent()),
+          enableNotificationUseCase: sl(), userInfoUseCase: sl())
+            ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
@@ -98,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                         title: "Xavfsizlik",
                         prefixIconData: CupertinoIcons.lock_shield,
                         onTap: () {
-                          context.push(SecurityPage.tag, extra: bloc);
+                          context.push(SecurityPage.tag);
                         },
                       ),
                       ProfileItem(
