@@ -20,7 +20,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.userInfoUseCase,
   }) : super(ProfileState()) {
     on<InitEvent>((event, emit) {
-      emit(state.copyWith(user: prefManager.getUserInfo, userImage: prefManager.getUserInfo?.image ?? "", isNotificationEnabled: prefManager.getUserInfo?.isNotificationEnabled ?? true));
+      emit(state.copyWith(
+          user: prefManager.getUserInfo,
+          userImage: prefManager.getUserInfo?.image ?? "",
+          isNotificationEnabled: prefManager.getUserInfo?.isNotificationEnabled ?? true));
     });
 
     on<IsGrantedEvent>((event, emit) async {
@@ -59,7 +62,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeImageStatus: StateStatus.inProgress, userImage: event.path));
       final result = await changeImageUseCase.callUseCase(event.path);
       result.fold(
-          (fail) => emit(state.copyWith(changeImageStatus: StateStatus.failure, userImage: prefManager.getUserInfo?.image ?? "", errorMessage: fail.message)),
+          (fail) => emit(state.copyWith(
+              changeImageStatus: StateStatus.failure,
+              userImage: prefManager.getUserInfo?.image ?? "",
+              errorMessage: fail.message)),
           (data) => emit(state.copyWith(changeImageStatus: StateStatus.success)));
     });
   }

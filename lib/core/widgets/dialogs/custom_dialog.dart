@@ -339,11 +339,7 @@ class _CustomDialog extends StatelessWidget {
           Center(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: 26.w,
-                    right: 26.w,
-                    bottom: context.keyboardBottom + 16.h,
-                    top: 16.h),
+                padding: EdgeInsets.only(left: 26.w, right: 26.w, bottom: context.keyboardBottom + 16.h, top: 16.h),
                 child: BoxContainer(
                   padding: EdgeInsets.all(16.w),
                   borderRadius: BorderRadius.circular(16.r),

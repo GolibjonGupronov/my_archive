@@ -140,7 +140,8 @@ class DeviceSessionPage extends StatelessWidget {
                                               onTap: () {
                                                 if (!progress) {
                                                   showRejectDialog(context, "Ushbu sessiyani to'xtatish",
-                                                      subTitle: "Haqiqatdan ham ushbu \"${item.deviceName}\" sessiyani tugatmoqchimisiz?",
+                                                      subTitle:
+                                                          "Haqiqatdan ham ushbu \"${item.deviceName}\" sessiyani tugatmoqchimisiz?",
                                                       onConfirm: () {
                                                     bloc.add(TerminateDeviceEvent(id: item.deviceId));
                                                   });

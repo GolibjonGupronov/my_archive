@@ -24,25 +24,25 @@ enum Gender {
   female;
 
   static Gender getObj(String key) => switch (key) {
-    'male' => Gender.male,
-    'female' => Gender.female,
-    _ => Gender.male,
-  };
+        'male' => Gender.male,
+        'female' => Gender.female,
+        _ => Gender.male,
+      };
 
   String get title => switch (this) {
-    Gender.male => tr('male'),
-    Gender.female => tr('female'),
-  };
+        Gender.male => tr('male'),
+        Gender.female => tr('female'),
+      };
 
   String get key => switch (this) {
-    Gender.male => "male",
-    Gender.female => "female",
-  };
+        Gender.male => "male",
+        Gender.female => "female",
+      };
 
   SvgGenImage get iconSvg => switch (this) {
-    Gender.male => Assets.icons.male,
-    Gender.female => Assets.icons.female,
-  };
+        Gender.male => Assets.icons.male,
+        Gender.female => Assets.icons.female,
+      };
 }
 
 enum LangType {
@@ -50,30 +50,30 @@ enum LangType {
   ru;
 
   static LangType getObj(String key) => switch (key) {
-    'uz' => LangType.uz,
-    'ru' => LangType.ru,
-    _ => LangType.uz,
-  };
+        'uz' => LangType.uz,
+        'ru' => LangType.ru,
+        _ => LangType.uz,
+      };
 
   String get key => switch (this) {
-    LangType.uz => 'uz',
-    LangType.ru => 'ru',
-  };
+        LangType.uz => 'uz',
+        LangType.ru => 'ru',
+      };
 
   Locale get locale => switch (this) {
-    LangType.uz => Locale('uz'),
-    LangType.ru => Locale('ru'),
-  };
+        LangType.uz => Locale('uz'),
+        LangType.ru => Locale('ru'),
+      };
 
   String get title => switch (this) {
-    LangType.uz => "O'zbek",
-    LangType.ru => "Русский",
-  };
+        LangType.uz => "O'zbek",
+        LangType.ru => "Русский",
+      };
 
   SvgGenImage get iconSvg => switch (this) {
-    LangType.uz => Assets.icons.flagUz,
-    LangType.ru => Assets.icons.flagRu,
-  };
+        LangType.uz => Assets.icons.flagUz,
+        LangType.ru => Assets.icons.flagRu,
+      };
 
   LangType get next {
     final index = LangType.values.indexOf(this);

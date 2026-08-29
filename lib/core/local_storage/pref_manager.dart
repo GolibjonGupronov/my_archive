@@ -7,7 +7,6 @@ import 'package:my_archive/features/auth/data/models/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PrefManager {
-
   LangType get getLanguage;
 
   Future<void> setLanguage(LangType lang);

@@ -42,12 +42,12 @@ class AliceFirebase {
   }
 
   static void _finishCall(
-      AliceHttpCall call,
-      DateTime startTime, {
-        required int status,
-        required dynamic body,
-        required bool isError,
-      }) {
+    AliceHttpCall call,
+    DateTime startTime, {
+    required int status,
+    required dynamic body,
+    required bool isError,
+  }) {
     final endTime = DateTime.now();
     final encodedBody = isError ? body.toString() : _safeEncode(body);
 

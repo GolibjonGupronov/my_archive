@@ -22,7 +22,7 @@ class NewPinBloc extends Bloc<NewPinEvent, NewPinState> {
         return;
       }
       if (state.newPinCode == event.pinCode) {
-        if (prefManager.isBiometric == false){
+        if (prefManager.isBiometric == false) {
           final bool auth = await LocalAuthService.tryBiometric();
           await prefManager.setBiometric(auth);
         }

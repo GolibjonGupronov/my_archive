@@ -125,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           context.hideKeyboard;
                           bloc.add(SubmitEvent(
                               params: LoginParams(
-                                  phone: "+998${phoneController.text.phoneReplace}",
-                                  password: passwordController.text)));
+                                  phone: "+998${phoneController.text.phoneReplace}", password: passwordController.text)));
                         }, active: state.isActive, progress: state.loginStatus.isInProgress);
                       },
                     ),

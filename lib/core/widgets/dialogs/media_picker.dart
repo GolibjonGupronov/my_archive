@@ -85,7 +85,7 @@ class MediaPicker {
                         if (filePath.isNotEmpty) {
                           onResult(filePath.first);
                         } else {
-                          if(!ctx.mounted) return;
+                          if (!ctx.mounted) return;
                           showErrorToast(ctx, tr('file_not_found'));
                         }
                       }

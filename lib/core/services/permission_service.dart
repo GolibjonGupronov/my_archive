@@ -60,14 +60,14 @@ Future<bool> _requestPermissionWithToast(
     if (result.isGranted) {
       return true;
     } else if (result.isPermanentlyDenied) {
-      if(context.mounted) {
+      if (context.mounted) {
         showErrorToast(context, message, action: () async {
           await openAppSettings();
         });
       }
     }
   } else if (status.isPermanentlyDenied) {
-    if(context.mounted) {
+    if (context.mounted) {
       showErrorToast(context, message, action: () async {
         await openAppSettings();
       });

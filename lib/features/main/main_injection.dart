@@ -6,7 +6,7 @@ import 'package:my_archive/features/main/domain/repositories/main_repository.dar
 import 'package:my_archive/features/main/domain/use_cases/check_session_use_case.dart';
 import 'package:my_archive/features/main/domain/use_cases/watch_session_use_case.dart';
 
-void initMainInjection(){
+void initMainInjection() {
   sl.registerSingleton<MainDataSource>(FirebaseMainDataSourceImpl(firestore: sl(), secureStorage: sl()));
   // sl.registerSingleton<MainDataSource>(MainDataSourceImpl(dio: sl()));
   sl.registerSingleton<MainRepository>(MainRepositoryImpl(mainDataSource: sl()));

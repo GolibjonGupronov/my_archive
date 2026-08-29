@@ -6,12 +6,7 @@ class NewPinState {
   final String newPinCode;
   final String errorMessage;
 
-  NewPinState({
-    this.appLockStatus = StateStatus.initial,
-    this.isActive = false,
-    this.newPinCode = "",
-    this.errorMessage = ""
-  });
+  NewPinState({this.appLockStatus = StateStatus.initial, this.isActive = false, this.newPinCode = "", this.errorMessage = ""});
 
   NewPinState copyWith({
     StateStatus? appLockStatus,

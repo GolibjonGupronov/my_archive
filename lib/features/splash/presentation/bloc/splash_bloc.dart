@@ -51,8 +51,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       final result = await userInfoUseCase.callUseCase(NoParams());
       result.fold(
         (fail) => emit(state.copyWith(splashStatus: StateStatus.failure, errorMessage: fail.message)),
-        (data) => emit(
-            state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main)),
+        (data) => emit(state.copyWith(splashStatus: StateStatus.success, nextPage: NextPage.main)),
       );
     }
   }

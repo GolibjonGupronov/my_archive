@@ -11,7 +11,6 @@ class DeviceService {
   static final LocalAuthentication _localAuthentication = LocalAuthentication();
   static bool _canUseBiometric = false;
 
-
   static const _androidIdPlugin = AndroidId();
   static late PackageInfo _packageInfo;
   static late String _deviceId;
@@ -58,5 +57,6 @@ class DeviceService {
   static String get osVersion => _osVersion;
 
   static PackageInfo get packageInfo => _packageInfo;
+
   static DeviceInfoPlugin get deviceInfo => _deviceInfoPlugin;
 }
