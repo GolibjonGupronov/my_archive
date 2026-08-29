@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_archive/core/api/api_urls/firebase_urls.dart';
 import 'package:my_archive/core/api/error/exception.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/main/data/data_sources/main_data_source.dart';
@@ -15,13 +14,19 @@ class FirebaseMainDataSourceImpl extends MainDataSource {
     final uid = await secureStorage.getToken;
     final deviceId = DeviceService.deviceId;
 
-    final doc =
-        await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).doc(deviceId).get();
+    return await AliceFirebase.logCall(
+      name: "${FirebaseUrls.users}/${FirebaseUrls.deviceSessions}/checkSession",
+      request: {"uid": uid, "device_id": deviceId},
+      action: () async {
+        final doc =
+            await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).doc(deviceId).get();
 
-    if (!doc.exists) {
-      throw UnAuthorizedException();
-    }
-    return true;
+        if (!doc.exists) {
+          throw UnAuthorizedException();
+        }
+        return true;
+      },
+    );
   }
 
   @override

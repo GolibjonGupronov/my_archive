@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_archive/core/api/api_urls/firebase_urls.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/device_session/data/data_sources/device_session_data_source.dart';
 import 'package:my_archive/features/device_session/data/models/device_session_model.dart';
@@ -15,11 +14,18 @@ class FirebaseDeviceSessionDataSourceImpl extends DeviceSessionDataSource {
     final uid = await secureStorage.getToken;
     final deviceId = DeviceService.deviceId;
 
-    final snapshot = await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).get();
-    return snapshot.docs.map((e) {
-      final session = DeviceSessionModel.fromJson(e.data());
-      return session.copyWith(isCurrent: session.deviceId == deviceId);
-    }).toList();
+    return await AliceFirebase.logCall(
+      name: "${FirebaseUrls.users}/${FirebaseUrls.deviceSessions}",
+      request: {"uid": uid, "device_id": deviceId},
+      action: () async {
+        final snapshot = await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions).get();
+
+        return snapshot.docs.map((e) {
+          final session = DeviceSessionModel.fromJson(e.data());
+          return session.copyWith(isCurrent: session.deviceId == deviceId);
+        }).toList();
+      },
+    );
   }
 
   @override
@@ -27,26 +33,32 @@ class FirebaseDeviceSessionDataSourceImpl extends DeviceSessionDataSource {
     final uid = await secureStorage.getToken;
     final deviceId = DeviceService.deviceId;
 
-    final sessionsRef = firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions);
+    return await AliceFirebase.logCall(
+      name: "${FirebaseUrls.users}/${FirebaseUrls.deviceSessions}/terminate",
+      request: {"uid": uid, "device_id": deviceId, "params": params},
+      action: () async {
+        final sessionsRef = firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.deviceSessions);
 
-    if (params == "all") {
-      final snapshot = await sessionsRef.get();
+        if (params == "all") {
+          final snapshot = await sessionsRef.get();
 
-      final batch = firestore.batch();
+          final batch = firestore.batch();
 
-      for (final doc in snapshot.docs) {
-        final session = DeviceSessionModel.fromJson(doc.data());
+          for (final doc in snapshot.docs) {
+            final session = DeviceSessionModel.fromJson(doc.data());
 
-        if (session.deviceId != deviceId) {
-          batch.delete(doc.reference);
+            if (session.deviceId != deviceId) {
+              batch.delete(doc.reference);
+            }
+          }
+
+          await batch.commit();
+        } else {
+          await sessionsRef.doc(params).delete();
         }
-      }
 
-      await batch.commit();
-    } else {
-      await sessionsRef.doc(params).delete();
-    }
-
-    return true;
+        return true;
+      },
+    );
   }
 }
