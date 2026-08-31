@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/services/notification_service.dart';

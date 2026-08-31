@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_entity.dart';
@@ -65,7 +64,6 @@ class StoryPage extends StatelessWidget {
                   child: PageView(
                 controller: bloc.pageController,
                 onPageChanged: (index) {
-                  final item = bloc.storyList[index];
                   bloc.add(UpdatedActivePageEvent(index: index));
                 },
                 children: bloc.storyList

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';

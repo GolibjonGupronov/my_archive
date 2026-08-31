@@ -123,7 +123,7 @@ class _PulseAnimationDemoState extends State<PulseAnimationDemo> {
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFE94560).withOpacity(0.4),
+                          color: const Color(0xFFE94560).withValues(alpha: 0.4),
                           blurRadius: 15,
                           spreadRadius: 2,
                         ),

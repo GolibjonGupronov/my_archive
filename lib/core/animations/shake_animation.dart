@@ -132,7 +132,7 @@ class _ShakeAnimationDemoState extends State<ShakeAnimationDemo> {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: _showError ? const Color(0xFFE94560).withOpacity(0.2) : const Color(0xFF0F3460),
+                color: _showError ? const Color(0xFFE94560).withValues(alpha: 0.2) : const Color(0xFF0F3460),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: _showError ? const Color(0xFFE94560) : Colors.transparent,

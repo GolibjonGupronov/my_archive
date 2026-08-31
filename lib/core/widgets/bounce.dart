@@ -110,7 +110,8 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
             final transform = Matrix4.identity()..setEntry(3, 2, 0.002);
 
             if (widget.scale) {
-              transform.scale(lerpDouble(1, widget.scaleFactor, _controller.value));
+              final x = lerpDouble(1, widget.scaleFactor, _controller.value) ?? 0.0;
+              transform.scaleByDouble(x, x, x, 1.0);
             }
 
             if (widget.tilt && _lastTapLocation != null && lastSize != null) {

@@ -122,10 +122,10 @@ class _StaggerAnimationDemoState extends State<StaggerAnimationDemo> {
                       margin: const EdgeInsets.only(bottom: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(
-                        color: (item['color'] as Color).withOpacity(0.15),
+                        color: (item['color'] as Color).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: (item['color'] as Color).withOpacity(0.4),
+                          color: (item['color'] as Color).withValues(alpha: 0.4),
                         ),
                       ),
                       child: Row(
@@ -134,7 +134,7 @@ class _StaggerAnimationDemoState extends State<StaggerAnimationDemo> {
                           const SizedBox(width: 16),
                           Text(item['label'] as String, style: const TextStyle(color: Colors.white, fontSize: 16)),
                           const Spacer(),
-                          Icon(Icons.chevron_right, color: (item['color'] as Color).withOpacity(0.7)),
+                          Icon(Icons.chevron_right, color: (item['color'] as Color).withValues(alpha: 0.7)),
                         ],
                       ),
                     ))

@@ -22,8 +22,6 @@ class HomePage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     logger("GGQ => HomePage");
-    final bloc = BlocProvider.of<HomeBloc>(context);
-
     return MultiBlocListener(
       listeners: [
         BlocListener<HomeBloc, HomeState>(

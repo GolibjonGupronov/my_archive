@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 
 enum _EnumTextFieldType { text, phone, password, thousandFormat, comment }
@@ -26,7 +25,6 @@ class CustomTextField extends StatefulWidget {
   final String Function(String v)? validate;
   final bool autofocus;
   final bool canCopyPaste;
-  final _EnumTextFieldType _textFieldType;
 
   const CustomTextField._(
     this.title, {
@@ -47,7 +45,7 @@ class CustomTextField extends StatefulWidget {
     this.autofocus = false,
     this.canCopyPaste = true,
     required _EnumTextFieldType textFieldType,
-  }) : _textFieldType = textFieldType;
+  });
 
   factory CustomTextField(
     final String title, {

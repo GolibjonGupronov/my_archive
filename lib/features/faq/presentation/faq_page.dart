@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_bloc.dart';
 import 'package:my_archive/features/faq/presentation/bloc/faq_event.dart';
@@ -23,8 +22,6 @@ class FaqPage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     logger("GGQ => FaqPage");
-    final bloc = BlocProvider.of<FaqBloc>(context);
-
     return BlocListener<FaqBloc, FaqState>(
       listenWhen: (p, c) => p.faqStatus != c.faqStatus,
       listener: (context, state) {

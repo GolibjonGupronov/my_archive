@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/services/local_auth_service.dart';
