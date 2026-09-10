@@ -1,5 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_archive/core/exports/core_exports.dart';
 
 extension HexColor on Color {
   String toHex({bool leadingHashSign = true, bool includeAlpha = true}) {
@@ -27,19 +29,12 @@ extension BuildContextExtensions on BuildContext {
   MediaQueryData get _mediaQuery => MediaQuery.of(this);
 
   EdgeInsets get viewInsets => _mediaQuery.viewInsets;
-
   Size get screenSize => _mediaQuery.size;
-
   double get screenHeight => screenSize.height;
-
   double get screenWidth => screenSize.width;
-
   double get keyboardBottom => viewInsets.bottom;
-
   double get keyboardTop => viewInsets.top;
-
   void get hideKeyboard => FocusScope.of(this).unfocus();
-
   bool get isDarkModeEnable {
     final adaptiveMode = AdaptiveTheme.maybeOf(this)?.mode;
     if (adaptiveMode != null) {
@@ -47,4 +42,14 @@ extension BuildContextExtensions on BuildContext {
     }
     return Theme.of(this).brightness == Brightness.dark;
   }
+}
+
+extension FormattedDateTime on DateTime? {
+  String get toBackendDate => this == null ? "" : DateFormat('yyyy-MM-dd').format(this!);
+  String get toBackendTime => this == null ? "" : DateFormat('HH:mm').format(this!);
+  String get toBackendDateTime => this == null ? "" : DateFormat('yyyy-MM-dd HH:mm').format(this!);
+
+  String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: this);
+  String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: this);
+  String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: this);
 }

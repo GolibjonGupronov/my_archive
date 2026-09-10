@@ -22,7 +22,6 @@ export 'package:my_archive/core/entities/bottom_nav_item_entity.dart';
 export 'package:my_archive/core/enums/common.dart';
 export 'package:my_archive/core/enums/state_status.dart';
 export 'package:my_archive/core/extensions/common.dart';
-export 'package:my_archive/core/extensions/date_time.dart';
 export 'package:my_archive/core/extensions/helper.dart';
 export 'package:my_archive/core/extensions/number.dart';
 export 'package:my_archive/core/extensions/string.dart';

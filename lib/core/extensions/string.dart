@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 
 extension CustomString on String {
@@ -9,13 +8,9 @@ extension CustomString on String {
   }
 
   String get getFirstLetters => isEmpty ? "" : trim().split(RegExp(r'\s+')).map((word) => word[0].toUpperCase()).join();
-
   String? get nullIfEmpty => trim().isEmpty ? null : this;
-
   double get parseToDouble => double.tryParse(replaceAll(' ', '')) ?? 0.0;
-
   int get parseToInt => int.tryParse(replaceAll(' ', '')) ?? 0;
-
   String get removeSpaces => replaceAll(" ", '');
 
   String shortFileName({int keep = 10}) {
@@ -23,105 +18,24 @@ extension CustomString on String {
     return '...${substring(length - keep)}';
   }
 
-  String phoneFormatter({String mask = "+000 (00) 000-00-00"}) {
-    if (mask.isEmpty) {
-      return this;
-    }
-    final chars = replaceAll(RegExp(r'\D+'), '').split('');
-
-    if (chars.length != mask.replaceAll(RegExp(r'\D+'), '').length) {
-      return this;
-    }
-
-    final result = <String>[];
-    var index = 0;
-    for (var i = 0; i < mask.length; i++) {
-      if (index >= chars.length) {
-        break;
-      }
-      final curChar = chars[index];
-      if (mask[i] == '0') {
-        if (ExtensionHelper.isDigit(curChar)) {
-          result.add(curChar);
-          index++;
-        } else {
-          break;
-        }
-      } else {
-        result.add(mask[i]);
-      }
-    }
-    return result.join();
-  }
+  String phoneFormatter({String mask = "+000 (00) 000-00-00"}) => ExtensionHelper.phoneFormatter(value: this, mask: mask);
 
   String get phoneReplace => replaceAll(" ", "").replaceAll("(", "").replaceAll(")", "").replaceAll("-", "");
+  Color? get fromHex {
+    final hex = ExtensionHelper.fromHex(this);
+    if (hex == null) return null;
+    return Color(int.tryParse(hex, radix: 16) ?? 0xFFFFFFFF);
+  }
+
+  DateTime? get toDateTime => ExtensionHelper.toDateTime(this);
+  String formatTo(String outputFormat) => ExtensionHelper.formatTo(outputFormat: outputFormat, date: toDateTime);
+  String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: toDateTime);
+  String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: toDateTime);
+  String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: toDateTime);
 }
 
 extension FormattedAmountString on String? {
   double get _value => double.tryParse((this ?? '').replaceAll(' ', '')) ?? 0.0;
-
   String get formattedAmount => ExtensionHelper.thousandDecimalFormat(_value);
-
   String get formattedAmountEmpty => _value == 0 ? "" : formattedAmount;
-}
-
-extension HexColorStrinng on String {
-  Color? get fromHex {
-    var hex = replaceAll('#', '').trim();
-
-    if (hex.length == 3) {
-      hex = hex.split('').map((e) => '$e$e').join();
-    }
-
-    if (hex.length == 6) {
-      hex = 'FF$hex';
-    }
-
-    if (hex.length != 8) return null;
-
-    return Color(int.tryParse(hex, radix: 16) ?? 0xFFFFFFFF);
-  }
-}
-
-extension StringDateParsing on String {
-  static final List<DateFormat> _cachedFormats = [
-    "dd.MM.yyyy HH:mm",
-    "dd/MM/yyyy HH:mm",
-    "yyyy-MM-dd HH:mm",
-    "yyyy.MM.dd HH:mm",
-    "MM-dd-yyyy HH:mm",
-    "dd.MM.yyyy HH:mm:ss",
-    "dd/MM/yyyy HH:mm:ss",
-    "yyyy-MM-dd HH:mm:ss",
-    "yyyy.MM.dd HH:mm:ss",
-    "MM-dd-yyyy HH:mm:ss",
-    "dd.MM.yyyy",
-    "dd/MM/yyyy",
-    "yyyy-MM-dd",
-    "yyyy.MM.dd",
-    "MM-dd-yyyy",
-    "yyyy-MM-ddTHH:mm:ssZ"
-  ].map((e) => DateFormat(e)).toList();
-
-  DateTime? get toDateTime {
-    final value = trim();
-    if (value.isEmpty) return null;
-
-    final isoDate = DateTime.tryParse(value);
-    if (isoDate != null) return isoDate;
-
-    for (final format in _cachedFormats) {
-      try {
-        return format.parseStrict(value);
-      } catch (_) {}
-    }
-    return null;
-  }
-
-  String formatTo(String outputFormat) {
-    final date = toDateTime;
-    if (date == null) return "--";
-
-    return DateFormat(outputFormat).format(date);
-  }
 }

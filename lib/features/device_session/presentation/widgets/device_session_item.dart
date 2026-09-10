@@ -13,7 +13,7 @@ class DeviceSessionItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BoxContainer(
-            borderRadius: BorderRadius.circular(30.r),
+            shape: BoxShape.circle,
             padding: EdgeInsets.all(8.w),
             color: AppColors.primary,
             child: Icon(item.operatingSystemType.icon, size: 30.w, color: AppColors.white)),
@@ -34,7 +34,7 @@ class DeviceSessionItem extends StatelessWidget {
           ),
         ),
         8.width,
-        TextView(item.dateTime.formatTo('dd/MM/yy'), color: AppColors.gray)
+        TextView(item.dateTime.formattedDate, color: AppColors.gray)
       ],
     );
   }
