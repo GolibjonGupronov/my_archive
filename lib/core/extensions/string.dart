@@ -29,6 +29,7 @@ extension CustomString on String {
 
   DateTime? get toDateTime => ExtensionHelper.toDateTime(this);
   String formatTo(String outputFormat) => ExtensionHelper.formatTo(outputFormat: outputFormat, date: toDateTime);
+  String get formatRelativeDate => ExtensionHelper.formatRelativeDate(outputFormat: 'dd.MM.yyyy', date: toDateTime);
   String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: toDateTime);
   String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: toDateTime);
   String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: toDateTime);

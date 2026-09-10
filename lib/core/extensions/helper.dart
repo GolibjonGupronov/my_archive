@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 
 class ExtensionHelper {
@@ -65,6 +65,27 @@ class ExtensionHelper {
 
   static String formatTo({required String outputFormat, required DateTime? date}) =>
       date == null ? "--" : DateFormat(outputFormat).format(date);
+
+  static String formatRelativeDate({required String outputFormat, required DateTime? date}) {
+    if (date == null) {
+      return "--";
+    }
+
+    final now = DateTime.now();
+
+    final today = DateTime(now.year, now.month, now.day);
+    final target = DateTime(date.year, date.month, date.day);
+
+    final difference = target.difference(today).inDays;
+
+    return switch (difference) {
+      -1 => tr('yesterday'),
+      0 => tr('today'),
+      1 => tr('tomorrow'),
+      _ => DateFormat(outputFormat).format(date),
+    };
+  }
+
 
   static String? fromHex(String value) {
     var hex = value.replaceAll('#', '').trim();

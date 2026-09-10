@@ -34,7 +34,7 @@ class DeviceSessionItem extends StatelessWidget {
           ),
         ),
         8.width,
-        TextView(item.dateTime.formattedDate, color: AppColors.gray)
+        TextView(item.dateTime.formatRelativeDate, color: AppColors.gray)
       ],
     );
   }

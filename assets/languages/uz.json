@@ -54,5 +54,8 @@
   "update_app": "Iltimos ilovani yangilang!",
   "update_app_message": "Ilovaning so‘nggi versiyasini {} orqali yuklab oling va yangi imkoniyatlardan foydalaning!",
   "update": "Yangilash",
+  "yesterday": "Kecha",
+  "today": "Bugun",
+  "tomorrow": "Ertaga",
   "yes": "Ha"
 }

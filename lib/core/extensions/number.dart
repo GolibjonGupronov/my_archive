@@ -14,6 +14,7 @@ extension CustomInt on int {
 extension FormattedIntDateTime on int? {
   DateTime? get _toDateTime => this == null ? null : DateTime.fromMillisecondsSinceEpoch(this!);
   String formatTo(String outputFormat) => ExtensionHelper.formatTo(outputFormat: outputFormat, date: _toDateTime);
+  String get formatRelativeDate => ExtensionHelper.formatRelativeDate(outputFormat: 'dd.MM.yyyy', date: _toDateTime);
   String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: _toDateTime);
   String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: _toDateTime);
   String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: _toDateTime);

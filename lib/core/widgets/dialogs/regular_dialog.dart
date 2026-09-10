@@ -66,22 +66,16 @@ Future<void> showDraggableBottomSheet({
   );
 }
 
-Future<void> showCustomBottomSheetDialog({
-  required BuildContext context,
-  required Widget child,
-  bool isDismissible = true,
-}) {
+Future<void> showCustomBottomSheetDialog({required BuildContext context, required Widget child, bool isDismissible = true}) {
   return showCustomModalBottomSheet(
     context: context,
     isDismissible: isDismissible,
-    builder: (context) => PopScope(
-      canPop: isDismissible,
-      child: child,
-    ),
+    builder: (context) => PopScope(canPop: isDismissible, child: child),
     containerWidget: (context, animation, child) => Material(
       color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.white,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       child: SafeArea(
+        top: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
