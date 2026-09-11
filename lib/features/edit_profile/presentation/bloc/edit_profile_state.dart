@@ -14,6 +14,7 @@ class EditProfileState {
   final String initialSecondName;
   final Gender initialGender;
   final DateTime? initialBirthDay;
+  final bool canEdit;
 
   const EditProfileState({
     this.editStatus = StateStatus.initial,
@@ -29,6 +30,7 @@ class EditProfileState {
     this.initialSecondName = '',
     this.initialBirthDay,
     this.initialGender = Gender.male,
+    this.canEdit = false,
   });
 
   EditProfileState copyWith({
@@ -45,6 +47,7 @@ class EditProfileState {
     String? initialSecondName,
     Gender? initialGender,
     DateTime? initialBirthDay,
+    bool? canEdit,
   }) =>
       EditProfileState(
         editStatus: editStatus ?? this.editStatus,
@@ -60,5 +63,6 @@ class EditProfileState {
         initialSecondName: initialSecondName ?? this.initialSecondName,
         initialGender: initialGender ?? this.initialGender,
         initialBirthDay: initialBirthDay ?? this.initialBirthDay,
+        canEdit: canEdit ?? this.canEdit,
       );
 }

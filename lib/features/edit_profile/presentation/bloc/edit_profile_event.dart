@@ -36,3 +36,5 @@ class UpdateFieldEvent extends EditProfileEvent {
     this.birthDay,
   });
 }
+
+class CanEditEvent extends EditProfileEvent {}

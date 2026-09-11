@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/widgets/dialogs/date_time_picker.dart';
@@ -71,100 +72,119 @@ class _EditProfilePageState extends State<EditProfilePage> {
         builder: (context, state) {
           return CustomScaffold(
             hasUnsavedChanges: () => state,
-            appBar: CustomAppBar(""),
+            appBar: CustomAppBar(
+              "",
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      bloc.add(CanEditEvent());
+                    },
+                    icon: Icon(CupertinoIcons.pen)),
+              ],
+            ),
             body: Padding(
               padding: EdgeInsets.all(16.w),
               child: Column(
                 children: [
                   Expanded(
-                    child: ListView(
-                      primary: false,
-                      children: [
-                        LogoWidget(),
-                        8.height,
-                        TextView("Ma'lumotlarim", fontWeight: FontWeight.bold, fontSize: 24),
-                        24.height,
-                        Column(
-                          spacing: 12.h,
+                    child: BlocSelector<EditProfileBloc, EditProfileState, ({bool canEdit})>(
+                      selector: (state) => (canEdit: state.canEdit),
+                      builder: (context, state) {
+                        return ListView(
+                          primary: false,
                           children: [
-                            Row(
+                            LogoWidget(),
+                            8.height,
+                            TextView("Ma'lumotlarim", fontWeight: FontWeight.bold, fontSize: 24),
+                            24.height,
+                            Column(
+                              spacing: 12.h,
                               children: [
-                                Opacity(
-                                  opacity: 0.5,
-                                  child: BoxContainer(
-                                    padding: EdgeInsets.symmetric(horizontal: 12.w),
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    child: SizedBox(
-                                      height: 60.h,
-                                      child: Row(
-                                        children: [
-                                          Assets.icons.circleFlagUz.svg(width: 26.w, height: 26.w, fit: BoxFit.cover),
-                                          4.width,
-                                          TextView("+998 "),
-                                        ],
+                                Row(
+                                  children: [
+                                    Opacity(
+                                      opacity: 0.5,
+                                      child: BoxContainer(
+                                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                        borderRadius: BorderRadius.circular(30.r),
+                                        child: SizedBox(
+                                          height: 60.h,
+                                          child: Row(
+                                            children: [
+                                              Assets.icons.circleFlagUz.svg(width: 26.w, height: 26.w, fit: BoxFit.cover),
+                                              4.width,
+                                              TextView("+998 "),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    8.width,
+                                    Expanded(
+                                      child: CustomTextField.phone(
+                                        "",
+                                        controller: phoneController,
+                                        hint: "(00) 000-00-00",
+                                        enabled: false,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                8.width,
-                                Expanded(
-                                  child: CustomTextField.phone(
-                                    "",
-                                    controller: phoneController,
-                                    hint: "(00) 000-00-00",
-                                    enabled: false,
-                                  ),
+                                CustomTextField(
+                                  "Ism",
+                                  controller: firstNameController,
+                                  hint: "Masalan: G'olibjon",
+                                  onChanged: (value) {
+                                    bloc.add(UpdateFieldEvent(firstName: value));
+                                  },
+                                  enabled: state.canEdit,
+                                ),
+                                CustomTextField(
+                                  "Familiya",
+                                  controller: secondNameController,
+                                  hint: "Masalan: G'upronov",
+                                  onChanged: (value) {
+                                    bloc.add(UpdateFieldEvent(secondName: value));
+                                  },
+                                  enabled: state.canEdit,
+                                ),
+                                BlocSelector<EditProfileBloc, EditProfileState, Gender>(
+                                  selector: (state) => state.gender,
+                                  builder: (context, stateGender) {
+                                    return CustomRadioList(
+                                      "Jins",
+                                      segments: Gender.values,
+                                      getSegmentTitle: (value) => value.title,
+                                      onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
+                                      activeSegment: stateGender,
+                                      activeGradient:
+                                          stateGender == Gender.male ? Gradients.primaryGradient : Gradients.pinkGradient,
+                                      enabled: state.canEdit,
+                                    );
+                                  },
+                                ),
+                                BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
+                                  selector: (state) => state.birthDay,
+                                  builder: (context, stateDate) {
+                                    return CustomSelectField(
+                                      "Tug'ilgan kun",
+                                      "kk.oo.yyyy",
+                                      () {
+                                        DateTimePicker.cupertinoDate(context, result: (result) {
+                                          bloc.add(UpdateFieldEvent(birthDay: result));
+                                        }, initialDate: stateDate);
+                                      },
+                                      rightWidget: Icon(CupertinoIcons.calendar),
+                                      value: stateDate.formattedDate,
+                                      enabled: state.canEdit,
+                                    );
+                                  },
                                 ),
                               ],
                             ),
-                            CustomTextField(
-                              "Ism",
-                              controller: firstNameController,
-                              hint: "Masalan: G'olibjon",
-                              onChanged: (value) {
-                                bloc.add(UpdateFieldEvent(firstName: value));
-                              },
-                            ),
-                            CustomTextField(
-                              "Familiya",
-                              controller: secondNameController,
-                              hint: "Masalan: G'upronov",
-                              onChanged: (value) {
-                                bloc.add(UpdateFieldEvent(secondName: value));
-                              },
-                            ),
-                            BlocSelector<EditProfileBloc, EditProfileState, Gender>(
-                              selector: (state) => state.gender,
-                              builder: (context, state) {
-                                return CustomRadioList(
-                                  "Jins",
-                                  segments: Gender.values,
-                                  getSegmentTitle: (value) => value.title,
-                                  onSegmentSelected: (selected) => bloc.add(UpdateFieldEvent(gender: selected)),
-                                  activeSegment: state,
-                                  activeGradient: state == Gender.male ? Gradients.primaryGradient : Gradients.pinkGradient,
-                                );
-                              },
-                            ),
-                            BlocSelector<EditProfileBloc, EditProfileState, DateTime?>(
-                              selector: (state) => state.birthDay,
-                              builder: (context, state) {
-                                return CustomSelectField(
-                                  "Tug'ilgan kun",
-                                  "kk.oo.yyyy",
-                                  () {
-                                    DateTimePicker.cupertinoDate(context, result: (result) {
-                                      bloc.add(UpdateFieldEvent(birthDay: result));
-                                    }, initialDate: state);
-                                  },
-                                  rightWidget: Icon(CupertinoIcons.calendar),
-                                  value: state.formattedDate,
-                                );
-                              },
-                            ),
                           ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                   20.height,
@@ -174,16 +194,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         tr('save'),
                         () {
                           context.hideKeyboard;
-                          bloc.add(
-                            SubmitEvent(
-                              params: EditProfileParams(
-                                firstName: firstNameController.text,
-                                secondName: secondNameController.text,
-                                gender: state.gender,
-                                birthDay: state.birthDay!,
+                          showConfirmDialog(context, "Saqlash", subTitle: "Ma'lumotlaringizni saqlaysizmi?", onConfirm: () {
+                            bloc.add(
+                              SubmitEvent(
+                                params: EditProfileParams(
+                                  firstName: firstNameController.text,
+                                  secondName: secondNameController.text,
+                                  gender: state.gender,
+                                  birthDay: state.birthDay!,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          });
                         },
                         active: state.isActive && state.isChanged,
                         progress: state.editStatus.isInProgress,
