@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 
 class AppConfigModel extends AppConfigEntity {
@@ -11,9 +12,17 @@ class AppConfigModel extends AppConfigEntity {
     required super.telegram,
     required super.instagram,
     required super.facebook,
+    required super.serverDate,
   });
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
+    String serverDate = "";
+    final date = json['server_date'];
+    if (date is Timestamp) {
+      serverDate = date.toDate().toIso8601String();
+    } else if (date is String) {
+      serverDate = date;
+    }
     return AppConfigModel(
       iosMinimumBuildCode: json['ios_minimum_build_code'] ?? 1,
       androidMinimumBuildCode: json['android_minimum_build_code'] ?? 1,
@@ -24,6 +33,7 @@ class AppConfigModel extends AppConfigEntity {
       telegram: json['telegram'] ?? "",
       instagram: json['instagram'] ?? "",
       facebook: json['facebook'] ?? "",
+      serverDate: serverDate,
     );
   }
 
@@ -38,6 +48,7 @@ class AppConfigModel extends AppConfigEntity {
       'telegram': telegram,
       'instagram': instagram,
       'facebook': facebook,
+      'server_date': serverDate,
     };
   }
 }

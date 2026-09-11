@@ -71,7 +71,7 @@ class ExtensionHelper {
       return "--";
     }
 
-    final now = DateTime.now();
+    final now = sl<PrefManager>().getServerDate.toDateTime ?? DateTime.now();
 
     final today = DateTime(now.year, now.month, now.day);
     final target = DateTime(date.year, date.month, date.day);

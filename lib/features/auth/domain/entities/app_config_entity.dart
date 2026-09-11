@@ -8,6 +8,7 @@ class AppConfigEntity {
   final String telegram;
   final String instagram;
   final String facebook;
+  final String serverDate;
 
   const AppConfigEntity({
     required this.iosMinimumBuildCode,
@@ -19,5 +20,6 @@ class AppConfigEntity {
     required this.telegram,
     required this.instagram,
     required this.facebook,
+    required this.serverDate,
   });
 }

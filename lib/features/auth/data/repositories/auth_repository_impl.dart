@@ -34,8 +34,10 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
 
   @override
   Future<Either<Failure, AppConfigEntity>> appConfig() {
-    return safeCall2(() async => await authDataSource.appConfig(),
-        onSuccess: (data) async => await prefManager.setAppConfig(data));
+    return safeCall2(() async => await authDataSource.appConfig(), onSuccess: (data) async {
+      await prefManager.setAppConfig(data);
+      await prefManager.setServerDate(data.serverDate.formattedDate);
+    });
   }
 
   @override

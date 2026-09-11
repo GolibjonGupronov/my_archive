@@ -55,6 +55,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       telegram: "https://t.me/m0b1leDevel0per",
       instagram: "https://www.instagram.com/golibjongupronov",
       facebook: "https://www.facebook.com/g.olibjon.g.upronov",
+      serverDate: DateTime.now().toIso8601String(),
     );
     final response = await dio.mock(data: data).get(ApiUrls.appConfig);
     return AppConfigModel.fromJson(response.data);

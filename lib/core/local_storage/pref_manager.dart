@@ -36,6 +36,10 @@ abstract class PrefManager {
   AppConfigModel? get getAppConfig;
 
   Future<void> setAppConfig(AppConfigModel value);
+
+  String get getServerDate;
+
+  Future<void> setServerDate(String value);
 }
 
 class PrefManagerImpl implements PrefManager {
@@ -94,4 +98,10 @@ class PrefManagerImpl implements PrefManager {
 
   @override
   Future<void> setAppConfig(AppConfigModel value) async => await prefs.setString(Keys.appConfig, jsonEncode(value.toJson()));
+
+  @override
+  String get getServerDate => prefs.getString(Keys.serverDate) ?? "";
+
+  @override
+  Future<void> setServerDate(String value) async => await prefs.setString(Keys.serverDate, value);
 }

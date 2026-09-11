@@ -25,12 +25,23 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
       name: FirebaseUrls.appConfig,
       request: {"doc_id": FirebaseUrls.appConfigId},
       action: () async {
-        final doc = await firestore.collection(FirebaseUrls.appConfig).doc(FirebaseUrls.appConfigId).get();
-        if (doc.exists && doc.data() != null) {
-          return AppConfigModel.fromJson(doc.data()!);
-        } else {
+        final docRef = firestore.collection(FirebaseUrls.appConfig).doc(FirebaseUrls.appConfigId);
+
+        final oldDoc = await docRef.get();
+
+        if (!oldDoc.exists || oldDoc.data() == null) {
           throw Exception("App Config topilmadi");
         }
+
+        await docRef.update({'server_date': FieldValue.serverTimestamp()});
+
+        final doc = await docRef.get();
+
+        if (doc.exists && doc.data() != null) {
+          return AppConfigModel.fromJson(doc.data()!);
+        }
+
+        throw Exception("App Config topilmadi");
       },
     );
   }
@@ -104,7 +115,6 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
   Future<String> sendLogin(LoginParams params) async {
     return await AliceFirebase.logCall(
       name: "auth/sendLogin",
-      // {"uid": uid, "device_id": deviceId}
       request: {"email": "${params.phone}@gmail.com", "password": params.password},
       action: () async {
         final response =
@@ -112,10 +122,7 @@ class FirebaseAuthDataSourceImpl extends AuthDataSource {
         final user = response.user;
 
         if (user == null) {
-          throw FirebaseAuthException(
-            code: 'user-null',
-            message: 'User topilmadi.',
-          );
+          throw FirebaseAuthException(code: 'user-null', message: 'User topilmadi.');
         }
 
         final uid = user.uid;
