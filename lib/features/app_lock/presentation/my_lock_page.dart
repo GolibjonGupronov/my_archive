@@ -55,7 +55,6 @@ class MyLockPage extends StatelessWidget {
                   BlocSelector<MyLockBloc, MyLockState, bool>(
                     selector: (state) => state.isBiometricEnabled,
                     builder: (context, state) {
-                      logger("GGQ => Biometric state: $state");
                       return ProfileItem(
                         title: "Biometrik qulf",
                         prefixIconData: Icons.fingerprint_rounded,
