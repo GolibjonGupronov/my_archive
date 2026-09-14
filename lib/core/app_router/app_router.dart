@@ -9,10 +9,13 @@ enum _AppTransitionType { fade, slideRight, slideUp, scale }
 
 final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 final GoRouter router = GoRouter(
   initialLocation: SplashPage.tag,
   debugLogDiagnostics: true,
   navigatorKey: globalNavigatorKey,
+  observers: [routeObserver],
   routes: <RouteBase>[
     GoRoute(
       path: SplashPage.tag,
