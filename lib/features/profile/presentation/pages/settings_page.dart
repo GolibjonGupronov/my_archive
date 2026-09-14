@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +62,8 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                 },
                 suffixWidget: Row(
                   children: [
-                    TextView(sl.get<PrefManager>().getLanguage.title, maxLines: 1, color: AppColors.gray),
+                    TextView(AdaptiveTheme.of(context).mode.isLight ? tr('theme_light') : tr('theme_dark'),
+                        maxLines: 1, color: AppColors.gray),
                     4.width,
                     Icon(CupertinoIcons.chevron_forward, color: AppColors.gray),
                   ],

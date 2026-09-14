@@ -57,5 +57,8 @@
   "yesterday": "Вчера",
   "today": "Сегодня",
   "tomorrow": "Завтра",
+  "theme_light": "Светлая",
+  "theme_dark": "Тёмная",
+  "theme_system": "Системная",
   "yes": "Да"
 }

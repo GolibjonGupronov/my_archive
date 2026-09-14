@@ -57,5 +57,8 @@
   "yesterday": "Kecha",
   "today": "Bugun",
   "tomorrow": "Ertaga",
+  "theme_light": "Yorug‘",
+  "theme_dark": "Qorong‘i",
+  "theme_system": "Tizim",
   "yes": "Ha"
 }

@@ -46,14 +46,23 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/dark.png
+  AssetGenImage get dark => const AssetGenImage('assets/images/dark.png');
+
   /// File path: assets/images/facebook.png
   AssetGenImage get facebook => const AssetGenImage('assets/images/facebook.png');
 
   /// File path: assets/images/instagram.png
   AssetGenImage get instagram => const AssetGenImage('assets/images/instagram.png');
 
+  /// File path: assets/images/light.png
+  AssetGenImage get light => const AssetGenImage('assets/images/light.png');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/system.png
+  AssetGenImage get system => const AssetGenImage('assets/images/system.png');
 
   /// File path: assets/images/telegram.png
   AssetGenImage get telegram => const AssetGenImage('assets/images/telegram.png');
@@ -62,7 +71,7 @@ class $AssetsImagesGen {
   AssetGenImage get update => const AssetGenImage('assets/images/update.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [facebook, instagram, logo, telegram, update];
+  List<AssetGenImage> get values => [dark, facebook, instagram, light, logo, system, telegram, update];
 }
 
 class $AssetsLanguagesGen {
