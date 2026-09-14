@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart
 import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
 import 'package:my_archive/features/profile/presentation/widgets/language_widget.dart';
 import 'package:my_archive/features/profile/presentation/widgets/profile_item.dart';
+import 'package:my_archive/features/profile/presentation/widgets/theme_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -54,13 +54,17 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
             spacing: 20.h,
             children: [
               ProfileItem(
-                title: "Tungi rejim",
+                title: "Mavzu",
                 prefixIconData: CupertinoIcons.moon_fill,
-                suffixWidget: CupertinoSwitch(
-                  value: AdaptiveTheme.of(context).mode.isDark,
-                  onChanged: (value) {
-                    AdaptiveTheme.of(context).toggleThemeMode(useSystem: false);
-                  },
+                onTap: () {
+                  showCustomBottomSheetDialog(context: context, child: ThemeWidget());
+                },
+                suffixWidget: Row(
+                  children: [
+                    TextView(sl.get<PrefManager>().getLanguage.title, maxLines: 1, color: AppColors.gray),
+                    4.width,
+                    Icon(CupertinoIcons.chevron_forward, color: AppColors.gray),
+                  ],
                 ),
               ),
               BlocSelector<ProfileBloc, ProfileState, ({bool isGranted, bool isNotificationEnabled})>(
