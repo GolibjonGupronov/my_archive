@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/injection_exports.dart';
+import 'package:my_archive/core/services/video_compressor/video_compressor_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt sl = GetIt.instance;
@@ -15,9 +16,10 @@ class InjectionContainer {
     await _env();
     await _prefManager();
     _secureStorage();
-    await _dio();
-    await _firebase();
-    await _injections();
+    _dio();
+    _firebase();
+    _service();
+    _injections();
   }
 
   static Future<void> _env() async {
@@ -30,23 +32,27 @@ class InjectionContainer {
     sl.registerLazySingleton<PrefManager>(() => PrefManagerImpl(prefs: sl()));
   }
 
-  static void _secureStorage() async {
+  static void _secureStorage() {
     sl.registerLazySingleton(() => const FlutterSecureStorage());
     sl.registerLazySingleton<SecureStorage>(() => SecureStorageImpl(storage: sl()));
   }
 
-  static Future<void> _dio() async {
+  static void _dio() {
     sl.registerLazySingleton<Dio>(() => DioSetting.create());
   }
 
-  static Future<void> _firebase() async {
+  static void _firebase() {
     sl.registerLazySingleton(() => FirebaseAuth.instance);
     sl.registerLazySingleton(() => FirebaseFirestore.instance);
     // sl.registerLazySingleton(() => FirebaseStorage.instance);
     // sl.registerLazySingleton(() => FirebaseMessaging.instance);
   }
 
-  static Future<void> _injections() async {
+  static void _service() {
+    sl.registerLazySingleton<VideoCompressorService>(() => VideoCompressorService(dio: sl()));
+  }
+
+  static void _injections() {
     initSplashInjection();
     initMainInjection();
     initAuthInjection();

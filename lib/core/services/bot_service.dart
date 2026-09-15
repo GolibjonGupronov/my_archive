@@ -89,11 +89,7 @@ Future<void> _sendMessage(String text) async {
     await BotService._dio.post(
       url,
       options: Options(headers: {'Accept': '*/*'}),
-      data: {
-        'chat_id': chatId,
-        'text': text,
-      },
-    );
+      data: {'chat_id': chatId, 'text': text});
   } catch (_) {}
 }
 

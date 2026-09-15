@@ -10,8 +10,8 @@ import 'package:my_archive/features/story/domain/entities/story_entity.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_bloc.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_event.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_state.dart';
+import 'package:my_archive/features/story/presentation/widgets/story_media.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:video_player/video_player.dart';
 
 class StoryPage extends StatelessWidget {
   final List<StoryEntity> storyList;
@@ -30,7 +30,8 @@ class StoryPage extends StatelessWidget {
           currentIndex: activeIndex,
           pageController: PageController(initialPage: activeIndex),
           readStoryUseCase: sl(),
-          onItemRead: (item) => itemCheck(item))
+          onItemRead: (item) => itemCheck(item),
+          prepareStoryVideoUseCase: sl())
         ..add(InitEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
@@ -82,7 +83,7 @@ class StoryPage extends StatelessWidget {
                             ),
                             Positioned.fill(
                               child: IgnorePointer(
-                                child: _StoryMedia(item: item),
+                                child: StoryMedia(item: item),
                               ),
                             ),
                             if (item.action != null)
@@ -103,104 +104,30 @@ class StoryPage extends StatelessWidget {
                         ))
                     .toList(),
               )),
-              const _TopGradient(),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 100.h,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.black.withValues(alpha: 0.5),
+                        AppColors.black.withValues(alpha: 0.4),
+                        AppColors.black.withValues(alpha: 0.3),
+                        AppColors.black.withValues(alpha: 0.2),
+                        AppColors.black.withValues(alpha: 0.1),
+                        AppColors.black.withValues(alpha: 0.0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
               const _TopBar(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StoryMedia extends StatelessWidget {
-  final StoryEntity item;
-
-  const _StoryMedia({required this.item});
-
-  @override
-  Widget build(BuildContext context) {
-    switch (item.resourceType) {
-      case StoryFileType.image:
-        return CustomImageView(pathOrUrl: item.resourceData, fit: BoxFit.cover);
-
-      case StoryFileType.video:
-        return BlocSelector<StoryBloc, StoryState, VideoPlayerController?>(
-          selector: (state) => state.videoPlayerController,
-          builder: (context, controller) {
-            if (controller?.value.isInitialized != true) {
-              return const Center(child: CupertinoActivityIndicator());
-            }
-            return Stack(
-              children: [
-                _VideoPlayerWidget(controller: controller!, fit: BoxFit.cover, blur: 15),
-                _VideoPlayerWidget(controller: controller, fit: BoxFit.contain, blur: 0),
-              ],
-            );
-          },
-        );
-
-      case StoryFileType.none:
-        return const SizedBox.shrink();
-    }
-  }
-}
-
-class _VideoPlayerWidget extends StatelessWidget {
-  final VideoPlayerController controller;
-  final BoxFit fit;
-  final double blur;
-
-  const _VideoPlayerWidget({
-    required this.controller,
-    required this.fit,
-    required this.blur,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: FittedBox(
-        fit: fit,
-        child: SizedBox(
-          width: controller.value.size.width,
-          height: controller.value.size.height,
-          child: AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
-            child: ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-              child: VideoPlayer(controller),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TopGradient extends StatelessWidget {
-  const _TopGradient();
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 100.h,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.black.withValues(alpha: 0.5),
-              AppColors.black.withValues(alpha: 0.4),
-              AppColors.black.withValues(alpha: 0.3),
-              AppColors.black.withValues(alpha: 0.2),
-              AppColors.black.withValues(alpha: 0.1),
-              AppColors.black.withValues(alpha: 0.0),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
           ),
         ),
       ),

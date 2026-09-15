@@ -9,14 +9,16 @@ class CustomShimmer extends StatelessWidget {
   final double? radius;
   final Widget? child;
   final Alignment? alignment;
+  final Color? baseColor;
+  final Color? highlightColor;
 
-  const CustomShimmer({super.key, this.child, this.height, this.width, this.size, this.radius, this.alignment});
+  const CustomShimmer({super.key, this.child, this.height, this.width, this.size, this.radius, this.alignment, this.baseColor, this.highlightColor});
 
   @override
   Widget build(BuildContext context) {
     final shimmer = Shimmer.fromColors(
-      baseColor: AppColors.gray.withValues(alpha: .2),
-      highlightColor: AppColors.gray.withValues(alpha: .02),
+      baseColor: baseColor ?? AppColors.gray.withValues(alpha: .2),
+      highlightColor: highlightColor ?? AppColors.gray.withValues(alpha: .02),
       period: Duration(seconds: 4),
       child: BoxContainer(
         height: size ?? height,

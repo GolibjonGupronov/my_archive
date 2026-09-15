@@ -26,6 +26,12 @@ class UpdatedActivePageEvent extends StoryEvent {
   UpdatedActivePageEvent({required this.index});
 }
 
+class VideoPrepareFailedEvent extends StoryEvent {
+  final String message;
+
+  VideoPrepareFailedEvent({required this.message});
+}
+
 class AppLifecyclePausedEvent extends StoryEvent {}
 
 class AppLifecycleResumedEvent extends StoryEvent {}

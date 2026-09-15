@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/features/story/domain/entities/story_entity.dart';
+import 'package:my_archive/features/story/domain/use_cases/prepare_story_video_use_case.dart';
 import 'package:my_archive/features/story/domain/use_cases/read_story_use_case.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_event.dart';
 import 'package:my_archive/features/story/presentation/bloc/story_state.dart';
@@ -17,19 +19,22 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
   Timer? _videoTimer;
   final List<int> _progressList;
   bool _pausedByLifecycle = false;
+  int _activeRequestId = 0;
 
   late final AppLifecycleListener _lifecycleListener;
 
   final ReadStoryUseCase readStoryUseCase;
+  final PrepareStoryVideoUseCase prepareStoryVideoUseCase;
   final Function(StoryEntity)? onItemRead;
 
-  StoryBloc(
-      {required this.storyList,
-      required this.currentIndex,
-      required this.pageController,
-      required this.readStoryUseCase,
-      this.onItemRead})
-      : _progressList = List.filled(storyList.length, 0),
+  StoryBloc({
+    required this.storyList,
+    required this.currentIndex,
+    required this.pageController,
+    required this.readStoryUseCase,
+    required this.prepareStoryVideoUseCase,
+    this.onItemRead,
+  })  : _progressList = List.filled(storyList.length, 0),
         super(const StoryState()) {
     on<InitEvent>((event, emit) {
       add(UpdatedActivePageEvent(index: currentIndex));
@@ -83,6 +88,16 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
       emit(state.copyWith(indicatorProgress: event.indicatorProgress));
     });
 
+    on<VideoPrepareFailedEvent>((event, emit) {
+      logger('GGQ => Video prepare failed: ${event.message}');
+      // Video tayyorlanmasa, bu storyni o'tkazib yuboramiz.
+      if (state.isLastPage) {
+        add(FinishPageEvent());
+      } else {
+        add(NextPageEvent());
+      }
+    });
+
     on<AppLifecyclePausedEvent>((event, emit) {
       if (_pausedByLifecycle) return;
       _pausedByLifecycle = true;
@@ -108,6 +123,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
   Future<void> _onUpdatedActivePage(UpdatedActivePageEvent event, Emitter<StoryState> emit) async {
     currentIndex = event.index;
+    final requestId = ++_activeRequestId;
 
     final oldController = state.videoPlayerController;
     oldController?.pause();
@@ -125,9 +141,25 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
     add(ReadStoryEvent());
 
     if (item.resourceType == StoryFileType.video) {
-      final controller = VideoPlayerController.networkUrl(Uri.parse(item.resourceData));
+      String localPath;
+      try {
+        localPath = await prepareStoryVideoUseCase.callUseCase(item.resourceData);
+      } catch (e) {
+        // Shu orada foydalanuvchi keyingi/oldingi sahifaga o'tgan bo'lishi mumkin —
+        // faqat hali ham shu so'rov "aktual" bo'lsagina xatoni ishlov beramiz.
+        if (isClosed || requestId != _activeRequestId) return;
+        add(VideoPrepareFailedEvent(message: e.toString()));
+        return;
+      }
+
+      // Prepare tugaguncha foydalanuvchi boshqa sahifaga o'tib ketgan bo'lsa,
+      // bu natijani eskirgan hisoblab e'tiborsiz qoldiramiz.
+      if (isClosed || requestId != _activeRequestId) return;
+
+      final controller = VideoPlayerController.file(File(localPath));
       await controller.initialize();
-      if (isClosed) {
+
+      if (isClosed || requestId != _activeRequestId) {
         await controller.dispose();
         return;
       }
@@ -136,7 +168,9 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
       if (!state.isPaused) controller.play();
     }
 
-    _initTimer();
+    if (requestId == _activeRequestId) {
+      _initTimer();
+    }
   }
 
   void _initTimer() {
