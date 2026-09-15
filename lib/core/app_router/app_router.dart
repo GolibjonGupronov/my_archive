@@ -22,7 +22,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
-        child: SplashPage(),
+        child: const SplashPage(),
       ),
     ),
     GoRoute(
@@ -38,7 +38,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
-        child: MainPage(),
+        child: const MainPage(),
       ),
     ),
     GoRoute(
@@ -46,7 +46,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
-        child: RegistrationPage(),
+        child: const RegistrationPage(),
       ),
     ),
     GoRoute(
@@ -59,7 +59,7 @@ final GoRouter router = GoRouter(
           return _buildPage<void>(
             state: state,
             type: _AppTransitionType.fade,
-            child: NoImagePage(),
+            child: const NoImagePage(),
           );
         }
         return _buildPage<void>(
@@ -80,21 +80,21 @@ final GoRouter router = GoRouter(
       path: SecurityPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: SecurityPage(),
+        child: const SecurityPage(),
       ),
     ),
     GoRoute(
       path: LoginPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: LoginPage(),
+        child: const LoginPage(),
       ),
     ),
     GoRoute(
       path: ResetPhonePage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: ResetPhonePage(),
+        child: const ResetPhonePage(),
       ),
     ),
     GoRoute(
@@ -129,7 +129,7 @@ final GoRouter router = GoRouter(
       path: EditProfilePage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: EditProfilePage(),
+        child: const EditProfilePage(),
       ),
     ),
     GoRoute(
@@ -146,7 +146,7 @@ final GoRouter router = GoRouter(
       path: DeviceSessionPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: DeviceSessionPage(),
+        child: const DeviceSessionPage(),
       ),
     ),
     GoRoute(
@@ -168,7 +168,7 @@ final GoRouter router = GoRouter(
       path: MyLockPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: MyLockPage(),
+        child: const MyLockPage(),
       ),
     ),
     GoRoute(
@@ -182,14 +182,14 @@ final GoRouter router = GoRouter(
       path: HelpPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: HelpPage(),
+        child: const HelpPage(),
       ),
     ),
     GoRoute(
       path: FaqPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: FaqPage(),
+        child: const FaqPage(),
       ),
     ),
   ],

@@ -67,7 +67,7 @@ class _SecurityPageState extends State<SecurityPage> with RouteAware {
                 prefixIconData: CupertinoIcons.lock_fill,
                 suffixWidget: Icon(
                   _hasPin ? CupertinoIcons.lock_fill : CupertinoIcons.lock_open_fill,
-                  color: AppColors.gray,
+                  color: _hasPin ? AppColors.primary : AppColors.gray,
                 ),
                 onTap: () {
                   router.push(_hasPin ? CurrentPinPage.tag : NewPinPage.tag);
