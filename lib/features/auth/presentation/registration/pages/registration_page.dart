@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/widgets/dialogs/date_time_picker.dart';
@@ -24,6 +25,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController secondNameController = TextEditingController();
 
   final phoneMaskFormatter = phoneNumberMask(mask: '(##) ###-##-##');
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    firstNameController.dispose();
+    secondNameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

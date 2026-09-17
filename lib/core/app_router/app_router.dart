@@ -115,14 +115,14 @@ final GoRouter router = GoRouter(
       path: NewPasswordPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: NewPasswordPage(),
+        child: const NewPasswordPage(),
       ),
     ),
     GoRoute(
       path: OldPasswordPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: OldPasswordPage(),
+        child: const OldPasswordPage(),
       ),
     ),
     GoRoute(
@@ -154,14 +154,14 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.scale,
-        child: AppLockPage(),
+        child: const AppLockPage(),
       ),
     ),
     GoRoute(
       path: CurrentPinPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: CurrentPinPage(),
+        child: const CurrentPinPage(),
       ),
     ),
     GoRoute(
@@ -175,7 +175,7 @@ final GoRouter router = GoRouter(
       path: NewPinPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: NewPinPage(),
+        child: const NewPinPage(),
       ),
     ),
     GoRoute(

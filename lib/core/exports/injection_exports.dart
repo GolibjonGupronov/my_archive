@@ -1,5 +1,5 @@
 export 'package:my_archive/features/auth/auth_injection.dart';
-export 'package:my_archive/features/change_password/change_passwor_injection.dart';
+export 'package:my_archive/features/change_password/change_password_injection.dart';
 export 'package:my_archive/features/device_session/device_session_injection.dart';
 export 'package:my_archive/features/edit_profile/edit_profile_injection.dart';
 export 'package:my_archive/features/faq/faq_injection.dart';

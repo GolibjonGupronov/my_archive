@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
@@ -9,13 +10,25 @@ import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/r
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_event.dart';
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_state.dart';
 
-class ResetSmsPage extends StatelessWidget {
+class ResetSmsPage extends StatefulWidget {
   final String phoneNumber;
 
-  ResetSmsPage({super.key, required this.phoneNumber});
+  const ResetSmsPage({super.key, required this.phoneNumber});
 
   static const String tag = '/reset_sms_page';
+
+  @override
+  State<ResetSmsPage> createState() => _ResetSmsPageState();
+}
+
+class _ResetSmsPageState extends State<ResetSmsPage> {
   final TextEditingController smsCodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    smsCodeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +78,7 @@ class ResetSmsPage extends StatelessWidget {
               8.height,
               TextView(tr('verify_phone'), fontWeight: FontWeight.bold, fontSize: 24),
               12.height,
-              TextView(tr('otp_sent', args: [phoneNumber]), fontSize: 14),
+              TextView(tr('otp_sent', args: [widget.phoneNumber]), fontSize: 14),
               24.height,
               CustomPinPut(
                 context: context,
@@ -84,7 +97,7 @@ class ResetSmsPage extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           if (state.second == 0 && !(state.resendPhoneStatus.isInProgress)) {
-                            bloc.add(ResendPhoneEvent(phone: phoneNumber.phoneReplace));
+                            bloc.add(ResendPhoneEvent(phone: widget.phoneNumber.phoneReplace));
                           }
                         },
                         child: (state.resendPhoneStatus.isInProgress)
@@ -110,7 +123,7 @@ class ResetSmsPage extends StatelessWidget {
                     "Tasdiqlash",
                     () {
                       context.hideKeyboard;
-                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: phoneNumber.phoneReplace, sms: smsCodeController.text)));
+                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: widget.phoneNumber.phoneReplace, sms: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.smsStatus.isInProgress,

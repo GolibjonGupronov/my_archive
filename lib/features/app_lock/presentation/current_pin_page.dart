@@ -7,13 +7,24 @@ import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/curr
 import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/current_pin_state.dart';
 
-class CurrentPinPage extends StatelessWidget {
-  CurrentPinPage({super.key});
+class CurrentPinPage extends StatefulWidget {
+  const CurrentPinPage({super.key});
 
   static const String tag = '/current_pin_page';
 
+  @override
+  State<CurrentPinPage> createState() => _CurrentPinPageState();
+}
+
+class _CurrentPinPageState extends State<CurrentPinPage> {
   final TextEditingController pinCodeController = TextEditingController();
   final ShakeController shakeController = ShakeController();
+
+  @override
+  void dispose() {
+    pinCodeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/widgets/dialogs/date_time_picker.dart';
 import 'package:my_archive/features/auth/domain/entities/user_info_entity.dart';
@@ -27,8 +28,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
-    super.initState();
     loadUserData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    firstNameController.dispose();
+    secondNameController.dispose();
+    super.dispose();
   }
 
   void loadUserData() {

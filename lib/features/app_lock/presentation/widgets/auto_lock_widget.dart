@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 
 class AutoLockWidget extends StatefulWidget {

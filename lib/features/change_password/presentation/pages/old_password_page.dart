@@ -1,18 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_bloc.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_event.dart';
 import 'package:my_archive/features/change_password/presentation/blocs/old/old_password_state.dart';
 
-class OldPasswordPage extends StatelessWidget {
-  OldPasswordPage({super.key});
+class OldPasswordPage extends StatefulWidget {
+  const OldPasswordPage({super.key});
 
   static const String tag = '/old_password_page';
 
+  @override
+  State<OldPasswordPage> createState() => _OldPasswordPageState();
+}
+
+class _OldPasswordPageState extends State<OldPasswordPage> {
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

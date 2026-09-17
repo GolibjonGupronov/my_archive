@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/password_check_entity.dart';
@@ -9,13 +10,25 @@ import 'package:my_archive/features/change_password/presentation/blocs/new/new_p
 import 'package:my_archive/features/change_password/presentation/blocs/new/new_password_state.dart';
 import 'package:my_archive/features/change_password/presentation/widgets/password_item_text.dart';
 
-class NewPasswordPage extends StatelessWidget {
-  NewPasswordPage({super.key});
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({super.key});
 
   static const String tag = '/new_password_page';
 
+  @override
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
+}
+
+class _NewPasswordPageState extends State<NewPasswordPage> {
   final TextEditingController newPassword = TextEditingController();
   final TextEditingController againNewPassword = TextEditingController();
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    againNewPassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

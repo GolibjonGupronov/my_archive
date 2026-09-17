@@ -35,6 +35,12 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.h),

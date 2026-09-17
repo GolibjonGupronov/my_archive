@@ -7,13 +7,25 @@ import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_loc
 import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_lock_state.dart';
 
-class AppLockPage extends StatelessWidget {
-  AppLockPage({super.key});
+class AppLockPage extends StatefulWidget {
+  const AppLockPage({super.key});
 
   static const String tag = '/app_lock_page';
 
+  @override
+  State<AppLockPage> createState() => _AppLockPageState();
+}
+
+class _AppLockPageState extends State<AppLockPage> {
+
   final TextEditingController pinCodeController = TextEditingController();
   final ShakeController shakeController = ShakeController();
+
+  @override
+  void dispose() {
+    pinCodeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/widgets/pin_put_with_keyboard.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_bloc.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_event.dart';
 import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_state.dart';
 
-class NewPinPage extends StatelessWidget {
-  NewPinPage({super.key});
+class NewPinPage extends StatefulWidget {
+  const NewPinPage({super.key});
 
   static const String tag = '/new_pin_page';
 
+  @override
+  State<NewPinPage> createState() => _NewPinPageState();
+}
+
+class _NewPinPageState extends State<NewPinPage> {
   final TextEditingController pinCodeController = TextEditingController();
   final ShakeController shakeController = ShakeController();
+
+  @override
+  void dispose() {
+    pinCodeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

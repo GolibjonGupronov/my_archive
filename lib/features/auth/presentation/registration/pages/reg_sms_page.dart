@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
@@ -9,14 +10,25 @@ import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg
 import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_event.dart';
 import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_state.dart';
 
-class RegSmsPage extends StatelessWidget {
+class RegSmsPage extends StatefulWidget {
   final RegistrationParams registrationParams;
 
-  RegSmsPage({super.key, required this.registrationParams});
+  const RegSmsPage({super.key, required this.registrationParams});
 
   static const String tag = '/reg_sms_page';
 
+  @override
+  State<RegSmsPage> createState() => _RegSmsPageState();
+}
+
+class _RegSmsPageState extends State<RegSmsPage> {
   final TextEditingController smsCodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    smsCodeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +78,7 @@ class RegSmsPage extends StatelessWidget {
               8.height,
               TextView(tr('verify_phone'), fontWeight: FontWeight.bold, fontSize: 24),
               12.height,
-              TextView(tr('otp_sent', args: [registrationParams.phone]), fontSize: 14),
+              TextView(tr('otp_sent', args: [widget.registrationParams.phone]), fontSize: 14),
               24.height,
               CustomPinPut(
                 context: context,
@@ -85,7 +97,7 @@ class RegSmsPage extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           if (state.second == 0 && !(state.resendPhoneStatus.isInProgress)) {
-                            bloc.add(ResendPhoneEvent(phone: registrationParams.phone.phoneReplace));
+                            bloc.add(ResendPhoneEvent(phone: widget.registrationParams.phone.phoneReplace));
                           }
                         },
                         child: (state.resendPhoneStatus.isInProgress)
@@ -112,8 +124,8 @@ class RegSmsPage extends StatelessWidget {
                     () {
                       context.hideKeyboard;
                       bloc.add(SubmitEvent(
-                          params: registrationParams.copyWith(
-                              phone: registrationParams.phone.phoneReplace, smsCode: smsCodeController.text)));
+                          params: widget.registrationParams.copyWith(
+                              phone: widget.registrationParams.phone.phoneReplace, smsCode: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.regStatus.isInProgress,

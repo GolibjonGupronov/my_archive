@@ -13,7 +13,6 @@ export 'package:my_archive/core/api/dio/dio_setting.dart';
 export 'package:my_archive/core/api/error/failure.dart';
 export 'package:my_archive/core/api/firebase/alice_firebase.dart';
 export 'package:my_archive/core/api/firebase/firebase_urls.dart';
-export 'package:my_archive/core/app_router/app_router.dart';
 export 'package:my_archive/core/constants/colors.dart';
 export 'package:my_archive/core/constants/constants.dart';
 export 'package:my_archive/core/constants/gradients.dart';
