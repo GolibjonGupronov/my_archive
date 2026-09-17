@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/services/path_service.dart';
 import 'package:my_archive/core/services/video_compressor/video_compress_config.dart';
-import 'package:path_provider/path_provider.dart';
 
 class VideoCompressorService {
   final Dio dio;
@@ -64,7 +64,7 @@ class VideoCompressorService {
   }
 
   Future<String> _downloadToTemp(String url) async {
-    final dir = await getTemporaryDirectory();
+    final dir = await PathService.videosDir;
     final rawPath = '${dir.path}/vc_raw_${DateTime.now().microsecondsSinceEpoch}.mp4';
 
     logger('GGQ => VideoCompressor downloading: $url');
@@ -79,13 +79,13 @@ class VideoCompressorService {
   }
 
   Future<String> _cachedPathFor(String url, VideoCompressConfig config) async {
-    final dir = await getTemporaryDirectory();
+    final dir = await PathService.videosDir;
     final hash = sha256.convert(utf8.encode('$url|${config.cacheKey}')).toString();
     return '${dir.path}/vc_cache_$hash.mp4';
   }
 
   Future<String> _generateOutputPath() async {
-    final dir = await getTemporaryDirectory();
+    final dir = await PathService.videosDir;
     return '${dir.path}/vc_out_${DateTime.now().microsecondsSinceEpoch}.mp4';
   }
 
@@ -104,7 +104,7 @@ class VideoCompressorService {
   Future<void> clearFile(String path) => _safeDelete(path);
 
   Future<void> clearAllCache() async {
-    final dir = await getTemporaryDirectory();
+    final dir = await PathService.videosDir;
     if (!await dir.exists()) return;
 
     final files = dir.listSync().where((f) {
