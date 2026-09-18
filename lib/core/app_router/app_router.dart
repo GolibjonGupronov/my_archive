@@ -73,7 +73,7 @@ final GoRouter router = GoRouter(
       path: SettingsPage.tag,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
-        child: SettingsPage(bloc: state.extra as ProfileBloc),
+        child: const SettingsPage(),
       ),
     ),
     GoRoute(

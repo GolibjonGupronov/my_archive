@@ -16,9 +16,7 @@ import 'package:my_archive/features/profile/presentation/widgets/theme_widget.da
 import 'package:permission_handler/permission_handler.dart';
 
 class SettingsPage extends StatefulWidget {
-  final ProfileBloc bloc;
-
-  const SettingsPage({super.key, required this.bloc});
+  const SettingsPage({super.key});
 
   static const String tag = '/settings';
 
@@ -27,29 +25,40 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver {
+  late ProfileBloc bloc;
+
   @override
   void initState() {
     super.initState();
+    bloc = ProfileBloc(prefManager: sl(), changeImageUseCase: sl(), enableNotificationUseCase: sl(), userInfoUseCase: sl())
+      ..add(InitEvent());
     WidgetsBinding.instance.addObserver(this);
-    widget.bloc.add(IsGrantedEvent());
+    bloc.add(IsGrantedEvent());
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    bloc.close();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      widget.bloc.add(IsGrantedEvent());
+      bloc.add(IsGrantedEvent());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     logger("GGQ => SettingsPage");
+    return BlocProvider.value(value: bloc, child: Builder(builder: (context) => _buildPage(context)));
+  }
+
+  Widget _buildPage(BuildContext context) {
+    bloc = BlocProvider.of<ProfileBloc>(context);
+
     return CustomScaffold(
       appBar: CustomAppBar(tr('settings')),
       body: ListView(
@@ -74,7 +83,6 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                 ),
               ),
               BlocSelector<ProfileBloc, ProfileState, ({bool isGranted, bool isNotificationEnabled})>(
-                bloc: widget.bloc,
                 selector: (state) => (isGranted: state.isGranted, isNotificationEnabled: state.isNotificationEnabled),
                 builder: (context, state) {
                   return ProfileItem(
@@ -85,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                         ? CupertinoSwitch(
                             value: state.isNotificationEnabled,
                             onChanged: (value) {
-                              widget.bloc.add(EnableNotificationEvent(value: value));
+                              bloc.add(EnableNotificationEvent(value: value));
                             })
                         : Icon(CupertinoIcons.info_circle_fill, color: AppColors.red),
                   );

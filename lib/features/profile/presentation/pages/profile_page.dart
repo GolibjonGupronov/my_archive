@@ -105,7 +105,7 @@ class ProfilePage extends StatelessWidget {
                         title: tr('settings'),
                         prefixIconData: Icons.settings,
                         onTap: () {
-                          context.push(SettingsPage.tag, extra: bloc);
+                          context.push(SettingsPage.tag);
                         },
                       ),
                       ProfileItem(
