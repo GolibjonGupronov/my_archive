@@ -1,4 +1,4 @@
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/features/edit_profile/data/data_sources/edit_profile_data_source.dart';
 import 'package:my_archive/features/edit_profile/data/data_sources/firebase_edit_profile_data_source_impl.dart';
 import 'package:my_archive/features/edit_profile/data/repositories/edit_profile_repository_impl.dart';

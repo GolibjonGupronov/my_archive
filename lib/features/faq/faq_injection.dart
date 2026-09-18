@@ -1,4 +1,4 @@
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/features/faq/data/data_source/faq_data_source.dart';
 import 'package:my_archive/features/faq/data/data_source/firebase_faq_data_source_impl.dart';
 import 'package:my_archive/features/faq/data/repositories/faq_repository_impl.dart';

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/data_exports.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/features/profile/data/data_sources/profile_data_source.dart';
 
 class FirebaseProfileDataSourceImpl extends ProfileDataSource {

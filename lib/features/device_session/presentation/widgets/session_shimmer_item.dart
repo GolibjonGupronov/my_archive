@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/exports/ui_exports.dart';
+import 'package:my_archive/core/services/device_service.dart';
 
 class SessionShimmerItem extends StatelessWidget {
   const SessionShimmerItem({super.key});

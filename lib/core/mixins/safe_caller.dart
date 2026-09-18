@@ -6,8 +6,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_archive/core/api/error/exception.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/api/error/failure.dart';
+import 'package:my_archive/core/services/bot_service.dart';
 import 'package:my_archive/core/services/logout_service.dart';
+import 'package:my_archive/core/utils/either.dart';
+import 'package:my_archive/core/utils/logger.dart';
 
 mixin SafeCaller {
   Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {

@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/api/api_urls/api_urls.dart';
+import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/local_storage/pref_manager.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/main.dart';
 
 class CustomInterceptor extends Interceptor {

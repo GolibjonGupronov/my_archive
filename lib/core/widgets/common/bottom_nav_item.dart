@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/extensions/number.dart';
+import 'package:my_archive/core/theme/app_theme.dart';
+import 'package:my_archive/core/widgets/bounce.dart';
+import 'package:my_archive/core/widgets/box_conatiner.dart';
 
 class BottomNavItem extends StatelessWidget {
   final VoidCallback onTap;

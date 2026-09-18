@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/exports/ui_exports.dart';
+import 'package:my_archive/core/utils/logger.dart';
 import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 
 class UpdatePage extends StatelessWidget {

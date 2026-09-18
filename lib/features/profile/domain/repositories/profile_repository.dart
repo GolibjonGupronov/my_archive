@@ -1,4 +1,4 @@
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/exports/domain_exports.dart';
 
 abstract class ProfileRepository {
   Future<Either<Failure, String>> changeImage(String params);

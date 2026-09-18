@@ -1,6 +1,6 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/services/permission_service.dart';
 
 class LocationData {
   final double latitude;

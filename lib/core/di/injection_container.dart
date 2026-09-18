@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/api/dio/dio_setting.dart';
 import 'package:my_archive/core/exports/injection_exports.dart';
+import 'package:my_archive/core/local_storage/pref_manager.dart';
+import 'package:my_archive/core/local_storage/secure_storage.dart';
 import 'package:my_archive/core/services/video_compressor/video_compressor_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

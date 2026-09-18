@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/enums/common.dart';
+import 'package:my_archive/core/enums/state_status.dart';
+import 'package:my_archive/core/use_cases/use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
 import 'package:my_archive/features/edit_profile/presentation/bloc/edit_profile_event.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/extensions/helper.dart';
 
 extension CustomInt on int {
   double fixed({int fix = Constants.afterDot}) => double.parse(toStringAsFixed(fix));

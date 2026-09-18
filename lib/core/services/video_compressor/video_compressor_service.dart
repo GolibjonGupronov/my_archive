@@ -5,9 +5,9 @@ import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
 import 'package:my_archive/core/services/path_service.dart';
 import 'package:my_archive/core/services/video_compressor/video_compress_config.dart';
+import 'package:my_archive/core/utils/logger.dart';
 
 class VideoCompressorService {
   final Dio dio;

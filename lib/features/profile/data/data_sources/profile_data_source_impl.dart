@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/api/dio/dio_mock.dart';
+import 'package:my_archive/core/exports/data_exports.dart';
 import 'package:my_archive/features/profile/data/data_sources/profile_data_source.dart';
 
 class ProfileDataSourceImpl extends ProfileDataSource {

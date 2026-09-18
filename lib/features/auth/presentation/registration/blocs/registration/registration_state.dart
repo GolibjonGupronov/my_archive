@@ -1,4 +1,5 @@
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/enums/common.dart';
+import 'package:my_archive/core/enums/state_status.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
 
 class RegistrationState {

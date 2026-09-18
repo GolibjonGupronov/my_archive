@@ -3,7 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/constants/colors.dart';
+import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/local_storage/pref_manager.dart';
+import 'package:my_archive/core/widgets/text_view.dart';
 import 'package:my_archive/main.dart';
 
 class FloatingButtons extends StatefulWidget {

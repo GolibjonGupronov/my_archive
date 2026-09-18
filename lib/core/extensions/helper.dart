@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:my_archive/core/exports/core_exports.dart';
+import 'package:my_archive/core/constants/constants.dart';
+import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/extensions/string.dart';
+import 'package:my_archive/core/local_storage/pref_manager.dart';
 
 class ExtensionHelper {
   static String thousandDecimalFormat(double value) {
