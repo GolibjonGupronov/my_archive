@@ -24,3 +24,4 @@ export 'package:my_archive/features/profile/presentation/pages/settings_page.dar
 export 'package:my_archive/features/splash/presentation/splash_page.dart';
 export 'package:my_archive/features/story/presentation/story_page.dart';
 export 'package:my_archive/features/update/presentation/update_page.dart';
+export 'package:my_archive/features/profile/presentation/pages/memory_page.dart';

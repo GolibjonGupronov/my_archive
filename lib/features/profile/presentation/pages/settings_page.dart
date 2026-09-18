@@ -1,9 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/local_storage/pref_manager.dart';
 import 'package:my_archive/core/utils/logger.dart';
@@ -112,6 +114,13 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                     Icon(CupertinoIcons.chevron_forward, color: AppColors.gray),
                   ],
                 ),
+              ),
+              ProfileItem(
+                title: "Xotira",
+                prefixIconData: Icons.memory_rounded,
+                onTap: () {
+                  context.push(MemoryPage.tag);
+                }
               ),
             ],
           ),
