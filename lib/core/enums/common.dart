@@ -183,3 +183,38 @@ enum AutoLockTimeType {
         AutoLockTimeType.disable => -1,
       };
 }
+
+enum ByteUnit {
+  b(1, "B"),
+  kb(1024, "KB"),
+  mb(1024 * 1024, "MB"),
+  gb(1024 * 1024 * 1024, "GB"),
+  tb(1024 * 1024 * 1024 * 1024, "TB"),
+  pb(1024 * 1024 * 1024 * 1024 * 1024, "PB");
+
+  final num multiplier;
+  final String label;
+
+  const ByteUnit(this.multiplier, this.label);
+}
+
+enum FolderType {
+  video,
+  audio,
+  image,
+  file;
+
+  String get key => switch (this) {
+        FolderType.video => 'videos',
+        FolderType.audio => 'audios',
+        FolderType.image => 'images',
+        FolderType.file => 'files',
+      };
+
+  String get title => switch (this) {
+        FolderType.video => "Videolar",
+        FolderType.audio => "Musiqalar",
+        FolderType.image => "Rasmlar",
+        FolderType.file => "Fayllar",
+      };
+}

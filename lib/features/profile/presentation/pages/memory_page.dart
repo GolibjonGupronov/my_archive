@@ -1,7 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/enums/state_status.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/utils/logger.dart';
@@ -36,48 +38,86 @@ class MemoryPage extends StatelessWidget {
 
           return ListView(
             children: [
-              SizedBox(
-                height: 200.h,
-                child: PieChart(
-                  PieChartData(
-                    sections: [
-                      PieChartSectionData(
-                        value: state.videosPercent,
-                        title: state.videosPercent.formattedAmount,
-                        color: AppColors.blue,
-                        titleStyle: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.white),
-                      ),
-                      PieChartSectionData(
-                        value: state.audiosPercent,
-                        title: state.audiosPercent.formattedAmount,
-                        color: AppColors.red,
-                        titleStyle: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.white),
-                      ),
-                      PieChartSectionData(
-                        value: state.imagesPercent,
-                        title: state.imagesPercent.formattedAmount,
-                        color: AppColors.red,
-                        titleStyle: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.white),
-                      ),
-                      // PieChartSectionData(value: 10),
-                      // PieChartSectionData(value: 10),
+              state.folderTotalSize == 0
+                  ? Column(
+                    children: [
+                      20.height,
+                      Icon(CupertinoIcons.checkmark_seal_fill, color: AppColors.primary, size: 150.w),
+                      16.height,
+                      TextView("Xotira tozalandi"),
                     ],
-                  ),
-                ),
-              ),
-              TextView("folderMbSize: ${state.folderMbSize}"),
-              TextView("videosMb: ${state.videosMb}"),
-              TextView("audiosMb: ${state.audiosMb}"),
-              TextView("imagesMb: ${state.imagesMb}"),
-              TextView("freeDiskSpace: ${state.freeDiskSpace/1024}"),
-              TextView("totalDiskSpace: ${state.totalDiskSpace/1024}"),
-              CustomButton("Tozalash", (){
-                bloc.add(ClearFolderEvent());
-              })
+                  )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 200.h,
+                            child: Stack(
+                              children: [
+                                PieChart(
+                                  PieChartData(
+                                      sections: state.folderPercent.entries
+                                          .map(
+                                            (e) => PieChartSectionData(
+                                              value: e.value,
+                                              title: e.value.formattedAmount,
+                                              color: _getColor(e.key),
+                                              titleStyle: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.white),
+                                            ),
+                                          )
+                                          .toList()),
+                                ),
+                                Center(
+                                    child: TextView(formatBytes(state.folderTotalSize), style: AppTheme.textTheme.displayLarge))
+                              ],
+                            ),
+                          ),
+                          16.height,
+                          BoxContainer(
+                            borderRadius: BorderRadius.circular(12.r),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final entry = state.folderBytes.entries.elementAt(index);
+                                  return Row(
+                                    children: [
+                                      Icon(entry.value == 0.0 ? CupertinoIcons.checkmark_circle : CupertinoIcons.check_mark_circled_solid,size: 21.w, color: _getColor(entry.key)),
+                                      4.width,
+                                      TextView(entry.key.title),
+                                      Expanded(child: TextView(formatBytes(entry.value), textAlign: TextAlign.end)),
+                                    ],
+                                  );
+                                },
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount: state.folderBytes.entries.length),
+                          ),
+                          16.height,
+                          CustomButton("Tozalash", () {
+                            bloc.add(ClearFolderEvent());
+                          })
+                        ],
+                      ),
+                    ),
             ],
           );
         },
       ),
     );
+  }
+}
+
+Color _getColor(FolderType type) {
+  switch (type) {
+    case FolderType.video:
+      return AppColors.primary;
+    case FolderType.audio:
+      return AppColors.pink;
+    case FolderType.image:
+      return AppColors.orange;
+    case FolderType.file:
+      return AppColors.green;
   }
 }
