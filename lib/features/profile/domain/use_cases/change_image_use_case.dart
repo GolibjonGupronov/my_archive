@@ -7,5 +7,5 @@ class ChangeImageUseCase extends UseCase<String, String> {
   ChangeImageUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> callUseCase(String params) async => await repository.changeImage(params);
+  Future<Either<Failure, String>> callUseCase(String params) => repository.changeImage(params);
 }

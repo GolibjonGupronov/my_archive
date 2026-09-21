@@ -11,11 +11,11 @@ class ChangePasswordRepositoryImpl with SafeCaller implements ChangePasswordRepo
 
   @override
   Future<Either<Failure, bool>> oldPassword(String params) {
-    return safeCall(() async => await changePasswordDataSource.oldPassword(params));
+    return safeCall(() => changePasswordDataSource.oldPassword(params));
   }
 
   @override
   Future<Either<Failure, bool>> newPassword(String params) {
-    return safeCall(() async => await changePasswordDataSource.newPassword(params));
+    return safeCall(() => changePasswordDataSource.newPassword(params));
   }
 }

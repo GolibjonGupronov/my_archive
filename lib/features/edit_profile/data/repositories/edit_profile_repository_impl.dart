@@ -10,6 +10,6 @@ class EditProfileRepositoryImpl with SafeCaller implements EditProfileRepository
 
   @override
   Future<Either<Failure, bool>> editProfile(EditProfileParams params) {
-    return safeCall(() async => await profileDataSource.editProfile(params));
+    return safeCall(() => profileDataSource.editProfile(params));
   }
 }

@@ -7,5 +7,5 @@ class NewPasswordUseCase extends UseCase<bool, String> {
   NewPasswordUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(String params) async => await repository.newPassword(params);
+  Future<Either<Failure, bool>> callUseCase(String params) => repository.newPassword(params);
 }

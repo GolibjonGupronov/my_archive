@@ -6,6 +6,9 @@ import 'package:my_archive/core/local_storage/pref_manager.dart';
 
 class ExtensionHelper {
   static String thousandDecimalFormat(double value) {
+    if (!value.isFinite) {
+      return '0';
+    }
     var num = value.toString();
     var numberDecimal = num.substring(num.indexOf('.') + 1);
     final numberInteger = List.from(num.substring(0, num.indexOf('.')).split(''));

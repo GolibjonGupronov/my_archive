@@ -19,25 +19,25 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
 
   @override
   Future<Either<Failure, bool>> sendPhone(String phone) async {
-    return safeCall<bool>(() async => await authDataSource.sendPhone(phone));
+    return safeCall<bool>(() => authDataSource.sendPhone(phone));
   }
 
   @override
   Future<Either<Failure, bool>> checkSms(CheckSmsParams params) {
-    return safeCall(() async => await authDataSource.checkSms(params));
+    return safeCall(() => authDataSource.checkSms(params));
   }
 
   @override
   Future<Either<Failure, UserInfoEntity>> getUserInfo() {
     return safeCall2(
-      () async => await authDataSource.getUserInfo(),
-      onSuccess: (data) async => await prefManager.setUserInfo(data),
+      () => authDataSource.getUserInfo(),
+      onSuccess: prefManager.setUserInfo,
     );
   }
 
   @override
   Future<Either<Failure, AppConfigEntity>> appConfig() {
-    return safeCall2(() async => await authDataSource.appConfig(), onSuccess: (data) async {
+    return safeCall2(() => authDataSource.appConfig(), onSuccess: (data) async {
       await prefManager.setAppConfig(data);
       await prefManager.setServerDate(data.serverDate.formattedDate);
     });
@@ -45,12 +45,14 @@ class AuthRepositoryImpl with SafeCaller implements AuthRepository {
 
   @override
   Future<Either<Failure, bool>> registration(RegistrationParams params) {
-    return safeCall(() async => await authDataSource.registration(params));
+    return safeCall(() => authDataSource.registration(params));
   }
 
   @override
   Future<Either<Failure, String>> sendLogin(LoginParams params) {
-    return safeCall2(() async => await authDataSource.sendLogin(params),
-        onSuccess: (data) async => await secureStorage.setToken(data));
+    return safeCall2(
+      () => authDataSource.sendLogin(params),
+      onSuccess: secureStorage.setToken,
+    );
   }
 }

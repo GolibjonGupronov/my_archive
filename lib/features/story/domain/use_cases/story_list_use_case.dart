@@ -8,5 +8,5 @@ class StoryListUseCase extends UseCase<List<StoryEntity>, NoParams> {
   StoryListUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<StoryEntity>>> callUseCase(NoParams params) async => await repository.storyList();
+  Future<Either<Failure, List<StoryEntity>>> callUseCase(NoParams params) => repository.storyList();
 }

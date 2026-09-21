@@ -8,5 +8,5 @@ class DeviceSessionUseCase extends UseCase<List<DeviceSessionEntity>, NoParams> 
   DeviceSessionUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<DeviceSessionEntity>>> callUseCase(NoParams params) async => await repository.getDeviceSessions();
+  Future<Either<Failure, List<DeviceSessionEntity>>> callUseCase(NoParams params) => repository.getDeviceSessions();
 }

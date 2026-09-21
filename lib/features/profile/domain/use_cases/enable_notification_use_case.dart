@@ -7,5 +7,5 @@ class EnableNotificationUseCase extends UseCase<bool, bool> {
   EnableNotificationUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(bool params) async => await repository.enableNotification(params);
+  Future<Either<Failure, bool>> callUseCase(bool params) => repository.enableNotification(params);
 }

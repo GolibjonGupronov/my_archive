@@ -26,13 +26,13 @@ class SecureStorageImpl extends SecureStorage {
   Future<String> get getToken async => await storage.read(key: Keys.token) ?? "";
 
   @override
-  Future<void> setToken(String token) async => await storage.write(key: Keys.token, value: token);
+  Future<void> setToken(String token) => storage.write(key: Keys.token, value: token);
 
   @override
   Future<bool> checkPin(String pin) async => (await getPin) == pin;
 
   @override
-  Future<void> savePin(String pin) async => await storage.write(key: Keys.pinKey, value: pin);
+  Future<void> savePin(String pin) => storage.write(key: Keys.pinKey, value: pin);
 
   @override
   Future<String> get getPin async => await storage.read(key: Keys.pinKey) ?? "";
@@ -41,5 +41,5 @@ class SecureStorageImpl extends SecureStorage {
   Future<bool> get hasPin async => (await getPin).isNotEmpty;
 
   @override
-  Future<void> delete(String key) async => await storage.delete(key: key);
+  Future<void> delete(String key) => storage.delete(key: key);
 }

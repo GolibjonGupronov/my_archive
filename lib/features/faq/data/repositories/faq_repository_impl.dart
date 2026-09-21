@@ -10,6 +10,6 @@ class FaqRepositoryImpl with SafeCaller implements FaqRepository {
 
   @override
   Future<Either<Failure, List<FaqEntity>>> faqList() {
-    return safeCall(() async => await faqDataSource.faqList());
+    return safeCall(() => faqDataSource.faqList());
   }
 }

@@ -7,5 +7,5 @@ class TerminateDeviceUseCase extends UseCase<bool, String> {
   TerminateDeviceUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(String params) async => await repository.terminateDevice(params);
+  Future<Either<Failure, bool>> callUseCase(String params) => repository.terminateDevice(params);
 }

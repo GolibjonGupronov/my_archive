@@ -9,11 +9,11 @@ class MainRepositoryImpl with SafeCaller implements MainRepository {
 
   @override
   Future<Either<Failure, bool>> checkSession() {
-    return safeCall(() async => await mainDataSource.checkSession());
+    return safeCall(() => mainDataSource.checkSession());
   }
 
   @override
   Future<Either<Failure, Stream<bool>>> watchSession() {
-    return safeCall(() async => await mainDataSource.watchSession());
+    return safeCall(() => mainDataSource.watchSession());
   }
 }

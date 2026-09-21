@@ -7,8 +7,8 @@ import 'package:my_archive/core/use_cases/use_case.dart';
 import 'package:my_archive/features/auth/domain/use_cases/user_info_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/change_image_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';
-import 'package:my_archive/features/profile/presentation/bloc/profile_event.dart';
-import 'package:my_archive/features/profile/presentation/bloc/profile_state.dart';
+import 'package:my_archive/features/profile/presentation/blocs/profile/profile_event.dart';
+import 'package:my_archive/features/profile/presentation/blocs/profile/profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final PrefManager prefManager;

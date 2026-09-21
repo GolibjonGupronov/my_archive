@@ -10,11 +10,11 @@ class DeviceSessionRepositoryImpl with SafeCaller implements DeviceSessionReposi
 
   @override
   Future<Either<Failure, List<DeviceSessionEntity>>> getDeviceSessions() {
-    return safeCall(() async => await deviceSessionDataSource.getDeviceSessions());
+    return safeCall(() => deviceSessionDataSource.getDeviceSessions());
   }
 
   @override
   Future<Either<Failure, bool>> terminateDevice(String params) {
-    return safeCall(() async => await deviceSessionDataSource.terminateDevice(params));
+    return safeCall(() => deviceSessionDataSource.terminateDevice(params));
   }
 }

@@ -9,11 +9,11 @@ class ProfileRepositoryImpl with SafeCaller implements ProfileRepository {
 
   @override
   Future<Either<Failure, String>> changeImage(String params) {
-    return safeCall(() async => await profileDataSource.changeImage(params));
+    return safeCall(() => profileDataSource.changeImage(params));
   }
 
   @override
   Future<Either<Failure, bool>> enableNotification(bool params) {
-    return safeCall(() async => await profileDataSource.enableNotification(params));
+    return safeCall(() => profileDataSource.enableNotification(params));
   }
 }

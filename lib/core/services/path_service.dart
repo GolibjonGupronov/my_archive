@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:my_archive/core/utils/common.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PathService {
@@ -21,11 +22,30 @@ class PathService {
     return dir;
   }
 
+  static Future<int> _getDirectorySize(Directory dir) async {
+    int totalSize = 0;
+
+    try {
+      if (await dir.exists()) {
+        await for (final FileSystemEntity entity in dir.list(recursive: true, followLinks: false)) {
+          if (entity is File) {
+            totalSize += await entity.length();
+          }
+        }
+      }
+    } catch (_) {}
+
+    return totalSize;
+  }
+
   static Future<Directory> get videosDir => _getOrCreateDir("videos");
-
   static Future<Directory> get audiosDir => _getOrCreateDir("audios");
-
   static Future<Directory> get imagesDir => _getOrCreateDir("images");
+
+  static Future<int> get videosBytes async => _getDirectorySize(await videosDir);
+  static Future<int> get audiosBytes async => _getDirectorySize(await audiosDir);
+  static Future<int> get imagesBytes async => _getDirectorySize(await imagesDir);
+
 
   static Future<void> _clearDirContents(Directory dir) async {
     if (!await dir.exists()) return;

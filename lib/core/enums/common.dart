@@ -66,7 +66,7 @@ enum LangType {
       };
 
   String get title => switch (this) {
-        LangType.uz => "O'zbek",
+        LangType.uz => "O‘zbek",
         LangType.ru => "Русский",
       };
 

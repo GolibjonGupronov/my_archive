@@ -7,5 +7,5 @@ class ReadStoryUseCase extends UseCase<bool, int> {
   ReadStoryUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(int params) async => await repository.readStory(params);
+  Future<Either<Failure, bool>> callUseCase(int params) => repository.readStory(params);
 }

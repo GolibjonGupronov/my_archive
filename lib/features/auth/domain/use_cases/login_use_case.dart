@@ -7,7 +7,7 @@ class LoginUseCase extends UseCase<String, LoginParams> {
   LoginUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> callUseCase(LoginParams params) async => await repository.sendLogin(params);
+  Future<Either<Failure, String>> callUseCase(LoginParams params) => repository.sendLogin(params);
 }
 
 class LoginParams {

@@ -54,41 +54,41 @@ class PrefManagerImpl implements PrefManager {
   }
 
   @override
-  Future<void> setUserInfo(UserInfoModel user) async => await prefs.setString(Keys.user, jsonEncode(user.toJson()));
+  Future<void> setUserInfo(UserInfoModel user) => prefs.setString(Keys.user, jsonEncode(user.toJson()));
 
   @override
   LangType get getLanguage => LangType.getObj(prefs.getString(Keys.language) ?? LangType.uz.key);
 
   @override
-  Future<void> setLanguage(LangType lang) async => await prefs.setString(Keys.language, lang.key);
+  Future<void> setLanguage(LangType lang) => prefs.setString(Keys.language, lang.key);
 
   @override
   bool get isFirstLaunch => prefs.getBool(Keys.firstLaunch) ?? true;
 
   @override
-  Future<void> setNotFirstLaunch(bool value) async => await prefs.setBool(Keys.firstLaunch, value);
+  Future<void> setNotFirstLaunch(bool value) => prefs.setBool(Keys.firstLaunch, value);
 
   @override
   String get getFCMToken => prefs.getString(Keys.fcmToken) ?? "";
 
   @override
-  Future<void> setFCMToken(String value) async => await prefs.setString(Keys.fcmToken, value);
+  Future<void> setFCMToken(String value) => prefs.setString(Keys.fcmToken, value);
 
   @override
   bool get isBiometric => prefs.getBool(Keys.biometric) ?? false;
 
   @override
-  Future<void> setBiometric(bool value) async => await prefs.setBool(Keys.biometric, value);
+  Future<void> setBiometric(bool value) => prefs.setBool(Keys.biometric, value);
 
   @override
-  Future<void> remove(String key) async => await prefs.remove(key);
+  Future<void> remove(String key) => prefs.remove(key);
 
   @override
   AutoLockTimeType get getAutoLockTime =>
       AutoLockTimeType.getObj(prefs.getString(Keys.autoLockTime) ?? AutoLockTimeType.after10Seconds.key);
 
   @override
-  Future<void> setAutoLockTime(AutoLockTimeType value) async => await prefs.setString(Keys.autoLockTime, value.key);
+  Future<void> setAutoLockTime(AutoLockTimeType value) => prefs.setString(Keys.autoLockTime, value.key);
 
   @override
   AppConfigModel? get getAppConfig {
@@ -97,11 +97,11 @@ class PrefManagerImpl implements PrefManager {
   }
 
   @override
-  Future<void> setAppConfig(AppConfigModel value) async => await prefs.setString(Keys.appConfig, jsonEncode(value.toJson()));
+  Future<void> setAppConfig(AppConfigModel value) => prefs.setString(Keys.appConfig, jsonEncode(value.toJson()));
 
   @override
   String get getServerDate => prefs.getString(Keys.serverDate) ?? "";
 
   @override
-  Future<void> setServerDate(String value) async => await prefs.setString(Keys.serverDate, value);
+  Future<void> setServerDate(String value) => prefs.setString(Keys.serverDate, value);
 }

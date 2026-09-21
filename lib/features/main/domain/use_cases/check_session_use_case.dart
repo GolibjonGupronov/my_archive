@@ -7,5 +7,5 @@ class CheckSessionUseCase extends UseCase<bool, NoParams> {
   CheckSessionUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(NoParams params) async => await repository.checkSession();
+  Future<Either<Failure, bool>> callUseCase(NoParams params) => repository.checkSession();
 }

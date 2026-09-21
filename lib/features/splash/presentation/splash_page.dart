@@ -40,7 +40,7 @@ class SplashPage extends StatelessWidget {
           if (state.isFirstLaunch == true) {
             if (!context.mounted) return;
             await showCustomBottomSheetDialog(context: context, child: LanguageWidget())
-                .then((value) async => await sl.get<PrefManager>().setNotFirstLaunch(false));
+                .then((value) => sl.get<PrefManager>().setNotFirstLaunch(false));
           }
           if (state.nextPage == NextPage.main) {
             if (await bloc.secureStorage.hasPin) {

@@ -10,11 +10,11 @@ class StoryRepositoryImpl with SafeCaller implements StoryRepository {
 
   @override
   Future<Either<Failure, List<StoryEntity>>> storyList() {
-    return safeCall(() async => await storyDataSource.storyList());
+    return safeCall(() => storyDataSource.storyList());
   }
 
   @override
   Future<Either<Failure, bool>> readStory(int params) {
-    return safeCall(() async => await storyDataSource.readStory(params));
+    return safeCall(() => storyDataSource.readStory(params));
   }
 }

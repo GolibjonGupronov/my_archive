@@ -11,25 +11,25 @@ class PermissionService {
     await requestNotificationPermission();
   }
 
-  static Future<bool> requestCameraPermission() async => await _requestPermission(Permission.camera);
+  static Future<bool> requestCameraPermission() => _requestPermission(Permission.camera);
 
   static Future<bool> requestCameraPermissionWithToast(BuildContext context) async =>
       await _requestPermissionWithToast(permission: Permission.camera, context: context, message: tr('allow_access_camera'));
 
-  static Future<bool> requestGalleryPermission() async => await _requestPermission(Permission.photos);
+  static Future<bool> requestGalleryPermission() => _requestPermission(Permission.photos);
 
   static Future<bool> requestGalleryPermissionWithToast(BuildContext context) async =>
       await _requestPermissionWithToast(permission: Permission.photos, context: context, message: tr('allow_access_gallery'));
 
-  static Future<bool> requestFilePermission() async => await _requestPermission(Permission.storage);
+  static Future<bool> requestFilePermission() => _requestPermission(Permission.storage);
 
   static Future<bool> requestFilePermissionWithToast(BuildContext context) async =>
       await _requestPermissionWithToast(permission: Permission.storage, context: context, message: tr('allow_access_file'));
 
-  static Future<bool> requestLocationPermission() async => await _requestPermission(Permission.location);
+  static Future<bool> requestLocationPermission() => _requestPermission(Permission.location);
 
   static Future<bool> requestLocationPermissionWithToast(BuildContext context) async =>
-      _requestPermissionWithToast(permission: Permission.location, context: context, message: tr('allow_access_location'));
+     await _requestPermissionWithToast(permission: Permission.location, context: context, message: tr('allow_access_location'));
 
   static Future<bool> requestNotificationPermission({bool canRequest = true}) async =>
       await _requestPermission(Permission.notification, canRequest: canRequest);

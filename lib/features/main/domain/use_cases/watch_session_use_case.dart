@@ -7,5 +7,5 @@ class WatchSessionUseCase extends UseCase<Stream<bool>, NoParams> {
   WatchSessionUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, Stream<bool>>> callUseCase(NoParams params) async => await repository.watchSession();
+  Future<Either<Failure, Stream<bool>>> callUseCase(NoParams params) => repository.watchSession();
 }

@@ -8,5 +8,5 @@ class FaqUseCase extends UseCase<List<FaqEntity>, NoParams> {
   FaqUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<FaqEntity>>> callUseCase(NoParams params) async => await repository.faqList();
+  Future<Either<Failure, List<FaqEntity>>> callUseCase(NoParams params) => repository.faqList();
 }

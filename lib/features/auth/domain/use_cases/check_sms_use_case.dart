@@ -7,7 +7,7 @@ class CheckSmsUseCase extends UseCase<bool, CheckSmsParams> {
   CheckSmsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(CheckSmsParams params) async => await repository.checkSms(params);
+  Future<Either<Failure, bool>> callUseCase(CheckSmsParams params) => repository.checkSms(params);
 }
 
 class CheckSmsParams {

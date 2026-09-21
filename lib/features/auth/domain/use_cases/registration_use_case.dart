@@ -9,7 +9,7 @@ class RegistrationUseCase extends UseCase<bool, RegistrationParams> {
   RegistrationUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(RegistrationParams params) async => await repository.registration(params);
+  Future<Either<Failure, bool>> callUseCase(RegistrationParams params) => repository.registration(params);
 }
 
 class RegistrationParams {

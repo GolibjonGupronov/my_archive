@@ -9,7 +9,7 @@ class EditProfileUseCase extends UseCase<bool, EditProfileParams> {
   EditProfileUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> callUseCase(EditProfileParams params) async => await repository.editProfile(params);
+  Future<Either<Failure, bool>> callUseCase(EditProfileParams params) => repository.editProfile(params);
 }
 
 class EditProfileParams {
