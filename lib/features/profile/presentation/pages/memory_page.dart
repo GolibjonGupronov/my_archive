@@ -40,13 +40,13 @@ class MemoryPage extends StatelessWidget {
             children: [
               state.folderTotalSize == 0
                   ? Column(
-                    children: [
-                      20.height,
-                      Icon(CupertinoIcons.checkmark_seal_fill, color: AppColors.primary, size: 150.w),
-                      16.height,
-                      TextView("Xotira tozalandi"),
-                    ],
-                  )
+                      children: [
+                        20.height,
+                        Icon(CupertinoIcons.checkmark_seal_fill, color: AppColors.primary, size: 150.w),
+                        16.height,
+                        TextView("Xotira tozalandi"),
+                      ],
+                    )
                   : Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
@@ -84,7 +84,12 @@ class MemoryPage extends StatelessWidget {
                                   final entry = state.folderBytes.entries.elementAt(index);
                                   return Row(
                                     children: [
-                                      Icon(entry.value == 0.0 ? CupertinoIcons.checkmark_circle : CupertinoIcons.check_mark_circled_solid,size: 21.w, color: _getColor(entry.key)),
+                                      Icon(
+                                          entry.value == 0.0
+                                              ? CupertinoIcons.checkmark_circle
+                                              : CupertinoIcons.check_mark_circled_solid,
+                                          size: 21.w,
+                                          color: _getColor(entry.key)),
                                       4.width,
                                       TextView(entry.key.title),
                                       Expanded(child: TextView(formatBytes(entry.value), textAlign: TextAlign.end)),
