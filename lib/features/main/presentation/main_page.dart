@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/entities/bottom_nav_item_entity.dart';
-import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/core/services/notification_service.dart';

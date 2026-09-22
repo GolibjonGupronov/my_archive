@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_archive/core/constants/colors.dart';
 import 'package:my_archive/core/di/injection_container.dart';
+import 'package:my_archive/core/extensions/enum_ui.dart';
 import 'package:my_archive/core/local_storage/pref_manager.dart';
 import 'package:my_archive/core/widgets/text_view.dart';
 import 'package:my_archive/main.dart';

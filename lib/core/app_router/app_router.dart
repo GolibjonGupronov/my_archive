@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/app_router/args.dart';
+import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
 import 'package:my_archive/features/auth/domain/entities/app_config_entity.dart';
 import 'package:my_archive/features/auth/domain/use_cases/registration_use_case.dart';
@@ -231,4 +232,12 @@ CustomTransitionPage<T> _buildPage<T>({
       }
     },
   );
+}
+
+extension NextPageRoute on NextPage {
+  String get page => switch (this) {
+        NextPage.auth => LoginPage.tag,
+        NextPage.main => MainPage.tag,
+        NextPage.update => UpdatePage.tag,
+      };
 }

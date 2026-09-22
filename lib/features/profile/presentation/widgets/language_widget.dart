@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_archive/core/di/injection_container.dart';
-import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
+import 'package:my_archive/core/extensions/enum_ui.dart';
 import 'package:my_archive/core/local_storage/pref_manager.dart';
 
 class LanguageWidget extends StatefulWidget {

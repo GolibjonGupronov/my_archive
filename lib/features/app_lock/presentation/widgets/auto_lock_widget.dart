@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
-import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
+import 'package:my_archive/core/extensions/enum_ui.dart';
 
 class AutoLockWidget extends StatefulWidget {
   final Function(AutoLockTimeType) onTimeSelected;
