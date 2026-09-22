@@ -6,10 +6,12 @@ import 'package:my_archive/features/device_session/domain/repositories/device_se
 import 'package:my_archive/features/device_session/domain/use_cases/device_session_use_case.dart';
 import 'package:my_archive/features/device_session/domain/use_cases/terminate_device_use_case.dart';
 
-void initDeviceSessionInjection() {
-  sl.registerSingleton<DeviceSessionDataSource>(FirebaseDeviceSessionDataSourceImpl(firestore: sl(), secureStorage: sl()));
-  // sl.registerSingleton<DeviceSessionDataSource>(DeviceSessionDataSourceImpl(dio: sl()));
-  sl.registerSingleton<DeviceSessionRepository>(DeviceSessionRepositoryImpl(deviceSessionDataSource: sl()));
-  sl.registerSingleton<DeviceSessionUseCase>(DeviceSessionUseCase(repository: sl()));
-  sl.registerSingleton<TerminateDeviceUseCase>(TerminateDeviceUseCase(repository: sl()));
+class DeviceSessionInjection {
+  static void init() {
+    sl.registerSingleton<DeviceSessionDataSource>(FirebaseDeviceSessionDataSourceImpl(firestore: sl(), secureStorage: sl()));
+    // sl.registerSingleton<DeviceSessionDataSource>(DeviceSessionDataSourceImpl(dio: sl()));
+    sl.registerSingleton<DeviceSessionRepository>(DeviceSessionRepositoryImpl(deviceSessionDataSource: sl()));
+    sl.registerSingleton<DeviceSessionUseCase>(DeviceSessionUseCase(repository: sl()));
+    sl.registerSingleton<TerminateDeviceUseCase>(TerminateDeviceUseCase(repository: sl()));
+  }
 }

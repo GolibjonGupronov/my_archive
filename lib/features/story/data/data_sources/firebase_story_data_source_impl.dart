@@ -12,7 +12,7 @@ class FirebaseStoryDataSourceImpl extends StoryDataSource {
   @override
   Future<bool> readStory(int params) async {
     return await AliceFirebase.logCall(
-      name: "${FirebaseUrls.stories}/readStory",
+      name: "${FirebaseUrls.stories}/read_story",
       request: {"story_id": params},
       action: () async {
         final doc = firestore.collection(FirebaseUrls.stories).doc(params.toString());

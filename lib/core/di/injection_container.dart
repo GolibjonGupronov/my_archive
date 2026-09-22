@@ -55,14 +55,15 @@ class InjectionContainer {
   }
 
   static void _injections() {
-    initSplashInjection();
-    initMainInjection();
-    initAuthInjection();
-    initChangePasswordInjection();
-    initProfileInjection();
-    initFaqInjection();
-    initEditProfileInjection();
-    initStoryInjection();
-    initDeviceSessionInjection();
+    SplashInjection.init();
+    MainInjection.init();
+    AuthInjection.init();
+    ChangePasswordInjection.init();
+    ProfileInjection.init();
+    FaqInjection.init();
+    EditProfileInjection.init();
+    StoryInjection.init();
+    DeviceSessionInjection.init();
+    MediaInjection.init();
   }
 }

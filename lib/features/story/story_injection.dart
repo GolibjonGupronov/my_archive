@@ -7,11 +7,13 @@ import 'package:my_archive/features/story/domain/use_cases/prepare_story_video_u
 import 'package:my_archive/features/story/domain/use_cases/read_story_use_case.dart';
 import 'package:my_archive/features/story/domain/use_cases/story_list_use_case.dart';
 
-void initStoryInjection() {
-  // sl.registerSingleton<StoryDataSource>(StoryDataSourceImpl(dio: sl()));
-  sl.registerSingleton<StoryDataSource>(FirebaseStoryDataSourceImpl(firestore: sl()));
-  sl.registerSingleton<StoryRepository>(StoryRepositoryImpl(storyDataSource: sl()));
-  sl.registerSingleton<PrepareStoryVideoUseCase>(PrepareStoryVideoUseCase(compressorService: sl()));
-  sl.registerSingleton<ReadStoryUseCase>(ReadStoryUseCase(repository: sl()));
-  sl.registerSingleton<StoryListUseCase>(StoryListUseCase(repository: sl()));
+class StoryInjection {
+  static void init() {
+    // sl.registerSingleton<StoryDataSource>(StoryDataSourceImpl(dio: sl()));
+    sl.registerSingleton<StoryDataSource>(FirebaseStoryDataSourceImpl(firestore: sl()));
+    sl.registerSingleton<StoryRepository>(StoryRepositoryImpl(storyDataSource: sl()));
+    sl.registerSingleton<PrepareStoryVideoUseCase>(PrepareStoryVideoUseCase(compressorService: sl()));
+    sl.registerSingleton<ReadStoryUseCase>(ReadStoryUseCase(repository: sl()));
+    sl.registerSingleton<StoryListUseCase>(StoryListUseCase(repository: sl()));
+  }
 }

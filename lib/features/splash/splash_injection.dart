@@ -1,1 +1,3 @@
-void initSplashInjection() {}
+class SplashInjection {
+  static void init() {}
+}

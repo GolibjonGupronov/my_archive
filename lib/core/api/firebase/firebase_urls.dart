@@ -5,4 +5,5 @@ class FirebaseUrls {
   static final String stories = "stories";
   static final String deviceSessions = "device_sessions";
   static final String faqList = "faq_list";
+  static final String media = "media";
 }

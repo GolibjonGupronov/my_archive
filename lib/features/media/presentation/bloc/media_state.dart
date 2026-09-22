@@ -1,32 +1,23 @@
 import 'package:my_archive/core/enums/state_status.dart';
 import 'package:my_archive/features/media/domain/entities/media_entity.dart';
-import 'package:my_archive/features/story/domain/entities/story_entity.dart';
 
-class HomeState {
-  final StateStatus storyStatus;
-  final List<StoryEntity> storyList;
+class MediaState {
   final StateStatus mediaStatus;
   final List<MediaEntity> mediaList;
   final String errorMessage;
 
-  HomeState({
-    this.storyStatus = StateStatus.initial,
-    this.storyList = const [],
+  const MediaState({
     this.mediaStatus = StateStatus.initial,
     this.mediaList = const [],
     this.errorMessage = '',
   });
 
-  HomeState copyWith({
-    StateStatus? storyStatus,
-    List<StoryEntity>? storyList,
+  MediaState copyWith({
     StateStatus? mediaStatus,
     List<MediaEntity>? mediaList,
     String? errorMessage,
   }) =>
-      HomeState(
-        storyStatus: storyStatus ?? this.storyStatus,
-        storyList: storyList ?? this.storyList,
+      MediaState(
         mediaStatus: mediaStatus ?? this.mediaStatus,
         mediaList: mediaList ?? this.mediaList,
         errorMessage: errorMessage ?? this.errorMessage,

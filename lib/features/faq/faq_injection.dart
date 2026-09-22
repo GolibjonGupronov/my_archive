@@ -5,9 +5,11 @@ import 'package:my_archive/features/faq/data/repositories/faq_repository_impl.da
 import 'package:my_archive/features/faq/domain/repositories/faq_repository.dart';
 import 'package:my_archive/features/faq/domain/use_cases/faq_use_case.dart';
 
-void initFaqInjection() {
-  sl.registerSingleton<FaqDataSource>(FirebaseFaqDataSourceImpl(firestore: sl()));
-  // sl.registerSingleton<FaqDataSource>(FaqDataSourceImpl(dio: sl()));
-  sl.registerSingleton<FaqRepository>(FaqRepositoryImpl(faqDataSource: sl()));
-  sl.registerSingleton<FaqUseCase>(FaqUseCase(repository: sl()));
+class FaqInjection {
+  static void init() {
+    sl.registerSingleton<FaqDataSource>(FirebaseFaqDataSourceImpl(firestore: sl()));
+    // sl.registerSingleton<FaqDataSource>(FaqDataSourceImpl(dio: sl()));
+    sl.registerSingleton<FaqRepository>(FaqRepositoryImpl(faqDataSource: sl()));
+    sl.registerSingleton<FaqUseCase>(FaqUseCase(repository: sl()));
+  }
 }

@@ -6,10 +6,12 @@ import 'package:my_archive/features/profile/domain/repositories/profile_reposito
 import 'package:my_archive/features/profile/domain/use_cases/change_image_use_case.dart';
 import 'package:my_archive/features/profile/domain/use_cases/enable_notification_use_case.dart';
 
-void initProfileInjection() {
-  sl.registerSingleton<ProfileDataSource>(FirebaseProfileDataSourceImpl(firestore: sl(), secureStorage: sl()));
-  // sl.registerSingleton<ProfileDataSource>(ProfileDataSourceImpl(dio: sl()));
-  sl.registerSingleton<ProfileRepository>(ProfileRepositoryImpl(profileDataSource: sl()));
-  sl.registerSingleton<ChangeImageUseCase>(ChangeImageUseCase(repository: sl()));
-  sl.registerSingleton<EnableNotificationUseCase>(EnableNotificationUseCase(repository: sl()));
+class ProfileInjection {
+  static void init() {
+    sl.registerSingleton<ProfileDataSource>(FirebaseProfileDataSourceImpl(firestore: sl(), secureStorage: sl()));
+    // sl.registerSingleton<ProfileDataSource>(ProfileDataSourceImpl(dio: sl()));
+    sl.registerSingleton<ProfileRepository>(ProfileRepositoryImpl(profileDataSource: sl()));
+    sl.registerSingleton<ChangeImageUseCase>(ChangeImageUseCase(repository: sl()));
+    sl.registerSingleton<EnableNotificationUseCase>(EnableNotificationUseCase(repository: sl()));
+  }
 }
