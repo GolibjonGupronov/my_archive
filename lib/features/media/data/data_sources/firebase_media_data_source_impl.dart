@@ -19,7 +19,15 @@ class FirebaseMediaDataSourceImpl extends MediaDataSource {
       action: () async {
         final snapshot = await firestore.collection(FirebaseUrls.users).doc(uid).collection(FirebaseUrls.media).get();
 
-        return snapshot.docs.map((e) {
+        final docs = snapshot.docs.toList();
+
+        docs.sort((a, b) {
+          if (a['type'] == 'folder') return -1;
+          if (b['type'] == 'folder') return 1;
+          return 0;
+        });
+
+        return docs.map((e) {
           return MediaModel.fromJson(e.data());
         }).toList();
       },

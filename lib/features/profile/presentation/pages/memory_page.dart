@@ -60,10 +60,11 @@ class MemoryPage extends StatelessWidget {
                                       sections: state.folderPercent.entries
                                           .map(
                                             (e) => PieChartSectionData(
+                                              cornerRadius: 30.r,
                                               value: e.value,
-                                              title: e.value.formattedAmount,
+                                              title: "${e.value.fixed(fix: 1)} %",
                                               color: _getColor(e.key),
-                                              titleStyle: AppTheme.textTheme.titleMedium?.copyWith(color: AppColors.white),
+                                              titleStyle: AppTheme.textTheme.titleLarge?.copyWith(color: AppColors.white),
                                             ),
                                           )
                                           .toList()),

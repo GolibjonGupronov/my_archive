@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-class CustomImageView extends StatefulWidget {
+class CustomImageView extends StatelessWidget {
   final String? pathOrUrl;
   final double? width;
   final double? height;
@@ -14,7 +14,7 @@ class CustomImageView extends StatefulWidget {
   final BoxFit fit;
   final Color? color;
   final double? radius;
-  final bool backBlur;
+  final bool isBlur;
 
   const CustomImageView({
     required this.pathOrUrl,
@@ -25,103 +25,62 @@ class CustomImageView extends StatefulWidget {
     this.fit = BoxFit.cover,
     this.color,
     this.radius,
-    this.backBlur = false,
+    this.isBlur = false,
   });
 
   @override
-  State<CustomImageView> createState() => _CustomImageViewState();
-}
-
-class _CustomImageViewState extends State<CustomImageView> {
-  ImageInfo? info;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.backBlur && widget.pathOrUrl != null && widget.pathOrUrl!.isNotEmpty) {
-      _loadImageInfo(widget.pathOrUrl!);
-    }
-  }
-
-  Future<void> _loadImageInfo(String pathOrUrl) async {
-    final ImageProvider provider;
-
-    if (pathOrUrl.startsWith('http')) {
-      provider = CachedNetworkImageProvider(pathOrUrl, cacheManager: CustomCacheManager.instance);
-    } else {
-      provider = FileImage(File(pathOrUrl));
-    }
-
-    final stream = provider.resolve(const ImageConfiguration());
-    stream.addListener(
-      ImageStreamListener((img, _) {
-        if (mounted) {
-          setState(() => info = img);
-        }
-      }),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final double width = widget.size ?? widget.width ?? double.infinity;
-    final double height = widget.size ?? widget.height ?? double.infinity;
+    final double width = size ?? this.width ?? double.infinity;
+    final double height = size ?? this.height ?? double.infinity;
 
-    if (widget.pathOrUrl == null || widget.pathOrUrl!.isEmpty) {
+    if (pathOrUrl == null || pathOrUrl!.isEmpty) {
       return SizedBox(width: width, height: height);
     }
 
-    final bool isNetwork = widget.pathOrUrl!.startsWith('http');
-    final isPortrait = info?.image.height != null && info!.image.height > info!.image.width;
+    final bool isNetwork = pathOrUrl!.startsWith('http');
 
     Widget imageWidget;
 
     if (isNetwork) {
       imageWidget = CachedNetworkImage(
-        imageUrl: widget.pathOrUrl!,
+        imageUrl: pathOrUrl!,
         cacheManager: CustomCacheManager.instance,
-        placeholder: (context, url) => const Center(child: CupertinoActivityIndicator()),
-        errorWidget: (context, url, error) => SizedBox(),
+        placeholder: (context, url) =>
+        const Center(child: CupertinoActivityIndicator()),
+        errorWidget: (context, url, error) => const SizedBox(),
         width: width,
         height: height,
-        fit: isPortrait ? BoxFit.contain : widget.fit,
-        color: widget.color,
+        fit: fit,
+        color: color,
       );
     } else {
-      final file = File(widget.pathOrUrl!);
+      final file = File(pathOrUrl!);
       if (file.existsSync()) {
         imageWidget = Image.file(
           file,
           width: width,
           height: height,
-          fit: isPortrait ? BoxFit.contain : widget.fit,
-          color: widget.color,
+          fit: fit,
+          color: color,
         );
       } else {
         imageWidget = SizedBox(width: width, height: height);
       }
     }
 
+    if (isBlur) {
+      imageWidget = ImageFiltered(
+        imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: imageWidget,
+      );
+    }
+
     return ClipRRect(
-      borderRadius: BorderRadius.circular(widget.radius ?? 0),
+      borderRadius: BorderRadius.circular(radius ?? 0),
       child: SizedBox(
         width: width,
         height: height,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            if (widget.backBlur && isPortrait && info != null) ...[
-              isNetwork
-                  ? CachedNetworkImage(imageUrl: widget.pathOrUrl!, cacheManager: CustomCacheManager.instance, fit: BoxFit.cover)
-                  : Image.file(File(widget.pathOrUrl!), fit: BoxFit.cover),
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(color: Colors.black.withValues(alpha: 0.25)),
-              ),
-            ],
-            imageWidget,
-          ],
-        ),
+        child: imageWidget,
       ),
     );
   }

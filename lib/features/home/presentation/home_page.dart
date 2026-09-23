@@ -55,6 +55,7 @@ class HomePage extends StatelessWidget {
                 return StoryListView(storyList: state.storyList);
               },
             ),
+            12.height,
             Expanded(
               child: BlocSelector<HomeBloc, HomeState, ({StateStatus mediaStatus, List<MediaEntity> mediaList})>(
                 selector: (state) => (mediaStatus: state.mediaStatus, mediaList: state.mediaList),
