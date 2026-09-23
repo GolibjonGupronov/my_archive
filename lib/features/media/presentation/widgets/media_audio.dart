@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/services/path_service.dart';
+import 'package:my_archive/core/utils/logger.dart';
 import 'package:my_archive/features/media/domain/entities/media_entity.dart';
 
 class MediaAudio extends StatefulWidget {
@@ -32,7 +33,7 @@ class _MediaAudioState extends State<MediaAudio> {
 
     playerController.onCurrentDurationChanged.listen((durationMs) {
       final seconds = durationMs ~/ 1000;
-      print('Current position: ${seconds}s');
+      logger('Current position: ${seconds}s');
     });
   }
 
