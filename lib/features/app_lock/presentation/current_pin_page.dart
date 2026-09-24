@@ -14,7 +14,7 @@ import 'package:my_archive/features/app_lock/presentation/blocs/current_pin/curr
 class CurrentPinPage extends StatefulWidget {
   const CurrentPinPage({super.key});
 
-  static const String tag = '/current_pin_page';
+  static const String path = '/current_pin_page';
 
   @override
   State<CurrentPinPage> createState() => _CurrentPinPageState();
@@ -46,7 +46,7 @@ class _CurrentPinPageState extends State<CurrentPinPage> {
       listenWhen: (previous, current) => previous.checkCurrentPinStatus != current.checkCurrentPinStatus,
       listener: (context, state) {
         if (state.checkCurrentPinStatus.isSuccess) {
-          context.pushReplacement(MyLockPage.tag);
+          context.pushReplacement(MyLockPage.path);
         } else if (state.checkCurrentPinStatus.isFailure) {
           pinCodeController.clear();
           bloc.add(UpdateFieldEvent(pinCode: ""));

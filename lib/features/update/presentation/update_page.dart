@@ -12,7 +12,7 @@ class UpdatePage extends StatelessWidget {
 
   const UpdatePage({super.key, required this.appConfigEntity});
 
-  static const String tag = '/update_page';
+  static const String path = '/update_page';
 
   @override
   Widget build(BuildContext context) {

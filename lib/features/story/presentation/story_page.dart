@@ -24,7 +24,7 @@ class StoryPage extends StatelessWidget {
 
   const StoryPage({super.key, required this.storyList, required this.activeIndex, required this.itemCheck});
 
-  static const String tag = '/story_page';
+  static const String path = '/story_page';
 
   @override
   Widget build(BuildContext context) {

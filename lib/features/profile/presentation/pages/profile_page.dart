@@ -88,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                         title: "Mening ma'lumotlarim",
                         prefixIconData: CupertinoIcons.profile_circled,
                         onTap: () async {
-                          var value = await context.push(EditProfilePage.tag);
+                          var value = await context.push(EditProfilePage.path);
                           if (value != null) {
                             bloc.add(InitEvent());
                           }
@@ -98,21 +98,21 @@ class ProfilePage extends StatelessWidget {
                         title: "Xavfsizlik",
                         prefixIconData: CupertinoIcons.lock_shield,
                         onTap: () {
-                          context.push(SecurityPage.tag);
+                          context.push(SecurityPage.path);
                         },
                       ),
                       ProfileItem(
                         title: tr('settings'),
                         prefixIconData: Icons.settings,
                         onTap: () {
-                          context.push(SettingsPage.tag);
+                          context.push(SettingsPage.path);
                         },
                       ),
                       ProfileItem(
                         title: "Yordam",
                         prefixIconData: Icons.help,
                         onTap: () {
-                          context.push(HelpPage.tag);
+                          context.push(HelpPage.path);
                         },
                       ),
                       ProfileItem(

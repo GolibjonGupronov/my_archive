@@ -21,7 +21,7 @@ import 'package:permission_handler/permission_handler.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
-  static const String tag = '/settings';
+  static const String path = '/settings';
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -120,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                 title: "Xotira",
                 prefixIconData: Icons.memory_rounded,
                 onTap: () {
-                  context.push(MemoryPage.tag);
+                  context.push(MemoryPage.path);
                 }
               ),
             ],

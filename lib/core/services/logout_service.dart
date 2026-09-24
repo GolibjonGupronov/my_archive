@@ -9,6 +9,6 @@ class LogoutService {
   static Future<void> logoutApp() async {
     await RemoveStorage.logoutApp();
     await NotificationService.deleteFCMToken;
-    router.go(SplashPage.tag);
+    router.go(SplashPage.path);
   }
 }

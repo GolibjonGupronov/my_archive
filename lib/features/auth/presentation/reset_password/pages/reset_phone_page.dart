@@ -15,7 +15,7 @@ import 'package:my_archive/features/auth/presentation/reset_password/blocs/phone
 class ResetPhonePage extends StatefulWidget {
   const ResetPhonePage({super.key});
 
-  static const String tag = '/reset_phone_page';
+  static const String path = '/reset_phone_page';
 
   @override
   State<ResetPhonePage> createState() => _ResetPhonePageState();
@@ -49,7 +49,7 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
         if (state.phoneStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.phoneStatus.isSuccess) {
-          router.push(ResetSmsPage.tag, extra: "+998 ${state.phone}");
+          router.push(ResetSmsPage.path, extra: "+998 ${state.phone}");
         }
       },
       child: CustomScaffold(

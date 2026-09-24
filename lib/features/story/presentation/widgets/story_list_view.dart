@@ -31,7 +31,7 @@ class _StoryListViewState extends State<StoryListView> {
 
                   return Bounce(
                     onTap: () {
-                      context.push(StoryPage.tag,
+                      context.push(StoryPage.path,
                           extra: StoryPageArgs(
                               storyList: widget.storyList,
                               activeIndex: index,

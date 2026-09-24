@@ -11,7 +11,7 @@ import 'package:my_archive/features/profile/presentation/widgets/profile_item.da
 class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
 
-  static const String tag = '/help_page';
+  static const String path = '/help_page';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HelpPage extends StatelessWidget {
                 title: "FAQ",
                 prefixIconData: CupertinoIcons.doc_text,
                 onTap: () {
-                  context.push(FaqPage.tag);
+                  context.push(FaqPage.path);
                 },
               ),
               ProfileItem(

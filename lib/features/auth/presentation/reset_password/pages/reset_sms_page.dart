@@ -19,7 +19,7 @@ class ResetSmsPage extends StatefulWidget {
 
   const ResetSmsPage({super.key, required this.phoneNumber});
 
-  static const String tag = '/reset_sms_page';
+  static const String path = '/reset_sms_page';
 
   @override
   State<ResetSmsPage> createState() => _ResetSmsPageState();
@@ -55,7 +55,7 @@ class _ResetSmsPageState extends State<ResetSmsPage> {
               showErrorDialog(context, title: state.errorMessage);
             } else if (state.smsStatus.isSuccess) {
               showSuccessToast(context, "Parol almashtirildi");
-              router.go(SplashPage.tag);
+              router.go(SplashPage.path);
             }
           },
         ),

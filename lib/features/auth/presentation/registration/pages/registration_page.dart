@@ -18,7 +18,7 @@ import 'package:my_archive/features/auth/presentation/registration/blocs/registr
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
 
-  static const String tag = '/registration_page';
+  static const String path = '/registration_page';
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -58,7 +58,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.regStatus.isSuccess) {
           if (state.params != null) {
-            router.push(RegSmsPage.tag, extra: state.params);
+            router.push(RegSmsPage.path, extra: state.params);
           }
         }
       },

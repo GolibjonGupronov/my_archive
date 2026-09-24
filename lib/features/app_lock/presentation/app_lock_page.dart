@@ -14,7 +14,7 @@ import 'package:my_archive/features/app_lock/presentation/blocs/app_lock/app_loc
 class AppLockPage extends StatefulWidget {
   const AppLockPage({super.key});
 
-  static const String tag = '/app_lock_page';
+  static const String path = '/app_lock_page';
 
   @override
   State<AppLockPage> createState() => _AppLockPageState();

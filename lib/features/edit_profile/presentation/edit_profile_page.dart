@@ -20,7 +20,7 @@ import 'package:my_archive/features/edit_profile/presentation/bloc/edit_profile_
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
-  static const String tag = '/edit_profile_page';
+  static const String path = '/edit_profile_page';
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();

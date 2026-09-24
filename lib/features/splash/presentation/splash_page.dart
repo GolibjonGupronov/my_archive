@@ -15,7 +15,7 @@ import 'package:my_archive/features/splash/presentation/bloc/splash_state.dart';
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  static const String tag = '/splash_page';
+  static const String path = '/splash_page';
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,9 @@ class SplashPage extends StatelessWidget {
           }
           if (state.nextPage == NextPage.main) {
             if (await bloc.secureStorage.hasPin) {
-              router.push(AppLockPage.tag).then((value) {
+              router.push(AppLockPage.path).then((value) {
                 if (value != null) {
-                  router.go(MainPage.tag);
+                  router.go(MainPage.path);
                 }
               });
               return;

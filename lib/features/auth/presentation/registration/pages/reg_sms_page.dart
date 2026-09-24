@@ -19,7 +19,7 @@ class RegSmsPage extends StatefulWidget {
 
   const RegSmsPage({super.key, required this.registrationParams});
 
-  static const String tag = '/reg_sms_page';
+  static const String path = '/reg_sms_page';
 
   @override
   State<RegSmsPage> createState() => _RegSmsPageState();
@@ -55,7 +55,7 @@ class _RegSmsPageState extends State<RegSmsPage> {
               showErrorDialog(context, title: state.errorMessage);
             } else if (state.regStatus.isSuccess) {
               showSuccessToast(context, "Ro'yxatdan o'tdingiz");
-              router.go(SplashPage.tag);
+              router.go(SplashPage.path);
             }
           },
         ),

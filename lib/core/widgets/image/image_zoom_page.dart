@@ -15,7 +15,7 @@ class ImageZoomPage extends StatefulWidget {
 
   const ImageZoomPage({required this.items, super.key, this.activeIndex = 0});
 
-  static const String tag = '/image_zoom_page';
+  static const String path = '/image_zoom_page';
 
   @override
   State<StatefulWidget> createState() => ImageZoomPageState();

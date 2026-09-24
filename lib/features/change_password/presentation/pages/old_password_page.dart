@@ -15,7 +15,7 @@ import 'package:my_archive/features/change_password/presentation/blocs/old/old_p
 class OldPasswordPage extends StatefulWidget {
   const OldPasswordPage({super.key});
 
-  static const String tag = '/old_password_page';
+  static const String path = '/old_password_page';
 
   @override
   State<OldPasswordPage> createState() => _OldPasswordPageState();
@@ -48,7 +48,7 @@ class _OldPasswordPageState extends State<OldPasswordPage> {
         if (state.passwordStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.passwordStatus.isSuccess) {
-          router.push(NewPasswordPage.tag);
+          router.push(NewPasswordPage.path);
         }
       },
       child: CustomScaffold(

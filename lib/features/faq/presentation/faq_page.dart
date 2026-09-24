@@ -14,7 +14,7 @@ import 'package:my_archive/features/faq/presentation/widgets/faq_shimmer_item.da
 class FaqPage extends StatelessWidget {
   const FaqPage({super.key});
 
-  static const String tag = '/faq_page';
+  static const String path = '/faq_page';
 
   @override
   Widget build(BuildContext context) {

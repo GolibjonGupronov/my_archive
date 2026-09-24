@@ -16,7 +16,7 @@ import 'package:my_archive/features/auth/presentation/login/bloc/login_state.dar
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  static const String tag = '/login_page';
+  static const String path = '/login_page';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         if (state.loginStatus.isFailure) {
           showErrorDialog(context, title: state.errorMessage);
         } else if (state.loginStatus.isSuccess) {
-          router.go(MainPage.tag);
+          router.go(MainPage.path);
         }
       },
       child: CustomScaffold(
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: Bounce(
                         onTap: () {
-                          router.push(ResetPhonePage.tag);
+                          router.push(ResetPhonePage.path);
                         },
                         child:
                             TextView("Parolni unutdingizmi?", textDecoration: TextDecoration.underline, color: AppColors.primary),
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   8.width,
                   Bounce(
                       onTap: () {
-                        context.push(RegistrationPage.tag);
+                        context.push(RegistrationPage.path);
                       },
                       child: TextView("Ro'yxatdan o'tish", textDecoration: TextDecoration.underline, color: AppColors.primary)),
                 ],

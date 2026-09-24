@@ -50,7 +50,7 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
       _count++;
       final diff = DateTime.now().difference(_pausedAt!);
       final currentLocation = router.routerDelegate.currentConfiguration.uri.toString();
-      if (diff > Duration(seconds: seconds) && currentLocation != SplashPage.tag && currentLocation != AppLockPage.tag) {
+      if (diff > Duration(seconds: seconds) && currentLocation != SplashPage.path && currentLocation != AppLockPage.path) {
         _openLockIfNeeded();
       }
     }
@@ -65,7 +65,7 @@ class _AppLockWrapperState extends State<AppLockWrapper> with WidgetsBindingObse
 
     _isShowingLock = true;
 
-    router.push(AppLockPage.tag).then((result) {
+    router.push(AppLockPage.path).then((result) {
       _isShowingLock = false;
 
       if (result != true) {

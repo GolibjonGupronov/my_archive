@@ -12,7 +12,7 @@ import 'package:my_archive/features/profile/presentation/widgets/profile_item.da
 class SecurityPage extends StatefulWidget {
   const SecurityPage({super.key});
 
-  static const String tag = '/security_page';
+  static const String path = '/security_page';
 
   @override
   State<SecurityPage> createState() => _SecurityPageState();
@@ -64,7 +64,7 @@ class _SecurityPageState extends State<SecurityPage> with RouteAware {
                 child: ProfileItem(
                   title: "Parolni tahrirlash",
                   prefixIconData: Icons.key_rounded,
-                  onTap: () => context.push(OldPasswordPage.tag),
+                  onTap: () => context.push(OldPasswordPage.path),
                 ),
               ),
               ProfileItem(
@@ -75,13 +75,13 @@ class _SecurityPageState extends State<SecurityPage> with RouteAware {
                   color: _hasPin ? AppColors.primary : AppColors.gray,
                 ),
                 onTap: () {
-                  router.push(_hasPin ? CurrentPinPage.tag : NewPinPage.tag);
+                  router.push(_hasPin ? CurrentPinPage.path : NewPinPage.path);
                 },
               ),
               ProfileItem(
                 title: "Qurilma sessiyasi",
                 prefixIconData: Icons.phone_android_rounded,
-                onTap: () => context.push(DeviceSessionPage.tag),
+                onTap: () => context.push(DeviceSessionPage.path),
               ),
             ],
           )

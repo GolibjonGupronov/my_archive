@@ -15,7 +15,7 @@ import 'package:my_archive/features/device_session/presentation/widgets/session_
 class DeviceSessionPage extends StatelessWidget {
   const DeviceSessionPage({super.key});
 
-  static const String tag = '/device_session_page';
+  static const String path = '/device_session_page';
 
   @override
   Widget build(BuildContext context) {

@@ -12,13 +12,13 @@ final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>()
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 final GoRouter router = GoRouter(
-  initialLocation: SplashPage.tag,
+  initialLocation: SplashPage.path,
   debugLogDiagnostics: true,
   navigatorKey: globalNavigatorKey,
   observers: [routeObserver],
   routes: <RouteBase>[
     GoRoute(
-      path: SplashPage.tag,
+      path: SplashPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
@@ -26,7 +26,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: UpdatePage.tag,
+      path: UpdatePage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
@@ -34,7 +34,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: MainPage.tag,
+      path: MainPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
@@ -42,7 +42,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: RegistrationPage.tag,
+      path: RegistrationPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.fade,
@@ -50,7 +50,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: ImageZoomPage.tag,
+      path: ImageZoomPage.path,
       pageBuilder: (context, state) {
         final extra = state.extra;
         final items = extra is List ? extra.whereType<String>().toList() : <String>[];
@@ -70,70 +70,70 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: SettingsPage.tag,
+      path: SettingsPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const SettingsPage(),
       ),
     ),
     GoRoute(
-      path: SecurityPage.tag,
+      path: SecurityPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const SecurityPage(),
       ),
     ),
     GoRoute(
-      path: LoginPage.tag,
+      path: LoginPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const LoginPage(),
       ),
     ),
     GoRoute(
-      path: ResetPhonePage.tag,
+      path: ResetPhonePage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const ResetPhonePage(),
       ),
     ),
     GoRoute(
-      path: ResetSmsPage.tag,
+      path: ResetSmsPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: ResetSmsPage(phoneNumber: state.extra as String),
       ),
     ),
     GoRoute(
-      path: RegSmsPage.tag,
+      path: RegSmsPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: RegSmsPage(registrationParams: state.extra as RegistrationParams),
       ),
     ),
     GoRoute(
-      path: NewPasswordPage.tag,
+      path: NewPasswordPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const NewPasswordPage(),
       ),
     ),
     GoRoute(
-      path: OldPasswordPage.tag,
+      path: OldPasswordPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const OldPasswordPage(),
       ),
     ),
     GoRoute(
-      path: EditProfilePage.tag,
+      path: EditProfilePage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const EditProfilePage(),
       ),
     ),
     GoRoute(
-      path: StoryPage.tag,
+      path: StoryPage.path,
       pageBuilder: (context, state) {
         final args = state.extra as StoryPageArgs;
         return _buildPage<void>(
@@ -143,14 +143,14 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: DeviceSessionPage.tag,
+      path: DeviceSessionPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const DeviceSessionPage(),
       ),
     ),
     GoRoute(
-      path: AppLockPage.tag,
+      path: AppLockPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         type: _AppTransitionType.scale,
@@ -158,42 +158,42 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: CurrentPinPage.tag,
+      path: CurrentPinPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const CurrentPinPage(),
       ),
     ),
     GoRoute(
-      path: MyLockPage.tag,
+      path: MyLockPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const MyLockPage(),
       ),
     ),
     GoRoute(
-      path: NewPinPage.tag,
+      path: NewPinPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const NewPinPage(),
       ),
     ),
     GoRoute(
-      path: HelpPage.tag,
+      path: HelpPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const HelpPage(),
       ),
     ),
     GoRoute(
-      path: FaqPage.tag,
+      path: FaqPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const FaqPage(),
       ),
     ),
     GoRoute(
-      path: MemoryPage.tag,
+      path: MemoryPage.path,
       pageBuilder: (context, state) => _buildPage<void>(
         state: state,
         child: const MemoryPage(),
@@ -236,8 +236,8 @@ CustomTransitionPage<T> _buildPage<T>({
 
 extension NextPageRoute on NextPage {
   String get page => switch (this) {
-        NextPage.auth => LoginPage.tag,
-        NextPage.main => MainPage.tag,
-        NextPage.update => UpdatePage.tag,
+        NextPage.auth => LoginPage.path,
+        NextPage.main => MainPage.path,
+        NextPage.update => UpdatePage.path,
       };
 }

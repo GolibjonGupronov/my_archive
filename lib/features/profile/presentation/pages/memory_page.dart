@@ -12,7 +12,7 @@ import 'package:my_archive/features/profile/presentation/blocs/memory/memory_eve
 import 'package:my_archive/features/profile/presentation/blocs/memory/memory_state.dart';
 
 class MemoryPage extends StatelessWidget {
-  static const String tag = '/memory_page';
+  static const String path = '/memory_page';
 
   const MemoryPage({super.key});
 

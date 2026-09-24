@@ -19,7 +19,7 @@ import 'package:my_archive/features/profile/presentation/widgets/profile_item.da
 class MyLockPage extends StatelessWidget {
   const MyLockPage({super.key});
 
-  static const String tag = '/my_lock_page';
+  static const String path = '/my_lock_page';
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class MyLockPage extends StatelessWidget {
                   title: "Yangi PIN o'rnatish",
                   prefixIconData: CupertinoIcons.lock_rotation_open,
                   onTap: () {
-                    context.push(NewPinPage.tag).then((value) {
+                    context.push(NewPinPage.path).then((value) {
                       if (value != null) router.pop();
                     });
                   },

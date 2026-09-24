@@ -17,7 +17,7 @@ import 'package:my_archive/features/main/presentation/bloc/main_state.dart';
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
-  static const String tag = '/main_page';
+  static const String path = '/main_page';
 
   @override
   State<MainPage> createState() => _MainPageState();

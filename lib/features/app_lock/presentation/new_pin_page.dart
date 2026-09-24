@@ -14,7 +14,7 @@ import 'package:my_archive/features/app_lock/presentation/blocs/new_pin/new_pin_
 class NewPinPage extends StatefulWidget {
   const NewPinPage({super.key});
 
-  static const String tag = '/new_pin_page';
+  static const String path = '/new_pin_page';
 
   @override
   State<NewPinPage> createState() => _NewPinPageState();
