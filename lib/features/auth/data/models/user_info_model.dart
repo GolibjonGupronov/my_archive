@@ -18,7 +18,7 @@ class UserInfoModel extends UserInfoEntity {
         gender: Gender.getObj(json['gender'] as String),
         birthday: json['birthday'] as String,
         phone: json['phone'] as String,
-        image: json['image'] as String,
+        image: (json['image'] as String?) ?? "",
         isNotificationEnabled: json['is_notification_enabled'] as bool,
       );
 

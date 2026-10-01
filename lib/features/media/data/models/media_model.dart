@@ -14,9 +14,9 @@ class MediaModel extends MediaEntity {
     return MediaModel(
       id: json['id'] as String,
       title: json['title'] as String,
-      thumbnail: json['thumbnail'] as String,
-      type: MediaType.getObj(json['type'] as String),
-      mediaUrl: json['media_url'] as String,
+      thumbnail: (json['thumbnail'] as String?) ?? "",
+      type: MediaType.getObj((json['type'] as String?) ?? ""),
+      mediaUrl: (json['media_url'] as String?) ?? "",
     );
   }
 }
