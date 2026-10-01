@@ -14,13 +14,13 @@ class StoryModel extends StoryEntity {
 
   factory StoryModel.fromJson(Map<String, dynamic> json) {
     return StoryModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      thumbnail: json['thumbnail'] ?? '',
-      resourceData: json['resource_data'] ?? '',
-      resourceType: StoryFileType.getObj(json['resource_type'] ?? ''),
-      action: json['action'] == null ? null : StoryActionModel.fromJson(json['action']),
-      isRead: json['is_read'] ?? false,
+      id: json['id'] as int,
+      title: json['title'] as String,
+      thumbnail: json['thumbnail'] as String,
+      resourceData: json['resource_data'] as String,
+      resourceType: StoryFileType.getObj(json['resource_type'] as String),
+      action: json['action'] == null ? null : StoryActionModel.fromJson(json['action'] as Map<String, dynamic>),
+      isRead: json['is_read'] as bool,
     );
   }
 

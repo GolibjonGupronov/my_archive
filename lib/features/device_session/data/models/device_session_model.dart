@@ -24,14 +24,14 @@ class DeviceSessionModel extends DeviceSessionEntity {
       dateTime = date;
     }
     return DeviceSessionModel(
-      deviceId: json['device_id'] ?? "",
-      deviceName: json['device_name'] ?? "",
-      operatingSystemType: OperatingSystemType.getObj(json['operating_system'] ?? ""),
-      appVersion: json['app_version'] ?? "",
-      releaseVersion: json['release_version'] ?? "",
-      address: json['address'] == null ? null : LocationModel.fromJson(json['address']),
+      deviceId: json['device_id'] as String,
+      deviceName: json['device_name'] as String,
+      operatingSystemType: OperatingSystemType.getObj(json['operating_system'] as String),
+      appVersion: json['app_version'] as String,
+      releaseVersion: json['release_version'] as String,
+      address: json['address'] == null ? null : LocationModel.fromJson(json['address'] as Map<String, dynamic>),
       dateTime: dateTime,
-      isCurrent: json['is_current'] ?? false,
+      isCurrent: json['is_current'] as bool,
     );
   }
 

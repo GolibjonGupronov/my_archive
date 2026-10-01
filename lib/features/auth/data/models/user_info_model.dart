@@ -13,13 +13,13 @@ class UserInfoModel extends UserInfoEntity {
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> json) => UserInfoModel(
-        firstName: json['first_name'] ?? "",
-        secondName: json['second_name'] ?? "",
-        gender: Gender.getObj(json['gender'] ?? ""),
-        birthday: json['birthday'] ?? "",
-        phone: json['phone'] ?? "",
-        image: json['image'] ?? "",
-        isNotificationEnabled: json['is_notification_enabled'] ?? true,
+        firstName: json['first_name'] as String,
+        secondName: json['second_name'] as String,
+        gender: Gender.getObj(json['gender'] as String),
+        birthday: json['birthday'] as String,
+        phone: json['phone'] as String,
+        image: json['image'] as String,
+        isNotificationEnabled: json['is_notification_enabled'] as bool,
       );
 
   Map<String, dynamic> toJson() => {

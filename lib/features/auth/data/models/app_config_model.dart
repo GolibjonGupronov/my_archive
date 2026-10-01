@@ -24,15 +24,15 @@ class AppConfigModel extends AppConfigEntity {
       serverDate = date;
     }
     return AppConfigModel(
-      iosMinimumBuildCode: json['ios_minimum_build_code'] ?? 1,
-      androidMinimumBuildCode: json['android_minimum_build_code'] ?? 1,
-      googlePlayLink: json['google_play_link'] ?? "",
-      appStoreLink: json['app_store_link'] ?? "",
-      callCenter: json['call_center'] ?? "",
-      telegramBot: json['telegram_bot'] ?? "",
-      telegram: json['telegram'] ?? "",
-      instagram: json['instagram'] ?? "",
-      facebook: json['facebook'] ?? "",
+      iosMinimumBuildCode: (json['ios_minimum_build_code'] as num).toInt(),
+      androidMinimumBuildCode: (json['android_minimum_build_code'] as num).toInt(),
+      googlePlayLink: json['google_play_link'] as String,
+      appStoreLink: json['app_store_link'] as String,
+      callCenter: json['call_center'] as String,
+      telegramBot: json['telegram_bot'] as String,
+      telegram: json['telegram'] as String,
+      instagram: json['instagram'] as String,
+      facebook: json['facebook'] as String,
       serverDate: serverDate,
     );
   }

@@ -12,11 +12,11 @@ class MediaModel extends MediaEntity {
 
   factory MediaModel.fromJson(Map<String, dynamic> json) {
     return MediaModel(
-      id: json['id'] ?? '',
-      title: json['title'] ?? '',
-      thumbnail: json['thumbnail'] ?? '',
-      type: MediaType.getObj(json['type'] ?? ''),
-      mediaUrl: json['media_url'] ?? '',
+      id: json['id'] as String,
+      title: json['title'] as String,
+      thumbnail: json['thumbnail'] as String,
+      type: MediaType.getObj(json['type'] as String),
+      mediaUrl: json['media_url'] as String,
     );
   }
 }

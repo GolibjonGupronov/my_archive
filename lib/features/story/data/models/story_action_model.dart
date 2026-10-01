@@ -5,9 +5,9 @@ class StoryActionModel extends StoryActionEntity {
 
   factory StoryActionModel.fromJson(Map<String, dynamic> json) {
     return StoryActionModel(
-      title: json['title'] ?? '',
-      type: StoryActionType.getObj(json['type'] ?? ''),
-      actionData: json['action_data'] ?? '',
+      title: json['title'] as String,
+      type: StoryActionType.getObj(json['type'] as String),
+      actionData: json['action_data'] as String,
     );
   }
 

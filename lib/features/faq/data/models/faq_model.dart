@@ -8,8 +8,8 @@ class FaqModel extends FaqEntity {
 
   factory FaqModel.fromJson(Map<String, dynamic> json) {
     return FaqModel(
-      question: json['question'] ?? "",
-      answer: json['answer'] ?? "",
+      question: json['question'] as String,
+      answer: json['answer'] as String,
     );
   }
 
