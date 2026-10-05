@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
           initial: savedThemeMode ?? AdaptiveThemeMode.light,
           builder: (ThemeData light, ThemeData dark) {
             return MaterialApp.router(
-              title: 'My Archive',
+              title: Constants.appName,
               theme: light,
               darkTheme: dark,
               locale: context.locale,

@@ -1,5 +1,5 @@
 class Constants {
-  static const appName = "MyArchive";
+  static const appName = "My Archive";
   static const appId = "my_archive";
 
   static const Duration dioTimeOut = Duration(seconds: 60);
