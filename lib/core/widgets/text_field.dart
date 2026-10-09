@@ -26,6 +26,7 @@ class CustomTextField extends StatefulWidget {
   final String Function(String v)? validate;
   final bool autofocus;
   final bool canCopyPaste;
+  final bool withShadow;
 
   const CustomTextField._(
     this.title, {
@@ -45,6 +46,7 @@ class CustomTextField extends StatefulWidget {
     this.validate,
     this.autofocus = false,
     this.canCopyPaste = true,
+    this.withShadow = false,
     required _EnumTextFieldType textFieldType,
   });
 
@@ -65,6 +67,7 @@ class CustomTextField extends StatefulWidget {
     final int? maxLength,
     final bool autofocus = false,
     final bool canCopyPaste = true,
+    final bool withShadow = false,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -85,6 +88,7 @@ class CustomTextField extends StatefulWidget {
       validate: validate,
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
+      withShadow: withShadow,
       textFieldType: _EnumTextFieldType.text,
     );
   }
@@ -101,6 +105,7 @@ class CustomTextField extends StatefulWidget {
     final String Function(String v)? validate,
     final bool autofocus = false,
     final bool canCopyPaste = true,
+    final bool withShadow = false,
   }) {
     return CustomTextField._(
       title,
@@ -115,6 +120,7 @@ class CustomTextField extends StatefulWidget {
       inputFormatters: inputFormatters ?? [],
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
+      withShadow: withShadow,
       textFieldType: _EnumTextFieldType.phone,
     );
   }
@@ -133,6 +139,7 @@ class CustomTextField extends StatefulWidget {
     final int? maxLength,
     final bool autofocus = false,
     final bool canCopyPaste = true,
+    final bool withShadow = false,
     String Function(String v)? validate,
   }) {
     validate ??= (String v) =>
@@ -154,6 +161,7 @@ class CustomTextField extends StatefulWidget {
       inputFormatters: inputFormatters,
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
+      withShadow: withShadow,
       textFieldType: _EnumTextFieldType.password,
     );
   }
@@ -172,6 +180,7 @@ class CustomTextField extends StatefulWidget {
     final int maxLines = 4,
     final bool autofocus = false,
     final bool canCopyPaste = true,
+    final bool withShadow = false,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -189,6 +198,7 @@ class CustomTextField extends StatefulWidget {
       maxLines: maxLines,
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
+      withShadow: withShadow,
       textFieldType: _EnumTextFieldType.comment,
     );
   }
@@ -204,6 +214,7 @@ class CustomTextField extends StatefulWidget {
     final int? maxLength,
     final bool autofocus = false,
     final bool canCopyPaste = true,
+    final bool withShadow = false,
     final String Function(String v)? validate,
   }) {
     return CustomTextField._(
@@ -220,6 +231,7 @@ class CustomTextField extends StatefulWidget {
       canCopyPaste: canCopyPaste,
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp('[^0-9,. ]')), ThousandsSeparatorInputFormatter()],
       inputType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+      withShadow: withShadow,
       textFieldType: _EnumTextFieldType.thousandFormat,
     );
   }
@@ -280,8 +292,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 children: [
                   TextSpan(
                     text: widget.title,
-                    style: AppTheme.textTheme.headlineMedium
-                        ?.copyWith(color: context.isDarkModeEnable ? AppColors.white : AppColors.black),
+                    style: AppTheme.textTheme.headlineMedium?.copyWith(
+                      color: context.isDarkModeEnable ? AppColors.white : AppColors.black,
+                    ),
                   ),
                   if (widget.required)
                     TextSpan(
@@ -295,6 +308,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           BoxContainer(
             border: errorMessage.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
             borderRadius: BorderRadius.circular(30.r),
+            withShadow: widget.withShadow,
             child: SizedBox(
               height: widget.maxLines == null ? 60.h : null,
               child: Padding(
@@ -365,11 +379,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           if (widget.comment.isNotEmpty) ...[
             4.height,
-            TextView(
-              widget.comment,
-              fontWeight: FontWeight.w400,
-              color: AppColors.gray,
-            ),
+            TextView(widget.comment, fontWeight: FontWeight.w400, color: AppColors.gray),
           ],
         ],
       ),
