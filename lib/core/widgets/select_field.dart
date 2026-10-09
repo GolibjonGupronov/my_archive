@@ -64,12 +64,9 @@ class CustomSelectField extends StatelessWidget {
                 onTap();
               }
             },
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.isDarkModeEnable ? AppColors.whiteDark : AppColors.foregroundSecondary,
-                border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
-                borderRadius: BorderRadius.circular(30.r),
-              ),
+            child: BoxContainer(
+              border: errorText.isNotEmpty ? Border.all(color: AppColors.red, width: 0.8) : null,
+              borderRadius: BorderRadius.circular(30.r),
               child: SizedBox(
                 height: 60.h,
                 child: Padding(
