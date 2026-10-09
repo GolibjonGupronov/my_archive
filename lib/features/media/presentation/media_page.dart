@@ -4,7 +4,6 @@ import 'package:my_archive/core/di/injection_container.dart';
 
 import 'package:my_archive/features/media/presentation/bloc/media_bloc.dart';
 import 'package:my_archive/features/media/presentation/bloc/media_event.dart';
-import 'package:my_archive/features/media/presentation/bloc/media_state.dart';
 
 class MediaPage extends StatelessWidget {
   const MediaPage({super.key});

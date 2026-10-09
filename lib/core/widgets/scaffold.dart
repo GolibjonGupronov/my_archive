@@ -23,7 +23,6 @@ class CustomScaffold extends StatefulWidget {
   final bool isBottomSafe;
   final bool isTopSafe;
   final String? dialogSubtitle;
-  final bool isExitDialog;
   final bool resizeToAvoidBottomInset;
 
   const CustomScaffold({
@@ -41,7 +40,6 @@ class CustomScaffold extends StatefulWidget {
     this.onWillPop,
     this.dialogTitle,
     this.dialogSubtitle,
-    this.isExitDialog = false,
     this.resizeToAvoidBottomInset = true,
   });
 
@@ -59,7 +57,28 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
 
         if (!widget.canPop) return;
 
-        if (widget.isExitDialog) {
+        final hasChanges = widget.hasUnsavedChanges?.call() ?? false;
+        if (hasChanges) {
+          if (!context.mounted) return;
+          await showRejectDialog(
+            context,
+            widget.dialogTitle ?? tr('exit_confirm_title'),
+            subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
+            onConfirm: () => Navigator.of(context).pop(true),
+            type: MyDialogType.warning,
+          );
+          return;
+        }
+
+        if (widget.onWillPop != null) {
+          final allowed = await widget.onWillPop?.call() ?? true;
+          if (!allowed) return;
+        }
+
+        if (!context.mounted) return;
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        } else {
           final onExit = onExitApp(context);
           if (onExit) {
             if (Platform.isAndroid) {
@@ -68,30 +87,6 @@ class _CustomScaffoldState extends State<CustomScaffold> with ExitAppMixin {
               exit(0);
             }
           }
-          return;
-        }
-
-        if (widget.onWillPop != null) {
-          final allowed = await widget.onWillPop?.call() ?? true;
-          if (!allowed) {
-            return;
-          }
-        }
-
-        final hasChanges = widget.hasUnsavedChanges?.call() ?? false;
-
-        if (hasChanges) {
-          if (!context.mounted) return;
-          await showRejectDialog(context, widget.dialogTitle ?? tr('exit_confirm_title'),
-              subTitle: widget.dialogSubtitle ?? tr('exit_confirm_subtitle'),
-              onConfirm: () => Navigator.of(context).pop(true),
-              type: MyDialogType.warning);
-          return;
-        }
-
-        if (!context.mounted) return;
-        if (widget.canPop && Navigator.of(context).canPop()) {
-          Navigator.of(context).pop();
         }
       },
       child: SafeArea(

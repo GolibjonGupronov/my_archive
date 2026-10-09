@@ -114,12 +114,6 @@ class _PinPutWithKeyboardState extends State<PinPutWithKeyboard> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    widget.controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final rows = _chunk(_buildKeyboard, 3);
 

@@ -53,7 +53,6 @@ class _MainPageState extends State<MainPage> {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
         return CustomScaffold(
-          isExitDialog: true,
           resizeToAvoidBottomInset: false,
           body: Stack(alignment: Alignment.center, children: [
             IndexedStack(index: state.activePage.index, children: pages),
