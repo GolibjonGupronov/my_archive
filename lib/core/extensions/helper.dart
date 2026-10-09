@@ -70,11 +70,11 @@ class ExtensionHelper {
   }
 
   static String formatTo({required String outputFormat, required DateTime? date}) =>
-      date == null ? "--" : DateFormat(outputFormat).format(date);
+      date == null ? "" : DateFormat(outputFormat).format(date);
 
   static String formatRelativeDate({required String outputFormat, required DateTime? date}) {
     if (date == null) {
-      return "--";
+      return "";
     }
 
     final now = sl<PrefManager>().getServerDate.toDateTime ?? DateTime.now();

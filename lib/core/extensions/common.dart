@@ -50,6 +50,7 @@ extension FormattedDateTime on DateTime? {
   String get toBackendDateTime => this == null ? "" : DateFormat('yyyy-MM-dd HH:mm').format(this!);
 
   String get formatRelativeDate => ExtensionHelper.formatRelativeDate(outputFormat: 'dd.MM.yyyy', date: this);
+  String formatTo(String outputFormat) => ExtensionHelper.formatTo(outputFormat: outputFormat, date: this);
   String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: this);
   String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: this);
   String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: this);

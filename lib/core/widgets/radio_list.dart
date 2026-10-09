@@ -11,6 +11,7 @@ class CustomRadioList<T> extends StatelessWidget {
   final Function(T segment) onSegmentSelected;
   final bool enabled;
   final Gradient? activeGradient;
+  final Widget Function(BuildContext context, T segment, bool isActive)? itemBuilder;
 
   const CustomRadioList(
     this.title, {
@@ -21,6 +22,7 @@ class CustomRadioList<T> extends StatelessWidget {
     this.activeSegment,
     this.enabled = true,
     this.activeGradient,
+    this.itemBuilder,
   });
 
   @override
@@ -30,10 +32,7 @@ class CustomRadioList<T> extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (title.isNotEmpty) ...[
-            TextView(title),
-            10.height,
-          ],
+          if (title.isNotEmpty) ...[TextView(title), 10.height],
           DynamicHeightGridView(
             shrinkWrap: true,
             crossAxisSpacing: 8,
@@ -44,6 +43,18 @@ class CustomRadioList<T> extends StatelessWidget {
             builder: (context, position) {
               final segment = segments[position];
               final isActive = segment == activeSegment;
+
+              if (itemBuilder != null) {
+                return Bounce(
+                  onTap: () {
+                    if (enabled) {
+                      onSegmentSelected(segment);
+                    }
+                  },
+                  child: itemBuilder!(context, segment, isActive),
+                );
+              }
+
               return Bounce(
                 onTap: () {
                   if (enabled) {
