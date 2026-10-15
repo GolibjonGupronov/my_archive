@@ -27,49 +27,52 @@ class CustomTextField extends StatefulWidget {
   final bool autofocus;
   final bool canCopyPaste;
   final bool withShadow;
+  final TextCapitalization textCapitalization;
 
   const CustomTextField._(
-    this.title, {
-    this.controller,
-    this.hint,
-    this.comment = "",
-    this.required = false,
-    this.enabled = true,
-    this.inputType,
-    this.onChanged,
-    this.inputFormatters,
-    this.minLines,
-    this.maxLines,
-    this.textInputAction,
-    this.obscureText = false,
-    this.maxLength,
-    this.validate,
-    this.autofocus = false,
-    this.canCopyPaste = true,
-    this.withShadow = false,
-    required _EnumTextFieldType textFieldType,
-  });
+      this.title, {
+        this.controller,
+        this.hint,
+        this.comment = "",
+        this.required = false,
+        this.enabled = true,
+        this.inputType,
+        this.onChanged,
+        this.inputFormatters,
+        this.minLines,
+        this.maxLines,
+        this.textInputAction,
+        this.obscureText = false,
+        this.maxLength,
+        this.validate,
+        this.autofocus = false,
+        this.canCopyPaste = true,
+        this.withShadow = false,
+        this.textCapitalization = TextCapitalization.none,
+        required _EnumTextFieldType textFieldType,
+      });
 
   factory CustomTextField(
-    final String title, {
-    final TextEditingController? controller,
-    final String? hint,
-    final String comment = "",
-    final bool required = false,
-    final bool enabled = true,
-    final TextInputType? inputType,
-    final Function(String v)? onChanged,
-    final List<TextInputFormatter>? inputFormatters,
-    final int? minLines,
-    final int? maxLines,
-    final TextInputAction? textInputAction,
-    final bool obscureText = false,
-    final int? maxLength,
-    final bool autofocus = false,
-    final bool canCopyPaste = true,
-    final bool withShadow = false,
-    final String Function(String v)? validate,
-  }) {
+      final String title, {
+        final TextEditingController? controller,
+        final String? hint,
+        final String comment = "",
+        final bool required = false,
+        final bool enabled = true,
+        final TextInputType? inputType,
+        final Function(String v)? onChanged,
+        final List<TextInputFormatter>? inputFormatters,
+        final int? minLines,
+        final int? maxLines,
+        final TextInputAction? textInputAction,
+        final bool obscureText = false,
+        final int? maxLength,
+        final bool autofocus = false,
+        final bool canCopyPaste = true,
+        final bool withShadow = false,
+        final String Function(String v)? validate,
+        final TextCapitalization textCapitalization = TextCapitalization.sentences,
+      }) {
     return CustomTextField._(
       title,
       controller: controller,
@@ -89,24 +92,26 @@ class CustomTextField extends StatefulWidget {
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       withShadow: withShadow,
+      textCapitalization: textCapitalization,
       textFieldType: _EnumTextFieldType.text,
     );
   }
 
   factory CustomTextField.phone(
-    final String title, {
-    final TextEditingController? controller,
-    final String? hint,
-    final String comment = "",
-    final bool required = false,
-    final bool enabled = true,
-    final List<TextInputFormatter>? inputFormatters,
-    final Function(String v)? onChanged,
-    final String Function(String v)? validate,
-    final bool autofocus = false,
-    final bool canCopyPaste = true,
-    final bool withShadow = false,
-  }) {
+      final String title, {
+        final TextEditingController? controller,
+        final String? hint,
+        final String comment = "",
+        final bool required = false,
+        final bool enabled = true,
+        final List<TextInputFormatter>? inputFormatters,
+        final Function(String v)? onChanged,
+        final String Function(String v)? validate,
+        final bool autofocus = false,
+        final bool canCopyPaste = true,
+        final bool withShadow = false,
+        final TextCapitalization textCapitalization = TextCapitalization.none,
+      }) {
     return CustomTextField._(
       title,
       controller: controller,
@@ -121,29 +126,32 @@ class CustomTextField extends StatefulWidget {
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       withShadow: withShadow,
+      textCapitalization: textCapitalization,
       textFieldType: _EnumTextFieldType.phone,
     );
   }
 
   factory CustomTextField.password(
-    final String title, {
-    final TextEditingController? controller,
-    final String? hint,
-    final String comment = "",
-    final bool required = false,
-    final bool enabled = true,
-    final bool obscureText = true,
-    final TextInputType? inputType,
-    final Function(String v)? onChanged,
-    List<TextInputFormatter>? inputFormatters,
-    final int? maxLength,
-    final bool autofocus = false,
-    final bool canCopyPaste = true,
-    final bool withShadow = false,
-    String Function(String v)? validate,
-  }) {
+      final String title, {
+        final TextEditingController? controller,
+        final String? hint,
+        final String comment = "",
+        final bool required = false,
+        final bool enabled = true,
+        final bool obscureText = true,
+        final TextInputType? inputType,
+        final Function(String v)? onChanged,
+        List<TextInputFormatter>? inputFormatters,
+        final int? maxLength,
+        final bool autofocus = false,
+        final bool canCopyPaste = true,
+        final bool withShadow = false,
+        String Function(String v)? validate,
+        final TextCapitalization textCapitalization = TextCapitalization.none,
+      }) {
     validate ??= (String v) =>
-        v.removeSpaces.length < Constants.passwordLength ? tr('min_chars_required'.plural(Constants.passwordLength)) : "";
+    v.removeSpaces.length < Constants.passwordLength ? tr('min_chars_required').plural(Constants.passwordLength) : "";
+
     inputFormatters ??= [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
 
     return CustomTextField._(
@@ -162,27 +170,29 @@ class CustomTextField extends StatefulWidget {
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       withShadow: withShadow,
+      textCapitalization: textCapitalization,
       textFieldType: _EnumTextFieldType.password,
     );
   }
 
   factory CustomTextField.comment(
-    final String title, {
-    final TextEditingController? controller,
-    final String? hint,
-    final String comment = "",
-    final bool required = false,
-    final bool enabled = true,
-    final TextInputType? inputType,
-    final Function(String v)? onChanged,
-    final List<TextInputFormatter>? inputFormatters,
-    final int? maxLength,
-    final int maxLines = 4,
-    final bool autofocus = false,
-    final bool canCopyPaste = true,
-    final bool withShadow = false,
-    final String Function(String v)? validate,
-  }) {
+      final String title, {
+        final TextEditingController? controller,
+        final String? hint,
+        final String comment = "",
+        final bool required = false,
+        final bool enabled = true,
+        final TextInputType? inputType,
+        final Function(String v)? onChanged,
+        final List<TextInputFormatter>? inputFormatters,
+        final int? maxLength,
+        final int maxLines = 4,
+        final bool autofocus = false,
+        final bool canCopyPaste = true,
+        final bool withShadow = false,
+        final String Function(String v)? validate,
+        final TextCapitalization textCapitalization = TextCapitalization.sentences,
+      }) {
     return CustomTextField._(
       title,
       controller: controller,
@@ -199,24 +209,26 @@ class CustomTextField extends StatefulWidget {
       autofocus: autofocus,
       canCopyPaste: canCopyPaste,
       withShadow: withShadow,
+      textCapitalization: textCapitalization,
       textFieldType: _EnumTextFieldType.comment,
     );
   }
 
   factory CustomTextField.thousandFormat(
-    final String title, {
-    final TextEditingController? controller,
-    final String? hint,
-    final String comment = "",
-    final bool required = false,
-    final bool enabled = true,
-    final Function(String v)? onChanged,
-    final int? maxLength,
-    final bool autofocus = false,
-    final bool canCopyPaste = true,
-    final bool withShadow = false,
-    final String Function(String v)? validate,
-  }) {
+      final String title, {
+        final TextEditingController? controller,
+        final String? hint,
+        final String comment = "",
+        final bool required = false,
+        final bool enabled = true,
+        final Function(String v)? onChanged,
+        final int? maxLength,
+        final bool autofocus = false,
+        final bool canCopyPaste = true,
+        final bool withShadow = false,
+        final String Function(String v)? validate,
+        final TextCapitalization textCapitalization = TextCapitalization.none,
+      }) {
     return CustomTextField._(
       title,
       controller: controller,
@@ -232,6 +244,7 @@ class CustomTextField extends StatefulWidget {
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp('[^0-9,. ]')), ThousandsSeparatorInputFormatter()],
       inputType: const TextInputType.numberWithOptions(decimal: true, signed: false),
       withShadow: withShadow,
+      textCapitalization: textCapitalization,
       textFieldType: _EnumTextFieldType.thousandFormat,
     );
   }
@@ -256,17 +269,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   void onChanged(String v) {
     bouncedTimer?.cancel();
-    bouncedTimer = Timer(const Duration(milliseconds: 500), () {
-      String error = "";
-      if (widget.required && v.isEmpty) {
-        error = tr('field_required');
-      } else if (widget.validate != null) {
-        error = widget.validate!(v);
-      }
-      if (errorMessage != error) {
-        setState(() => errorMessage = error);
-      }
-    });
+
+    bouncedTimer = Timer(
+      const Duration(milliseconds: 500),
+          () {
+        String error = "";
+
+        if (widget.required && v.isEmpty) {
+          error = tr('field_required');
+        } else if (widget.validate != null) {
+          error = widget.validate!(v);
+        }
+
+        if (errorMessage != error) {
+          setState(() => errorMessage = error);
+        }
+      },
+    );
 
     widget.onChanged?.call(v);
   }
@@ -317,6 +336,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   children: [
                     Expanded(
                       child: TextField(
+                        textCapitalization: widget.textCapitalization,
                         enableInteractiveSelection: widget.canCopyPaste,
                         textInputAction: widget.textInputAction,
                         enabled: widget.enabled,
@@ -366,15 +386,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
             curve: Curves.easeInOut,
             child: errorMessage.isNotEmpty
                 ? Padding(
-                    padding: EdgeInsets.only(top: 10.h),
-                    child: Row(
-                      children: [
-                        Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
-                        4.width,
-                        Expanded(child: TextView(errorMessage)),
-                      ],
-                    ),
-                  )
+              padding: EdgeInsets.only(top: 10.h),
+              child: Row(
+                children: [
+                  Icon(Icons.clear_rounded, color: AppColors.red, size: 18.w),
+                  4.width,
+                  Expanded(child: TextView(errorMessage)),
+                ],
+              ),
+            )
                 : const SizedBox.shrink(),
           ),
           if (widget.comment.isNotEmpty) ...[

@@ -45,21 +45,21 @@ class Bounce extends StatefulWidget {
 
   const Bounce(
       {super.key,
-      required this.child,
-      this.onTap,
-      this.onTapUp,
-      this.onSecondaryTapUp,
-      this.onLongPress,
-      this.behavior = HitTestBehavior.deferToChild,
-      this.duration = _defaultDuration,
-      this.tapDelay = _defaultTapDelay,
-      this.longPressDuration = _defaultLongPressDuration,
-      this.scale = true,
-      this.scaleFactor = 0.95,
-      this.tilt = false,
-      this.tiltAngle = pi / 10,
-      this.filterQuality = FilterQuality.high,
-      this.cursor});
+        required this.child,
+        this.onTap,
+        this.onTapUp,
+        this.onSecondaryTapUp,
+        this.onLongPress,
+        this.behavior = HitTestBehavior.deferToChild,
+        this.duration = _defaultDuration,
+        this.tapDelay = _defaultTapDelay,
+        this.longPressDuration = _defaultLongPressDuration,
+        this.scale = true,
+        this.scaleFactor = 0.95,
+        this.tilt = false,
+        this.tiltAngle = pi / 10,
+        this.filterQuality = FilterQuality.high,
+        this.cursor});
 
   @override
   BounceState createState() => BounceState();
@@ -82,6 +82,8 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   Size? lastSize;
 
   bool isLongPressing = false, isCancelled = false;
+
+  bool _longPressTriggered = false;
 
   @override
   void initState() {
@@ -143,6 +145,7 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   void _onTapDown(TapDownDetails details) {
     isCancelled = false;
     isLongPressing = true;
+    _longPressTriggered = false;
 
     _lastTapDownTime = DateTime.now();
 
@@ -174,6 +177,11 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   void _onPointerUp(TapUpDetails details) {
     _animateBack();
     isLongPressing = false;
+
+    if (_longPressTriggered) {
+      _longPressTriggered = false;
+      return;
+    }
 
     if (isCancelled) {
       isCancelled = false;
@@ -209,6 +217,7 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
       return;
     }
 
+    _longPressTriggered = true;
     onLongPress?.call(details);
   }
 
