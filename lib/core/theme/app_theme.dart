@@ -31,8 +31,8 @@ class AppTheme {
     fontFamily: FontFamily.aeonikPro,
     dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
     appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.scaffoldBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.black)),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldBackground),
+        backgroundColor: AppColors.appBarBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.black)),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.bottomSheetBackground),
     textTheme: textTheme,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
@@ -65,8 +65,8 @@ class AppTheme {
     fontFamily: FontFamily.aeonikPro,
     dialogTheme: DialogThemeData(backgroundColor: AppColors.scaffoldDarkBackground),
     appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.scaffoldDarkBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.white)),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.scaffoldDarkBackground),
+        backgroundColor: AppColors.appBarDarkBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.white)),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.bottomSheetDarkBackground),
     textTheme: textTheme,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
