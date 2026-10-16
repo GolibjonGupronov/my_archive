@@ -1,10 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
-import 'package:my_archive/features/profile/presentation/widgets/theme_item.dart';
+import 'package:my_archive/core/extensions/enum_ui.dart';
 
 class ThemeWidget extends StatefulWidget {
   const ThemeWidget({super.key});
@@ -42,22 +42,27 @@ class _ThemeWidgetState extends State<ThemeWidget> {
           16.height,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ThemeItem(
-                mode: AdaptiveThemeMode.light,
-                image: Assets.images.light,
-                title: tr('theme_light'),
-                isSelected: mode == AdaptiveThemeMode.light,
-                onTap: _onThemeSelected,
-              ),
-              ThemeItem(
-                mode: AdaptiveThemeMode.dark,
-                image: Assets.images.dark,
-                title: tr('theme_dark'),
-                isSelected: mode == AdaptiveThemeMode.dark,
-                onTap: _onThemeSelected,
-              ),
-            ],
+            children: MyThemeMode.values.map((e) {
+              final isSelected = mode == e.mode;
+              return Bounce(
+                onTap: () {
+                  _onThemeSelected(e.mode);
+                },
+                child: Column(
+                  children: [
+                    BoxContainer(
+                        border: Border.all(color: isSelected ? AppColors.primary : AppColors.lightGray, width: 2.w),
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: ClipRRect(borderRadius: BorderRadius.circular(10.r), child: e.image.image(width: 100.w))),
+                    8.height,
+                    TextView(e.title, color: isSelected ? AppColors.primary : AppColors.gray),
+                    Icon(isSelected ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.circle,
+                        color: isSelected ? AppColors.primary : AppColors.gray),
+                    8.height
+                  ],
+                ),
+              );
+            }).toList(),
           ),
           10.height,
           CustomButton(tr('save'), () {

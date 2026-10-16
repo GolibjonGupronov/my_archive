@@ -4,6 +4,8 @@ enum BottomNavMainPage { home, profile }
 
 enum NextPage { auth, main, update }
 
+enum MyThemeMode { light, dark }
+
 enum Gender {
   male,
   female;

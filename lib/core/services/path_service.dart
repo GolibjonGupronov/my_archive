@@ -78,11 +78,17 @@ class PathService {
     await _clearDirContents(dir);
   }
 
+  static Future<void> clearFiles() async {
+    final dir = await filesDir;
+    await _clearDirContents(dir);
+  }
+
   static Future<void> clearAll() async {
     await Future.wait([
       clearVideos(),
       clearAudios(),
       clearImages(),
+      clearFiles(),
     ]);
   }
 }

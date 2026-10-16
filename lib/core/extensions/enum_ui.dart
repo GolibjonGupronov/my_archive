@@ -1,7 +1,25 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_archive/core/enums/common.dart';
 import 'package:my_archive/core/utils/generated/assets.gen.dart';
+
+extension MyThemeModeUi on MyThemeMode {
+  AdaptiveThemeMode get mode => switch (this) {
+    MyThemeMode.light => AdaptiveThemeMode.light,
+    MyThemeMode.dark => AdaptiveThemeMode.dark,
+  };
+
+  AssetGenImage get image => switch (this) {
+    MyThemeMode.light => Assets.images.light,
+    MyThemeMode.dark => Assets.images.dark,
+  };
+
+  String get title => switch (this) {
+    MyThemeMode.light => tr('theme_light'),
+    MyThemeMode.dark => tr('theme_dark'),
+  };
+}
 
 extension GenderUi on Gender {
   String get title => switch (this) {

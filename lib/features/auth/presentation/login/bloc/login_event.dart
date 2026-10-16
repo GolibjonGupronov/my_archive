@@ -1,4 +1,4 @@
-import 'package:my_archive/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:my_archive/core/params/login_params.dart';
 
 abstract class LoginEvent {}
 

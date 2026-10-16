@@ -10,11 +10,3 @@ class CheckSmsUseCase extends UseCase<bool, CheckSmsParams> {
   Future<Either<Failure, bool>> callUseCase(CheckSmsParams params) => repository.checkSms(params);
 }
 
-class CheckSmsParams {
-  final String phone;
-  final String sms;
-
-  CheckSmsParams({required this.phone, required this.sms});
-
-  Map<String, dynamic> get toMap => {'phone': phone, 'sms': sms};
-}

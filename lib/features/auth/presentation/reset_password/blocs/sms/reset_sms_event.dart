@@ -1,4 +1,4 @@
-import 'package:my_archive/features/auth/domain/use_cases/check_sms_use_case.dart';
+import 'package:my_archive/core/params/check_sms_params.dart';
 
 abstract class ResetSmsEvent {}
 

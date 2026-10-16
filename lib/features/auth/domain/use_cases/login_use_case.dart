@@ -10,14 +10,3 @@ class LoginUseCase extends UseCase<String, LoginParams> {
   Future<Either<Failure, String>> callUseCase(LoginParams params) => repository.sendLogin(params);
 }
 
-class LoginParams {
-  final String phone;
-  final String password;
-
-  LoginParams({required this.phone, required this.password});
-
-  Map<String, dynamic> get toMap => {
-        'phone': phone,
-        'password': password,
-      };
-}

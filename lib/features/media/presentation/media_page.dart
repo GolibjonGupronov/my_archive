@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_archive/core/di/injection_container.dart';
-
 import 'package:my_archive/features/media/presentation/bloc/media_bloc.dart';
 import 'package:my_archive/features/media/presentation/bloc/media_event.dart';
 
@@ -17,9 +16,6 @@ class MediaPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<MediaBloc>(context);
-
     return Container();
   }
 }
-

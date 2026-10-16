@@ -3,13 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/utils/generated/assets.gen.dart';
 
 class LogoWidget extends StatelessWidget {
-  const LogoWidget({super.key});
+  final double? height;
+  final double? width;
+  final double? size;
+  final BoxFit? fit;
+
+  const LogoWidget({super.key, this.height, this.width, this.size, this.fit});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
-      child: Center(child: Assets.images.logo.image()),
+      height: size ?? height ?? 120.h,
+      width: size ?? width ?? 120.w,
+      child: Center(child: Assets.images.logo.image(fit: fit)),
     );
   }
 }
