@@ -45,21 +45,21 @@ class Bounce extends StatefulWidget {
 
   const Bounce(
       {super.key,
-        required this.child,
-        this.onTap,
-        this.onTapUp,
-        this.onSecondaryTapUp,
-        this.onLongPress,
-        this.behavior = HitTestBehavior.deferToChild,
-        this.duration = _defaultDuration,
-        this.tapDelay = _defaultTapDelay,
-        this.longPressDuration = _defaultLongPressDuration,
-        this.scale = true,
-        this.scaleFactor = 0.95,
-        this.tilt = false,
-        this.tiltAngle = pi / 10,
-        this.filterQuality = FilterQuality.high,
-        this.cursor});
+      required this.child,
+      this.onTap,
+      this.onTapUp,
+      this.onSecondaryTapUp,
+      this.onLongPress,
+      this.behavior = HitTestBehavior.deferToChild,
+      this.duration = _defaultDuration,
+      this.tapDelay = _defaultTapDelay,
+      this.longPressDuration = _defaultLongPressDuration,
+      this.scale = true,
+      this.scaleFactor = 0.95,
+      this.tilt = false,
+      this.tiltAngle = pi / 10,
+      this.filterQuality = FilterQuality.high,
+      this.cursor});
 
   @override
   BounceState createState() => BounceState();

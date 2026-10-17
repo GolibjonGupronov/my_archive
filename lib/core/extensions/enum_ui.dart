@@ -6,19 +6,19 @@ import 'package:my_archive/core/utils/generated/assets.gen.dart';
 
 extension MyThemeModeUi on MyThemeMode {
   AdaptiveThemeMode get mode => switch (this) {
-    MyThemeMode.light => AdaptiveThemeMode.light,
-    MyThemeMode.dark => AdaptiveThemeMode.dark,
-  };
+        MyThemeMode.light => AdaptiveThemeMode.light,
+        MyThemeMode.dark => AdaptiveThemeMode.dark,
+      };
 
   AssetGenImage get image => switch (this) {
-    MyThemeMode.light => Assets.images.light,
-    MyThemeMode.dark => Assets.images.dark,
-  };
+        MyThemeMode.light => Assets.images.light,
+        MyThemeMode.dark => Assets.images.dark,
+      };
 
   String get title => switch (this) {
-    MyThemeMode.light => tr('theme_light'),
-    MyThemeMode.dark => tr('theme_dark'),
-  };
+        MyThemeMode.light => tr('theme_light'),
+        MyThemeMode.dark => tr('theme_dark'),
+      };
 }
 
 extension GenderUi on Gender {

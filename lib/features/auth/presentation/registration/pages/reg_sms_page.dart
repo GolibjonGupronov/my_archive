@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/enums/state_status.dart';
-import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
+import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/params/registration_params.dart';
 import 'package:my_archive/core/utils/logger.dart';
 import 'package:my_archive/features/auth/presentation/registration/blocs/sms/reg_sms_bloc.dart';
@@ -128,8 +128,8 @@ class _RegSmsPageState extends State<RegSmsPage> {
                     () {
                       context.hideKeyboard;
                       bloc.add(SubmitEvent(
-                          params: widget.registrationParams.copyWith(
-                              phone: widget.registrationParams.phone.phoneReplace, smsCode: smsCodeController.text)));
+                          params: widget.registrationParams
+                              .copyWith(phone: widget.registrationParams.phone.phoneReplace, smsCode: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.regStatus.isInProgress,

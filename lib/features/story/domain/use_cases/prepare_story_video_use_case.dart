@@ -6,5 +6,6 @@ class PrepareStoryVideoUseCase {
 
   const PrepareStoryVideoUseCase({required this.compressorService});
 
-  Future<String> callUseCase(String videoUrl) => compressorService.prepareFromUrl(videoUrl, config: VideoCompressConfig.compatible());
+  Future<String> callUseCase(String videoUrl) =>
+      compressorService.prepareFromUrl(videoUrl, config: VideoCompressConfig.compatible());
 }

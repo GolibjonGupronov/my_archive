@@ -9,4 +9,3 @@ class RegistrationUseCase extends UseCase<bool, RegistrationParams> {
   @override
   Future<Either<Failure, bool>> callUseCase(RegistrationParams params) => repository.registration(params);
 }
-

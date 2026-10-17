@@ -29,12 +29,19 @@ extension BuildContextExtensions on BuildContext {
   MediaQueryData get _mediaQuery => MediaQuery.of(this);
 
   EdgeInsets get viewInsets => _mediaQuery.viewInsets;
+
   Size get screenSize => _mediaQuery.size;
+
   double get screenHeight => screenSize.height;
+
   double get screenWidth => screenSize.width;
+
   double get keyboardBottom => viewInsets.bottom;
+
   double get keyboardTop => viewInsets.top;
+
   void get hideKeyboard => FocusScope.of(this).unfocus();
+
   bool get isDarkModeEnable {
     final adaptiveMode = AdaptiveTheme.maybeOf(this)?.mode;
     if (adaptiveMode != null) {
@@ -46,12 +53,18 @@ extension BuildContextExtensions on BuildContext {
 
 extension FormattedDateTime on DateTime? {
   String get toBackendDate => this == null ? "" : DateFormat('yyyy-MM-dd').format(this!);
+
   String get toBackendTime => this == null ? "" : DateFormat('HH:mm').format(this!);
+
   String get toBackendDateTime => this == null ? "" : DateFormat('yyyy-MM-dd HH:mm').format(this!);
 
   String get formatRelativeDate => ExtensionHelper.formatRelativeDate(outputFormat: 'dd.MM.yyyy', date: this);
+
   String formatTo(String outputFormat) => ExtensionHelper.formatTo(outputFormat: outputFormat, date: this);
+
   String get formattedDate => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy', date: this);
+
   String get formattedTime => ExtensionHelper.formatTo(outputFormat: 'HH:mm', date: this);
+
   String get formattedDateTime => ExtensionHelper.formatTo(outputFormat: 'dd.MM.yyyy HH:mm', date: this);
 }

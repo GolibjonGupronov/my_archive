@@ -117,12 +117,11 @@ class _SettingsPageState extends State<SettingsPage> with WidgetsBindingObserver
                 ),
               ),
               ProfileItem(
-                title: "Xotira",
-                prefixIconData: Icons.memory_rounded,
-                onTap: () {
-                  context.push(MemoryPage.path);
-                }
-              ),
+                  title: "Xotira",
+                  prefixIconData: Icons.memory_rounded,
+                  onTap: () {
+                    context.push(MemoryPage.path);
+                  }),
             ],
           ),
         ],

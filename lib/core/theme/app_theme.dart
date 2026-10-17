@@ -30,8 +30,8 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
     fontFamily: FontFamily.aeonikPro,
     dialogTheme: DialogThemeData(backgroundColor: AppColors.white),
-    appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.appBarBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.black)),
+    appBarTheme:
+        AppBarTheme(backgroundColor: AppColors.appBarBackground, elevation: 0, iconTheme: IconThemeData(color: AppColors.black)),
     bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.bottomSheetBackground),
     textTheme: textTheme,
     splashColor: Colors.transparent,

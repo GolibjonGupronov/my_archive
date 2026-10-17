@@ -9,4 +9,3 @@ class CheckSmsUseCase extends UseCase<bool, CheckSmsParams> {
   @override
   Future<Either<Failure, bool>> callUseCase(CheckSmsParams params) => repository.checkSms(params);
 }
-

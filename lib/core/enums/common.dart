@@ -129,20 +129,20 @@ enum MediaType {
   none;
 
   static MediaType getObj(String key) => switch (key) {
-    'video' => MediaType.video,
-    'audio' => MediaType.audio,
-    'image' => MediaType.image,
-    'file' => MediaType.file,
-    'folder' => MediaType.folder,
-    _ => MediaType.none,
-  };
+        'video' => MediaType.video,
+        'audio' => MediaType.audio,
+        'image' => MediaType.image,
+        'file' => MediaType.file,
+        'folder' => MediaType.folder,
+        _ => MediaType.none,
+      };
 
   String get key => switch (this) {
-    MediaType.video => 'video',
-    MediaType.audio => 'audio',
-    MediaType.image => 'image',
-    MediaType.file => 'file',
-    MediaType.folder => 'folder',
-    MediaType.none => 'none',
-  };
+        MediaType.video => 'video',
+        MediaType.audio => 'audio',
+        MediaType.image => 'image',
+        MediaType.file => 'file',
+        MediaType.folder => 'folder',
+        MediaType.none => 'none',
+      };
 }

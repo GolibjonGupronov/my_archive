@@ -58,7 +58,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     on<SubmitEvent>(_submit);
 
-    on<CanEditEvent>((event, emit){
+    on<CanEditEvent>((event, emit) {
       emit(state.copyWith(canEdit: true));
     });
   }

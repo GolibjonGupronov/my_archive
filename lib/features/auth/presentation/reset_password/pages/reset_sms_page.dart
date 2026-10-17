@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/app_router/app_router.dart';
 import 'package:my_archive/core/di/injection_container.dart';
 import 'package:my_archive/core/enums/state_status.dart';
-import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/exports/route_exports.dart';
+import 'package:my_archive/core/exports/ui_exports.dart';
 import 'package:my_archive/core/params/check_sms_params.dart';
 import 'package:my_archive/core/utils/logger.dart';
 import 'package:my_archive/features/auth/presentation/reset_password/blocs/sms/reset_sms_bloc.dart';
@@ -127,7 +127,8 @@ class _ResetSmsPageState extends State<ResetSmsPage> {
                     "Tasdiqlash",
                     () {
                       context.hideKeyboard;
-                      bloc.add(SubmitEvent(params: CheckSmsParams(phone: widget.phoneNumber.phoneReplace, sms: smsCodeController.text)));
+                      bloc.add(SubmitEvent(
+                          params: CheckSmsParams(phone: widget.phoneNumber.phoneReplace, sms: smsCodeController.text)));
                     },
                     active: state.isActive,
                     progress: state.smsStatus.isInProgress,

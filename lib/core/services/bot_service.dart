@@ -87,10 +87,7 @@ Future<void> _sendMessage(String text) async {
   final url = 'https://api.telegram.org/bot$botToken/sendMessage';
 
   try {
-    await BotService._dio.post(
-      url,
-      options: Options(headers: {'Accept': '*/*'}),
-      data: {'chat_id': chatId, 'text': text});
+    await BotService._dio.post(url, options: Options(headers: {'Accept': '*/*'}), data: {'chat_id': chatId, 'text': text});
   } catch (_) {}
 }
 

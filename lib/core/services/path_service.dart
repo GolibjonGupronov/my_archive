@@ -39,15 +39,20 @@ class PathService {
   }
 
   static Future<Directory> get videosDir => _getOrCreateDir(FolderType.video.key);
+
   static Future<Directory> get audiosDir => _getOrCreateDir(FolderType.audio.key);
+
   static Future<Directory> get imagesDir => _getOrCreateDir(FolderType.image.key);
+
   static Future<Directory> get filesDir => _getOrCreateDir(FolderType.file.key);
 
   static Future<double> get videosBytes async => _getDirectorySize(await videosDir);
-  static Future<double> get audiosBytes async => _getDirectorySize(await audiosDir);
-  static Future<double> get imagesBytes async => _getDirectorySize(await imagesDir);
-  static Future<double> get filesBytes async => _getDirectorySize(await filesDir);
 
+  static Future<double> get audiosBytes async => _getDirectorySize(await audiosDir);
+
+  static Future<double> get imagesBytes async => _getDirectorySize(await imagesDir);
+
+  static Future<double> get filesBytes async => _getDirectorySize(await filesDir);
 
   static Future<void> _clearDirContents(Directory dir) async {
     if (!await dir.exists()) return;

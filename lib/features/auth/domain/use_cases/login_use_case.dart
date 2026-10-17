@@ -9,4 +9,3 @@ class LoginUseCase extends UseCase<String, LoginParams> {
   @override
   Future<Either<Failure, String>> callUseCase(LoginParams params) => repository.sendLogin(params);
 }
-

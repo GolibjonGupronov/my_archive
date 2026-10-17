@@ -37,30 +37,29 @@ class VideoCompressConfig {
   /// Tezroq compress, biroz kattaroq fayl — masalan katta ro'yxatlarda
   /// ko'p videoni tezda tayyorlash kerak bo'lganda.
   factory VideoCompressConfig.fast() => const VideoCompressConfig(
-    preset: 'ultrafast',
-    crf: 26,
-  );
+        preset: 'ultrafast',
+        crf: 26,
+      );
 
   /// Sifatga ustunlik beruvchi preset — masalan profil/portfolio videolari.
   factory VideoCompressConfig.highQuality() => const VideoCompressConfig(
-    maxDimension: 1440,
-    crf: 18,
-    preset: 'slow',
-    audioBitrateKbps: 192,
-  );
+        maxDimension: 1440,
+        crf: 18,
+        preset: 'slow',
+        audioBitrateKbps: 192,
+      );
 
   /// Trafik tejash uchun eng past hajm (masalan mobil internet, katalog).
   factory VideoCompressConfig.lowData() => const VideoCompressConfig(
-    maxDimension: 720,
-    crf: 30,
-    fps: 24,
-    audioBitrateKbps: 96,
-  );
+        maxDimension: 720,
+        crf: 30,
+        fps: 24,
+        audioBitrateKbps: 96,
+      );
 
   /// Cache faylini boshqa konfiguratsiyadagi natijadan farqlash uchun
   /// deterministik identifikator.
   String get cacheKey => '${profile}_${level}_${maxDimension}_${fps}_${crf}_${preset}_$audioBitrateKbps';
 
-  String toFfmpegVideoFilter() =>
-      "scale='min($maxDimension,iw)':'min($maxDimension,ih)':force_original_aspect_ratio=decrease";
+  String toFfmpegVideoFilter() => "scale='min($maxDimension,iw)':'min($maxDimension,ih)':force_original_aspect_ratio=decrease";
 }

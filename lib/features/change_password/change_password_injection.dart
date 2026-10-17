@@ -8,7 +8,8 @@ import 'package:my_archive/features/change_password/domain/use_cases/old_passwor
 class ChangePasswordInjection {
   static void init() {
     sl.registerSingleton<ChangePasswordDataSource>(ChangePasswordDataSourceImpl(dio: sl()));
-    sl.registerSingleton<ChangePasswordRepository>(ChangePasswordRepositoryImpl(changePasswordDataSource: sl(), prefManager: sl()));
+    sl.registerSingleton<ChangePasswordRepository>(
+        ChangePasswordRepositoryImpl(changePasswordDataSource: sl(), prefManager: sl()));
     sl.registerSingleton<NewPasswordUseCase>(NewPasswordUseCase(repository: sl()));
     sl.registerSingleton<OldPasswordUseCase>(OldPasswordUseCase(repository: sl()));
   }

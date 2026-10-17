@@ -92,7 +92,6 @@ class ExtensionHelper {
     };
   }
 
-
   static String? fromHex(String value) {
     var hex = value.replaceAll('#', '').trim();
     if (hex.length == 3) {

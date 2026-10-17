@@ -14,7 +14,16 @@ class CustomShimmer extends StatelessWidget {
   final Color? baseColor;
   final Color? highlightColor;
 
-  const CustomShimmer({super.key, this.child, this.height, this.width, this.size, this.radius, this.alignment, this.baseColor, this.highlightColor});
+  const CustomShimmer(
+      {super.key,
+      this.child,
+      this.height,
+      this.width,
+      this.size,
+      this.radius,
+      this.alignment,
+      this.baseColor,
+      this.highlightColor});
 
   @override
   Widget build(BuildContext context) {

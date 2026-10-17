@@ -3,7 +3,6 @@
 library;
 
 export 'package:my_archive/core/api/error/failure.dart';
+export 'package:my_archive/core/exports/params_exports.dart';
 export 'package:my_archive/core/use_cases/use_case.dart';
 export 'package:my_archive/core/utils/either.dart';
-export 'package:my_archive/core/exports/params_exports.dart';
-

@@ -44,8 +44,7 @@ class CustomImageView extends StatelessWidget {
       imageWidget = CachedNetworkImage(
         imageUrl: pathOrUrl!,
         cacheManager: CustomCacheManager.instance,
-        placeholder: (context, url) =>
-        const Center(child: CupertinoActivityIndicator()),
+        placeholder: (context, url) => const Center(child: CupertinoActivityIndicator()),
         errorWidget: (context, url, error) => const SizedBox(),
         width: width,
         height: height,

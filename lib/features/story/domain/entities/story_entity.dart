@@ -6,16 +6,16 @@ enum StoryFileType {
   video;
 
   static StoryFileType getObj(String key) => switch (key) {
-    'video' => StoryFileType.video,
-    'image' => StoryFileType.image,
-    _ => StoryFileType.none,
-  };
+        'video' => StoryFileType.video,
+        'image' => StoryFileType.image,
+        _ => StoryFileType.none,
+      };
 
   String get key => switch (this) {
-    StoryFileType.video => 'video',
-    StoryFileType.image => 'image',
-    StoryFileType.none => '',
-  };
+        StoryFileType.video => 'video',
+        StoryFileType.image => 'image',
+        StoryFileType.none => '',
+      };
 }
 
 class StoryEntity {
