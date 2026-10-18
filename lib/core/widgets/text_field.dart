@@ -312,6 +312,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       opacity: widget.enabled ? 1 : 0.5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (widget.title.isNotEmpty)
             RichText(
