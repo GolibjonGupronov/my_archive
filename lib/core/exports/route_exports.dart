@@ -1,3 +1,5 @@
+library;
+
 export 'package:go_router/go_router.dart';
 export 'package:my_archive/core/widgets/image/image_zoom_page.dart';
 export 'package:my_archive/core/widgets/image/no_image_page.dart';

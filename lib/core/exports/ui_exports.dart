@@ -1,3 +1,5 @@
+library;
+
 export 'package:my_archive/core/animations/bounce_animation.dart';
 export 'package:my_archive/core/animations/demos.dart';
 export 'package:my_archive/core/animations/fade_animation.dart';
