@@ -16,6 +16,7 @@
     "type_error": "Ma’lumot turi xatosi."
   },
   "logout": "Chiqish",
+  "logout_app": "Akkauntdan chiqish",
   "confirm_logout": "Haqiqatdan ham chiqmoqchimisiz?",
   "soon": "Tez kunda",
   "male": "Erkak",
@@ -33,6 +34,7 @@
   "min_chars_required": "Kamida {} ta belgi kiriting.",
   "enter_password": "Parol kiriting",
   "enter_comment": "Izoh kiriting",
+  "comment": "Izoh",
   "field_required": "Bu maydon majburiy",
   "yesterday": "Kecha",
   "today": "Bugun",
@@ -54,6 +56,8 @@
   "find_in_list": "Ro'yxatdan toping",
   "search_results": "Qidiruv natijalari",
   "not_found": "Topilmadi",
+  "select_theme": "Mavzu tanlang",
+
   "settings": "Sozlamalar",
   "gallery": "Galereya",
   "profile": "Profil",

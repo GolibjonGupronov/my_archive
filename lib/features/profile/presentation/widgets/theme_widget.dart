@@ -38,7 +38,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextView("Mavzu tanlang"),
+          TextView(tr('select_theme')),
           16.height,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
