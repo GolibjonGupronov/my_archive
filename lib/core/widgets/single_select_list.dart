@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/exports/ui_exports.dart';
@@ -49,13 +50,13 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTextField("", hint: "Qidiruv", controller: _searchController, onChanged: (value) {
+          CustomTextField("", hint: tr('search'), controller: _searchController, onChanged: (value) {
             setState(() {
               lists = widget.items.where((e) => e.title.toLowerCase().contains(value.toLowerCase())).toList();
             });
           }),
           12.height,
-          TextView(_searchController.text.isEmpty ? "Ro'yxatdan toping" : "Qidiruv natijalari"),
+          TextView(_searchController.text.isEmpty ? tr('find_in_list') : tr('search_results')),
           12.height,
           Expanded(
             child: lists.isEmpty
@@ -65,7 +66,7 @@ class _SingleSelectListWidgetState extends State<SingleSelectListWidget> {
                       12.height,
                       Icon(CupertinoIcons.exclamationmark_circle, size: 30.w, color: AppColors.orange),
                       4.height,
-                      TextView("Topilmadi", color: AppColors.orange, textAlign: TextAlign.center),
+                      TextView(tr('not_found'), color: AppColors.orange, textAlign: TextAlign.center),
                     ],
                   )
                 : ListView.builder(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_archive/core/di/injection_container.dart';
@@ -11,7 +12,7 @@ class AboutUsSocial extends StatelessWidget {
 
   void _open(BuildContext context, String? url) {
     if ((url ?? "").isEmpty) {
-      showErrorDialog(context, title: "Ma'lumot yo'q");
+      showErrorDialog(context, title: tr('no_data'));
     }
     openUrl(url!);
   }
@@ -41,14 +42,14 @@ class AboutUsSocial extends StatelessWidget {
         ),
         8.height,
         TextView(
-          "Bizni ijtimoiy tarmoqlarda kuzatib boring",
+          tr('follow_us'),
           fontSize: 14,
           textAlign: TextAlign.center,
           color: AppColors.gray,
         ),
         2.height,
         TextView(
-          "Ilova versiyasi: ${DeviceService.packageInfo.version}",
+          "${tr('app_version')}: ${DeviceService.packageInfo.version}",
           textAlign: TextAlign.center,
           fontSize: 12,
           color: AppColors.gray,

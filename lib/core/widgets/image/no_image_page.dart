@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +12,7 @@ class NoImagePage extends StatelessWidget {
     return CustomScaffold(
       body: Stack(
         children: [
-          Center(child: TextView('Rasm mavjud emas')),
+          Center(child: TextView(tr('no_image'))),
           Positioned(
             top: 20.h,
             left: 16.w,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -112,7 +113,7 @@ void _showToast(
                             padding: EdgeInsets.all(8.w),
                             borderRadius: BorderRadius.circular(50.r),
                             color: AppColors.primary,
-                            child: TextView(actionTitle ?? "Batafsil", color: AppColors.white)),
+                            child: TextView(actionTitle ?? tr('details'), color: AppColors.white)),
                       )
                   ],
                 ),

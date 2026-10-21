@@ -60,5 +60,17 @@
   "theme_light": "Yorug‘",
   "theme_dark": "Tungi",
   "theme_system": "Tizim",
-  "yes": "Ha"
+  "yes": "Ha",
+  "details": "Batafsil",
+  "select_day": "Kun tanlang",
+  "no_image": "Rasm mavjud emas",
+  "no_data": "Ma'lumot yo'q",
+  "follow_us": "Bizni ijtimoiy tarmoqlarda kuzatib boring",
+  "app_version": "Ilova versiyasi",
+  "from": "Dan",
+  "to": "Gacha",
+  "search": "Qidiruv",
+  "find_in_list": "Ro'yxatdan toping",
+  "search_results": "Qidiruv natijalari",
+  "not_found": "Topilmadi"
 }

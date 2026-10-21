@@ -108,7 +108,7 @@ class DateTimePicker {
         mainAxisSize: MainAxisSize.min,
         children: [
           14.height,
-          TextView("Kun tanlang", fontSize: 24.sp),
+          TextView(tr('select_day'), fontSize: 24.sp),
           14.height,
           SizedBox(
             height: 180.h,
